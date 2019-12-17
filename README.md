@@ -18,6 +18,8 @@ The Jinja Template is located in index_template.j2
 
 Inspired by Iris "Blacklight" album and Commodore 64 Typography for warm nostalgic memories. This portfolio showcases web development skills mixed with programming, network & cloud.
 
+For some of the HTML like the GitHub tables of files & links, I made the HTML inside the Python script (the "Controller", not the "View" (Template)) because there was a lot of conditional logic and the view to me wasn't the best place for it, and Jinja syntax wasn't worth it for me with such logic. If there's a better way, let me know, but that's where I decided to tackle that objective. 
+
 | File | Purpose |
 | ------ | ------ |
 | generate_page.py | Script that renders the jinja template |
