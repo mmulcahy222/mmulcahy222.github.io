@@ -52,6 +52,43 @@ header {
     /* font-weight: bold; */
     text-shadow: 0px 1px 2px #F22245;
     border-radius: 20px;
+    margin-bottom: 50px;
+}
+.social_media
+{
+  text-transform: uppercase;
+  font-family: "Verdana";
+    font-size: 12px;
+  padding: 15px 0px 0px 0px; 
+  text-shadow: none;
+}
+.menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    text-align: center;
+    border-radius: 4px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 45px 0px;
+}
+.menu_item
+{
+    display: table-cell;
+}
+.menu_item a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+}
+.menu_item img
+{
+  height: 50px;
+  width: 55px;
+  padding: 8px 0px 0px 0px;
 }
 .header_title
 {
@@ -64,9 +101,9 @@ header {
     line-height: 1.3;
 }
 /*The space between each div*/
-.wrapper > div
+.post
 {
-    margin: 125px 0px;
+  margin-bottom: 200px;
 }
 a:link{
   color:#ED2734;
@@ -138,6 +175,13 @@ table tbody td {
     font-size: 14px;
     line-height: 1.5;
     font-family: "Commodore", "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
+    /*overrides the wider-rule above*/
+    padding: 6px 35px;
+}
+.post_content > div
+{
+    /*override*/
+    margin-bottom: 0px;
 }
 .projects-content li
 {
