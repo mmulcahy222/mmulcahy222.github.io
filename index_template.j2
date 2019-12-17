@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="">
+	<title>Portfolio</title>
+	<!-- styles -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css?v=<?php echo time(); ?>">
+	<link rel="stylesheet" type="text/css" href="assets/css/github-dark.css">
+	<script src="assets/js/portfolio.js" defer></script>
+</head>
+<body>
+	<div class="project_overlay">
+		Currently Viewing: NIMLI 2011
+	</div>
+	<div class="wrapper">
+		<header>
+			<div class="header_title">
+				<span class="header_name">MARK MULCAHY</span>
+			</div>
+			<div class="sub_header">
+				<span>CISCO CCNA CERTIFIED NETWORK ENGINEER/CCNP ROUTE</span></br><span>AMAZON AWS CLOUD SOLUTIONS ARCHITECT</span></br><span>ASPIRING GOOGLE CLOUD & AWS CLOUD NETWORKING SPECIALIST
+				</span></br><span>  SOFTWARE DEVELOPER IN PYTHON, JAVASCRIPT, PHP, C++, ASSEMBLY</span>
+			</div>
+		</header>
+		<div class="post">
+			<div class="post_title">Github Repositories</div><!-- .post_title -->
+			<div class="post_content projects_content">
+				<div class="projects">
+					<ol>
+						{% for repository_name in repos -%}
+						   <li><a href="#{{ repository_name }}">{{ repository_name }}</a></li>
+						{% endfor %}
+					</ol>
+				</div><!-- .projects -->
+			</div>
+		</div>
+		{% for repository_name, node in jinja_dict.items() %}
+		<div class="post" project_name="{{ node.repository_name }}" >
+			<div class="post_title">
+				<a name="{{ node.repository_name }}">REPOSITORY #{{ loop.index}}: {{ node.repository_name }}</a>
+			</div>
+			<div class="post_content">
+				<div class="description">
+					<div class="description_title">
+						DESCRIPTION:	
+					</div><!-- .description_title -->
+					<div class="description_content">
+						{{ node.description }}
+					</div><!-- .description_content -->
+				</div><!-- .description -->
+				<!-- TABLE -->
+				<div class="code">
+					<div class="code_title">GITHUB FILES & LINKS:</div>
+					<div class="code_table">
+						{{ node.github_html }}
+						</div><!-- .code_table -->
+				</div><!-- .code -->
+				<div class="read_me">
+					<div class="read_me_title">
+						README.md:
+					</div><!-- .read_me_title -->
+					<div class="read_me_content markdown-body">
+					{{ node['readme_html'] }}
+					</div><!-- .read_me_content -->
+				</div><!-- .read_me -->
+			</div>
+		</div>
+		{% endfor %}
+	</div><!-- .wrapper -->
+</body>
+</html>
