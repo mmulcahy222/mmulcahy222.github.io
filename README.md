@@ -16,7 +16,12 @@ GitHub API was used in the generate_page.py script to get the requisite data to 
 
 The Jinja Template is located in index_template.j2
 
+Inspired by Iris "Blacklight" album and Commodore 64 Typography for warm nostalgic memories. This portfolio showcases web development skills mixed with programming, network & cloud.
+
 | File | Purpose |
 | ------ | ------ |
 | generate_page.py | Script that renders the jinja template |
 | index_template.js | The Template itself |
+| assets/js/portfolio.js | Pure JavaScript Code that alerts user as to what project he or she currently looking at  |
+| assets/css/style.css | Proprietary CSS styles for entire page |
+| assets/css/python_code.css | CSS for highlighted Python Code. This is the default GitHub CSS for Python Code, with the colors changed by me |
