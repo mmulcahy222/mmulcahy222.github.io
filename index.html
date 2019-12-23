@@ -68,6 +68,7 @@
 						<li><a href="#miscellaneous">miscellaneous</a></li>
 						<li><a href="#ebay_pictures_repo">ebay_pictures_repo</a></li>
 						<li><a href="#google_maps_popular_times">google_maps_popular_times</a></li>
+						<li><a href="#wordpress_shortcode_elementor">wordpress_shortcode_elementor</a></li>
 						<li><a href="#mmulcahy222.github.io">mmulcahy222.github.io</a></li>
 						
 					</ol>
@@ -413,13 +414,7 @@
         scoped_credentials <span class="pl-k">=</span> credentials.with_scopes([<span class="pl-s"><span class="pl-pds">'</span>https://www.googleapis.com/auth/cloud-platform<span class="pl-pds">'</span></span>])
         <span class="pl-k">return</span> storage.Client(<span class="pl-v">credentials</span><span class="pl-k">=</span>credentials)
  
-
-
-
-<span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>__main__<span class="pl-pds">'</span></span>:
-    <span class="pl-c"><span class="pl-c">#</span>SIMULATE DIALOGFLOW</span>
-    request <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">"</span>responseId<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>25f548f3-1f10-4801-a59c-92c64be459d5<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>queryResult<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>queryText<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>read anger<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>parameters<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>any<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>seduce<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>allRequiredParamsPresent<span class="pl-pds">"</span></span>: <span class="pl-c1">True</span>, <span class="pl-s"><span class="pl-pds">"</span>intent<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>projects/read-agent/agent/intents/NO<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>displayName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>choose_audiobook<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>intentDetectionConfidence<span class="pl-pds">"</span></span>: <span class="pl-c1">0.91</span>, <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>originalDetectIntentRequest<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>payload<span class="pl-pds">"</span></span>: {} }, <span class="pl-s"><span class="pl-pds">"</span>session<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>projects/read-agent/agent/sessions/NO<span class="pl-pds">"</span></span>} 
-    <span class="pl-c1">print</span>(lambda_handler(request))</pre></div>
+</pre></div>
 </article></div>
 					</div><!-- .read_me_content -->
 				</div><!-- .read_me -->
@@ -2157,6 +2152,8 @@ connect_params <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-p
 <p>Python program that heavily uses CTypes &amp; Microsoft Windows API functions. Windows API is very challenging to say the least, but it's something I've always wanted to do since I was a kid and appealed to my geeky curious side, in spite of it's poor coding practices in the 1980's &amp; weird function calls. I wanted to challenge myself doing something relatively hard with WinAPI for my operating system education (using Python + CTypes), you could see more WinAPI work of mine with the State Design Pattern Repository in my account.</p>
 <p>Since I record a lot of video in multiple phones &amp; tablets, I needed a way to arrange the dates for my video Editing Software. What this does is put the date it was recorded in the beginning of the filename, so the videos are in order for the video editing software when I dump them in there.</p>
 <p>I love Windows API work &amp; functions!</p>
+<h1><a id="user-content-flickr" class="anchor" aria-hidden="true" href="#flickr"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flickr</h1>
+<p>I have made a web interface that uses Flickr API to browse &amp; save everything much faster, as a time saver, using Asynchronous calling. It's not here. Proof is available upon request</p>
 </article></div>
 					</div><!-- .read_me_content -->
 				</div><!-- .read_me -->
@@ -2242,9 +2239,51 @@ connect_params <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-p
 			</div>
 		</div>
 		
-		<div class="post" project_name="portfolio" >
+		<div class="post" project_name="wordpress_shortcode_elementor" >
 			<div class="post_title">
-				<a name="portfolio">REPOSITORY #25: portfolio</a>
+				<a name="wordpress_shortcode_elementor">REPOSITORY #25: wordpress_shortcode_elementor</a>
+			</div>
+			<div class="post_content">
+				<div class="description">
+					<div class="description_title">
+						DESCRIPTION:	
+					</div><!-- .description_title -->
+					<div class="description_content">
+						Create various templates for a custom post type in WordPress, and reuse them as a shortcode for Elementor page builder
+					</div><!-- .description_content -->
+				</div><!-- .description -->
+				<!-- TABLE -->
+				<div class="code">
+					<div class="code_title">GITHUB FILES & LINKS:</div>
+					<div class="code_table">
+						<table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/wordpress_shortcode_elementor/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/wordpress_shortcode_elementor/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/wordpress_shortcode_elementor/blob/master/index.php" target="_blank">index.php</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/wordpress_shortcode_elementor/master/index.php" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/wordpress_shortcode_elementor/blob/master/shortcodes.php" target="_blank">shortcodes.php</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/wordpress_shortcode_elementor/master/shortcodes.php" target="_blank">Raw</a></div></td></tr></tbody></table>
+						</div><!-- .code_table -->
+				</div><!-- .code -->
+				<div class="read_me">
+					<div class="read_me_title">
+						README.md:
+					</div><!-- .read_me_title -->
+					<div class="read_me_content markdown-body">
+					<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-wordpress-shortcodes-in-elementor" class="anchor" aria-hidden="true" href="#wordpress-shortcodes-in-elementor"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wordpress Shortcodes in Elementor</h1>
+<p>I did a project in WordPress for the site <a href="http://www.strumandspirits.com" rel="nofollow">www.strumandspirits.com</a>.</p>
+<p>The task said:</p>
+<blockquote>
+<p>I have created a new custom post type with CPT UI and Advanced Custom Fields for my bands and their shows. But now I need to display it on my website(s) with a template built in PHP (I think). Looking for someone to help me with this fairly simple project. For the display, I need to have a detail view, a semi-detailed "listing" view, and a simple one-line list view.</p>
+</blockquote>
+<p>I first made them as it's own pages, but then it turned out that these "views" &amp; "templates" had to be placed anywhere the content creator/administrator wanted with the Elementor Plugin.</p>
+<p>That raised the difficulty level, but I was up to the task.</p>
+<p>I converted them as shortcodes, and used WordPress Hooks to integrate them with the Elementor plugin.</p>
+<p>Advanced PHP Debugging &amp; Code Walking had to be done to find the exact nested array location to do this alteration at the WordPress hook.</p>
+<p>In addition to all of this, I made a separate Google Maps API function in the Wordpress Admin, which also does autocompletion for previous address values added.</p>
+</article></div>
+					</div><!-- .read_me_content -->
+				</div><!-- .read_me -->
+			</div>
+		</div>
+		
+		<div class="post" project_name="mmulcahy222.github.io" >
+			<div class="post_title">
+				<a name="mmulcahy222.github.io">REPOSITORY #26: mmulcahy222.github.io</a>
 			</div>
 			<div class="post_content">
 				<div class="description">
@@ -2259,7 +2298,7 @@ connect_params <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-p
 				<div class="code">
 					<div class="code_title">GITHUB FILES & LINKS:</div>
 					<div class="code_table">
-						<table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/assets" target="_blank">assets</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/portfolio/blob/master/assets" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/generate_page.py" target="_blank">generate_page.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/generate_page.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/index_template.j2" target="_blank">index_template.j2</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/index_template.j2" target="_blank">Raw</a></div></td></tr></tbody></table>
+						<table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mmulcahy222.github.io/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/assets" target="_blank">assets</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/assets" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/generate_page.py" target="_blank">generate_page.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mmulcahy222.github.io/master/generate_page.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/index.html" target="_blank">index.html</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mmulcahy222.github.io/master/index.html" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mmulcahy222.github.io/blob/master/index_template.j2" target="_blank">index_template.j2</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mmulcahy222.github.io/master/index_template.j2" target="_blank">Raw</a></div></td></tr></tbody></table>
 						</div><!-- .code_table -->
 				</div><!-- .code -->
 				<div class="read_me">
