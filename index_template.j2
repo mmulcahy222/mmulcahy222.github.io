@@ -9,7 +9,7 @@
 	<link rel="icon" href="">
 	<title>Portfolio</title>
 	<!-- styles -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css?v=<?php echo time(); ?>">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/python_code.css">
 	<script src="assets/js/portfolio.js" defer></script>
 </head>
@@ -44,7 +44,7 @@
 			<div class="post_content projects_content">
 				<div class="projects">
 					<ol>
-						{% for repository_name in repos -%}
+						{% for repository_name,html in jinja_dict.items() -%}
 						   <li><a href="#{{ repository_name }}">{{ repository_name }}</a></li>
 						{% endfor %}
 					</ol>
