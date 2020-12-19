@@ -3,90 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cisco Configuration Commands</title>
+    <title>Cisco Nexus & MDS Configuration</title>
     <style>
       @font-face {
-        font-family: "lmmono8";
-        src: url("lmmono8-regular.otf") format("opentype");
+        font-family: "dos";
+        src: url("dos.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "ibm3270";
+        src: url("ibm3270.ttf") format("truetype");
       }
       body {
-        background-color: #f1a310;
+        background-color: #000000;
         padding: 20px;
       }
       #inner_html {
-        color: #112233;
-        background-color: white;
+        color: white;
+        background-color: #000000;
         border-radius: 20px;
         padding: 40px 20px;
-        font-family: "lmmono8", verdana;
+        font-family: "dos", verdana;
+      }
+      section
+      {
+          margin-bottom: 100px;
       }
         .section_title {
-           font-family: Helvetica;
-           color: #112233;
-           font-size: 24px;
-           padding: 10px 0px;
+           font-family: "ibm3270";
+           color: #00ff00;
+           font-size: 36px;
+           padding: 20px 0px;
            font-weight: bold;
         }
         .command_line 
         {
-          color: #333639;
-          cursor: pointer;
+            color: #ffffff;
           padding: 0px;
+          /* font-size: 15px; */
         }
         a, a:hover, a:active, a:visited {
             text-decoration: none;
-            color: #112233;
+            color: #00ff00;
         } 
-        /* Tooltip container */
-        .tooltip {
-        position: relative; 
-        display: inline-block;
-        }
-
-        /* Tooltip text */
-        .tooltip .tooltiptext {
-        visibility: hidden;
-        font-family: Verdana;
-        /* width: 120px; */
-        width: 120%;
-        font-size: 10px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: 8px 10px;
-        border-radius: 6px;
-
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 25%;
-        margin-left: -60px;
-
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.3s;
-        }
-
-        /* Tooltip arrow */
-        .tooltip .tooltiptext::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #59000d transparent transparent transparent;
-        }
-
-        /* Show the tooltip text when you mouse over the tooltip container */
-        .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-        background-color: #59000d;
-        opacity: .95;
-        }
+        
     </style>
   </head>
   <body>
