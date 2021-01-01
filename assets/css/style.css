@@ -10,6 +10,15 @@
     font-family: "Commodore";
     src: url('../commodore/petme64.ttf') format('truetype');
 }
+@font-face {
+    font-family: "dos";
+    src: url('../fonts/dos.ttf') format('truetype');
+}
+@font-face {
+    font-family: "hack";
+    src: url('../fonts/hack.ttf') format('truetype');
+}
+
 /*
 @font-face{ 
     font-family: 'Chicago';
@@ -148,7 +157,7 @@ table tbody td {
     padding: 50px 30px;
     background-color: black;
     border-radius: 20px;
-    font-size: 11px;
+    /* font-size: 11px; */
     /* letter-spacing: .8px; */
     font-family: "Commodore",Verdana, Helvetica, Arial, Geneva, sans-serif;
     text-align: left;
@@ -229,7 +238,7 @@ table tbody td {
     background-color: rgb(255,0,10,.075); 
 }
 .markdown-body {
-    font-family: courier, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-family: "Hack", courier, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     text-align: justify;
     font-size: 18px;
     line-height: 1.38;
