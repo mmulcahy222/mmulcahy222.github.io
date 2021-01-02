@@ -1,22 +1,23 @@
-@font-face{ 
-    font-family: 'Blacklight';
-    src: url('WebFont.eot');
-    src: url('../blacklight/5peero-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../blacklight/5peero-webfont.woff') format('woff'),
-         url('../blacklight/5peero-webfont.ttf') format('truetype'),
-         url('../blacklight/5peero-webfont.svg#webfont') format('svg');
+@font-face {
+  font-family: "Blacklight";
+  src: url("WebFont.eot");
+  src: url("../blacklight/5peero-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("../blacklight/5peero-webfont.woff") format("woff"),
+    url("../blacklight/5peero-webfont.ttf") format("truetype"),
+    url("../blacklight/5peero-webfont.svg#webfont") format("svg");
 }
 @font-face {
-    font-family: "Commodore";
-    src: url('../commodore/petme64.ttf') format('truetype');
+  font-family: "Commodore";
+  src: url("../commodore/petme64.ttf") format("truetype");
 }
 @font-face {
-    font-family: "dos";
-    src: url('../fonts/dos.ttf') format('truetype');
+  font-family: "dos";
+  src: url("../fonts/dos.ttf") format("truetype");
 }
 @font-face {
-    font-family: "hack";
-    src: url('../fonts/hack.ttf') format('truetype');
+  font-family: "hack";
+  src: url("../fonts/hack.ttf") format("truetype");
 }
 
 /*
@@ -39,245 +40,221 @@
          url('../fixedsys/fsex300-webfont.svg#webfont') format('svg');
 }*/
 
-
-body
-{
-    margin: 0;
-    padding: 0;
-    color: #ED2734;
-    background-color: #35346D;
-    font: 1.2em/1.2 Verdana, Helvetica, Arial, Geneva, sans-serif;
-    /*text-align: justify;*/
+body {
+  margin: 0;
+  padding: 0;
+  color: #ed2734;
+  background-color: #35346d;
+  /* font: 1.2em/1.2 Verdana, Helvetica, Arial, Geneva, sans-serif; */
+  /*text-align: justify;*/
 }
-.wrapper
-{
-    padding: 30px 60px
+.wrapper {
+  padding: 30px 60px;
 }
 header {
-    padding: 26px;
-    background-color: black;
-    text-align: justify;
-    font: 4.0em/1.1 "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
-    /* font-weight: bold; */
-    text-shadow: 0px 1px 2px #F22245;
-    border-radius: 20px;
-    margin-bottom: 50px;
+  padding: 26px;
+  background-color: black;
+  text-align: justify;
+  font: 4em/1.1 "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
+  /* font-weight: bold; */
+  text-shadow: 0px 1px 2px #f22245;
+  border-radius: 20px;
+  margin-bottom: 50px;
 }
-.social_media
-{
+.social_media {
   text-transform: uppercase;
   font-family: "Verdana";
-    font-size: 12px;
-  padding: 15px 0px 0px 0px; 
+  font-size: 12px;
+  padding: 15px 0px 0px 0px;
   text-shadow: none;
 }
 .menu {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-    text-align: center;
-    border-radius: 4px;
-    overflow: hidden;
-    border-collapse: separate;
-    border-spacing: 45px 0px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 45px 0px;
 }
-.menu_item
-{
-    display: table-cell;
+.menu_item {
+  display: table-cell;
 }
 .menu_item a {
-    display: block;
-    padding: 15px;
-    text-decoration: none;
+  display: block;
+  padding: 15px;
+  text-decoration: none;
 }
-.menu_item img
-{
+.menu_item img {
   height: 50px;
   width: 55px;
   padding: 0px 0px 4px 0px;
 }
-.header_title
-{
-    font-size: 56px;
-    margin-bottom: 10px;
+.header_title {
+  font-size: 56px;
+  margin-bottom: 10px;
 }
-.sub_header
-{
-    font-size: 22px;
-    line-height: 1.3;
+.sub_header {
+  font-size: 22px;
+  line-height: 1.3;
 }
 /*The space between each div*/
-.post
-{
+.post {
   margin-bottom: 250px;
 }
-a:link{
-  color:#ED2734;
-}
-a:visited{
-  color:#ED2734;
-}
-a:hover{
-  color:#ED2734;
-}
-a:focus{
-  color:#ED2734;
-}
-a:active{
-  color:#ED2734;
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  color: white;
 }
 /*tables*/
 table {
-  border: solid 1px #ED2734;
+  /* border: solid 1px #ed2734; */
   border-collapse: collapse;
   border-spacing: 0;
-  
-  font: 12px "verdana", Verdana, sans-serif;
+
+  /* font: 12px "verdana", Verdana, sans-serif; */
   /*font-smooth: never;
   -webkit-font-smoothing : none;*/
-  color: #ED2734;
+  /* color: #ed2734; */
 }
 table tbody td {
-  border: solid 1px #ED2734;
+  border: solid 1px #eebbbb;
   padding: 10px;
 }
 /*post*/
 .post_title {
-    padding: 10px 5px 10px 5px;
-    font-family: "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
-    text-transform: uppercase;
-    font-size: 24px;
-    letter-spacing: 1px;
-    text-shadow: 0px 0px 13px #B21855;
+  padding: 10px 5px 10px 5px;
+  font-family: "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-shadow: 0px 0px 13px #b21855;
 }
 .post_content {
-    padding: 50px 30px;
-    background-color: black;
-    border-radius: 20px;
-    /* font-size: 11px; */
-    /* letter-spacing: .8px; */
-    font-family: "Commodore",Verdana, Helvetica, Arial, Geneva, sans-serif;
-    text-align: left;
-    box-shadow: ;
+  color: #ffeeee;
+  padding: 50px 30px;
+  background-color: black;
+  border-radius: 20px;
+  /* font-size: 11px; */
+  /* letter-spacing: .8px; */
+  font-family: "Commodore", Verdana, Helvetica, Arial, Geneva, sans-serif;
+  text-align: left;
+  box-shadow: ;
 }
 /*Inside of a post content!*/
-.post_content > div
-{
-    margin-bottom: 100px;
+.post_content > div {
+  margin-bottom: 100px;
 }
 /*Inside of a post content div*/
-.post_content > div > div
-{
-    margin-bottom: 15px;
+.post_content > div > div {
+  margin-bottom: 15px;
 }
-.post_content div[class*="title"]
-{
-    font-size: 17px;
-    text-transform: uppercase;
+.post_content div[class*="title"] {
+  /* font-size: 17px; */
+  text-transform: uppercase;
 }
 /*projects*/
 .projects_content {
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 1.5;
-    font-family: "Commodore", "Blacklight", Verdana, Helvetica, Arial, Geneva, sans-serif;
-    /*overrides the wider-rule above*/
-    padding: 6px 35px;
+  text-transform: uppercase;
+  /* font-size: 14px; */
+  line-height: 1.5;
+  font-family: "Commodore", "Blacklight", Verdana, Helvetica, Arial, Geneva,
+    sans-serif;
+  /*overrides the wider-rule above*/
+  padding: 6px 35px;
 }
-.post_content > div
-{
-    margin-bottom: 75px;
+.post_content > div {
+  margin-bottom: 75px;
 }
-.project_content > div
-{
-    /*override*/
-    margin-bottom: 0px;
+.project_content > div {
+  /*override*/
+  margin-bottom: 0px;
 }
-.projects-content li
-{
-    text-decoration: none;
+.projects-content li {
+  text-decoration: none;
 }
 
-.description
-{
-    font-size: 18px
+.description {
+  font-size: 18px;
 }
-.description_content
-{
-    font-size: 15px;
+.description_content {
+  font-size: 15px;
 }
-.code_table table
-{
-    font-family: "Commodore",verdana;
-    text-transform: uppercase;
-    width: 650px;    
+.code_table table {
+  font-family: "Commodore", verdana;
+  text-transform: uppercase;
+  width: 650px;
 }
 /*text in table rows (divs) next to each other*/
 .code_table td div {
-  display:inline-block;
+  display: inline-block;
 }
 .file_name {
   width: 400px;
 }
-.raw_link
-{
+.raw_link {
   width: 200px;
 }
 /*README*/
-.read_me
-{
-
+.read_me {
 }
-.read_me_content
-{
-    color: #ff5175;
-    padding: 45px;
-    background-color: rgb(255,0,10,.075); 
+.read_me_content {
+  /* color: #ff5175; */
+  padding: 45px;
+  background-color: rgb(255, 0, 10, 0.075);
 }
 .markdown-body {
-    font-family: "Hack", courier, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-    text-align: justify;
-    font-size: 18px;
-    line-height: 1.38;
-    word-wrap: break-word;
+  color: #eeeeee;
+  font-family: "Dos", courier, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  text-align: justify;
+  font-size: 16px;
+  line-height: 1.4em;
+  word-wrap: break-word;
 }
 .markdown-body blockquote {
-    padding: 0 0 0 2em;
-    color: #ff8d3c;
-    border-left: .25em solid #400714;
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    background-color: rgb(255,0,10,.085);
+  padding: 0 0 0 2em;
+  color: #ffed8c;
+  border-left: 0.25em solid #400714;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  background-color: rgb(255, 0, 10, 0.085);
 }
-.markdown-body h1, .markdown-body h2 {
-    color: #e80040;
-    padding-bottom: .3em;
-    border-bottom: 1px solid rgb(255,0,0,.2);
+.markdown-body h1,
+.markdown-body h2 {
+  /* color: #e80040; */
+  font-family: "Commodore";
+  font-size: 15px;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgb(255, 0, 0, 0.2);
 }
-.markdown-body .octicon
-{
-    display:none;
+.markdown-body .octicon {
+  display: none;
 }
 /*read_me code blocks*/
 pre {
-    display: block;
-    padding: 9.5px;
-    margin: 0 0 10px;
-    font-size: 15px;
-    line-height: 1.42857143;
-    color: #fa7a8a;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: rgb(5,0,0);
-    border: 1px solid rgb(255,11,11,.5);
-    border-radius: 4px;
-    overflow-x: auto;
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.42857143;
+  color: #fa7a8a;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: rgb(5, 0, 0);
+  border: 1px solid rgb(255, 11, 11, 0.5);
+  border-radius: 4px;
+  overflow-x: auto;
 }
 .pre-scrollable {
   max-height: 800px;
@@ -285,20 +262,19 @@ pre {
 }
 /*NO SCROLLBAR*/
 pre {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
-pre::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+pre::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
-.project_overlay
-{
+.project_overlay {
   width: 100%;
   position: fixed;
   background-color: black;
   height: 15px;
   padding: 30px;
-  font-family: "Commodore",verdana,arial;
+  font-family: "Commodore", verdana, arial;
   font-size: 18px;
   text-transform: uppercase;
   display: none;
