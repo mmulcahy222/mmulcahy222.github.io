@@ -10,8 +10,8 @@ import os
 import random
 
 github_username = 'mmulcahy222'
-client_id = 'b4d3421d51490a5024ab'
-client_secret = 'f1b19b13162fde81858de728e3a348a20522b7b9'
+# client_id = ''
+# client_secret = ''
 
 repos = ['google_home_youtube', 'google_home_audiobooks', 'alexa_number_guess', 'helper_functions', 'alexa_hangman', 'alexa_weather', 'alexa_feed', 'regex_data_lake', 'socket_network_automation', 'netflow', 'google_bookmarks', 'google_street_view',
          'iterate_youtube', 'blue_sage_creek', 'laptops', 'netconf', 'nimli_2011', 'news_reader', 'redsox', 'wordpress_repo', 'youtube_comments', 'miscellaneous', 'ebay_pictures_repo', 'google_maps_popular_times', 'wordpress_shortcode_elementor', 'mmulcahy222.github.io']
@@ -85,8 +85,10 @@ def use_github_api_serialize(repos):
     pickle.dump(jinja_dict, open("jinja_dict.p", "wb"))
     return jinja_dict
 
-def add_repos_to_pickle_file(old_pickle_file_name,repo_names):
-    jinja_dict = pickle.load(open(os.getcwd() + "\\" + old_pickle_file_name, "rb"))
+
+def add_repos_to_pickle_file(old_pickle_file_name, repo_names):
+    jinja_dict = pickle.load(
+        open(os.getcwd() + "\\" + old_pickle_file_name, "rb"))
     jinja_dict_new = use_github_api_serialize(repo_names)
     jinja_dict.update(jinja_dict_new)
     date_string = datetime.datetime.now().strftime("%m%d%y_%H%M%S")
@@ -94,17 +96,24 @@ def add_repos_to_pickle_file(old_pickle_file_name,repo_names):
     return jinja_dict
 
 
-if __name__ == '__main__':
-    ## OLD EXISTING REPOS (LIKELY WILL NEVER BE USED HERE)
-    #repos = ['google_home_youtube', 'google_home_audiobooks', 'alexa_number_guess', 'helper_functions', 'alexa_hangman', 'alexa_weather', 'alexa_feed', 'regex_data_lake', 'socket_network_automation', 'netflow', 'google_bookmarks', 'google_street_view', 'iterate_youtube', 'blue_sage_creek', 'laptops', 'netconf', 'nimli_2011', 'news_reader', 'redsox', 'wordpress_repo', 'youtube_comments', 'miscellaneous', 'ebay_pictures_repo', 'google_maps_popular_times', 'wordpress_shortcode_elementor', 'mmulcahy222.github.io']
-    new_repos = ['windowsapi_treeview_search', 'quiz_plugin_customization']
-    use_serialized = False
-    if use_serialized == False:
-        jinja_dict = add_repos_to_pickle_file('jinja_dict_12232019.p',new_repos)
-    else:
-        # most of the time you will be here
-        jinja_dict = pickle.load(
-            open(os.getcwd() + "\\" + "jinja_dict_051920-020408.p", "rb"))
+def generate_page(dict_file_name):
+    jinja_dict = pickle.load(open(os.getcwd() + "\\" + dict_file_name, "rb"))
     template = Template(file_get_contents('index_template.j2'))
     html = template.render(**locals())
     file_put_contents('index.html', html)
+
+
+def generate_page_with_new_repo(dict_file_name, list_of_new_repos):
+    jinja_dict = add_repos_to_pickle_file(
+        dict_file_name, list_of_new_repos)
+    template = Template(file_get_contents('index_template.j2'))
+    html = template.render(**locals())
+    file_put_contents('index.html', html)
+
+
+if __name__ == '__main__':
+    # OLD EXISTING REPOS (LIKELY WILL NEVER BE USED HERE)
+    #
+    #repos = ['google_home_youtube', 'google_home_audiobooks', 'alexa_number_guess', 'helper_functions', 'alexa_hangman', 'alexa_weather', 'alexa_feed', 'regex_data_lake', 'socket_network_automation', 'netflow', 'google_bookmarks', 'google_street_view', 'iterate_youtube', 'blue_sage_creek', 'laptops', 'netconf', 'nimli_2011', 'news_reader', 'redsox', 'wordpress_repo', 'youtube_comments', 'miscellaneous', 'ebay_pictures_repo', 'google_maps_popular_times', 'wordpress_shortcode_elementor', 'mmulcahy222.github.io']
+    #
+    pass
