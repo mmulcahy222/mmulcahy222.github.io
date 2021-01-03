@@ -32,7 +32,7 @@ function inspect_scroll()
 	    project_name = el.getAttribute("project_name");
 	    if(project_name != null)
 	    {
-	        project_overlay.innerText = 'CURRENTLY VIEWING: ' + project_name;
+	        project_overlay.innerText = 'PROJECT: ' + project_name;
 			project_overlay.style.display = 'block';
 			return;
 	    }

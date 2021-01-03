@@ -16,6 +16,10 @@
   src: url("../fonts/dos.ttf") format("truetype");
 }
 @font-face {
+  font-family: "ibmcga";
+  src: url("../fonts/ibmcga.ttf") format("truetype");
+}
+@font-face {
   font-family: "hack";
   src: url("../fonts/hack.ttf") format("truetype");
 }
@@ -128,8 +132,8 @@ table {
   /* color: #ed2734; */
 }
 table tbody td {
-  border: solid 1px #eebbbb;
-  padding: 10px;
+  /* border: solid 1px #eebbbb; */
+  padding: 20px;
 }
 /*post*/
 .post_title {
@@ -154,6 +158,7 @@ table tbody td {
 /*Inside of a post content!*/
 .post_content > div {
   margin-bottom: 100px;
+  line-height: 1.8em;
 }
 /*Inside of a post content div*/
 .post_content > div > div {
@@ -236,10 +241,10 @@ table tbody td {
 .markdown-body h1,
 .markdown-body h2 {
   /* color: #e80040; */
-  font-family: "Commodore";
-  font-size: 15px;
+  font-family: "ibmcga";
+  font-size: 12px;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid rgb(255, 0, 0, 0.2);
+  border-bottom: 1px solid rgb(255, 255, 255, 0.8);
 }
 .markdown-body .octicon {
   display: none;
@@ -273,12 +278,14 @@ pre::-webkit-scrollbar {
 }
 .project_overlay {
   width: 100%;
+  color: #7562dd;
   position: fixed;
-  background-color: black;
-  height: 15px;
+  background-color: #2d1f7d;
+  height: 10px;
   padding: 30px;
   font-family: "Commodore", verdana, arial;
-  font-size: 18px;
+  font-size: 28px;
   text-transform: uppercase;
   display: none;
+  border-bottom: solid 1px #6959bf;
 }
