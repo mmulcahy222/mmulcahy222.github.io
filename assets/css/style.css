@@ -51,6 +51,9 @@ body {
 .wrapper {
   padding: 30px 60px;
 }
+th {
+  font-weight: 100;
+}
 header {
   padding: 26px;
   background-color: black;
