@@ -118,7 +118,7 @@ a:visited,
 a:hover,
 a:focus,
 a:active {
-  color: white;
+  color: #ed2734;
 }
 /*tables*/
 table {
@@ -133,7 +133,7 @@ table {
 }
 table tbody td {
   /* border: solid 1px #eebbbb; */
-  padding: 20px;
+  padding: 5px 20px;
 }
 /*post*/
 .post_title {
@@ -158,14 +158,13 @@ table tbody td {
 /*Inside of a post content!*/
 .post_content > div {
   margin-bottom: 100px;
-  line-height: 1.8em;
 }
 /*Inside of a post content div*/
 .post_content > div > div {
   margin-bottom: 15px;
 }
 .post_content div[class*="title"] {
-  /* font-size: 17px; */
+  font-size: 14px;
   text-transform: uppercase;
 }
 /*projects*/
@@ -190,15 +189,21 @@ table tbody td {
 }
 
 .description {
+  color: #ed2734;
   font-size: 18px;
 }
 .description_content {
-  font-size: 15px;
+  font-size: 18px;
+  line-height: 1.8em;
+}
+.code {
+  color: #ed2734;
 }
 .code_table table {
   font-family: "Commodore", verdana;
   text-transform: uppercase;
-  width: 650px;
+  width: 750px;
+  font-size: 18px;
 }
 /*text in table rows (divs) next to each other*/
 .code_table td div {
@@ -213,9 +218,12 @@ table tbody td {
 /*README*/
 .read_me {
 }
+.read_me_title {
+  display: none;
+}
 .read_me_content {
   /* color: #ff5175; */
-  padding: 45px;
+  padding: 100px 60px;
   background-color: rgb(255, 0, 10, 0.075);
 }
 .markdown-body {
@@ -242,7 +250,9 @@ table tbody td {
 .markdown-body h2 {
   /* color: #e80040; */
   font-family: "ibmcga";
-  font-size: 12px;
+  font-weight: 100;
+  font-size: 20px;
+  text-transform: uppercase;
   padding-bottom: 0.3em;
   border-bottom: 1px solid rgb(255, 255, 255, 0.8);
 }
