@@ -1,0 +1,2536 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" id="main_css_sheet" href="assets/css/notes.css?t=<?php echo time(); ?>">
+    <title>Interview Notes</title>
+</head>
+
+<body>
+    <div class="left">
+        <div class="projects_content">
+            <a href="#cisco_routing">1. Cisco Routing</a>
+            <a href="#cisco_switching">2. Cisco Switching</a>
+            <a href="#cloud_computing">3. Cloud Computing</a>
+            <a href="#cloud_networking">4. Cloud Networking</a>
+            <a href="#software_engineering">5. Software Engineering</a>
+            <a href="#configuration">6. Configuration</a>
+        </div>
+        <div class="css_radio_boxes_div">
+            <div>
+                <input type="radio" name="css_style" value="IBM 3270" id="ibm_3270_button">
+                <label for="css_style">IBM 3270</label>
+            </div>
+            <div>
+                <input type="radio" name="css_style" value="Commodore 64" id="commodore_64_button">
+                <label for="css_style">Commodore 64</label>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <h1><h1 id="cisco_routing">Cisco Routing Information</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Link State</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LSA 1</td>
+<td>Router</td>
+<td>One per router, per area <br/>Lists RID &amp; all interfaces in that area</br>Flooded only in that area</td>
+</tr>
+<tr>
+<td>LSA 2</td>
+<td>Network</td>
+<td>One per transit network</br>Created by DR in the subnet Represent the subnet and all the interfaces in it</br>Flooded only in that area</td>
+</tr>
+<tr>
+<td>LSA 3</td>
+<td>Network Summary</td>
+<td>Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area Flooded only within its area of the origin. Re-originated on ABR</td>
+</tr>
+<tr>
+<td>LSA 4</td>
+<td>ASBR Summary</td>
+<td>Created by ABR Advertises a host route to reach an</br>ASBR Contains ABSR's RID and ABR's cost to reach it</br>Flooded only within its area of the origin Re-originated on ABRs</td>
+</tr>
+<tr>
+<td>LSA 5</td>
+<td>AS Summary</td>
+<td>Created by ASBR for external routes injected into OSPF Flooded to all areas</td>
+</tr>
+<tr>
+<td>LSA 6</td>
+<td>Group Membership (MOSPF)</td>
+<td></td>
+</tr>
+<tr>
+<td>LSA 7</td>
+<td>NSSA External</td>
+<td>Created by ASBR inside NSSA</br>External route information carried in this type LSA to distinguish from LSA Type 5 which is still prohibited in NSSA</br>ABR with the highest RID will translate to LSA type 5 and inject the external routes to other area</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>1,2,3,4,5</td>
+</tr>
+<tr>
+<td>Stub</td>
+<td>1,2,3</td>
+</tr>
+<tr>
+<td>Totally Stub</td>
+<td>1,2</td>
+</tr>
+<tr>
+<td>Not-So-Stubby Area</td>
+<td>1,2,3,7</td>
+</tr>
+<tr>
+<td>Totally Not-So-Stubby Area</td>
+<td>1,2,7</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>OSPF States</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOWN</td>
+<td>No OSPF Neighbors Detected</td>
+</tr>
+<tr>
+<td>ATTEMPT/INIT</td>
+<td>One router sent a hello packet. The other is yet to respond. Seen in one way.</td>
+</tr>
+<tr>
+<td>2-WAY</td>
+<td>Both routers SEEN each other's packet. Incoming Hello has it's own Router ID.</td>
+</tr>
+<tr>
+<td>EXSTART</td>
+<td>Decide on Master-Slave on who initiates communication of Database Descriptor Packets (DBD)</td>
+</tr>
+<tr>
+<td>EXCHANGE</td>
+<td>Actually exchanging DBD packets. Also Link State Requests &amp; Link State Advertisements are sent here, which determines if full Link State Updates should be sent.</td>
+</tr>
+<tr>
+<td>LOADING</td>
+<td>Link State Updates are sent</td>
+</tr>
+<tr>
+<td>FULL</td>
+<td>The Databases are synchronized fully</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EIGRP Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bandwidth</td>
+</tr>
+<tr>
+<td>Load</td>
+</tr>
+<tr>
+<td>Delay (K3)</td>
+</tr>
+<tr>
+<td>Reliability</td>
+</tr>
+<tr>
+<td>MTU</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feasibility Definitions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feasible Distance</td>
+<td>Total metric between source router and destination. Including first hop, including reported/advertised distance.</td>
+</tr>
+<tr>
+<td>Reported Distance &amp; Advertised Distance</td>
+<td>Feasible (aka total/entire) metric MINUS the first hop to the router ahead</td>
+</tr>
+<tr>
+<td>Conversely, this means the first hop would be the feasible distance minus reported/advertised distance</td>
+<td></td>
+</tr>
+<tr>
+<td>Successor</td>
+<td>The BEST route to a destination</td>
+</tr>
+<tr>
+<td>Feasible Successor</td>
+<td>Route in reserve! Feasible means something different in this context. Feasible means shittier here when talking about routes/successors. With distance, feasible means better.</td>
+</tr>
+<tr>
+<td>Feasibility Condition</td>
+<td>LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS. If the Reported Distance of prospective routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)!</td>
+</tr>
+<tr>
+<td>If reported distance of other routes is SMALLER than total successor, it counts.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>BGP Best Path Algorithm</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weight (1)</td>
+<td>Cisco Proprietary </br> Highest </br></td>
+</tr>
+<tr>
+<td>Local Preference (2)</td>
+<td>Choose outbound external path. It flows into all internal routers </br>Highest</td>
+</tr>
+<tr>
+<td>Locally Originated (3)</td>
+<td>If two BGP routes are there and one is from our own router &amp; the other is remote, favor the one coming from our own router listed as 0.0.0.0 as next-hop </br>More favored going down -&gt; (default-originate, default-information originate, network, redistribute, aggregate-address)</td>
+</tr>
+<tr>
+<td>AS Path (4)</td>
+<td>Easy Peasy</td>
+</tr>
+<tr>
+<td>Origin Code (5)</td>
+<td>If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes (far away routes that were learned by redistribution)</td>
+</tr>
+<tr>
+<td>MED (6)</td>
+<td>The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets </br> Lower</td>
+</tr>
+<tr>
+<td>eBGP vs iBGP</td>
+<td>This is TYPE of BGP.... NOT IGP vs redistributed/incomplete, that would be 5.</td>
+</tr>
+<tr>
+<td>BGP Multipath</td>
+<td></td>
+</tr>
+<tr>
+<td>Oldest Route</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>BGP States</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>BGP resources are initialized by the router. BGP inbound connection attempts are refused. BGP initiates a TCP connection to the peer.</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>You're in middle of 3 way handshake</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Not a good place to be. Waiting too long for 3 way handshake</td>
+</tr>
+<tr>
+<td>OpenSent</td>
+<td>OPEN message is sent, and is waiting to hear back</td>
+</tr>
+<tr>
+<td>OpenConfirm</td>
+<td>OPEN message is received, now sending keepalive</td>
+</tr>
+<tr>
+<td>Established</td>
+<td>Both peers exchange UPDATE messages. If there is an error within any of the UPDATE messages, the BGP peer will send a NOTIFICATION message and enter the Idle state.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DMVPN Registration</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NHRP Registration</td>
+<td>A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS).</td>
+</tr>
+<tr>
+<td>NHRP Resolution</td>
+<td>A client sends the Private IP of the next hop and gets the Public IP</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DMVPN Phases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1</td>
+<td>Everything just goes through the Hub, simple as that. The hub will always be listed as the Next Hop for remote spokes.</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke. It needs more information than the Private IP (such as the Public NBMA address). NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect</br></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>IPV6 Addresses</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EUI</td>
+<td>Put in FFFE in middle of MAC address, flip 7th bit</td>
+</tr>
+<tr>
+<td>Global Unicast</td>
+<td>2000::/3</td>
+</tr>
+<tr>
+<td>Link Local</td>
+<td>FE80::/10</td>
+</tr>
+<tr>
+<td>Loopback</td>
+<td>::1/128</td>
+</tr>
+<tr>
+<td>Multicast</td>
+<td>FF00::/8</td>
+</tr>
+<tr>
+<td>Solicited Node</td>
+<td>FF02::1:FF00:0000/104</td>
+</tr>
+<tr>
+<td>Unique Local</td>
+<td>FC00::/7</td>
+</tr>
+<tr>
+<td>Unspecified</td>
+<td>::/128</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Hello Timers Again</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF Hello Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>RIP Update Timer</td>
+<td>30</td>
+</tr>
+<tr>
+<td>BGP Keepalive Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>HSRP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GLBP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BPDU Hello Timer</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Timers</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF Hello Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>OSPF Dead Timer</td>
+<td>40</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>EIGRP Dead Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer (low speed)</td>
+<td>60</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer (high speed)</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Update Timer</td>
+<td>30</td>
+</tr>
+<tr>
+<td>RIP Invalid Timer</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Holddown Timer</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Flush Timer</td>
+<td>240</td>
+</tr>
+<tr>
+<td>BGP Keepalive Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>BGP Hold Timer</td>
+<td>6</td>
+</tr>
+<tr>
+<td>HSRP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>HSRP Hold Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>GLBP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GLBP Hold Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>CDP Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>BPDU Hello Timer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>BPDU Listening Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>BPDU Learning Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>BPDU Max Age Blocking Timer</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Multicast</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF (all OSPF routers)</td>
+<td>224.0.0.5</td>
+</tr>
+<tr>
+<td>OSPF (all DR's/BDR's)</td>
+<td>224.0.0.6</td>
+</tr>
+<tr>
+<td>RIP</td>
+<td>224.0.0.9</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>224.0.0.10</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>224.0.0.18</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>224.0.0.102</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Multicast Trees</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shortest-Path Tree (SPT)/Source Tree</td>
+<td>Receiver to Rendezvous Point (S,G)</td>
+</tr>
+<tr>
+<td>Rendezvous-Point Tree (RPT)/Shared Tree</td>
+<td>Rendezvous Point to Receiver (<em>,G) </br> The reason it is (</em>,G) state is because it is eagerly looking for interested senders. RP will indicate which ones.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>MPLS Tables</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDP</td>
+<td>Routing Protocol that alerts everyone else on Labels</td>
+</tr>
+<tr>
+<td>TDP</td>
+<td>Virtually the same as LDP</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>Any router that exchanges Labels (All routers in domain)</td>
+</tr>
+<tr>
+<td>LIB</td>
+<td>LIB &amp; LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table</td>
+</tr>
+<tr>
+<td>LFIB</td>
+<td>Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br></td>
+</tr>
+<tr>
+<td>Push</td>
+<td>Putting a label in the packet for the FIRST TIME</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>Changing labels in the middle of MPLS domain</td>
+</tr>
+<tr>
+<td>Pop</td>
+<td>Removing label at end</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>Remove the whole header</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Data Center Models</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000</td>
+<td>They are remote line cards that connect to the 5000, or 7000 or 9000 switches</br> Non Chassis Switches that can be 1U or 2U</br> It is REALLY only a set of extra ports that extends out, nothing more. A dumb box.</br> It says the reason for their existence is to put the main 5000/7000/9000 switch in the END OF THE ROW while having servers retain TOP OF RACK functionality to clean up the cabling setup. </br> Placed on Top of the rack</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>Aggregation &amp; Access &amp; Storage switch</td>
+</tr>
+<tr>
+<td>7000</td>
+<td>Nexus 7k supports OTV, LISP, MPLS and some other L3 things that 5k doesn't. </br> Core &amp; Aggregation switch </br>Very neat looking with plastic doors &amp; teal borders &amp; gray door handles</td>
+</tr>
+<tr>
+<td>9000</td>
+<td>No doors, looks like a basement appliance/radiator.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>SD-WAN Conventions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OMP</td>
+<td>Protocol to push configuration</td>
+</tr>
+<tr>
+<td>vBond</td>
+<td>On-boards the vEdge into the system. Connected to all devices</td>
+</tr>
+<tr>
+<td>vEdge</td>
+<td>Router that gets policies from vSmart &amp; OMP.</td>
+</tr>
+<tr>
+<td>vManage</td>
+<td>Dashboard</td>
+</tr>
+<tr>
+<td>vSmart</td>
+<td>The "brains" that manages control &amp; data policies for the vEdges via OMP</td>
+</tr>
+</tbody>
+</table>
+<h2>Multicast</h2>
+<h3>Sparse Mode</h3>
+<h3>Config</h3>
+<p>(config)# ip pim rp-address 20.0.0.1<br />
+(config-if)# interface Ethernet3/2<br />
+(config-if)# ip pim sparse-mode<br />
+If you put access-list number after rp-address wildcard-mask, you can configure Auto-RP for redundancy as long as all interfaces are configured with multicast</p>
+<h3>(S,G)</h3>
+<p>If a router has (S,G) state, that means that routers who use that multicast address (G) as destination will only pass if the source is S. It's different than traditional routing because traditional route tables have no condition for the source address.<br />
+(S,G) represents a route &amp; a flow of traffic from sender to receiver</p>
+<h3>Steps</h3>
+<ul>
+<li>Source sends PIM Register to RP.</li>
+<li>RP has (S,G) State</li>
+<li>If RP has no (*,G) from the Client, it sends PIM Stop message to Source. Multicast traffic will no longer send to RP and it will try again to register in 3 minutes.</li>
+<li>When the receiver is finally on the rendezvous point, the path to sender to RP finally gets it's (S,G) states with the OIL (outgoing interface) established. Those (S,G) states are particular routes to the receiver, for that multicast group/address.</li>
+<li>When the client/receiver knows the real source (aka doesn't need to put *,G), the client now makes another path that's quickest to sender, and fills those (S,G) &amp; "OIL" in that optimal path. That means that RP was only good for letting client know what exact sources/senders were interested in that group.</li>
+<li>Client means the router next to the real client, registered by IGMP. THAT ROUTER send out PIM Prunes to kill out the states in the RPF/SPF related to Rendezvous point</li>
+</ul>
+<h1><h1 id="cisco_switching">Cisco Switching Information</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>FHRP MAC Addresses</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSRP</td>
+<td>0000.0c07.ac0a</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>0000.5E00.01ac</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>0007.b400.XXYY </br>(X = Group, Y = Forwarding Number)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Regular STP Port States (802.1d)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled</td>
+<td></td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td></td>
+</tr>
+<tr>
+<td>Listening</td>
+<td>Doing jack shit to see if the topology changes. BPDUs are still sent to assess the land.</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Looking at the source address of Ethernet Frames to populate the Mac Address Table</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Good to go!</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Regular STP Port Roles (802.1d)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled Port</td>
+<td>Not in STP</td>
+</tr>
+<tr>
+<td>Root Port</td>
+<td>Port to reach the Root Bridge the fastest</td>
+</tr>
+<tr>
+<td>Designated Port</td>
+<td>Designated port is ALWAYS forwarding!! It is the port in a link/segment that has the lowest cost to the Root Bridge. If there is an already a RP in the point-to-point link, then the other link is designated.  Also, all ports in root switch are designated.</td>
+</tr>
+<tr>
+<td>Non-Designated Port</td>
+<td>This will be in the Blocking state. One segment willdk have no root ports, and the designated port will be forwarding (lowest path to root bridge), meaning the other one is non-designated and therefore will be what's blocked.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rapid STP Port States (802.1w)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discarding</td>
+<td>Disabled/Blocking/Listening ALL IN ONE called Discarding</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Looking at the source address of Ethernet Frames to populate the Mac Address Table</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Good to go!</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rapid STP Port Roles (802.1w)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backup</td>
+<td>This port serves as a secondary designated port in case the primary designated port fails. It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state.</td>
+</tr>
+<tr>
+<td>Disabled Port</td>
+<td>Not in STP</td>
+</tr>
+<tr>
+<td>Root Port</td>
+<td>Port to reach the Root Bridge the fastest</td>
+</tr>
+<tr>
+<td>Designated Port</td>
+<td>Designated port is ALWAYS forwarding!! It is the port in a link/segment that has the lowest cost to the Root Bridge. If there is an already a RP in the point-to-point link, then the other link is designated.  Also, all ports in root switch are designated.</td>
+</tr>
+<tr>
+<td>Alternate Port</td>
+<td>This port serves as a secondary root port in case the primary root port fails. It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Port Security Features</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aging</td>
+<td>(config-if)# switchport port-security aging type <em>MINUTES</em> </br>By default, aging is not enabled and addresses are not deleted unless the device is rebooted or the MAC addresses are cleared through a removal command being issued</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Sticky</td>
+<td>Dynamically learns and configures the MAC addresses of the currently connected hosts.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Port Security Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Restrict</td>
+<td>Log Entry</td>
+</tr>
+<tr>
+<td>Protect</td>
+<td>No Log Entry</td>
+</tr>
+<tr>
+<td>Shutdown</td>
+<td>Err-Disable</td>
+</tr>
+</tbody>
+</table>
+<h2>GLBP Components</h2>
+<h3>Active Virtual Gateway</h3>
+<p>The AVG is responsible for answering Address Resolution Protocol (ARP) requests for the virtual IP address. It sends a different virtual MAC in response to ARP requests from the client, which in turn chooses the Active Virtual Forwarder in the group to leverage.</p>
+<h3>Active Virtual Forwarder</h3>
+<p>Sending out internet traffic within an group</p>
+<h2>STORM CONTROL</h2>
+<p>(config-if)# storm-control broadcast level bps .7m .5m<br />
+Traffic is measured every second!<br />
+One method is rising &amp; falling threshold. There are two lines called "Rising Threshold" and "Falling Threshold". If traffic exceeds rising threshold at least ONCE, then you need an entire 1 second interval below falling threshold before it's allowed to rise again.<br />
+Other method is simple percentages (on broadcast, unicast or multicast traffic)</p>
+<h2>MITIGATION</h2>
+<h3>DHCP Snooping</h3>
+<p>Creates a binding table to link the legitimate hosts with mac addresses who were assigned the IP address in DHCP.<br />
+Not only does it create a binding table, but it also has concept of trusted ports &amp; untrusted ports for DHCP servers which stop DHCP discover/reply etc</p>
+<h3>IP Source Guard</h3>
+<p>Once the host gets an IP address through DHCP, only the DHCP-assigned source IP address is permitted through that interface. Uses DHCP Binding table, which has mapping of MAC-IP-Interface</p>
+<h3>ARP Inspection</h3>
+<p>ARP spoofing attacks and ARP cache poisoning can occur because ARP allows a gratuitous reply <br />
+Examples the DHCP Snooping Database with IP-MAC bindings to validate proper ARP packets<br />
+The switch checks the information found in the ARP request and compares it with the information in the DHCP snooping database<br />
+The aim for this is to prevent screwing with the ARP caches inside the networks. The ARP table links IP to MAC, and then the MAC address table finds the correct interface, so poisoning ARP table will send to wrong malicious interface.</p>
+<h1><h1 id="cloud_computing">Cloud Computing</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>AWS Policy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SID</td>
+<td>Can be anything, it's just a description</td>
+</tr>
+<tr>
+<td>Principal</td>
+<td>Account, user, role, or federated user to which you would like to allow or deny access.  </br> {"AWS": ["arn:aws:iam::111122223333:root","arn:aws:iam::444455556666:root"]}</td>
+</tr>
+<tr>
+<td>Effect</td>
+<td>Allow,Deny</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>s3:*</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Where in the Cloud/Service does this policy apply. Can be done granularly "Resource":"arn:aws:s3:::awsexamplebucket1/*",</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>S3 Tiers</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3 Standard</td>
+<td>Availability  99.9%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br></td>
+</tr>
+<tr>
+<td>S3 Reduced Redundancy Storage</td>
+<td>Availability</td>
+</tr>
+<tr>
+<td>S3 Intelligent Tiering</td>
+<td>Ideal to optimize storage costs automatically for long-lived data when access patterns are unknown or unpredictable.  </br> For a small monthly monitoring and automation fee per object, S3 monitors access patterns of the objects and moves objects that have not been accessed for 30 consecutive days to the infrequent access tier.</td>
+</tr>
+<tr>
+<td>S3 Standard Infrequently Accessed</td>
+<td>Availability 99.9% Storage Costs $0.0125 per GB</td>
+</tr>
+<tr>
+<td>S3 One Zone Infrequently Accessed</td>
+<td>Availability 99.5% Storage Costs $0.01 per GB</td>
+</tr>
+<tr>
+<td>S3 Glacier</td>
+<td>Availability 99.9% Storage Costs $0.004 per GB</td>
+</tr>
+<tr>
+<td>S3 Glacier Deep Archive</td>
+<td>Availabililty</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EC2 Types</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General Purpose</td>
+<td>Names=&gt; A1,T3,T3a,T2,M5,M5a,M4---Balance of compute, memory and networking resources. For Web Serveers &amp; Code Repositories</td>
+</tr>
+<tr>
+<td>Compute Optimized</td>
+<td>Names=&gt; C5,C5n,C4,      Purpose Ideal for compute bound applications that benefit from high performance processor,      Use Cases Scientific Modeling, dedicated gaming servers &amp; ad server engines</td>
+</tr>
+<tr>
+<td>Memory Optimized</td>
+<td>Names=&gt; R5,R5a,X1e,X1,High Memory,z1d,      Purpose Fast performance of workloads that process large data sets in memory,       Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,</td>
+</tr>
+<tr>
+<td>Accelerated Optimized</td>
+<td>Names=&gt; P3,P2,G3,F1,        Purpose Hardware accelerators, or co-processors,        Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,</td>
+</tr>
+<tr>
+<td>Storage Optimized</td>
+<td>Names=&gt; I3,I3en,D2,H1,      Purpose High, sequential read and write access to very large data sets on local storage,        Use Cases NoSQL, in-memory or transactional databases, data warehousing,</td>
+</tr>
+<tr>
+<td>Graphics Optimized</td>
+<td>Names=&gt; G3,     Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.,        Use Cases Gamers, AutoCAD, etc</td>
+</tr>
+<tr>
+<td>Graviton</td>
+<td>If you put a g after the "names" above, it is a graviton ARM CPU</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EBS Drive Name</th>
+<th>Drive</th>
+<th>Description</th>
+<th>API Name</th>
+<th>Volume Size</th>
+<th>Max IOPS</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General Purpose</td>
+<td>SSD</td>
+<td>Balances Price and Performance</td>
+<td>gp2</td>
+<td>1GB - 16TB</td>
+<td>16000</td>
+<td>"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern</td>
+</tr>
+<tr>
+<td>Provisioned IOPS</td>
+<td>SSD</td>
+<td>Highest SSD Performance for mission-critical low latency or high throughput</td>
+<td>io1</td>
+<td>4GB - 16TB</td>
+<td>64000</td>
+<td>"Large Databases</td>
+</tr>
+<tr>
+<td>Throughput Optimized</td>
+<td>HDD</td>
+<td>"Low-cost. Designed for frequently accessed</td>
+<td>throughput intensive workloads."</td>
+<td>st1</td>
+<td>500GB - 15TB</td>
+<td>500</td>
+</tr>
+<tr>
+<td>Cold</td>
+<td>HDD</td>
+<td>Lowest HDD Cost. Less frequently used workloads</td>
+<td>sc1</td>
+<td>500GB - 15TB</td>
+<td>250</td>
+<td></td>
+</tr>
+<tr>
+<td>EBS Magnetic</td>
+<td>Magnetic</td>
+<td>Archival Storage</td>
+<td></td>
+<td>500GB - 15TB</td>
+<td>40/200</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>DynamoDB</h2>
+<h3>Consistent Reads</h3>
+<h3>Eventual</h3>
+<p>Gives you the quickest answer, but it may be wrong because the data has not propagates across Availability Zones</p>
+<h3>Strongly</h3>
+<p>Gives you the most accurate answer (which would be universal across Availability Zones), but at a cost of speed</p>
+<h3>DAX</h3>
+<p>DynamoDB Accelerator (DAX) is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement  from milliseconds to microseconds  even at millions of requests per second.</p>
+<h3>Index</h3>
+<h3>Local Secondary Index</h3>
+<p>Can only be done on creation of the table<br />
+An index that has the same partition key as the table, but a different sort key.</p>
+<h3>Global Secondary Index</h3>
+<p>An index with a partition key and sort key that can be different from those on the table.</p>
+<h3>Terms</h3>
+<h3>Table Components</h3>
+<h3>Item</h3>
+<p>Row/Instance of Entity</p>
+<h3>Attributes</h3>
+<p>Columns</p>
+<h3>Keys</h3>
+<h3>Partition Key</h3>
+<p>Primary Key<br />
+Will separate various rows into it's own smaller rows. This is done for easier faster reads. It's similar to how Apple has it's own folders for music files, with folders having One Letter in the Alphabet based on music filename. Think of Map-Reduce where computing is done simultaneously in chunks.</p>
+<h3>Partition key &amp; Sort Key</h3>
+<p>Composite key<br />
+Referred to as a composite primary key, this type of key is composed of two attributes. The first attribute is the partition key, and the second attribute is the sort key.<br />
+DynamoDB uses the partition key value as input to an internal hash function. The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. All items with the same partition key value are stored together, in sorted order by sort key value.<br />
+In a table that has a partition key and a sort key, it's possible for two items to have the same partition key value.</p>
+<h2>Kinesis</h2>
+<h3>Kinesis vs SQS</h3>
+<p>Kinesis allows real-time processing of streaming big data and the ability to read and replay records to multiple Amazon Kinesis Applications.<br />
+Producer &amp; Consumer model where you can put records &amp; get records<br />
+In Python, data is sent as a "byte stream"<br />
+No shard auto-scaling like SQS</p>
+<h3>SQS</h3>
+<h1><h1 id="cloud_networking">Cloud Networking</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>VPC Limits</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WHY use Accounts over VPCs to segment workloads?</td>
+<td>Limits are the primary reason </br> I prefer large VPC's with a Transit Gateway to be honest</br> If you really need more han 1000 VPC's, it is this primary case where you use multiple accounts!</br></td>
+</tr>
+<tr>
+<td>VPCs in a region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Subnets in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Elastic IPs in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Customer Gateways in Region</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Internet Gateways in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>NAT Gateways in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Virtual Private Gateways in Region</td>
+<td>5 , Can only attach one at a time, but can configure 5 in waiting.</td>
+</tr>
+<tr>
+<td>ACLs in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Rules in ACL</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Route Tables in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Routes in Route Table</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Security Groups in Region</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>Can extend to 10000 under support</td>
+<td></td>
+</tr>
+<tr>
+<td>Rules in Security Group</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Security Gruop in Interface</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Gateway VPCs in Region</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Interface VPCs in Region</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Route 53 Tags</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Map a server name to an IPv4 Address</td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>Map a server name to an IPv6 Address</td>
+</tr>
+<tr>
+<td>ALIAS</td>
+<td>Aliases are an AWS only feature.</br></td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>Map a simple name like bog.example.com to another name (NOT ip-address) such www.goon.com</br></td>
+</tr>
+<tr>
+<td>Stands for Canonical Name</br></td>
+<td></td>
+</tr>
+<tr>
+<td>MX</td>
+<td>Determine the mail servers that receive mail for a particular domain</td>
+</tr>
+<tr>
+<td>NAPTR</td>
+<td>Name Authority Pointer</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>Used to determine which DNS service is authoritative to serve responses to DNS queries for the domain</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>Reverse entry of mapping IP addresses for the FQDN. Example of FQDN is mail.example.com.</td>
+</tr>
+<tr>
+<td>SOA</td>
+<td>Mandatory records for each domain that determine the authoritative DNS servers and keep a timestamp and version record of the domain zone</td>
+</tr>
+<tr>
+<td>SPF</td>
+<td>Sender Policy Framework</td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>Deliver information on ports the hoses serves it's services on?</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>Share arbitrary strings of text within the DNS service and thus extend the functionality or security of our domain and the services running on the servers belonging on our domain</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Router 53 Routing Policies</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Routing</td>
+<td>Chooses a record at completely random </br> If you have www.goon.com pointing at 3 different IP addresses in 3 different record sets, one will be chosen at random</td>
+</tr>
+<tr>
+<td>Weighted</td>
+<td>If you have multiple record sets with same IP address, choose a weight from 0 to 100 </br></td>
+</tr>
+<tr>
+<td>Latency-Based</td>
+<td>Closest REGION based on Latency</td>
+</tr>
+<tr>
+<td>Failover</td>
+<td>Set up a record as primary/secondary in an active/standby setup. Use health checks.</td>
+</tr>
+<tr>
+<td>Geolocation</td>
+<td>You can choose the exact region you want based on the location of where the person is coming from.</td>
+</tr>
+<tr>
+<td>Multi-Value Answer</td>
+<td>Really the exact same as Simple Routing EXCEPT it considers health check and ignores those who are sick/unwell</td>
+</tr>
+</tbody>
+</table>
+<h2>WHY use Accounts over VPCs to segment workloads?</h2>
+<p>Limits are the primary reason <br />
+I prefer large VPC's with a Transit Gateway to be honest<br />
+If you really need more han 1000 VPC's, it is this primary case where you use multiple accounts!<br />
+Amazon Cloud Networking</p>
+<h3>VPC Peering</h3>
+<p>Attributes<br />
+Non-Transitive<br />
+Limits<br />
+The maximum quota is 125 peering connections per VPC. </p>
+<h3>VPN</h3>
+<p>Features<br />
+Each VPN has two tunnels inside of it.<br />
+TUNNELS IP ADDRESS IS<br />
+169.254.0.0/16 <br />
+BUT CAN'T USE<br />
+169.254.0.0/30<br />
+169.254.1.0/30<br />
+169.254.2.0/30<br />
+169.254.3.0/30<br />
+169.254.4.0/30<br />
+169.254.5.0/30<br />
+169.254.169.252/30</p>
+<h3>CGW (Customer Gateway)</h3>
+<p>A Customer Gateway is the anchor on the customer side of an Amazon VPN Connection<br />
+Customer Gateway, clearly, is on our premises side</p>
+<h3>VGW (Virtual Private Gateway)</h3>
+<p>AWS Cloud Side (not on premises)<br />
+Responsible for hybrid IT connectivity leveraging VPN &amp; Direct Connect<br />
+The VGW is attached to the VPC. It's at the edge of the VPC connecting to Direct Connect Gateways, or VPN, or Direct Connection Colocation facility to a CGW</p>
+<h3>Route tables</h3>
+<p>Every single Route Table corresponds to a VPC that's created<br />
+Cliff Youu need a Subnet Association to link the Route Table to a Subnet<br />
+Linking a route table to a VPC is already an intrinsic part of the Route Table type/entity<br />
+Route Table needs a "Subnet Association" to correspond with a subnet in a VPC. There is no field inside of a Route Table entity that connects to a Route Table without the existence of a separate "Subnet Association" type.<br />
+Subnet Associations are a TAB in the Route Table section in VPC. In Terraform, A Subnet Association is called "aws_route_table_association" instead.<br />
+resource "aws_route_table_association" "RTTFAssoc" {<br />
+subnet_id = aws_subnet.subnet01.id<br />
+route_table_id = aws_route_table.TFRouteTable.id<br />
+}<br />
+Example<br />
+192.168.0.0/20        local<br />
+0.0.0.0/0        igw-0b6c3f81061f0b371</p>
+<h3>NAT Gateway</h3>
+<p>NAT Gateways are different than Internet Gateways in that NAT Gateways can be placed into private subnets and initiate communication towards the internet in a stateful approach.<br />
+Internet Gateway<br />
+Makes a subnet public via a route table entry to the IGW<br />
+VPC (Virtual Private Cloud)<br />
+VPC Creation<br />
+Name Tag (optional)<br />
+IPv4 CIDR Block (10.0.0.0/24)<br />
+Radio Box for IPv6 CIDR Block<br />
+Tenancy (Default/Dedicated)<br />
+Tags</p>
+<h3>PrivateLink</h3>
+<p>Types<br />
+Interface Endpoint To Services<br />
+Interface Endpoint To Network Load Balancer</p>
+<h3>Troubleshooting</h3>
+<p>EC2's Security Group<br />
+Elastic Network Interface's Security Group<br />
+IAM User/Role in EC2 for permissions to PrivateLink</p>
+<h3>TGW</h3>
+<h3>Components</h3>
+<p>Transit Gateway<br />
+All VPCs connect here.<br />
+In Terraform at least, there are no routes here. Only field/attribute here is the Transit Gateway itself. This is in contrast to the cloud representation of regular routes tables, where the routes were attributes of the route table object, rather than their own type. (Note, we're just looking at Terraform)<br />
+It seems like a virtual link, or a virtual wire between a VPC/Direct Connect Gateway/Peering Connection/VPN.<br />
+TRANSIT GATEWAY ATTACHMENTS SHOW UP AS A DESTINATION to the Transit Gateway Route Table, but NOT the route table for VPCs. <br />
+From VPC routing table, the default route is generally the TRANSIT GATEWAY, NOT THE ATTACHMENT. From Transit Gateway routing table, the destination to VPC is the attachment. The attachment attaches the VPC to Transit Gateway.<br />
+TRANSIT GATEWAY ROUTE TABLE (NOT VPC)<br />
+10.0.0.0/16 tgw-attach-123 <br />
+192.168.0.0/16 tgw-attach-789<br />
+172.31.0.0/16 tgw-attach-456 <br />
+172.31.0.0/16 tgw-attach-789 <br />
+Note. There are routing tables within the main routing table in the Transit Gateway</p>
+<h3>Route Propogations</h3>
+<p>With Route Propagations, it AUTOMATICALLY puts the routes (to attachments) into the TGW routing table!<br />
+An entity representing the propogation itself within the cloud. Usually propogations in a VPN or Direct Connect can happen with BGP, but from other VPCs in the Cloud it is through a propagation entity itself.</p>
+<h3>Direct Connect</h3>
+<h3>Private Virtual Interface</h3>
+<p>A Private Virtual Interface should be used to access an Amazon VPC using private IP addresses</p>
+<h3>Public Virtual Interface</h3>
+<p>A public virtual interface can ACCESS ALL AWS PUBLIC SERVICES using public IP addresses (Wonder if AWS PrivateLink has a role in this)</p>
+<h3>Transit Virtual Interface</h3>
+<p>A transit virtual interface should be used to access one or more Amazon VPC Transit Gateways associated with Direct Connect gateways. You can use transit virtual interfaces with 1/2/5/10 Gbps AWS Direct Connect connections. For information about Direct Connect gateway configurations, see Direct Connect gateways.<br />
+These interfaces go from the Customer Router in the CRF Colocation onto the VGW or Direct Connect Gateway.<br />
+These seem like Subinterfaces that have a VLAN tag</p>
+<h1><h1 id="software_engineering" >Software Engineering</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Commodore Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABS</td>
+<td>ABS(-10)</td>
+</tr>
+<tr>
+<td>CONT</td>
+<td>Continues program execution from line where program was halted</td>
+</tr>
+<tr>
+<td>DATA</td>
+<td>DATA A, "B", C </br> Initializes a set of values that can be used by READ statement</br> DATA seems like one data stream, like Kinesis</td>
+</tr>
+<tr>
+<td>DIM</td>
+<td>DIM A$(4) </br> One Dimensional Array of 5 elements</br>DIM C%(2,3)   </br>wo Dimensional Array of 3 and 4 values</br>ND  Program is over. Back to READY</td>
+</tr>
+<tr>
+<td>FOR</td>
+<td>10 FOR X=10 TO 0 STEP -0.25: PRINT X: NEXT X</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>GET A$ OR A </br> Get a one character value</td>
+</tr>
+<tr>
+<td>GOSUB</td>
+<td>20 SP = 20: ZE = 3: A$ = "Good Morning!": GOSUB 1000: GOSUB 2000 </br> 1000 REM cursor positioning and printing</br> 1010 POKE 211,SP :POKE 214, ZE: SYS 58640 : PRINT A$</br> 1020 RETURN</br></td>
+</tr>
+<tr>
+<td>IF</td>
+<td>70 IF A$="+" THEN C=A+B: B$="ADDITION"</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td>INPUT A$ OR A </br> Prints ? on screen and waits for a user to enter a string or integer</td>
+</tr>
+<tr>
+<td>LEFT</td>
+<td>LEFT$(A$,X) </br>Returns the X values from the last of String at A$</td>
+</tr>
+<tr>
+<td>MID</td>
+<td>MID$(A$,X,Y) </br>Returns Y characters from string A$ from X</td>
+</tr>
+<tr>
+<td>NEXT</td>
+<td>Return to beginning of loop</td>
+</tr>
+<tr>
+<td>PEEK</td>
+<td>A = PEEK(53281) </br> Gets the background color</td>
+</tr>
+<tr>
+<td>POKE</td>
+<td>Example </br> POKE 53280,1 </br> Screen Frame is now white</td>
+</tr>
+<tr>
+<td>READ</td>
+<td>READ A$ OR A </br> Assigns next DATA value to A$ or A</td>
+</tr>
+<tr>
+<td>RESTORE</td>
+<td>Go back to the beginning of the DATA stream! </br> STR$  STR$(-1000) </br> Convert number into string</td>
+</tr>
+<tr>
+<td>SYS</td>
+<td>SYS 4000 </br> Start a machine language program!!</td>
+</tr>
+<tr>
+<td>TAB</td>
+<td>TAB(4) </br> Put in Print Statements</td>
+</tr>
+<tr>
+<td>USR</td>
+<td>USR(X) </br> Passes value of X to a machine language subroutine</td>
+</tr>
+<tr>
+<td>VAL</td>
+<td>VAL(S$) </br> Convert string to int</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Design Patterns</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstract Factory</td>
+<td>factory1 = ConcreteFactory1()</br></br> factory2 = ConcreteFactory2()</br></br> product_a = factory1.create_product_a()</br> product_b = factory2.create_product_b()</br></td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>If a strongly typed language expects one data type in the function but you want another, just make an adapter. </br> // Somewhere in client code.</br> hole = new RoundHole(5)</br> rpeg = new RoundPeg(5)</br> hole.fits(rpeg) // true</br> small_sqpeg = new SquarePeg(5)</br> large_sqpeg = new SquarePeg(10)</br> hole.fits(small_sqpeg) // this won't compile (incompatible types)</br> small_sqpeg_adapter = new SquarePegAdapter(small_sqpeg)</br> large_sqpeg_adapter = new SquarePegAdapter(large_sqpeg)</br> hole.fits(small_sqpeg_adapter) // true</br> hole.fits(large_sqpeg_adapter) // false</br></td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>You can prevent the explosion of a class hierarchy by transforming it into several related hierarchies.</br> Classes have the single responsibility principle. Hierarchies should have the same thing. Bridge means that adding new attributes does not change another attribute's class tree hierarchy of classes/subclasses.</br> Composition over Inheritance</br> Uses Dependency Injection for composition.</br> tv = new Tv()</br> remote = new RemoteControl(tv)</br> remote.togglePower()</br> radio = new Radio()</br> remote = new AdvancedRemoteControl(radio)</br></td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>You dont' have to build specific rigid objects/rigid classes</br> CarBuilder builder = new CarBuilder()</br> CarManualBuilder builder = new CarManualBuilder()</br> builder.reset()</br> builder.setSeats(2)</br> builder.setEngine(new SportEngine())</br> builder.setTripComputer(true)</br> builder.setGPS(true)</br></td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Composite is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects.</br> Very similar to Javascript DOM with CreateElement, think of it that way</br> branch1 = Composite()</br> branch1.add(Leaf())</br> branch1.add(Leaf())</br> branch2 = Composite()</br> branch2.add(Leaf())</br> tree.add(branch1)</br> tree.add(branch2)</br></td>
+</tr>
+<tr>
+<td>Command</td>
+<td>Command objects abstract away the FUNCTION of an object. For example, the clicking mechanism of a button will not be in the button itself.</br> Think of HTTP Get Requests in a command pattern. Other "commands" are like Cut, Copy, Undo, Print, etc.</br> It kiiind of looks like the Builder class a little bit to me, but for one function, instead of 5-10+ with Builder</br> cut = function() { executeCommand(</br> new CutCommand(this, activeEditor)) }</br> cutButton.setCommand(cut)</br> shortcuts.onKeyPress("Ctrl+X", cut)</br> invoker = Invoker()</br> invoker.set_on_start(SimpleCommand("Say Hi!"))</br> receiver = Receiver()</br> invoker.set_on_finish(ComplexCommand(receiver, "Send email", "Save report"))</br> invoker.do_something_important()</br></td>
+</tr>
+<tr>
+<td>Decorator</td>
+<td>Decorators can extend an objects behavior without making a new subclass.</br> Don't like it too much</br></td>
+</tr>
+<tr>
+<td>Facade</td>
+<td>No</br></td>
+</tr>
+<tr>
+<td>Factory</td>
+<td>The reason we have this is to NOT alter current code if there's another object in the factory to be generated. It also looks cleaner.</br> Instead of using the New operator, you're calling a static factory method in the family. It's also using IF conditionals under the hood</br></td>
+</tr>
+<tr>
+<td>Flyweight</td>
+<td></td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td></td>
+</tr>
+<tr>
+<td>Mediator</td>
+<td>Mediator is a behavioral design pattern that lets you reduce chaotic dependencies between objects. </br> Airplanes don't talk to each other, they go through Air Traffic Control. Same with objects with single responsibility to reduce coupling.</br> Different mediators can handle different communications/coupling between different objects. It's really offloading the coupling.</br> Mediators are in every component, by dependency injection/composition</br> c1 = Component1()</br> c2 = Component2()</br> mediator = ConcreteMediator(c1, c2)</br> print("Client triggers operation A.")</br> c1.do_a()</br> print("Client triggers operation D.")</br> c2.do_d()</br></td>
+</tr>
+<tr>
+<td>Memento</td>
+<td>Memento pattern is widely used for undo machanisms. It works on the principles of history and state management.</br></td>
+</tr>
+<tr>
+<td>Prototype</td>
+<td>The Prototype pattern delegates the cloning process to the actual objects that are being cloned. The pattern declares a common interface for all objects that support cloning. </br> Just put CLONE in the superclass, and implement it in subclasses.</br></td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Simply a class that acts on behalf on another class.</br></td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>We all know what it does.</br> Subject has attach, detach &amp; notify methods. </br> Observer has update methods.</br> Notify will do the for loop over update methods.</br> looks like</br> subject.attach(observer_a)</br> subject.attach(observer_b)</br></td>
+</tr>
+<tr>
+<td>Singleton</td>
+<td></td>
+</tr>
+<tr>
+<td>State</td>
+<td>Strategy Patterns are in each State object. A state object can have 2 to 5 to 10 methods, among different state objects.</br> A context object can have a State Object. A state object can have a context object. Two way.</br> context = Context(ConcreteStateA())</br> context.request1()</br> context.request2()</br></td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrasts with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br> context = Context(ConcreteStrategyA())</br> print("Client: Strategy is set to normal sorting.")</br> context.do_some_business_logic()</br> print("Client: Strategy is set to reverse sorting.")</br> context.strategy = ConcreteStrategyB()</br> context.do_some_business_logic()</br></td>
+</tr>
+<tr>
+<td>Template</td>
+<td>This adds standard usual behavior/code BEFORE OR AFTER a changing set of code. The code that changes will be implemented by subclasses.</br> Developers often use it to provide framework users with a simple means of extending standard functionality using inheritance.</br> Think of Python Decorators with Template pattern.</br> There is only one tree in this pattern with the top interface having two methods.</br> One function calls the other (with standard unchanging code around it) which the subclasses will implement &amp; override.</br> abstract_class.template_method() - "Template method" will call subclass methods, so the template method changes</br></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Assembly Instructions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOV</td>
+<td>MOV AX, 15</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>ADD AX, BX</td>
+</tr>
+<tr>
+<td>SUB</td>
+<td>SUB AX, 1</td>
+</tr>
+<tr>
+<td>AND</td>
+<td>AND AL, 11011111b</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>OR AL, BX</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>NOT AL</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td>XOR AL, 01010101b</td>
+</tr>
+<tr>
+<td>SHL/SHR</td>
+<td>SHL AL, 1</td>
+</tr>
+<tr>
+<td>Expulsed bit is in the Carry Flag (CF)</td>
+<td></td>
+</tr>
+<tr>
+<td>ROL</td>
+<td>Rotates to the left or the right, using or not CF</td>
+</tr>
+<tr>
+<td>INC/DEC</td>
+<td>INC AX</td>
+</tr>
+<tr>
+<td>STC</td>
+<td>Sets CF value</td>
+</tr>
+<tr>
+<td>STD</td>
+<td>STD</td>
+</tr>
+<tr>
+<td>MUL</td>
+<td>MOV AL, 00001Ah -- MUL 00002h</td>
+</tr>
+<tr>
+<td>JMP</td>
+<td>JMP calc</td>
+</tr>
+<tr>
+<td>CMP</td>
+<td>CMP AL, 01234b</td>
+</tr>
+<tr>
+<td>PUSH</td>
+<td></td>
+</tr>
+<tr>
+<td>STOS</td>
+<td></td>
+</tr>
+<tr>
+<td>LOOP</td>
+<td></td>
+</tr>
+<tr>
+<td>JA</td>
+<td>CF = 0 and ZF = 0</td>
+</tr>
+<tr>
+<td>JAE</td>
+<td>Jump if Above or Equal</td>
+</tr>
+<tr>
+<td>JBE</td>
+<td></td>
+</tr>
+<tr>
+<td>JC</td>
+<td>CF = 1</td>
+</tr>
+<tr>
+<td>JE</td>
+<td>ZF = 1</td>
+</tr>
+<tr>
+<td>JG</td>
+<td>ZF = 0 and SF = OF</td>
+</tr>
+<tr>
+<td>JGE</td>
+<td>SF = OF</td>
+</tr>
+<tr>
+<td>JL</td>
+<td>Jump if Less</td>
+</tr>
+<tr>
+<td>JLE</td>
+<td>Jump if Less or Equal</td>
+</tr>
+<tr>
+<td>JO</td>
+<td>OF = 1</td>
+</tr>
+<tr>
+<td>JP</td>
+<td>PF = 1</td>
+</tr>
+<tr>
+<td>JPE</td>
+<td>Jump if Parity Even</td>
+</tr>
+<tr>
+<td>JS</td>
+<td>SF = 1</td>
+</tr>
+<tr>
+<td>JZ</td>
+<td>Jump if Zero</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>React Hooks</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>constructor</td>
+<td>Mount immediately before render</td>
+</tr>
+<tr>
+<td>componentDidMount</td>
+<td>Mount immediately after render , Initialize state that requires DOM nodes, network requests and side effects</td>
+</tr>
+<tr>
+<td>shouldComponentUpdate</td>
+<td>Update immediately after render , Allows developer to prevent rendering render, Code to display the component</td>
+</tr>
+<tr>
+<td>getSnapshotBeforeUpdate</td>
+<td>Update immediately before render output is committed to DOM , Capture DOM information such as scroll position which could change</td>
+</tr>
+<tr>
+<td>componentDidUpdate</td>
+<td>Update immediately after render , Operate on updated DOM or handle network requests</td>
+</tr>
+<tr>
+<td>getDerivedStateFromProps</td>
+<td>Mount and update before render , Takes props and state as parameter Used when state depends on props</td>
+</tr>
+<tr>
+<td>componentWillUnmount</td>
+<td>Unmount, Clean up things such as event handlers, cancel network requests, etc</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>React Hooks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>useState</td>
+</tr>
+<tr>
+<td>useEffect</td>
+</tr>
+<tr>
+<td>useRef</td>
+</tr>
+<tr>
+<td>React.memo</td>
+</tr>
+</tbody>
+</table>
+<h2>Assembly Facts</h2>
+<p>Memory is generally represented with HIGH numbers on the top, and lower numbers on the bottom</p>
+<h2>Mutex</h2>
+<p>An object where one resources takes something and the other has to wait. Stands for Mutual Exclusion.</p>
+<h2>Semaphore</h2>
+<p>A semaphore seems like smaller mutexes that can lock more objects, while a mutex seems like it just locks one.</p>
+<h2>Angular</h2>
+<pre><code>Angular
+    Angular Components
+        import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+@Component({
+  selector: 'reactive-form',
+  template: `
+    &lt;div&gt;
+      &lt;form [formGroup]="form"
+            (ngSubmit)="onSubmit(form.value, form.valid)"
+            novalidate&gt;
+        &lt;div&gt;
+          &lt;label&gt;
+            Name:
+            &lt;input type="text" formControlName="name"&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;label&gt;
+            Email:
+             &lt;input type="email" formControlName="email"&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  `
+})
+export class ReactiveFormComponent implements OnInit {
+  public form: FormGroup;
+  constructor(private formBuilder: FormBuilder) { }
+  ngOnInit() {
+    this.form = this.formBuilder.group({name: [''], email: ['']});
+  }
+}
+</code></pre>
+<h2>Vue Component</h2>
+<pre><code>import Vue from 'vue';
+import Logger from 'utils/logger';
+import Auth from 'actions/auth';
+import Notification from 'utils/notification';
+Vue.component('change-password', {
+  template: '&lt;div&gt;{{ /* template */ }}&lt;/div&gt;',
+  data() {
+    return {
+      password: '',
+    };
+  },
+  methods: {
+    changePassword() {
+      Auth.changePassword(this.state.password).then(() =&gt; {
+        Notification.info('Password has been changed successfully.');
+      }).catch(error =&gt; {
+        Logger.error(error);
+        Notification.error('There was an error. Please try again.');
+      });
+    },
+  },
+});
+</code></pre>
+<h2>Vue Stand Alone Component</h2>
+<pre><code>&lt;template&gt;
+  &lt;form v-on:submit.prevent="onSubmit"&gt;
+   &lt;label&gt;
+       Email:
+      &lt;input type="email" v-model="email"&gt;
+   &lt;/label&gt;
+   &lt;label&gt;
+     Password:
+     &lt;input type="password" v-model="password" /&gt;
+   &lt;/label&gt;
+   &lt;button type="submit"&gt;Send&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Auth form './util/auth.js';
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    onSubmit() {
+      Auth.signIn(this.email, this.password);
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+<h2>React Stand Alone Componant</h2>
+<pre><code>import React, { Component } from 'react';
+export default class ReactForm extends Component {
+  state = {
+    email: '',
+    password:'',
+  };
+  handleChange = ({ name, value}) =&gt; {
+    if (name === 'email') {
+      this.setState({ email: value });
+    } else if (name === 'password') {
+      this.setState({ password: value });
+    }
+  };
+  render() {
+    return (
+      &lt;form&gt;
+        &lt;label&gt;
+          Email:
+          &lt;input
+            name="email"
+            type="email"
+            value= {this.state.email }
+            onChange={ this.handleChange }
+          /&gt;
+        &lt;/label&gt;
+        &lt;label&gt;
+          Password:
+          &lt;input
+            name="password"
+            type="password"
+            value={ this.state.password }
+            onChange={ this.handleChange }
+          /&gt;
+        &lt;/label&gt;
+      &lt;/form&gt;
+    );
+  }
+}
+</code></pre>
+<h1><h1 id="configuration" >Configuration</h1></h1>
+<h2>IPv6</h2>
+<h3>Set</h3>
+<p>Router(config)# ipv6 unicast-routing<br />
+Router(config)# int e0/0<br />
+Router(config-if)# ipv6 address FEC0::/64 eui-64<br />
+Router(config-if)# ipv6 address FEC0::1:1234:23FF:FE21:1212 eui-64</p>
+<h3>Access List</h3>
+<p>R1(config)# ipv6 route FEC0::2222/64 FEC0::1111:3E5F:2E5B:A3D1 </p>
+<h3>Tunnels</h3>
+<h3>Simple</h3>
+<p>Router&gt; enable<br />
+Router# configure terminal<br />
+Router(config)# interface tunnel 0<br />
+Router(config-if)# bandwidth 1000<br />
+Router(config-if)# keepalive 3 7<br />
+Router(config-if)# ip address 192.168.1.1 255.255.255.252<br />
+Router(config-if)# tunnel source Ethernet 1<br />
+Router(config-if)# tunnel destination 172.17.2.1<br />
+Router(config-if)# tunnel key 1000<br />
+Router(config-if)# tunnel mode gre ip<br />
+Router(config-if)# ip mtu 1400<br />
+Router(config-if)# ip tcp mss 250<br />
+Router(config-if)# tunnel path-mtu-discovery<br />
+Router(config-if)# end<br />
+SOURCE CAN HAVE INTERFACE (E0/0) OR IP ADDRESS <br />
+DESTINATION CAN ONLY HAVE THE IP ADDRESS<br />
+THE TUNNEL SOURCE &amp; DESTINATION ADDRESSES COULD BE PUBLIC IP ADDRESSES IF IT IS THROUGH A WAN NETWORK. THEY ARE THE UNDERLAY IP ADDRESSES, WHICH TRANSFERS THE TRAFFIC OF THE OVERLAY<br />
+The Tunnel IP address (not source/destination) is the overlay IP network that is a extension/continuation of the network. An overlay of the hosts at other ends of Tunnel Router. Usually would be the PRIVATE addresses.</p>
+<h2>NAT</h2>
+<h3>Initializing</h3>
+<p>R1(config-if)# ip nat inside<br />
+R1(config-if)# ip nat outside</p>
+<h3>Dynamic NAT</h3>
+<p>R1(config)# access-list 1 permit 10.0.0.100 0.0.0.0<br />
+R1(config)# ip nat_pool MY_POOL 155.4.12.1 155.4.12.3 netmask 255.255.255.0<br />
+R1(config)# ip nat inside source list 1 pool MY_POOL</p>
+<h3>PAT</h3>
+<p>R1(config)# access-list 1 permit 10.0.0.100 0.0.0.0<br />
+R1(config)#ip nat inside source list 1 interface Gi0/1 overload<br />
+NOTE: A different port number will be on the IP address in that interface</p>
+<h3>ACCESS LISTS</h3>
+<h3>Standard</h3>
+<p>R1(config)#access-list 99 permit 192.168.1.128 0.0.0.15</p>
+<h3>Extended</h3>
+<p>R1(config)#access-list 101 remark MY_ACCESS_LIST<br />
+R1(config)#access-list 101 deny ip host 10.1.1.1 host 10.2.2.2<br />
+R1(config)#access-list 101 deny tcp 10.1.1.0 0.0.0.255 any eq 23<br />
+R1(config)#access-list 101 deny icmp 10.1.1.1 0.0.0.0 any<br />
+Extended ACL number ranges: 100  199 and 2000  2699.</p>
+<h3>R1(config)# ip access-list standard MY_STANDARD_ACL</h3>
+<p>R1(config-std-nacl)# permit 10.1.1.0 0.0.0.255<br />
+R1(config-std-nacl)# deny 10.2.2.2<br />
+R1(config-std-nacl)# permit any</p>
+<h3>Named</h3>
+<h3>Assign</h3>
+<p>R1(config-if)# ip access-group MY_STANDARD_ACL out</p>
+<h3>BASIC</h3>
+<h3>Passwords</h3>
+<p>(config)# enable hostname cisco<br />
+Rl(config)#line con 0<br />
+Rl(config-line)#password cisco<br />
+Rl(config-line)#login</p>
+<h3>Username</h3>
+<p>R1(config)#username GOON_NAME privilege 15 password GOON_PASSWORD<br />
+Privilege is optional</p>
+<h2>CDP</h2>
+<h3>Everywhere</h3>
+<p>SW1(config)#cdp run</p>
+<h3>Interface</h3>
+<p>SW1(config-if)#no cdp enable</p>
+<h3>Troubleshooting</h3>
+<p>SW1#show cdp neighbors<br />
+SW1#show cdp neighbors detail<br />
+SW1#show cdp entry *
+SW1#show cdp entry SW1</p>
+<h2>DHCP</h2>
+<p>R1(config)#ip dhcp pool MY_POOL<br />
+R1(dhcp-config)#network 192.168.1.0 255.255.255.0 <br />
+R1(dhcp-config)#default-router 192.168.1.1<br />
+R1(dhcp-config)#dns-server 213.131.65.20 8.8.8.8<br />
+R1(dhcp-config)#lease 2 (OPTIONAL AND IN DAYS)<br />
+R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.100<br />
+R1(config)#ip dhcp excluded-address 192.168.1.200 192.168.1.254</p>
+<h2>EIGRP</h2>
+<h3>Simple</h3>
+<p>R1(config)# router eigrp 1<br />
+R1(config-router)# network 192.168.1.0 0.0.0.255<br />
+R1(config-router)# no auto-summary</p>
+<h3>Metric Weights</h3>
+<p>Router(config-router)# metric weights 0 1 1 1 0 0 <br />
+Negate values completley from metric</p>
+<h3>Bandwidth</h3>
+<p>R1(config)# int s0/0<br />
+R1(config-if)# bandwidth 64<br />
+R1(config-if)# ip bandwidth-percent eigrp 10 30 <br />
+R1(config-if)# delay 10000 </p>
+<h3>Passive-Interface</h3>
+<p>R1(config-router)# passive-interface s0 </p>
+<h3>Summary-Address</h3>
+<p>RouterA(config-if)# ip summary-address eigrp 10 66.0.0.0 255.0.0.0 </p>
+<h3>Authentication</h3>
+<p>R1(config)# key chain MYCHAIN<br />
+R1(config-keychain)# key 1<br />
+R1(config-keychain-key)# key-string MYPASSWORD<br />
+R1(config-if)# ip authentication key-chain eigrp 10 MYCHAIN</p>
+<h3>Equal-Cost</h3>
+<p>R1(config)# router eigrp 10<br />
+R1(config-router)# variance 2<br />
+R1(config-router)# maximum-paths 6</p>
+<h3>Stub</h3>
+<p>R1(config)# router eigrp 10<br />
+R1(config-router)# eigrp stub connected|receive-only|connected|static|summary</p>
+<h3>Troubleshooting</h3>
+<p>show ip eigrp topology (all-links)<br />
+show ip eigrp traffic<br />
+show ip eigrp neighbor</p>
+<h2>OSPF</h2>
+<h3>Simple</h3>
+<p>R1(config)# router ospf 1<br />
+R1(config-router)# network 172.16.1.2 0.0.0.0 area 1<br />
+R1(config-router)# network 172.17.1.1 0.0.0.0 area 0</p>
+<h3>Timers</h3>
+<p>R1(config-if)# ip ospf hello-interval 15<br />
+R1(config-if)# ip ospf dead-interval 60 </p>
+<h3>Metrics</h3>
+<p>(config-if)# bandwidth 64<br />
+(config-if)#ip ospf cost 5<br />
+(config-if)# ospf auto-cost reference-bandwidth 100</p>
+<h3>Passive-Interface</h3>
+<p>R1(config-router)# passive-interface default<br />
+R1(config-router)# no passive-interface e0</p>
+<h3>Virtual Link</h3>
+<p>R1(config-router)# area 1 virtual-link 3.3.3.3 </p>
+<h3>Summary</h3>
+<p>R1(config-router)# area 1 range 10.1.0.0 255.255.248.0 <br />
+External<br />
+Redistribution<br />
+R1(config-router)# summary-address 15.0.0.0 255.252.0.0 <br />
+Internal<br />
+Redistribution<br />
+R1(config-router)# area 1 range 10.1.0.0 255.255.248.0 </p>
+<h3>Stub</h3>
+<p>R1(config-router)# area 1 stub<br />
+R1(config-router)# area 1 stub no-summary<br />
+R1(config-router)# area 1 nssa<br />
+R1(config-router)# area 1 nssa no-summary<br />
+Aside: Stub puts in 0.0.0.0 route IN routint table. Totally Stub doesn't even have that in routing table, as it's just gateway of last resort.</p>
+<h3>Default Originate</h3>
+<p>R1(config-router)# default-information originate <br />
+R1(config-router)# default-information originate always<br />
+(FORCES THE ISSUE if no route already exists)</p>
+<h3>Troubleshooting</h3>
+<p>R1# show ip ospf database<br />
+R1# show ip ospf<br />
+R1# show ip protocols<br />
+R1# show ip ospf neighbors<br />
+R1# show ip ospf 1<br />
+R1# show ip ospf interface e0<br />
+R1# show ip ospf process<br />
+R1# show ip ospf virtual-links<br />
+R1# show ip ospf border-routers</p>
+<h2>BGP</h2>
+<h3>Simple</h3>
+<p>RouterB(config)# router bgp 100<br />
+RouterB(config-router)# neighbor 172.16.1.2 remote-as 900<br />
+RouterB(config-router)# neighbor 172.16.1.2 update-source lo0<br />
+RouterC(config-router)# neighbor 172.16.1.2 ebgp-multihop 2<br />
+RouterB(config-router)# neighbor 172.16.1.2 password GOON<br />
+RouterB(config-router)# timers bgp 30 90 <br />
+RouterB(config-router)# neighbor 172.16.1.2 timers 30 90 </p>
+<h3>Address Family (MP-BGP)</h3>
+<p>router bgp 100<br />
+no synchronization<br />
+bgp log-neighbor-changes<br />
+neighbor 4 4.4.4 remote-as 100<br />
+neighbor 4.4.4.4 update-source lo0<br />
+address-family vpnv4<br />
+neighbor 4.4.4.4 activate<br />
+neighbor 4.4.4.4 send-community extended<br />
+address-family ipv4 VRF goon<br />
+neighbor 4.4.4.4 activate<br />
+neighbor 4.4.4.4 remote-as 10</p>
+<h3>Synchronization</h3>
+<p>R1(config-rou)#no synchronization<br />
+Synchronization is default. This means that route inside of iBGP should be present in routing tables in the path, so it knows how to get to route advertized in BGP along path.</p>
+<h3>Route Reflector</h3>
+<p>R1(config-router)# neighbor 10.2.1.2 route-reflector-client</p>
+<h3>Confederation</h3>
+<p>R1(config-router)# bgp confederation identifier 300<br />
+R1(config-router)# bgp confederation peer 777</p>
+<h3>Peer Group</h3>
+<p>R1(config)# router bgp 200<br />
+R1(config-router)# neighbor GOON_PEER_GROUP peer-group<br />
+R1(config-router)# neighbor GOON_PEER_GROUP remote-as 200<br />
+R1(config-router)# neighbor GOON_PEER_GROUP ebgp-multihop 2<br />
+R1(config-router)# neighbor GOON_PEER_GROUP update-source lo0<br />
+R1(config-router)# neighbor GOON_PEER_GROUP route-reflector-client<br />
+R1(config-router)# neighbor 10.10.1.1 peer-group GOON_PEER_GROUP<br />
+R1(config-router)# neighbor 10.10.2.2 peer-group GOON_PEER_GROUP<br />
+R1(config-router)# neighbor 10.10.3.3 peer-group GOON_PEER_GROUP </p>
+<h3>Weight</h3>
+<p>R1(config)# neighbor 10.1.1.2 R1 200<br />
+-OR- <br />
+R1(config)# ip prefix-list GOON_PREFIX_LIWT 192.168.1.0/24<br />
+R1(config)# route-map GOON_ROUTE_MAP_R1 permit 10<br />
+R1(config-route-map)# match ip address prefix-list GOON_PREFIX_R1<br />
+R1(config-route-map)# set R1 200<br />
+R1(config-route-map)# route-map GOON_ROUTE_MAP_R1 permit 20<br />
+R1(config)# router bgp 100<br />
+R1(config)# neighbor 10.1.1.2 route-map GOON_ROUTE_MAP_R1 in </p>
+<h3>Local Preference</h3>
+<p>RouterD(config-router)# bgp default local-GOON_ROUTE_MAP_PREFERENCE 300 <br />
+RouterD(config)# ip prefix-list GOON_PREFIX_LIST 192.168.1.0/24<br />
+RouterD(config)# route-map GOON_ROUTE_MAP_PREFERENCE permit 10<br />
+RouterD(config-route-map)# match ip address prefix-list GOON_PREFIX_LIST<br />
+RouterD(config-route-map)# set local-preference 300<br />
+RouterD(config)# router bgp 10<br />
+RouterD(config)# neighbor 172.17.1.2 route-map GOON_ROUTE_MAP_PREFERENCE in</p>
+<h3>MED</h3>
+<p>R1(config)# access-list 5 permit 10.5.0.0 0.0.255.255<br />
+R1(config)# route-map GOON_RM_MED permit 10<br />
+R1(config-route-map)# match ip address 5<br />
+R1(config-route-map)# set metric 200<br />
+R1(config)# router bgp 100<br />
+R1(config-router)# neighbor 172.16.1.2 route-map GOON_RM_MED out<br />
+NOTE: Note the "out" in metric, instead of "in" with weight &amp; local preference<br />
+R1(config-router)# bgp always-compare-med<br />
+R1(config-router)# bgp deterministic-med</p>
+<h3>Communities</h3>
+<p>R1(config)# access-list 5 permit 10.5.0.0 0.0.255.255<br />
+R1(config)# route-map RM_COMMUNITY permit 10<br />
+R1(config-route-map)# match ip address 5<br />
+R1(config-route-map)# set community no-export|no-advertise|internet|local-as<br />
+R1(config)# route-map RM_COMMUNITY permit 20<br />
+R1(config)# router bgp 100<br />
+R1(config-router)# neighbor 172.16.1.2 send-community<br />
+R1(config-router)# neighbor 172.16.1.2 route-map RM_COMMUNITY out</p>
+<h3>Summarization</h3>
+<p>REDISTRIBUTED routes in BGP are automatically summarized.<br />
+R1(config-R1)# no auto-summary<br />
+R1(config-R1)# aggregate-address 172.16.0.0 255.255.252.0<br />
+R1(config-R1)# aggregate-address 172.16.0.0 255.255.252.0 summary-only </p>
+<h3>Dampening</h3>
+<h1>Route Map under relevent prefix</h1>
+<p>Router(config-route-map)# set dampening 15 750 2000 60 <br />
+Router(config-router)# bgp dampening route-map MYMAP </p>
+<h3>Next Hop Self</h3>
+<p>R1(config-router)# neighbor 10.2.1.2 next-hop-self </p>
+<h3>Distance</h3>
+<p>Router(config-router)# distance bgp 150 210 210<br />
+-OR-<br />
+Router(config-router)# network 10.5.0.0 mask 255.255.0.0 backdoor <br />
+(Changes distance from 20 to 200)</p>
+<h3>Maximum Prefixes</h3>
+<p>Router(config-router)# neighbor 10.1.1.1 maximum-prefix 10000</p>
+<h3>Reset</h3>
+<p>R1# clear ip bgp *
+R1# clear ip bgp * soft</p>
+<h3>Troubleshooting</h3>
+<p>Router# show ip bgp<br />
+Router# show ip bgp summary</p>
+<h2>QoS</h2>
+<h3>Class-Map</h3>
+<p>R1(config)# class-map match-any HICLASS<br />
+R1(config-cmap)# match input-interface fastethernet0/0<br />
+R1(config-cmap)# match ip precedence 4<br />
+R1(config-cmap)# match ip dscp af21<br />
+R1(config-cmap)# match any </p>
+<h3>Policy-Map</h3>
+<p>R1(config)# policy-map THEPOLICY<br />
+R1(config-pmap)# class LOWCLASS<br />
+R1(config-pmap-c)# set ip precedence 1<br />
+R1(config-pmap-c)# bandwidth 64<br />
+R1(config-pmap-c)# queue-limit 40<br />
+R1(config-pmap-c)# random-detect </p>
+<h3>Service-Policy</h3>
+<p>R1(config)# int fa0/0<br />
+R1(config-if)# service-policy input THEPOLICY</p>
+<h3>Troubleshooting</h3>
+<p>show class-map<br />
+show policy-map<br />
+show policy-map interface fastethernet0/1 </p>
+<h2>MPLS</h2>
+<h3>JUNIPER</h3>
+<p>ping<br />
+traceroute<br />
+show system uptime<br />
+show cassis environment<br />
+show cli history<br />
+show system statistics<br />
+show log<br />
+show system processes<br />
+show configuration<br />
+request support information<br />
+show system users<br />
+show version<br />
+shwo arp<br />
+show interfaces<br />
+show interfaces detail<br />
+show interfacs extensive<br />
+show interfaces terse<br />
+show route<br />
+show route summary<br />
+show policy<br />
+show system connectionsclear interface statistics<br />
+clear arp<br />
+show route protocol bgp<br />
+show route community<br />
+show<br />
+route damping decayed<br />
+show bgp neighbor<br />
+show route advertising-protocol bgp<br />
+address<br />
+show route receive-protocol bgp address<br />
+show bgp group<br />
+show route aspath-regex<br />
+show bgp summary<br />
+clear bgp neighbor<br />
+clear bgp damping<br />
+show ospf database<br />
+show ospf interface<br />
+show neighbor</p>
+<h2>Layer 2 Security</h2>
+<h3>DHCP Snooping</h3>
+<p>Run<br />
+Switch(config)# ip dhcp snooping vlan 1<br />
+Troubleshooting<br />
+Router(config)# show ip dhcp snooping database|binding|statistics<br />
+-OR-<br />
+Router(config)# show ip source binding</p>
+<h3>Dynamic ARP Inspection</h3>
+<p>Run<br />
+Router(config)#) ip arp inspection vlan 1<br />
+Router(config-if)# ip arp inspection trust<br />
+Troubleshooting<br />
+Router#show ip arp inspection interfaces<br />
+Router#show ip arp inspection vlan<br />
+Router#show arp access-list</p>
+<h3>IP Source Guard</h3>
+<p>Run<br />
+Router(config-if)# ip verify source</p>
+<h2>VRF</h2>
+<h3>Simple</h3>
+<p>Router(config)# ip vrf customer_a<br />
+Router(config-vrf)# rd 1:1<br />
+Router(config-vrf)# route-target export|import|both 1:1<br />
+Router(config)# interface fastEthernet 0.1<br />
+Router(config-subif)# ip vrf forwarding customer_a</p>
+<h2>MPLS</h2>
+<h3>Run CEF</h3>
+<p>Start CEF<br />
+-GLOBAL-<br />
+Router(config)# ip cef<br />
+Router(config)# interface serial0/0<br />
+-OR IN INTERFACE-<br />
+Router(config-if)# ip route-cache cef</p>
+<h3>Initalize</h3>
+<p>Router(config)# interface serial0/0<br />
+Router(config-if)# mpls ip<br />
+-OPTIONAL-<br />
+Router(config-if)# mpls label protocol ldp|tdp|both<br />
+-DEFAULT IS TDP-</p>
+<h3>MTU</h3>
+<p>Router(config-if)# mpls mtu 1504 <br />
+(4 extra bytes, 32 extra bits for each label)</p>
+<h3>Range</h3>
+<p>Switch(config)# mpls label range 200 4000</p>
+<h3>Restart</h3>
+<p>Router(config)# mpls ldp graceful-restart</p>
+<h3>Troubleshooting</h3>
+<p>R1# show mpls ldp binding<br />
+-Not used much, this is the RIB equivalent to CEF-<br />
+R1# show mpls ldp neighbor<br />
+R1# show mpls interface<br />
+R1# show mpls forwarding-table<br />
+-Shows labels &amp; interfaces. Has detail option-</p>
+<h3>Multicast</h3>
+<h3>Activate</h3>
+<p>S1(config)# ip multicast-routing </p>
+<h3>IGMP</h3>
+<p>S1(config-if)# ip igmp join-group 226.1.5.10</p>
+<h3>RP</h3>
+<p>S1(config)# ip pim rp-address 192.168.1.1 </p>
+<h3>Candidate RP</h3>
+<p>S1(config)# ip pim rp-candidate 4.4.4.4<br />
+S1(config)# ip pim bsr-candidate 4.4.4.4</p>
+<h3>Mapping Agent</h3>
+<p>S1(config)# ip pim send-rp-discovery scope 10</p>
+<h3>Sparse Mode</h3>
+<p>S1(config-if)# ip pim sparse-mode </p>
+<h3>Filter Sources</h3>
+<p>R1# ip pim accept-register {list GOON_STANDARD_ACL | route-map GOON_RM_FILTER_SOURCE}</p>
+<h3>PIM Query Interval</h3>
+<p>R1(config-if)# ip pim query-interval 1<br />
+1 is in minutes<br />
+has msec option if under a second</p>
+<h3>Troubleshooting</h3>
+<p>R1# show ip mroute<br />
+R1# show ip mroute 224.0.0.1</p>
+<h3>Route Map</h3>
+<h3>Match</h3>
+<p>R1(config)# route-map MYMAP permit 10<br />
+R1(config-route-map)# match ip address 1<br />
+R1(config-route-map)# match interface serial0/0<br />
+R1(config-route-map)# match ip address prefix-list MYLIST<br />
+R1(config-route-map)# match ip next-hop 192.168.1.2<br />
+R1(config-route-map)# match metric 40<br />
+R1(config-route-map)# match route-type internal<br />
+R1(config-route-map)# match tag 33<br />
+R1(config-route-map)# match community 123</p>
+<h3>Set</h3>
+<p>R1(config)# route-map MYMAP permit 10<br />
+R1(config-route-map)# set interface fastethernet0/1<br />
+R1(config-route-map)# set ip next-hop 10.1.1.1<br />
+R1(config-route-map)# set metric 200<br />
+R1(config-route-map)# set tag 44<br />
+R1(config-route-map)# set community 321<br />
+R1(config-route-map)# set local-preference 250<br />
+R1(config-route-map)# set weight 300<br />
+R1(config-route-map)# set ip precedence 2</p>
+<h3>Prefix List</h3>
+<p>Router(config)# ip prefix-list MYLIST 10.1.1.0/24 ge 26 le 30 </p>
+<h2>Route Redistribution</h2>
+<h3>RIP</h3>
+<p>R1(config)# router rip<br />
+R1(config-router)# network 172.16.0.0<br />
+R1(config-router)# redistribute igrp 10 metric 2 </p>
+<h3>EIGRP</h3>
+<p>R1(config)# router eigrp 15<br />
+R1(config-router)# redistribute ospf 20 metric 10000 1000 255 1 1500<br />
+R1(config)# router eigrp 15<br />
+R1(config-router)# redistribute ospf 20<br />
+R1(config-router)# default-metric 10000 1000 255 1 1500</p>
+<h3>OSPF</h3>
+<p>R1(config)# router ospf 20<br />
+R1(config-router)# redistribute eigrp 15 subnets metric-type 1 </p>
+<h3>Tagging</h3>
+<h1>Route Tag matches on routes</h1>
+<p>RouterC(config-route-map)# set tag 44<br />
+RouterC(config)# redistribute ospf 20 route-map GOON_RM_TAG</p>
+<h3>Switch Security</h3>
+<h3>Arp Inspection</h3>
+<p>Global<br />
+Switch(config)# ip arp inspection vlan 100 <br />
+Interface<br />
+Switch(config-if)# ip arp inspection trust<br />
+Static MAC-To-IP<br />
+Switch(config)# arp access-list DAI_LIST<br />
+Switch(config-acl)# permit ip host 10.1.1.5 mac host 000a.1111.2222<br />
+Switch(config-acl)# permit ip host 10.1.1.6 mac host 000b.3333.4444<br />
+Switch(config)# ip arp inspection filter DAI_LIST vlan 100 </p>
+<h3>Max</h3>
+<h3>SPAN</h3>
+<h3>Source</h3>
+<p>Each listen to different parts of the Interfaces, can be placed independently (outbound/inbount)<br />
+Switch(config)# monitor session 1 source interface gi0/10 rx<br />
+Switch(config)# monitor session 1 source interface gi0/11 tx<br />
+Switch(config)# monitor session 1 source vlan 100 both </p>
+<h3>Filter</h3>
+<p>Switch(config)# monitor session 1 filter vlan 1-5</p>
+<h3>Destination</h3>
+<p>Switch(config)# monitor session 1 destination interface gi0/15 </p>
+<h3>Troubleshooting</h3>
+<p>show monitor session 1 </p>
+<h3>RSPAN</h3>
+<p>IN SOURCE</p>
+<h3>SwitchA(config)# monitor session 1 source interface gi0/10</h3>
+<p>SwitchA(config)# monitor session 1 destination vlan 200</p>
+<h3>IN DESTINATION</h3>
+<h3>SwitchC(config)# monitor session 1 source vlan 200</h3>
+<p>SwitchC(config)# monitor session 1 destination interface gi0/11</p>
+<h3>FHRP</h3>
+<h3>HSRP</h3>
+<p>SwitchA(config)# interface vlan 100<br />
+SwitchA(config-if)# ip address 10.1.1.2 255.255.255.0<br />
+SwitchA(config-if)# standby 1 ip 10.1.1.1<br />
+SwitchB(config-if)# standby 1 ip 10.1.1.5 secondary<br />
+SwitchB(config-if)# standby 1 preempt<br />
+SwitchB(config-if)# standby 1 preempt delay 10 <br />
+Switch(config-if)# standby 1 preempt reload 20 <br />
+SW1(config-if)# standby 1 timers 4 12<br />
+SW1(config-if)# standby 1 timers msec 800 msec 2400 <br />
+SW1(config)#standby 1 track gi2/23 60 </p>
+<h3>VRRP</h3>
+<p>SW1(config)# interface vlan 100<br />
+SW1(config-if)# ip address 10.1.1.3 255.255.255.0<br />
+SW1(config-if)# vrrp 1 priority 150<br />
+SW1(config-if)# vrrp 1 authentication STAYOUT<br />
+SW1(config-if)# vrrp 1 ip 10.1.1.1 <br />
+Note: Preemption is VRRP default</p>
+<h3>GLBP</h3>
+<p>SW1(config)# interface gi2/22<br />
+SW1(config-if)# glbp 1 priority 150<br />
+SW1(config-if)# glbp 1 preempt<br />
+SW1(config-if)# glbp 1 ip 10.1.1.1 <br />
+SwitchB(config-if)# glbp 1 weighting 150<br />
+SwitchB(config-if)# glbp 1 weighting track 10 decrement 65 <br />
+SwitchB(config-if)# glbp 1 weighting 150 lower 90 upper 125 <br />
+SwitchB(config-if)# glbp 1 load-balancing round-robin|weighted|host-dependent</p>
+<h3>Troubleshooting</h3>
+<p>show standby<br />
+show vrrp<br />
+show glbp</p>
+<h3>Ether-Channel</h3>
+<h3>Load Balancing</h3>
+<p>Router(config)# port-channel load-balance src-dst-ip<br />
+src-dst-mac, src-dst-port, src-ip, src-mac, src-port are other options</p>
+<h3>LACP</h3>
+<p>SW1(config)# interface range gi2/23  24<br />
+SW1(config-if)# channel-protocol lacp<br />
+SW1(config-if)# channel-group 1 mode active<br />
+SW1(config-if)# channel-group 1 mode passive </p>
+<h3>Pagp</h3>
+<p>SW1(config)# interface range gi2/23  24<br />
+SW1(config-if)# channel-protocol pagp<br />
+SW1(config-if)# channel-group 1 mode desirable<br />
+SW1(config-if)# channel-group 1 mode auto</p>
+<h3>Port Priority</h3>
+<p>Switch(config)# interface range gi2/23  24<br />
+Switch(config-if)# lacp port-priority 100</p>
+<h3>Troubleshooting</h3>
+<p>Switch# show etherchannel summary </p>
+<h3>L3 EtherChannel</h3>
+<p>Router(config)# interface range fastethernet 5/6 -7<br />
+Router(config-if)# channel-group 2 mode desirable</p>
+<h3>Port Security</h3>
+<h3>Commands</h3>
+<p>SW1(config-if)#switchport port-security<br />
+SW1(config-if)#switchport port-security mac-address sticky<br />
+SW1(config-if)#switchport port-security maximum 1<br />
+SW1(config-if)#switchport port-security violation shutdown</p>
+<h3>Troubleshooting</h3>
+<p>show port-security interface f0/6</p>
+<h2>VLANs</h2>
+<h3>Access</h3>
+<p>SW1(config-if)# switchport mode access</p>
+<h3>Trunk</h3>
+<p>SW1(config-if)# switchport mode trunk <br />
+SW1(config-if)# switchport trunk allowed vlan add 10,11,12<br />
+"Add" could be substituted with Except|Remove.<br />
+Except means ALL Vlans except the list<br />
+Remove will remove from existing list</p>
+<h3>SLA</h3>
+<h3>Simple</h3>
+<p>Router(config)#ip sla auto template type ip icmp-jitter 1<br />
+Router(config-tplt-icmp-jtr)#parameters<br />
+Router(config-icmp-jtr-params)#interval 30<br />
+Router(config-icmp-jtr-params)#end</p>
+<h3>Scheduled</h3>
+<p>ip sla 99<br />
+udp-jitter 172.29.139.134 dest-port 5000 num-packets 20<br />
+!<br />
+ip sla schedule 99 life 300 start-time after 00:05:00</p>
+<h3>STP</h3>
+<h3>Root Bridge</h3>
+<p>SW1(config)#spanning-tree vlan 1 root primary<br />
+SW1(config)#spanning-tree vlan 1 root secondary<br />
+SW1(config)#spanning-tree [vlan 1] priority 8192</p>
+<h3>Mode</h3>
+<p>SW1(config)#spanning-tree mode rapid-pvst (options: mst, pvst, rapid-pvst)</p>
+<h3>MST</h3>
+<p>SW1#spanning-tree mst configuration<br />
+SW1#name MYMSTNAME<br />
+SW1#revision 2<br />
+SW1#instance 2 vlan 1-100<br />
+SW1#instance 3 vlan 101-200</p>
+<h3>Optimizaitons</h3>
+<p>SW1(config-if)#spanning-tree portfast<br />
+SW1(config-if)#spanning-tree bpduguard enable<br />
+SW1(config-if)#spanning-tree bpdufilter enable <br />
+SW1(config-if)#spanning-tree guard root <br />
+SW1(config-if)#spanning-tree guard loop </p>
+<h3>CONFIG MODE:</h3>
+<p>SW1(config)#spanning-tree loopguard default<br />
+SW1(config)#spanning-tree portfast bpduguard default<br />
+SW1(config)#spanning-tree portfast bpdufilter default<br />
+SwitchD(config)# spanning-tree portfast default <br />
+Uplink Fast only in config mode:<br />
+Switch(config)# spanning-tree uplinkfast<br />
+Switch(config)# spanning-tree backbonefast<br />
+(Backbone Fast)<br />
+Switch(config)# spanning-tree backbonefast<br />
+(BPDUFilter)<br />
+SW1(config)#spanning-tree portfast bpdufilter default<br />
+SW1(config-if)#spanning-tree bpdufilter enable <br />
+(BPDUGuard)<br />
+SW1(config)#spanning-tree portfast bpduguard default<br />
+SW1(config-if)#spanning-tree bpduguard enable<br />
+(Loop Guard)<br />
+SW1(config)#spanning-tree loopguard default<br />
+SW1(config-if)# spanning-tree guard loop<br />
+(Root Guard)<br />
+Switch(config-if)# spanning-tree guard root <br />
+(Portfast)<br />
+SwitchD(config)# spanning-tree portfast default <br />
+SW1(config-if)#spanning-tree portfast<br />
+(UplinkFast)<br />
+SW1(config)# spanning-tree uplinkfast</p>
+<h3>Troubleshooting</h3>
+<p>SW1#show spanning-tree<br />
+SW1#show spanning-tree interface gi2/24 </p>
+    </div>
+    <script>
+        // GLOW TRAIL
+        function glow_trail_function(a) {
+            a.glow = 40;
+            a.rate = .25;
+            milliseconds = 20;
+            foreground_color = document.documentElement.style.getPropertyValue('--foreground');;
+            var glow_trail = setInterval(() => {
+                a.glow -= a.rate;
+                // easing
+                if (a.glow > 5 && a.glow < 10) {
+                    a.rate = .25;
+                }
+                else if (a.glow < 5) {
+                    a.rate = .4;
+                }
+                a.style.textShadow = `0px 0px ${a.glow}px ${foreground_color}, 0px 0px ${a.glow}px ${foreground_color}`;
+                if (a.glow <= 0) {
+                    a.style.textShadow = ``;
+                    clearInterval(glow_trail);
+                }
+            }, milliseconds);
+        }
+        project_content_links = document.querySelectorAll('.projects_content a');
+        for (const a of project_content_links) {
+            a.addEventListener('mouseenter', () => {
+                glow_trail_function(a);
+            });
+            a.addEventListener('touchstart', () => {
+                glow_trail_function(a);
+            });
+        }
+
+        // CSS
+        commodore_64 = { "--background": "#3a1f7d", "--foreground": "#8474db", "--left-column-width": "325px", "--font": "commodore", "--left-font-size": "12px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 0px var(--foreground)" };
+        ibm_node_3270 = { "--background": "#121f18", "--foreground": "#25ff93", "--left-column-width": "250px", "--font": "ibm3270", "--left-font-size": "17px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 4px var(--foreground)"  }
+        //initialize values
+        //initialize at ibm 3270
+        function set_css_variables(node_json)
+        {
+            for (key in node_json) {
+                value = node_json[key];
+                document.documentElement.style.setProperty(key, value);
+            }
+        }
+        set_css_variables(ibm_node_3270);
+        //RADIO BUTTON
+        main_css_sheet = document.querySelector("#main_css_sheet");
+        css_radio_boxes_input = document.querySelectorAll(".css_radio_boxes_div input");
+        for (const radio_input of css_radio_boxes_input ) {
+            radio_input.addEventListener('click', e => {
+                chosen_value = radio_input.value
+                if(chosen_value == "IBM 3270")
+                {
+                    set_css_variables(ibm_node_3270);
+                }
+                else if(chosen_value == "Commodore 64")
+                {
+                    set_css_variables(commodore_64);
+                }
+            });    
+        }
+        
+        
+    </script>
+</body>
+
+</html>
