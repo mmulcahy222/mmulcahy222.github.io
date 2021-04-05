@@ -15,8 +15,9 @@
             <a href="#cloud_computing">3. Cloud Computing</a>
             <a href="#cloud_networking">4. Cloud Networking</a>
             <a href="#software_engineering">5. Software Engineering</a>
-            <a href="#configuration">6. Configuration</a>
-            <a href="#assembly">7. Assembly</a>
+            <a href="#microsoft">6. Microsoft</a>
+            <a href="#configuration">7. Configuration</a>
+            <a href="#assembly">8. Assembly</a>
         </div>
         <div class="css_radio_boxes_div">
             <div>
@@ -30,7 +31,7 @@
         </div>
     </div>
     <div class="right">
-        <h1><h1 id="cisco_routing">Cisco Routing Information</h1></h1>
+        <h1><h1 id="cisco_routing">Cisco Routing</h1></h1>
 <h2>Tables</h2>
 <table>
 <thead>
@@ -1344,6 +1345,373 @@ An entity representing the propogation itself within the cloud. Usually propogat
 <p>A transit virtual interface should be used to access one or more Amazon VPC Transit Gateways associated with Direct Connect gateways. You can use transit virtual interfaces with 1/2/5/10 Gbps AWS Direct Connect connections. For information about Direct Connect gateway configurations, see Direct Connect gateways.<br />
 These interfaces go from the Customer Router in the CRF Colocation onto the VGW or Direct Connect Gateway.<br />
 These seem like Subinterfaces that have a VLAN tag</p>
+<h1><h1 id="microsoft">Microsoft</h1></h1>
+<table>
+<thead>
+<tr>
+<th>Active Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objects</td>
+<td>Certificate Template</td>
+</tr>
+<tr>
+<td>Computers</td>
+<td></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td></td>
+</tr>
+<tr>
+<td>Contact</td>
+<td></td>
+</tr>
+<tr>
+<td>Containers</td>
+<td></td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>A domain is a group of users, computers and other resources that are accessed and monitored with a certain set of rules.</td>
+</tr>
+<tr>
+<td>Domain Controller</td>
+<td>A domain controller (DC) maintains the policies and provides the authentication to the users of the domain. Every domain functions as a boundary for policies, authentication and authorization.</td>
+</tr>
+<tr>
+<td>Generic Object</td>
+<td></td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>You put a user in a group to control that user's access to resources.</td>
+</tr>
+<tr>
+<td>Group Policy Objects</td>
+<td></td>
+</tr>
+<tr>
+<td>IP Subnet</td>
+<td></td>
+</tr>
+<tr>
+<td>Licensing Site</td>
+<td></td>
+</tr>
+<tr>
+<td>Policy</td>
+<td></td>
+</tr>
+<tr>
+<td>Print Queue</td>
+<td></td>
+</tr>
+<tr>
+<td>Organizational Units</td>
+<td>Collectiom of AD leaf objects like users, computers, printers etc. </br> You put a user in an OU to control who has administrative authority over that user.</br> A Type of container</br> A user can only be in ONE Organizational Unit.. It's like a file to a folder, because OU's are like folders</br> Generally separated by departments like HR, Finance, Sales, etc</br> Group policies happen here (weirdly not in groups)</br></td>
+</tr>
+<tr>
+<td>Server</td>
+<td></td>
+</tr>
+<tr>
+<td>Site</td>
+<td></td>
+</tr>
+<tr>
+<td>Site LInk</td>
+<td></td>
+</tr>
+<tr>
+<td>Site Link Bridge</td>
+<td></td>
+</tr>
+<tr>
+<td>Tree</td>
+<td>A collection of Active Directory hierarchical domains in a contiguous namespace..</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>A relationship between domains that allows access by objects in one domain to resources in another.</td>
+</tr>
+<tr>
+<td>Users</td>
+<td></td>
+</tr>
+<tr>
+<td>Volume</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>VirtualAlloc</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lpvAddress</td>
+<td>Starting address in virtual memory. RESERVING it in Virtual Memory sends it to the next 64kb boundary. COMMITTING it in Physical Memory (after reserving) sends it to next page boundary, usually 4kb boundary. If it is NULL, the kernel decides where to put it (depending on the flag (dwAllocationType) reserving to virtual memory, or committing to physical RAM memory)</br></td>
+</tr>
+<tr>
+<td>dwSize</td>
+<td>Size of the region in bytes - If the lpAddress parameter is NULL, this value is rounded up to the next page boundary. Otherwise, the allocated pages include all pages containing one or more bytes in the range from lpAddress to lpAddress+dwSize.</td>
+</tr>
+<tr>
+<td>dwAllocationType</td>
+<td>MEM_RESERVE (0x00002000) = Virtual Memory to 64kb boundary </br> Many more like MEM_LARGE_PAGES and MEM_WRITE_WATCH in https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc</br> Commit = 5th bit is 1 from right, Reserve = 6th bit is 1 from right</br> MEM_COMMIT (0x00001000) = Reserve physical RAM to 4kb boundary </br> MEM_TOP_DOWN (0x00100000) = Allocates to highest possible address.</br> Many more like MEM_LARGE_PAGES and MEM_WRITE_WATCH in https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc</br> Commit = 5th bit is 1 from right, Reserve = 6th bit is 1 from right</br> dwProtect</br> Security in a dWord (32 bits) like PAGE_EXECUTE, PAGE_EXECUTE_READWRITE. Reminds me of chmod for a region of COMMITTED PAGES!!</br></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>VirtualAllocEx</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hProcess</td>
+<td>Process Handle to write in next 4</br>Next 4 parameters are those in VirtualAllocEx</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>WriteProcessMemory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hpProcess</td>
+<td>The Process where memory is to be written</td>
+</tr>
+<tr>
+<td>lpBaseAddress</td>
+<td>Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected</td>
+</tr>
+<tr>
+<td>lpBuffer</td>
+<td>The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress</td>
+</tr>
+<tr>
+<td>lpdwBytesWritten</td>
+<td>A pointer containing the amount of bytes that were successfully written (passed by reference). A number will come back. This can be NULL</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ReadProcessMemory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notes</td>
+<td>Identical to WrtiteProcessMemory (but for 2nd &amp; 3rd parameters)</td>
+</tr>
+<tr>
+<td>lpSource</td>
+<td>Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory</td>
+</tr>
+<tr>
+<td>lpDest</td>
+<td>Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Sentinel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incidents</td>
+</tr>
+<tr>
+<td>Dashboards</td>
+</tr>
+<tr>
+<td>User Analytics</td>
+</tr>
+<tr>
+<td>Hunting</td>
+</tr>
+<tr>
+<td>Notebooks</td>
+</tr>
+<tr>
+<td>Data Collection</td>
+</tr>
+<tr>
+<td>Analytics</td>
+</tr>
+<tr>
+<td>Playbooks</td>
+</tr>
+<tr>
+<td>Community</td>
+</tr>
+<tr>
+<td>Workspace</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Powershell</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commands</td>
+<td></td>
+</tr>
+<tr>
+<td>Get-Command</td>
+<td>get-command <em>process</em> will search all cmdlets for process</td>
+</tr>
+<tr>
+<td>Get-Process</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Get-ADUser</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Get-ItemProperty</td>
+<td>Get value from File or Registry</td>
+</tr>
+<tr>
+<td>Get-WMIObject</td>
+<td>Subtopic 1</td>
+</tr>
+<tr>
+<td>Select-Object</td>
+<td>Goes after Pipe to filter output</td>
+</tr>
+<tr>
+<td>Where-Object</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Win32 API Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Style Guide</td>
+</tr>
+<tr>
+<td>Win32 vs Win16</td>
+</tr>
+<tr>
+<td>Creating Windows</td>
+</tr>
+<tr>
+<td>Creating Windows Part 2</td>
+</tr>
+<tr>
+<td>Messages</td>
+</tr>
+<tr>
+<td>Menus</td>
+</tr>
+<tr>
+<td>Resources (Any kind of a file like Bitmap, Text, etc)</td>
+</tr>
+<tr>
+<td>Dialog Boxes (meaning boxes for Open File, Choose Color, Page Setup, Print Options)</td>
+</tr>
+<tr>
+<td>User Input Functions (Mouse, Keyboard)</td>
+</tr>
+<tr>
+<td>Scrollbars</td>
+</tr>
+<tr>
+<td>Memory Management</td>
+</tr>
+<tr>
+<td>Graphics Device Interface</td>
+</tr>
+<tr>
+<td>Bitmaps, Icons, Metafiles</td>
+</tr>
+<tr>
+<td>Printers &amp; Text Output</td>
+</tr>
+<tr>
+<td>Painting &amp; Drawing</td>
+</tr>
+<tr>
+<td>Palettes and Color Matching</td>
+</tr>
+<tr>
+<td>Files</td>
+</tr>
+<tr>
+<td>Clipboard</td>
+</tr>
+<tr>
+<td>Registry</td>
+</tr>
+<tr>
+<td>INI files</td>
+</tr>
+<tr>
+<td>System Information</td>
+</tr>
+<tr>
+<td>String Manipulation &amp; Unicode</td>
+</tr>
+<tr>
+<td>Atom Tables</td>
+</tr>
+<tr>
+<td>Timers (Sleep Functions)</td>
+</tr>
+<tr>
+<td>Processes, Threads, Fibers</td>
+</tr>
+<tr>
+<td>Error &amp; Exception Handling</td>
+</tr>
+<tr>
+<td>Multiple Document Interface</td>
+</tr>
+<tr>
+<td>Help Files</td>
+</tr>
+<tr>
+<td>File Decompression &amp; Vision</td>
+</tr>
+<tr>
+<td>DLL Files</td>
+</tr>
+</tbody>
+</table>
 <h1><h1 id="software_engineering" >Software Engineering</h1></h1>
 <h2>Tables</h2>
 <table>
@@ -1518,7 +1886,7 @@ These seem like Subinterfaces that have a VLAN tag</p>
 </tr>
 <tr>
 <td>Strategy</td>
-<td>Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrasts with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br> context = Context(ConcreteStrategyA())</br> print("Client: Strategy is set to normal sorting.")</br> context.do_some_business_logic()</br> print("Client: Strategy is set to reverse sorting.")</br> context.strategy = ConcreteStrategyB()</br> context.do_some_business_logic()</br></td>
+<td>Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrastsq with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br> context = Context(ConcreteStrategyA())</br> print("Client: Strategy is set to normal sorting.")</br> context.do_some_business_logic()</br> print("Client: Strategy is set to reverse sorting.")</br> context.strategy = ConcreteStrategyB()</br> context.do_some_business_logic()</br></td>
 </tr>
 <tr>
 <td>Template</td>
