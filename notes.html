@@ -657,6 +657,193 @@
 </tr>
 </tbody>
 </table>
+<h3>IPv4 Headers</h3>
+<table>
+<thead>
+<tr>
+<th>IPV4 Header Field</th>
+<th>Bits</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td>4</td>
+<td>IP packet type. Value "4" means it's IPV4</td>
+</tr>
+<tr>
+<td>Header Length</td>
+<td>4</td>
+<td>Header Length. Not the size of packet</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>8</td>
+<td>Differentiated Services Code Point. ECN (Explicit Congestion Notification) is the last 2 bits, depending of the use of ECN.</td>
+</tr>
+<tr>
+<td>Total Length</td>
+<td>16</td>
+<td>The entire size of the packet, including header &amp; data</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Identification</td>
+<td>16</td>
+<td>If a packet is framgmented, this will identify the fragments</td>
+</tr>
+<tr>
+<td>Flags</td>
+<td>3</td>
+<td>Bit 0 = Reserved as 0, Bit 1 = Don't Fragment (DF), Bit 2 = More Fragments (MF)</td>
+</tr>
+<tr>
+<td>Fragment Offset</td>
+<td>13</td>
+<td>Indicates number of data bytes preceeding or ahead of the fragment.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Time To Live</td>
+<td>8</td>
+<td>Time To Live</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>8</td>
+<td>IP has lots of protocols. Specifies if it's something like EIGRP, BGP, OSPF, VRRP. Obviously, 256 different possibiltities.</td>
+</tr>
+<tr>
+<td>Header Checksum</td>
+<td>16</td>
+<td>Error Checking a header.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Source Address</td>
+<td>32</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Destination Address</td>
+<td>32</td>
+<td></td>
+</tr>
+<tr>
+<td>### TCP Header</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TCP Header Field</td>
+<td>Bits</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Source Port</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>Destination Port</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sequence Number</td>
+<td>32</td>
+<td>Identifying a TCP Segment. This is the identifying number for SYN/ACKS &amp; Windowing</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Acknowledge Number</td>
+<td>32</td>
+<td>If the ACK flag is set then the value of this field is the next sequence number that the sender of the ACK is expecting. This acknowledges receipt of all prior bytes (if any). The first ACK sent by each end acknowledges the other end's initial sequence number itself, but no data.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Data Offset (TCP Header Length)</td>
+<td>4</td>
+<td>Header Length of TCP measured in Quadwords.</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>3</td>
+<td>Set this to zero</td>
+</tr>
+<tr>
+<td>Flags</td>
+<td>9</td>
+<td>NS - Not used much, Experimental to protect agaisnt malicious concealment from sender </br>CWR - Congestion Window Received</br>ECE - Allows Congestion Notification, depending on the SYN flag setting</br>URG - Urgent Pointer</br>ACK - Indicates that Acknowledge Pointer Field Is Significant</br>PSH - Push buffered data to the receiving application</br>RST - Reset Connection</br>SYN - Synchronize Sequence Numbers. Only the first packet sent from each end should have this flag set.</br>FIN - Last Packet from Sender</br></td>
+</tr>
+<tr>
+<td>Window Size</td>
+<td>16</td>
+<td>The size of the receive window, which specifies the number of window size units[c] that the sender of this segment is currently willing to receive.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Header Checksum</td>
+<td>16</td>
+<td>Error checking for integrity</td>
+</tr>
+<tr>
+<td>Urgent Pointer</td>
+<td>16</td>
+<td>If the URG flag is set, then this 16-bit field is an offset from the sequence number indicating the last urgent data byte.</td>
+</tr>
+<tr>
+<td>Options</td>
+<td>0-320</td>
+<td>More flags</td>
+</tr>
+<tr>
+<td>Padding</td>
+<td>32</td>
+<td>All zeroes indicating the packet had ended</td>
+</tr>
+</tbody>
+</table>
 <h2>Multicast</h2>
 <h3>Sparse Mode</h3>
 <h3>Config</h3>
@@ -1834,7 +2021,7 @@ These seem like Subinterfaces that have a VLAN tag</p>
 </tr>
 <tr>
 <td>Command</td>
-<td>Command objects abstract away the FUNCTION of an object. For example, the clicking mechanism of a button will not be in the button itself.</br> Think of HTTP Get Requests in a command pattern. Other "commands" are like Cut, Copy, Undo, Print, etc.</br> It kiiind of looks like the Builder class a little bit to me, but for one function, instead of 5-10+ with Builder</br> cut = function() { executeCommand(</br> new CutCommand(this, activeEditor)) }</br> cutButton.setCommand(cut)</br> shortcuts.onKeyPress("Ctrl+X", cut)</br> invoker = Invoker()</br> invoker.set_on_start(SimpleCommand("Say Hi!"))</br> receiver = Receiver()</br> invoker.set_on_finish(ComplexCommand(receiver, "Send email", "Save report"))</br> invoker.do_something_important()</br></td>
+<td>THE BEST WAY TO THINK OF THIS IS FOR TYPICAL CLASS FUNCTIONS TO BE THEIR OWN CLASSES. Then you pass in the command object into the class and call it's execute function. This allows functionality like UNDO</br></br>Command objects abstract away the FUNCTION of an object. For example, the clicking mechanism of a button will not be in the button itself.</br> Think of HTTP Get Requests in a command pattern. Other "commands" are like Cut, Copy, Undo, Print, etc.</br> It kiiind of looks like the Builder class a little bit to me, but for one function, instead of 5-10+ with Builder</br> cut = function() { executeCommand(</br> new CutCommand(this, activeEditor)) }</br> cutButton.setCommand(cut)</br> shortcuts.onKeyPress("Ctrl+X", cut)</br> invoker = Invoker()</br> invoker.set_on_start(SimpleCommand("Say Hi!"))</br> receiver = Receiver()</br> invoker.set_on_finish(ComplexCommand(receiver, "Send email", "Save report"))</br> invoker.do_something_important()</br></td>
 </tr>
 <tr>
 <td>Decorator</td>
