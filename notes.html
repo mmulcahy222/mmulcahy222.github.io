@@ -747,21 +747,18 @@
 <td>32</td>
 <td></td>
 </tr>
+</tbody>
+</table>
+<h3>TCP Header</h3>
+<table>
+<thead>
 <tr>
-<td>### TCP Header</td>
-<td></td>
-<td></td>
+<th>TCP Header Field</th>
+<th>Bits</th>
+<th>Description</th>
 </tr>
-<tr>
-<td>TCP Header Field</td>
-<td>Bits</td>
-<td>Description</td>
-</tr>
-<tr>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
+</thead>
+<tbody>
 <tr>
 <td>Source Port</td>
 <td>16</td>
@@ -895,14 +892,14 @@ To reiterate, in the source leaf switch, there is a destination MAC address entr
 <h3>MP-BGP/EVPN</h3>
 <p>Also called Head End Republication. <br />
 Not as good as multicast, only suitable generally for 20 switches.<br />
-Each EVPN message type can carry a different kind of information about the EVPN traffic flow. <br />
-In total there are about 5 different message types.<br />
-Type 2 is Layer 2 which is Mac and Mac/IP information. <br />
-EVPN = Address Family<br />
-L2VPN = Sub-Address Family of MAC Addresses<br />
 The MAC Address table to leaf switch look the same as multicast<br />
-BGP is used for both the underlay AND overlay. I believe the underlay is for knowing which VTEP/Leaf Switch is where, and OVERLAY is for the Mac Addressses (L2VPN). <br />
-It appears that for underlay BGP, the spine is the route reflector AND the leaves are the route reflector clients.</p>
+BGP is used for both the underlay AND overlay. I believe the underlay is for knowing which VTEP/Leaf Switch is where, and OVERLAY is for the Mac Addressses (L2VPN). </p>
+<h3>VXLAN Underlay BGP</h3>
+<p>For underlay BGP, the spine is the route reflector AND the leaves are the route reflector clients.<br />
+For underlay BGP, you will still have to run IGP like OSPF or IS-IS or EIGRP. BGP here may be for large amounts of routes &amp; networks for scaling. </p>
+<h3>VXLAN Overlay BGP</h3>
+<p>L2VPN = Address Family Identifier (25)<br />
+EVPN = Subsequent Address Family (70)</p>
 <h2>Cisco ASA</h2>
 <p>Active/Active failover is only available to ASAs in multiple context mode. In an Active/Active failover configuration, both ASAs can pass network traffic.</p>
 <h1><h1 id="cisco_switching">Cisco Switching Information</h1></h1>
@@ -1102,6 +1099,10 @@ Not only does it create a binding table, but it also has concept of trusted port
 Examples the DHCP Snooping Database with IP-MAC bindings to validate proper ARP packets<br />
 The switch checks the information found in the ARP request and compares it with the information in the DHCP snooping database<br />
 The aim for this is to prevent screwing with the ARP caches inside the networks. The ARP table links IP to MAC, and then the MAC address table finds the correct interface, so poisoning ARP table will send to wrong malicious interface.</p>
+<h1><h1 id="cisco_security">Cisco Security</h1></h1>
+<h3>Security Level</h3>
+<p>Like a waterfall, traffic from higher can go to lower security level. Traffic from lower security level cannot go into higher security level.<br />
+Internet</p>
 <h1><h1 id="cloud_computing">Cloud Computing</h1></h1>
 <h2>Tables</h2>
 <table>
@@ -2462,7 +2463,35 @@ export default class ReactForm extends Component {
 }
 </code></pre>
 <h3>Erlang</h3>
-<p>Erlang processes are lightweight, operate in (memory) isolation from other processes, and are scheduled by Erlang's Virtual Machine (VM). The creation time of process is very low, the memory footprint of a just spawned process is very small, and a single Erlang VM can have millions of processes running.</p>
+<p>Erlang processes are lightweight, operate in (memory) isolation from other processes, and are scheduled by Erlang's Virtual Machine (VM). The creation time of process is very low, the memory footprint of a just spawned process is very small, and a single Erlang VM can have millions of processes running.<br />
+Erlang processes are sfmall C structs that boucne around between scheduler threads and carry enough internal information to allow interpretation for a fixed number of instrucitons. There's no concept of shared memory in Erlang/Elixir: communication between different concurrent actors in the system must happen via message passing.</p>
+<h3>Algorithms</h3>
+<table>
+<thead>
+<tr>
+<th>Algorithms</th>
+<th>N-Time</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merge Sort</td>
+<td>N-Log(N)</td>
+<td>Divide array into two parts</br>Keep on going until everything is "Size 1"</br>Put everything back together by sorting back exponentially by two, by comparing the value of sorted array to an adjecent "chunk"'s value</td>
+</tr>
+<tr>
+<td>Quick Sort</td>
+<td>N-Log(N)</td>
+<td>It is very similar to Merge Sort, however, it's not dividing by TWO. It's picking a value called a pivot. Pivot is on the LEFT or RIGHT side of chunk (chunks are called partitions). Values beneath to the pivot is to the left, and values above pivot are to the right. There's no need to combine them (reduce) after the fact. Efficiency is based on distribution of numbers. If already sorted, it may pose a problem, and likely be N^2.</td>
+</tr>
+<tr>
+<td>Bubble Sort</td>
+<td>n^2</td>
+<td>Take a sliding scale of two, and run it through the array, sorting along the way along this sliding scale of two.</td>
+</tr>
+</tbody>
+</table>
 <h1><h1 id="configuration" >Configuration</h1></h1>
 <h2>IPv6</h2>
 <h3>Set</h3>
@@ -3087,9 +3116,25 @@ SW1(config)#ip add virtual 192.168.3.254 255.255.255.0<br />
 </br><br />
 SW1(config)#vlan 11<br />
 SW1(config)#vn-segment 100011</p>
+<h3>Leaf (EVPN L2VPN)</h3>
+<p>SW1(config)#int nve1 <br />
+(network virtual endpoint)<br />
+SW1(config-if-nve)#source-interface f01<br />
+SW1(config-if-nve)#host-reachability protocol bgp<br />
+SW1(config-if-nve)#member vni 100022<br />
+SW1(config-if-nve-vni)#mcast-group 239.0.0.1<br />
+(doesn't really mattern for BGP)<br />
+(multicast is confusing)<br />
+SW1(config)#evpn<br />
+SW1(config-evpn)#vni 100011 l2<br />
+SW1(config-evpn-evi)#rd auto<br />
+SW1(config-evpn-evi)#route-target import auto<br />
+SW1(config-evpn-evi)#route-target export auto</p>
 <h3>Leaf (Multicast)</h3>
 <p>SW1(config)#member vni 100011<br />
 SW1(config)#mcast-group 239.0.0.1</p>
+<h3>VXLAN (Read L2VPN routes)</h3>
+<p>SW1#show bgp l2vpn evpn neighbors 10.1.1.2 advertised-routes</p>
 <h1><h1 id="assembly">Assembly</h1></h1>
 <table>
 <thead>
@@ -6415,8 +6460,8 @@ SW1(config)#mcast-group 239.0.0.1</p>
         }
 
         // CSS
-        commodore_64 = { "--background": "#3a1f7d", "--foreground": "#8474db", "--left-column-width": "325px", "--font": "commodore", "--left-font-size": "12px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 0px var(--foreground)" };
-        ibm_node_3270 = { "--background": "#121f18", "--foreground": "#25ff93", "--left-column-width": "250px", "--font": "ibm3270", "--left-font-size": "17px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 4px var(--foreground)"  }
+        commodore_64 = { "--background": "#3a1f7d", "--foreground": "#8474db", "--left-column-width": "325px", "--font": "commodore", "--left-font-size": "12px", "--h1-font-size": "36px", "--h2-font-size": "34px", "--h3-font-size": "32px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 0px var(--foreground)", "--line-height": "25px" };
+        ibm_node_3270 = { "--background": "#121f18", "--foreground": "#25ff93", "--left-column-width": "250px", "--font": "ibm3270", "--left-font-size": "17px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 4px var(--foreground)","--line-height":"normal"  }
         //initialize values
         //initialize at ibm 3270
         function set_css_variables(node_json)
