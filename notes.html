@@ -50,12 +50,12 @@
 <tr>
 <td>LSA 2</td>
 <td>Network</td>
-<td>One per transit network</br>Created by DR in the subnet Represent the subnet and all the interfaces in it</br>Flooded only in that area</td>
+<td>One per transit network</br>Created by DR in the subnet</br>Represent the subnet and all the interfaces in it</br>Flooded only in that area</td>
 </tr>
 <tr>
 <td>LSA 3</td>
-<td>Network Summary</td>
-<td>Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area Flooded only within its area of the origin. Re-originated on ABR</td>
+<td>Network Summary </br> (external area route)</td>
+<td>Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area</br>Flooded only within its area of the origin. Re-originated on ABR</td>
 </tr>
 <tr>
 <td>LSA 4</td>
@@ -64,7 +64,7 @@
 </tr>
 <tr>
 <td>LSA 5</td>
-<td>AS Summary</td>
+<td>AS Route </br> (external AS route)</td>
 <td>Created by ASBR for external routes injected into OSPF Flooded to all areas</td>
 </tr>
 <tr>
@@ -197,14 +197,14 @@
 </tr>
 <tr>
 <td>Feasible Successor</td>
-<td>Route in reserve! Feasible means something different in this context. Feasible means shittier here when talking about routes/successors. With distance, feasible means better.</td>
+<td>Route in reserve! Feasible means something different in this context. Feasible means shittier when talking about routes/successors.</br>With distance, feasible means better.</td>
 </tr>
 <tr>
 <td>Feasibility Condition</td>
-<td>LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS. If the Reported Distance of prospective routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)!</td>
+<td>LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS.</br> If the Reported Distance of candidate routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)!</td>
 </tr>
 <tr>
-<td>If reported distance of other routes is SMALLER than total successor, it counts.</td>
+<td>If reported distance of candidate routes is SMALLER than total successor, it counts.</td>
 <td></td>
 </tr>
 </tbody>
@@ -213,44 +213,74 @@
 <thead>
 <tr>
 <th>BGP Best Path Algorithm</th>
+<th>Ranking</th>
+<th>What's Better</th>
+<th>Direction</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Weight (1)</td>
-<td>Cisco Proprietary </br> Highest </br></td>
+<td>Weight</td>
+<td>1</td>
+<td>Highest</td>
+<td>Local</td>
+<td>Cisco Proprietary </br></td>
 </tr>
 <tr>
-<td>Local Preference (2)</td>
-<td>Choose outbound external path. It flows into all internal routers </br>Highest</td>
+<td>Local Preference</td>
+<td>2</td>
+<td>Highest</td>
+<td>In</td>
+<td>Choose outbound external path. It flows into all internal routers</td>
 </tr>
 <tr>
-<td>Locally Originated (3)</td>
+<td>Locally Originated</td>
+<td>3</td>
+<td></td>
+<td></td>
 <td>If two BGP routes are there and one is from our own router &amp; the other is remote, favor the one coming from our own router listed as 0.0.0.0 as next-hop </br>More favored going down -&gt; (default-originate, default-information originate, network, redistribute, aggregate-address)</td>
 </tr>
 <tr>
-<td>AS Path (4)</td>
+<td>AS Path</td>
+<td>4</td>
+<td></td>
+<td></td>
 <td>Easy Peasy</td>
 </tr>
 <tr>
-<td>Origin Code (5)</td>
-<td>If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes (far away routes that were learned by redistribution)</td>
+<td>Origin Code</td>
+<td>5</td>
+<td></td>
+<td></td>
+<td>If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes far away routes that were learned by redistribution) </br> IGP, EGP, and Incomplete.</br> Respectively, those are i, e, and ?. "i" is IGP, "e" is EGP (precursor to BGP never used), "?" is incomplete</br>You will never see the "e" code</br>"?" can mean BGP because it doesn't fit under "i" &amp; "e"</br>When you do a Network command in BGP, the code is if the "route" in BGP network command first came from IGP or BGP or whatever</br>Again, you'll never see "e". Only "i" &amp; "?"</td>
 </tr>
 <tr>
-<td>MED (6)</td>
-<td>The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets </br> Lower</td>
+<td>MED</td>
+<td>6</td>
+<td>Lower</td>
+<td>Out</td>
+<td>The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets</td>
 </tr>
 <tr>
 <td>eBGP vs iBGP</td>
+<td>7</td>
+<td></td>
+<td></td>
 <td>This is TYPE of BGP.... NOT IGP vs redistributed/incomplete, that would be 5.</td>
 </tr>
 <tr>
 <td>BGP Multipath</td>
+<td>8</td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Oldest Route</td>
+<td>9</td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
@@ -299,11 +329,11 @@
 <tbody>
 <tr>
 <td>NHRP Registration</td>
-<td>A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS).</td>
+<td>Private IP -&gt; Public IP</br>Private IP (overlay), Public IP (underlay)</br>A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS).</td>
 </tr>
 <tr>
 <td>NHRP Resolution</td>
-<td>A client sends the Private IP of the next hop and gets the Public IP</td>
+<td>Private IP -&gt; Public IP</br>A client sends the Private IP of the next hop and gets the Public IP</td>
 </tr>
 </tbody>
 </table>
@@ -321,11 +351,11 @@
 </tr>
 <tr>
 <td>Phase 2</td>
-<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke. It needs more information than the Private IP (such as the Public NBMA address). NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</td>
+<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke.</br> It needs more information than the Private IP (such as the Public NBMA address).</br>NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. </br>NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</td>
 </tr>
 <tr>
 <td>Phase 3</td>
-<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect</br></td>
+<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect!!! This is KEY! Next hop doesn't matter as much due to default route summarization.</br>When the spokes receive the NHRP redirect, they will both send a NHRP resolution to figure out each other's NBMA IP addresses.</br>The spoke routers will then install a new entry in the routing table so that they can reach each other directly. This comes as a result of the mutual NHRP resolution between the spokes, that were brought about by the NHRP redirect.</td>
 </tr>
 </tbody>
 </table>
@@ -6471,7 +6501,7 @@ SW1(config)#mcast-group 239.0.0.1</p>
                 document.documentElement.style.setProperty(key, value);
             }
         }
-        set_css_variables(ibm_node_3270);
+        set_css_variables(commodore_64);
         //RADIO BUTTON
         main_css_sheet = document.querySelector("#main_css_sheet");
         css_radio_boxes_input = document.querySelectorAll(".css_radio_boxes_div input");
