@@ -17,7 +17,8 @@
             <a href="#software_engineering">5. Software Engineering</a>
             <a href="#microsoft">6. Microsoft</a>
             <a href="#configuration">7. Configuration</a>
-            <a href="#assembly">8. Assembly</a>
+            <a href="#administration">8. Administration</a>
+            <a href="#assembly">9. Assembly</a>
         </div>
         <div class="css_radio_boxes_div">
             <div>
@@ -144,6 +145,86 @@
 <tr>
 <td>FULL</td>
 <td>The Databases are synchronized fully</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>OSPF Interface Types</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notes</td>
+<td>Point = NO DR &amp; BDR</br>Multiaccess = More than one network device</br>Broadcast = Automatic Neighbors<br>Non-Broadcast = Manual Neighbor Configuration</td>
+</tr>
+<tr>
+<td>Point-To-Point</td>
+<td>No DR &amp; BDR</br>POINT means NO DR-BDR</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>Multiaccess is when there's multiple points, with a switch coordinating this.</br>Has a DR</td>
+</tr>
+<tr>
+<td>Non-Broadcast</td>
+<td>Hub &amp; Spoke</br> Still Multiaccess because it has multiple points</td>
+</tr>
+<tr>
+<td>Non-Broadcast Multi-Access</td>
+<td>DIDN'T EXIST IN GNS3</br>Frame Relay &amp; ATM &amp; X.25 fit this criteria</br>Manually define neighbors</br>It emulates broadcast</td>
+</tr>
+<tr>
+<td>Point-To-Multipoint</td>
+<td>Organizes many point-to-point networks</br>NO DR-BDR</br>I guess this dynamically finds neighbors, huh </br>Turns a MULTICAST NETWORK into a collection of point-to-point networksPstatus7</td>
+</tr>
+<tr>
+<td>Point-To-Multipoint Non-Broadcast</td>
+<td>Manually define neighbors with NO DR-BDR</br>Non-Broadcast necessitates the static configuration of neighbors</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Administrative Distance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>External BGP</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Internal EIGRP</td>
+<td>90</td>
+</tr>
+<tr>
+<td>IGRP</td>
+<td>100</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>110</td>
+</tr>
+<tr>
+<td>Intermediate System-to-Intermediate System (IS-IS)</td>
+<td>115</td>
+</tr>
+<tr>
+<td>Routing Information Protocol (RIP)</td>
+<td>120</td>
+</tr>
+<tr>
+<td>External EIGRP</td>
+<td>170</td>
+</tr>
+<tr>
+<td>Internal BGP</td>
+<td>200</td>
 </tr>
 </tbody>
 </table>
@@ -351,11 +432,11 @@
 </tr>
 <tr>
 <td>Phase 2</td>
-<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke.</br> It needs more information than the Private IP (such as the Public NBMA address).</br>NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. </br>NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</td>
+<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke.</br> It needs more information than the Private IP (such as the Public NBMA address).</br>NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. </br>NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</br>The traffic goes through the hub until an IPsec tunnel has been formed between the two communicating spokes.</td>
 </tr>
 <tr>
 <td>Phase 3</td>
-<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect!!! This is KEY! Next hop doesn't matter as much due to default route summarization.</br>When the spokes receive the NHRP redirect, they will both send a NHRP resolution to figure out each other's NBMA IP addresses.</br>The spoke routers will then install a new entry in the routing table so that they can reach each other directly. This comes as a result of the mutual NHRP resolution between the spokes, that were brought about by the NHRP redirect.</td>
+<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect!!! This is KEY! Next hop doesn't matter as much due to default route summarization.</br>When the spokes receive the NHRP redirect, they will both send a NHRP resolution to figure out each other's NBMA IP addresses.</br>The spoke routers will then install a new entry in the routing table so that they can reach each other directly. This comes as a result of the mutual NHRP resolution between the spokes, that were brought about by the NHRP redirect.</br>The traffic goes through the hub until the spoke gets an NHRP resolution and the CEF next-hop is overwritten/changed.</br>The hub has more of a role in this setup, it's just that the resolution is handled by the remote spoke. Somehow this is greater.</td>
 </tr>
 </tbody>
 </table>
@@ -607,11 +688,11 @@
 </tr>
 <tr>
 <td>LIB</td>
-<td>LIB &amp; LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table</td>
+<td>LIB &amp; LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table.</br> With the LIB, it sends it's labels to adjacent routers.</td>
 </tr>
 <tr>
 <td>LFIB</td>
-<td>Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br></td>
+<td>Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br> LFIB is to match an label to another outgoing label. It's strictly looking at labels.</td>
 </tr>
 <tr>
 <td>Push</td>
@@ -871,6 +952,48 @@
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr>
+<th>Wireless Type (802.11)</th>
+<th>Speed</th>
+<th>Frequency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>802.11b</td>
+<td>11 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11a</td>
+<td>54 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11g</td>
+<td>54 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11n</td>
+<td>300 Mbps</td>
+<td>2.4 GHz - 5.0 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11ac</td>
+<td>450 Mbps - 1300 Mbps</td>
+<td>2.4 GHz - 5.0 GHz</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2>Multicast</h2>
 <h3>Sparse Mode</h3>
 <h3>Config</h3>
@@ -892,6 +1015,8 @@ If you put access-list number after rp-address wildcard-mask, you can configure 
 <li>When the client/receiver knows the real source (aka doesn't need to put *,G), the client now makes another path that's quickest to sender, and fills those (S,G) &amp; "OIL" in that optimal path. That means that RP was only good for letting client know what exact sources/senders were interested in that group.</li>
 <li>Client means the router next to the real client, registered by IGMP. THAT ROUTER send out PIM Prunes to kill out the states in the RPF/SPF related to Rendezvous point</li>
 </ul>
+<h3>BGP Always-Compare-Med</h3>
+<p>Only compare the MED of two paths if they both have a MED attribute.</p>
 <h2>VXLAN</h2>
 <p>You seem them a lot in the Leaf &amp; Spine architecture for a data center. Also called a CLOS network.<br />
 This is for Overlays/Underlays and is a better alternative to OTV. <br />
@@ -928,7 +1053,8 @@ BGP is used for both the underlay AND overlay. I believe the underlay is for kno
 <p>For underlay BGP, the spine is the route reflector AND the leaves are the route reflector clients.<br />
 For underlay BGP, you will still have to run IGP like OSPF or IS-IS or EIGRP. BGP here may be for large amounts of routes &amp; networks for scaling. </p>
 <h3>VXLAN Overlay BGP</h3>
-<p>L2VPN = Address Family Identifier (25)<br />
+<p>Clearly done to advertise the MAC addresses across the fabric. Fabric is CLOS Spine Leaf architecture.<br />
+L2VPN = Address Family Identifier (25)<br />
 EVPN = Subsequent Address Family (70)</p>
 <h2>Cisco ASA</h2>
 <p>Active/Active failover is only available to ASAs in multiple context mode. In an Active/Active failover configuration, both ASAs can pass network traffic.</p>
@@ -960,6 +1086,7 @@ EVPN = Subsequent Address Family (70)</p>
 <thead>
 <tr>
 <th>Regular STP Port States (802.1d)</th>
+<th>Extra</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -967,21 +1094,26 @@ EVPN = Subsequent Address Family (70)</p>
 <tr>
 <td>Disabled</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Blocking</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>Listening</td>
+<td>Listening for BPDUs</td>
 <td>Doing jack shit to see if the topology changes. BPDUs are still sent to assess the land.</td>
 </tr>
 <tr>
 <td>Learning</td>
+<td>Learning MAC Addresses</td>
 <td>Looking at the source address of Ethernet Frames to populate the Mac Address Table</td>
 </tr>
 <tr>
 <td>Forwarding</td>
+<td></td>
 <td>Good to go!</td>
 </tr>
 </tbody>
@@ -1044,7 +1176,7 @@ EVPN = Subsequent Address Family (70)</p>
 <tbody>
 <tr>
 <td>Backup</td>
-<td>This port serves as a secondary designated port in case the primary designated port fails. It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state.</td>
+<td>BACKUP DESIGNATED PORT</br>This port serves as a secondary designated port in case the primary designated port fails.</br>It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state.</td>
 </tr>
 <tr>
 <td>Disabled Port</td>
@@ -1060,7 +1192,7 @@ EVPN = Subsequent Address Family (70)</p>
 </tr>
 <tr>
 <td>Alternate Port</td>
-<td>This port serves as a secondary root port in case the primary root port fails. It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term)</td>
+<td>ALTERNATE ROOT PORT</br>This port serves as a secondary root port in case the primary root port fails.</br>It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term). Discarding replaces disabled, blocking &amp; listening states</td>
 </tr>
 </tbody>
 </table>
@@ -1108,6 +1240,8 @@ EVPN = Subsequent Address Family (70)</p>
 </tr>
 </tbody>
 </table>
+<h3>SVI</h3>
+<p>The SVI serves as a default gateway to hosts in that VLAN. </p>
 <h2>GLBP Components</h2>
 <h3>Active Virtual Gateway</h3>
 <p>The AVG is responsible for answering Address Resolution Protocol (ARP) requests for the virtual IP address. It sends a different virtual MAC in response to ARP requests from the client, which in turn chooses the Active Virtual Forwarder in the group to leverage.</p>
@@ -1175,11 +1309,11 @@ Internet</p>
 <tbody>
 <tr>
 <td>S3 Standard</td>
-<td>Availability  99.9%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br></td>
+<td>Durability 99.999999999% (NINE 9's after decimal)</br>Availability  99.99%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br></td>
 </tr>
 <tr>
 <td>S3 Reduced Redundancy Storage</td>
-<td>Availability</td>
+<td>Durability 99.99%</br>Availability 99.99%</td>
 </tr>
 <tr>
 <td>S3 Intelligent Tiering</td>
@@ -1187,7 +1321,7 @@ Internet</p>
 </tr>
 <tr>
 <td>S3 Standard Infrequently Accessed</td>
-<td>Availability 99.9% Storage Costs $0.0125 per GB</td>
+<td>Durability 99.999999999% (NINE 9's after decimal)</br>Availability 99.9% Storage Costs $0.0125 per GB</td>
 </tr>
 <tr>
 <td>S3 One Zone Infrequently Accessed</td>
@@ -1213,27 +1347,27 @@ Internet</p>
 <tbody>
 <tr>
 <td>General Purpose</td>
-<td>Names=&gt; A1,T3,T3a,T2,M5,M5a,M4---Balance of compute, memory and networking resources. For Web Serveers &amp; Code Repositories</td>
+<td>Names=&gt; A1,T3,T3a,T2,M5,M5a,M4</br>Balance of compute, memory and networking resources.</br>Use Cases For Web Serveers &amp; Code Repositories</td>
 </tr>
 <tr>
 <td>Compute Optimized</td>
-<td>Names=&gt; C5,C5n,C4,      Purpose Ideal for compute bound applications that benefit from high performance processor,      Use Cases Scientific Modeling, dedicated gaming servers &amp; ad server engines</td>
+<td>Names=&gt; C5,C5n,C4,</br>Purpose Ideal for compute bound applications that benefit from high performance processor</br>Use Cases Scientific Modeling, dedicated gaming servers &amp; ad server engines</td>
 </tr>
 <tr>
 <td>Memory Optimized</td>
-<td>Names=&gt; R5,R5a,X1e,X1,High Memory,z1d,      Purpose Fast performance of workloads that process large data sets in memory,       Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,</td>
+<td>Names=&gt; R5,R5a,X1e,X1,High Memory,z1d,</br>Purpose Fast performance of workloads that process large data sets in memory</br>Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,</td>
 </tr>
 <tr>
 <td>Accelerated Optimized</td>
-<td>Names=&gt; P3,P2,G3,F1,        Purpose Hardware accelerators, or co-processors,        Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,</td>
+<td>Names=&gt; P3,P2,G3,F1,</br>Purpose Hardware accelerators, or co-processors</br>Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,</td>
 </tr>
 <tr>
 <td>Storage Optimized</td>
-<td>Names=&gt; I3,I3en,D2,H1,      Purpose High, sequential read and write access to very large data sets on local storage,        Use Cases NoSQL, in-memory or transactional databases, data warehousing,</td>
+<td>Names=&gt; I3,I3en,D2,H1,</br>Purpose High, sequential read and write access to very large data sets on local storage</br>Use Cases NoSQL, in-memory or transactional databases, data warehousing,</td>
 </tr>
 <tr>
 <td>Graphics Optimized</td>
-<td>Names=&gt; G3,     Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.,        Use Cases Gamers, AutoCAD, etc</td>
+<td>Names=&gt; G3,</br>Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.</br>Use Cases Gamers, AutoCAD, etc</td>
 </tr>
 <tr>
 <td>Graviton</td>
@@ -1261,7 +1395,7 @@ Internet</p>
 <td>gp2</td>
 <td>1GB - 16TB</td>
 <td>16000</td>
-<td>"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern</td>
+<td>"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern to strike that balance"</td>
 </tr>
 <tr>
 <td>Provisioned IOPS</td>
@@ -1270,16 +1404,16 @@ Internet</p>
 <td>io1</td>
 <td>4GB - 16TB</td>
 <td>64000</td>
-<td>"Large Databases</td>
+<td>"Large Databases IOPS greater than 16000 Throughput greater than 250MB Throughput Optimized"</td>
 </tr>
 <tr>
 <td>Throughput Optimized</td>
 <td>HDD</td>
-<td>"Low-cost. Designed for frequently accessed</td>
-<td>throughput intensive workloads."</td>
+<td>"Low-cost. Designed for frequently accessed throughput intensive workloads."</td>
 <td>st1</td>
 <td>500GB - 15TB</td>
 <td>500</td>
+<td>"Data Warehouses Big Data Log Processing</td>
 </tr>
 <tr>
 <td>Cold</td>
@@ -1295,8 +1429,8 @@ Internet</p>
 <td>Magnetic</td>
 <td>Archival Storage</td>
 <td></td>
-<td>500GB - 15TB</td>
-<td>40/200</td>
+<td>500GB - 15TB 40/200</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
@@ -1336,7 +1470,6 @@ In a table that has a partition key and a sort key, it's possible for two items 
 Producer &amp; Consumer model where you can put records &amp; get records<br />
 In Python, data is sent as a "byte stream"<br />
 No shard auto-scaling like SQS</p>
-<h3>SQS</h3>
 <h1><h1 id="cloud_networking">Cloud Networking</h1></h1>
 <h2>Tables</h2>
 <table>
@@ -2157,148 +2290,6 @@ These seem like Subinterfaces that have a VLAN tag</p>
 <table>
 <thead>
 <tr>
-<th>Assembly Instructions</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MOV</td>
-<td>MOV AX, 15</td>
-</tr>
-<tr>
-<td>ADD</td>
-<td>ADD AX, BX</td>
-</tr>
-<tr>
-<td>SUB</td>
-<td>SUB AX, 1</td>
-</tr>
-<tr>
-<td>AND</td>
-<td>AND AL, 11011111b</td>
-</tr>
-<tr>
-<td>OR</td>
-<td>OR AL, BX</td>
-</tr>
-<tr>
-<td>NOT</td>
-<td>NOT AL</td>
-</tr>
-<tr>
-<td>XOR</td>
-<td>XOR AL, 01010101b</td>
-</tr>
-<tr>
-<td>SHL/SHR</td>
-<td>SHL AL, 1</td>
-</tr>
-<tr>
-<td>Expulsed bit is in the Carry Flag (CF)</td>
-<td></td>
-</tr>
-<tr>
-<td>ROL</td>
-<td>Rotates to the left or the right, using or not CF</td>
-</tr>
-<tr>
-<td>INC/DEC</td>
-<td>INC AX</td>
-</tr>
-<tr>
-<td>STC</td>
-<td>Sets CF value</td>
-</tr>
-<tr>
-<td>STD</td>
-<td>STD</td>
-</tr>
-<tr>
-<td>MUL</td>
-<td>MOV AL, 00001Ah -- MUL 00002h</td>
-</tr>
-<tr>
-<td>JMP</td>
-<td>JMP calc</td>
-</tr>
-<tr>
-<td>CMP</td>
-<td>CMP AL, 01234b</td>
-</tr>
-<tr>
-<td>PUSH</td>
-<td></td>
-</tr>
-<tr>
-<td>STOS</td>
-<td></td>
-</tr>
-<tr>
-<td>LOOP</td>
-<td></td>
-</tr>
-<tr>
-<td>JA</td>
-<td>CF = 0 and ZF = 0</td>
-</tr>
-<tr>
-<td>JAE</td>
-<td>Jump if Above or Equal</td>
-</tr>
-<tr>
-<td>JBE</td>
-<td></td>
-</tr>
-<tr>
-<td>JC</td>
-<td>CF = 1</td>
-</tr>
-<tr>
-<td>JE</td>
-<td>ZF = 1</td>
-</tr>
-<tr>
-<td>JG</td>
-<td>ZF = 0 and SF = OF</td>
-</tr>
-<tr>
-<td>JGE</td>
-<td>SF = OF</td>
-</tr>
-<tr>
-<td>JL</td>
-<td>Jump if Less</td>
-</tr>
-<tr>
-<td>JLE</td>
-<td>Jump if Less or Equal</td>
-</tr>
-<tr>
-<td>JO</td>
-<td>OF = 1</td>
-</tr>
-<tr>
-<td>JP</td>
-<td>PF = 1</td>
-</tr>
-<tr>
-<td>JPE</td>
-<td>Jump if Parity Even</td>
-</tr>
-<tr>
-<td>JS</td>
-<td>SF = 1</td>
-</tr>
-<tr>
-<td>JZ</td>
-<td>Jump if Zero</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
 <th>React Hooks</th>
 <th>Description</th>
 </tr>
@@ -2310,23 +2301,23 @@ These seem like Subinterfaces that have a VLAN tag</p>
 </tr>
 <tr>
 <td>componentDidMount</td>
-<td>Mount immediately after render , Initialize state that requires DOM nodes, network requests and side effects</td>
+<td>Execute some custom code when mounting immediately after render</br>Initialize state that requires DOM nodes, network requests and side effects</td>
 </tr>
 <tr>
 <td>shouldComponentUpdate</td>
-<td>Update immediately after render , Allows developer to prevent rendering render, Code to display the component</td>
+<td>Update immediately after render</br>Allows developer to prevent rendering render, Code to display the component</td>
 </tr>
 <tr>
 <td>getSnapshotBeforeUpdate</td>
-<td>Update immediately before render output is committed to DOM , Capture DOM information such as scroll position which could change</td>
+<td>Update immediately before render output is committed to DOM</br>Capture DOM information such as scroll position which could change</td>
 </tr>
 <tr>
 <td>componentDidUpdate</td>
-<td>Update immediately after render , Operate on updated DOM or handle network requests</td>
+<td>Execute some custom code when updating immediately after render</br>Operate on updated DOM or handle network requests</td>
 </tr>
 <tr>
 <td>getDerivedStateFromProps</td>
-<td>Mount and update before render , Takes props and state as parameter Used when state depends on props</td>
+<td>Mount and update before render</br>Takes props and state as parameter Used when state depends on props</td>
 </tr>
 <tr>
 <td>componentWillUnmount</td>
@@ -2522,6 +2513,46 @@ Erlang processes are sfmall C structs that boucne around between scheduler threa
 </tr>
 </tbody>
 </table>
+<h1><h1 id="Administration">Administration</h1></h1>
+<h2>DevOps</h2>
+<table>
+<thead>
+<tr>
+<th>Kubernetes Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Container</td>
+<td></td>
+</tr>
+<tr>
+<td>Pod</td>
+<td>Pod can have many containers</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>Node can have many pods</td>
+</tr>
+<tr>
+<td>Kubelet</td>
+<td>The kubelet is the primary "node agent" that runs on each node.</td>
+</tr>
+<tr>
+<td>KubeProxy</td>
+<td>Watches the API server for pods/services changes in order to maintain the network up to date.</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>The puppet master. Has Northbound &amp; Southbound API like a controller</td>
+</tr>
+<tr>
+<td>KubeCTL</td>
+<td>Sends commands to the master. Users are the real master who tells Kubernetes master what to do.</td>
+</tr>
+</tbody>
+</table>
 <h1><h1 id="configuration" >Configuration</h1></h1>
 <h2>IPv6</h2>
 <h3>Set</h3>
@@ -2540,7 +2571,7 @@ Router(config-if)# bandwidth 1000<br />
 Router(config-if)# keepalive 3 7<br />
 Router(config-if)# ip address 192.168.1.1 255.255.255.252<br />
 Router(config-if)# tunnel source Ethernet 1<br />
-Router(config-if)# tunnel destination 172.17.2.1<br />
+Router(config-if)# tunnel destination 54.34.78.222<br />
 Router(config-if)# tunnel key 1000<br />
 Router(config-if)# tunnel mode gre ip<br />
 Router(config-if)# ip mtu 1400<br />
