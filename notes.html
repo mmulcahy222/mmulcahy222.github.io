@@ -80,36 +80,13 @@
 </tr>
 </tbody>
 </table>
-<table>
-<thead>
-<tr>
-<th>Area</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Normal</td>
-<td>1,2,3,4,5</td>
-</tr>
-<tr>
-<td>Stub</td>
-<td>1,2,3</td>
-</tr>
-<tr>
-<td>Totally Stub</td>
-<td>1,2</td>
-</tr>
-<tr>
-<td>Not-So-Stubby Area</td>
-<td>1,2,3,7</td>
-</tr>
-<tr>
-<td>Totally Not-So-Stubby Area</td>
-<td>1,2,7</td>
-</tr>
-</tbody>
-</table>
+<p>Area | Description | Features <br />
+- | -<br />
+Normal | 1,2,3,4,5 ||<br />
+Stub | 1,2,3 | Has 0.0.0.0 route |<br />
+Totally Stub | 1,2 | No 0.0.0.0 route, just a default route|<br />
+Not-So-Stubby Area | 1,2,3,7 ||<br />
+Totally Not-So-Stubby Area | 1,2,7 ||</p>
 <table>
 <thead>
 <tr>
@@ -1240,6 +1217,20 @@ EVPN = Subsequent Address Family (70)</p>
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr>
+<th>STP Enhancements</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BackboneFast</td>
+<td>If there is an indirect link failure, nix off 20 seconds off the MAX AGE TIMER so it's just Listening &amp; Learning State (15 seconds each, 30 seconds combined). 50 Seconds turned into 30 seconds</td>
+</tr>
+</tbody>
+</table>
 <h3>SVI</h3>
 <p>The SVI serves as a default gateway to hosts in that VLAN. </p>
 <h2>GLBP Components</h2>
@@ -1844,6 +1835,32 @@ These seem like Subinterfaces that have a VLAN tag</p>
 <table>
 <thead>
 <tr>
+<th>Cool Microsoft Functions</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VirtualAlloc</td>
+<td>lpvAddress, dwSize, dwAllocationType</td>
+</tr>
+<tr>
+<td>VirtualAllocEx</td>
+<td>hProcess, lpvAddress, dwSize, dwAllocationType</td>
+</tr>
+<tr>
+<td>WriteProcessMemory</td>
+<td>hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesWritten (2nd = destination, 3rd = source)</td>
+</tr>
+<tr>
+<td>ReadProcessMemory</td>
+<td>hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesRead (2nd = source, 3rd = destination)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
 <th>VirtualAlloc</th>
 <th>Description</th>
 </tr>
@@ -1891,11 +1908,11 @@ These seem like Subinterfaces that have a VLAN tag</p>
 </tr>
 <tr>
 <td>lpBaseAddress</td>
-<td>Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected</td>
+<td>(DESTINATION) Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected</td>
 </tr>
 <tr>
 <td>lpBuffer</td>
-<td>The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress</td>
+<td>(SOURCE) The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress</td>
 </tr>
 <tr>
 <td>lpdwBytesWritten</td>
@@ -1916,12 +1933,12 @@ These seem like Subinterfaces that have a VLAN tag</p>
 <td>Identical to WrtiteProcessMemory (but for 2nd &amp; 3rd parameters)</td>
 </tr>
 <tr>
-<td>lpSource</td>
-<td>Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory</td>
+<td>lpBaseAddress</td>
+<td>(SOURCE) Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory</td>
 </tr>
 <tr>
-<td>lpDest</td>
-<td>Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory</td>
+<td>lpBuffer</td>
+<td>(DESTINATION) Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory</td>
 </tr>
 </tbody>
 </table>
@@ -2194,6 +2211,68 @@ These seem like Subinterfaces that have a VLAN tag</p>
 <tr>
 <td>VAL</td>
 <td>VAL(S$) </br> Convert string to int</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>C++ STL Standard Template Library</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Add to the end only, as dynamic</br>Fast Insertion/Removal</br>Finding by Index fast</br> Finding by object very slow</td>
+</tr>
+<tr>
+<td>Deque</td>
+<td>Allows adding to the beginning &amp; end</br>Only disadvantage is finding by index is slower than vector</td>
+</tr>
+<tr>
+<td>List</td>
+<td>Linked List</br>Very similar to Deque, but locations are all over memory</br>One difference with List compared to Deque is that inserting can happen in middle</td>
+</tr>
+<tr>
+<td>Forward List</td>
+<td>Like a list, but there's only one pointer going to the next element.</br>No huge difference between List.</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>STORES ITEMS IN A BINARY TREE STRUCTURE</br>Overhead when inserting</br>Finding items is way faster than insertion, because insertion sorts each time &amp; puts it in sorted Binary Search Structure</br>Stores unique values which are sorted in a logarithmic complexity</br>Insert/Remove/Find = O(log(n))</td>
+</tr>
+<tr>
+<td>Unordered Set</td>
+<td>Stores unique values that are NOT ordered.</br>USES HASHING</br>GREAT FOR FINDING &amp; RETRIEVING, shit for iterating. Never use unordered sets for iterating &amp; traversing</br>UNORDERED MEANS HASH MAP!!</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Key-Value Pairs inserted AND sorted with Logarithmic complexity</br>Insertion/Access/Remove/Find is Logarithmic</br>You could still order/iterate.</td>
+</tr>
+<tr>
+<td>Unordered Map</td>
+<td>Key-Value Pairs inserted AND sorted with Linear complexity</br>HASH TABLE</br>Insertion/Access/Remove/Find is n(1) which is Linear &amp; Best Case Scenario</br>I'm guessing the tradeoff happens with ITERATING which would be impossble or practically useless</td>
+</tr>
+<tr>
+<td>Multiset</td>
+<td>Sets with multiple values, that's ordered for iteration.</br>You'd use a Multiset when you want the SORTED BEHAVIOR on insertion automatically compared to Vector/Deque</td>
+</tr>
+<tr>
+<td>Unordered Multiset</td>
+<td>Sets with multiple values, but with hash maps</td>
+</tr>
+<tr>
+<td>Stack</td>
+<td>Stores elements in a Last-In-First-Out fashion.</br>Push/Pop/Top = O(1)</td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>Stores elements in a First-In-First-Out fashion.</td>
+</tr>
+<tr>
+<td>Priority Queue</td>
+<td>Stores elements in a sorted order. First gets priority.</td>
 </tr>
 </tbody>
 </table>
@@ -3196,6 +3275,31 @@ SW1(config-evpn-evi)#route-target export auto</p>
 SW1(config)#mcast-group 239.0.0.1</p>
 <h3>VXLAN (Read L2VPN routes)</h3>
 <p>SW1#show bgp l2vpn evpn neighbors 10.1.1.2 advertised-routes</p>
+<h3>Types Of VXLAN</h3>
+<p>Multicast (Data-Plane pertaining to ARP)<br />
+Ingress Replication (BGP Control Plane) </p>
+<h3>JUNIPER VXLAN</h3>
+<p>1  set interfaces lo0 unit 0 family inet address 10.1.1.1<br />
+2  set switch-options vtep-source-interface lo0.0<br />
+3  set protocols pim interface lo0.0<br />
+4  set protocols pim interface xe-0/0/0.0<br />
+5  set protocols pim rp static address 10.2.2.2<br />
+6  set protocols ospf area 0.0.0.0 interface lo0.0<br />
+7  set protocols ospf area 0.0.0.0 interface xe-0/0/0.0<br />
+8  set vlans VLAN1 vlan-id 100 vxlan vni 100 multicast-group 233.252.0.2<br />
+9  set vlans VLAN1 vxlan encapsulate-inner-vlan<br />
+10 set vlans VLAN1 vxlan unreachable-vtep-aging-timer 600<br />
+11 set protocols l2-learning decapsulate-accept-inner-vlan<br />
+12 set interfaces xe-0/0/0 unit 0 family inet address 10.2.2.100/24<br />
+13 set interfaces xe-0/0/1 unit 0 family ethernet-switching interface-mode trunk<br />
+14 set interfaces xe-0/0/1 unit 0 family ethernet-switching vlan members all<br />
+15 set protocols ospf enable<br />
+16 set protocols ospf area 0.0.0.0 interface em0.0 disable<br />
+17 set protocols ospf area 0.0.0.0 interface all<br />
+</br><br />
+Takeaways:<br />
+2 = NVE or VTEP needs to have a source interface that's a Loopback, just like Cisco<br />
+8 = Key. Makes a VLAN that has a VXLAN VNI and a multicast address, just like in other VXLANS</p>
 <h1><h1 id="assembly">Assembly</h1></h1>
 <table>
 <thead>
