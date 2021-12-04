@@ -124,9 +124,11 @@ ol
 .left .projects_content a:hover
 {
     /* pixel */
-    background: #030a03 url("/assets/images/pixel_green.png");
+    /*background: #030a03 url("/assets/images/pixel_green.png");*/
+    background: #030a03;
+    /*
     background-size: 450px;
-    animation: pixel .1s steps(15) forwards;
+    animation: pixel .1s steps(15) forwards;*/
 }
 @keyframes pixel
 {
