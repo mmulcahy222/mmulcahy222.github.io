@@ -125,7 +125,8 @@ ol
 {
     /* pixel */
     /*background: #030a03 url("/assets/images/pixel_green.png");*/
-    background-color: #030a03;
+    background-color: #88FF88;
+    color: #040f04;
     /*
     background-size: 450px;
     animation: pixel .1s steps(15) forwards;*/
