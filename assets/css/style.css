@@ -64,7 +64,7 @@ body {
     position: fixed;
     overflow-y: scroll;
     overflow-x: hidden;
-    width: 400px;
+    width: 350px;
     float: left;
 }
 
@@ -109,7 +109,7 @@ ol
 .left .projects_content {
     font-weight: 400;
     font-family: "ibm","fixedsys",Verdana;
-    font-size: 22px;
+    font-size: 18px;
     text-transform: uppercase;
     line-height: 1.5;
     cursor: pointer;
@@ -118,7 +118,7 @@ ol
 .left .projects_content a
 {
     display: list-item;
-    padding: 5px 15px;
+    padding: 2px 15px;
     width: inherit;
 }
 .left .projects_content a:hover
@@ -126,7 +126,7 @@ ol
     /* pixel */
     background: #030a03 url("/assets/images/pixel_green.png");
     background-size: 450px;
-    animation: pixel .25s steps(15) forwards;
+    animation: pixel 1s steps(15) forwards;
 }
 @keyframes pixel
 {
@@ -141,7 +141,7 @@ ol
     100%
     {
         background-color: #88ff88;
-        background-position-y: 350px;
+        background-position-y: 0px;
     }
     to
     {
@@ -151,7 +151,7 @@ ol
 }
 .right
 {
-    margin-left: 400px;
+    margin-left: 350px;
 
     /* width: 75%; 
     float: right;*/
@@ -160,7 +160,7 @@ ol
 }
 .right_wrapper
 {
-    padding: 30px 50px;
+    padding: 30px 25px;
 }
 body::-webkit-scrollbar {
   width: 1em;
