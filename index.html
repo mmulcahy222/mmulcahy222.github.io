@@ -58,6 +58,7 @@
             <a href="#list_view_clipboard_win32">39. list_view_clipboard_win32</a>
             <a href="#words_collide_win32">40. words_collide_win32</a>
             <a href="#todo_list_win32_cpp">41. todo_list_win32_cpp</a>
+            <a href="#aws_cloud_app">42. aws_cloud_app</a>
             
         </div>
     </div>
@@ -4755,6 +4756,45 @@ fn main() {
 </ol>
 <p dir="auto">The WM_TIMER in the Windows Procedure will update the popup every minute, it was activated with SetTimer(hWnd, 1, 1000, NULL) before the message loop.</p>
 <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="images/popup_process.gif"><img src="images/popup_process.gif" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">UPDATE:</p>
+<p dir="auto">I added two more columns into this program months after I first created it, which are the "# of Handles" AND the "CPU Percentage", which makes it a total of five columns!</p>
+<table>
+<thead>
+<tr>
+<th>Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process Name</td>
+</tr>
+<tr>
+<td>Memory</td>
+</tr>
+<tr>
+<td>Process ID</td>
+</tr>
+<tr>
+<td>Handles</td>
+</tr>
+<tr>
+<td>CPU Percentage</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">The first four were easily retrievable with a few lines of advanced C++ Win32 API low-level calls. Just a few lines.</p>
+<p dir="auto">I decided to have the number of Handles in the 4th column, because this is a feature that I only saw in SysInternals/Process Explorer, and NOT in the default Task Manager (except for Total # of Handles, not by process)</p>
+<p dir="auto">Luckily for me the number of handles were retrievable by 4 lines of C++ code, like so:</p>
+<p dir="auto">PDWORD handle_count_struct_instance = new DWORD;
+GetProcessHandleCount(hProcess, handle_count_struct_instance);
+int handle_count = *handle_count_struct_instance;
+delete handle_count_struct_instance;</p>
+<p dir="auto">Weirdly, I --HAD-- to make this into a HEAP object declared with "New" to get the code to even work, which I try to do a little as possible because of the potential of memory leaks.</p>
+<p dir="auto">But now we're reaching the toughest of them all and that's the CPU Percentage!!!!!!!!!!!!</p>
+<p dir="auto">OH MY GOODNESS, what a freaking challenge. There are no Win32 calls to just simply get it, like there were with the three other columns. You had to do it yourself. I came this far, and I need this for diagnosing, so why was I going to stop. I get to learn something the way.</p>
+<p dir="auto">Sadly, this required lots of studying &amp; homework &amp; taking together the best of many ideas to do so. Since this is using WM_TIMER, the last value of the Kernel/User/Exit/Creation time of the process had to have been recorded, which I did in a map (or a "Dict" of using Python). This was many hours of work with many tries &amp; many solutions.</p>
+<p dir="auto">To see my solution at calculating the CPU percentage from a process, please view the code below!!! The great thing about it is that this solution mirrors the Task Manager CPU's percentage!!</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="images/view_processes_code.png"><img src="images/view_processes_code.png" alt="" style="max-width: 100%;"></a></p>
 </article></div>
 					</div><!-- .read_me_content -->
 				</div><!-- .read_me -->
@@ -4995,8 +5035,47 @@ case 1:
 //I was unable to use WM_NOTIFY, it only worked with WM_COMMAND</p>
 <p dir="auto">A lot more of the code is explained in the attached picture below in comments!</p>
 <p dir="auto">If you have any questions, please ask!</p>
-<p dir="auto"><a href="https://raw.githubusercontent.com/mmulcahy222/todo_list_win32_cpp/master/todo_windows.cpp" rel="nofollow">FULL CODE</a></p>
+<p dir="auto">todo_windows.cpp</p>
 <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="images/todo_windows_code.png"><img src="images/todo_windows_code.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+					</div><!-- .read_me_content -->
+				</div><!-- .read_me -->
+			</div>
+		</div>
+		
+		<div class="post" project_name="aws_cloud_app" >
+			<div class="post_title">
+				<a name="aws_cloud_app">REPOSITORY #42: aws_cloud_app</a>
+			</div>
+			<div class="post_content">
+				<div class="description">
+					<div class="description_title">
+						DESCRIPTION:	
+					</div><!-- .description_title -->
+					<div class="description_content">
+						Amazon AWS application running for 24 hours a day!
+					</div><!-- .description_content -->
+				</div><!-- .description -->
+				<!-- TABLE -->
+				<div class="code">
+					<div class="code_title">GITHUB FILES & LINKS:</div>
+					<div class="code_table">
+						<table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/aws_cloud_app/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/aws_cloud_app/master/README.md" target="_blank">Raw</a></div></td></tr></tbody></table>
+						</div><!-- .code_table -->
+				</div><!-- .code -->
+				<div class="read_me">
+					<div class="read_me_title">
+						README.md:
+					</div><!-- .read_me_title -->
+					<div class="read_me_content markdown-body">
+					<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">Amazon Cloud Application that collects data 24/7 on Amazon AWS Cloud, involving lots of AWS &amp; Linux configuration.</p>
+<p dir="auto">The AWS service of choice was EC2. The database choice was SQLite inside the instance/EBS, which should cut down on Write Cost units</p>
+<p dir="auto">The largest challenge of this app was to really make sure the Python Script inside was running 24/7, because sometimes memory leaks crop in one of the imported Python libraries which ruin the CPU Utilization.</p>
+<p dir="auto">Fortunately there was CloudWatch &amp; CloudWatch alarms that did a Status Instance check every 5 minutes, and it even came with an ACTION to automatically REBOOT when the Instance check failed, so that's activated.</p>
+<p dir="auto">Despite this setup, I detected that sometimes the script inside called "Cloud.py" still isn't running after the reboot.</p>
+<p dir="auto">I did a Cron Job as a Python Script that would check if the script was running with "ps -a", and if it wasn't, then start it, and if multiple copies were running, then remove the processes except for one.</p>
+<p dir="auto">I had some severe problems with the CronJob for a while, then I discovered that people should NOT use the squiggly line/symbol as "Home" inside the cron entry through "crontab -e" (or /etc/cron.d), but rather the FULL path retrieved from "pwd" without the ~ symbol. I learned hours the hard way.</p>
+<p dir="auto">I'll describe more about this in the future, or you can ask me!</p>
 </article></div>
 					</div><!-- .read_me_content -->
 				</div><!-- .read_me -->
