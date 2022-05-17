@@ -59,6 +59,7 @@
             <a href="#words_collide_win32">40. words_collide_win32</a>
             <a href="#todo_list_win32_cpp">41. todo_list_win32_cpp</a>
             <a href="#aws_cloud_app">42. aws_cloud_app</a>
+            <a href="#opengl_pyramid_cpp">43. opengl_pyramid_cpp</a>
             
         </div>
     </div>
@@ -5075,7 +5076,47 @@ case 1:
 <p dir="auto">Despite this setup, I detected that sometimes the script inside called "Cloud.py" still isn't running after the reboot.</p>
 <p dir="auto">I did a Cron Job as a Python Script that would check if the script was running with "ps -a", and if it wasn't, then start it, and if multiple copies were running, then remove the processes except for one.</p>
 <p dir="auto">I had some severe problems with the CronJob for a while, then I discovered that people should NOT use the squiggly line/symbol as "Home" inside the cron entry through "crontab -e" (or /etc/cron.d), but rather the FULL path retrieved from "pwd" without the ~ symbol. I learned hours the hard way.</p>
+<p dir="auto">The star of the show is the "Screen" application in Linux, that was what I used. Screen allows processes to start when there is no active SSH connection going! According to the internet, "Screen or GNU Screen is a terminal multiplexer. In other words, it means that you can start a screen session and then open any number of windows (virtual terminals) inside that session. Processes running in Screen will continue to run when their window is not visible even if you get disconnected"</p>
 <p dir="auto">I'll describe more about this in the future, or you can ask me!</p>
+</article></div>
+					</div><!-- .read_me_content -->
+				</div><!-- .read_me -->
+			</div>
+		</div>
+		
+		<div class="post" project_name="opengl_pyramid_cpp" >
+			<div class="post_title">
+				<a name="opengl_pyramid_cpp">REPOSITORY #43: opengl_pyramid_cpp</a>
+			</div>
+			<div class="post_content">
+				<div class="description">
+					<div class="description_title">
+						DESCRIPTION:	
+					</div><!-- .description_title -->
+					<div class="description_content">
+						OpenGL of a spinning 3D pyramid in C++ !!!
+					</div><!-- .description_content -->
+				</div><!-- .description -->
+				<!-- TABLE -->
+				<div class="code">
+					<div class="code_title">GITHUB FILES & LINKS:</div>
+					<div class="code_table">
+						<table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/pyramid_1_spinning.cpp" target="_blank">pyramid_1_spinning.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/pyramid_1_spinning.cpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/spinning_pyramid.gif" target="_blank">spinning_pyramid.gif</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/spinning_pyramid.gif" target="_blank">Raw</a></div></td></tr></tbody></table>
+						</div><!-- .code_table -->
+				</div><!-- .code -->
+				<div class="read_me">
+					<div class="read_me_title">
+						README.md:
+					</div><!-- .read_me_title -->
+					<div class="read_me_content markdown-body">
+					<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">This is a 3D spinning pyramid in OpenGL using C++.</p>
+<p dir="auto">For the first time ever in this portfolio, I did NOT code this myself. This is code that someone brilliant made, and it was retrieved from the web. I just changed it around a little bit. Getting the environment set up was no small task, and I got to play around and change a lot of things along the way to experiment. Learned about views, translations, projection, etc. It's not the first time anybody copied code and changed it.</p>
+<p dir="auto">I had a choice of using Microsoft DirectX or OpenGL to do this, and I found out that the RAGE Gaming Engine from Rockstar Games uses OpenGL (games like Grand Theft Auto &amp; Red Dead Redemption). I also found out that the Blender 3D Modeling software is made from OpenGL, so with those two getting that endorsement, the choice of OpenGL/C++ was easy.</p>
+<p dir="auto">I have always want to keep my coding skills sharp and to explore new frontiers in my coding life, and to show many of my friends who don't understand the merits &amp; fun that coding &amp; ordering around the computer brings.</p>
+<p dir="auto">I have always loved the "low levels" of coding like C++ &amp; Rust, and believe that they help with the more abstracted languages like Python &amp; JavaScript that are used in production.</p>
+<p dir="auto">If I ever decide to make cool graphics or maybe Supernova simulations, this would be the starting point.</p>
+<p dir="auto">Don't mind how the pyramid looks in the GIF. GIF doesn't allow all colors.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="images/spinning_pyramid.gif"><img src="images/spinning_pyramid.gif" alt="" style="max-width: 100%;"></a></p>
 </article></div>
 					</div><!-- .read_me_content -->
 				</div><!-- .read_me -->
