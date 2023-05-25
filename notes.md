@@ -3,20 +3,20 @@
 Link State | Type | Description
 - | - | -
 LSA 1 |Router | One per router, per area <br/>Lists RID & all interfaces in that area</br>Flooded only in that area | 
-LSA 2 |Network | One per transit network</br>Created by DR in the subnet Represent the subnet and all the interfaces in it</br>Flooded only in that area | 
-LSA 3 |Network Summary | Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area Flooded only within its area of the origin. Re-originated on ABR |
+LSA 2 |Network | One per transit network</br>Created by DR in the subnet</br>Represent the subnet fa all the interfaces in it</br>Flooded only in that area | 
+LSA 3 |Network Summary </br> (external area route)| Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area</br>Flooded only within its area of the origin. Re-originated on ABR |
 LSA 4 | ASBR Summary | Created by ABR Advertises a host route to reach an</br>ASBR Contains ABSR's RID and ABR's cost to reach it</br>Flooded only within its area of the origin Re-originated on ABRs |
-LSA 5 |AS Summary | Created by ASBR for external routes injected into OSPF Flooded to all areas |
+LSA 5 |AS Route </br> (external AS route) | Created by ASBR for external routes injected into OSPF Flooded to all areas |
 LSA 6 |Group Membership (MOSPF) |
 LSA 7 |NSSA External | Created by ASBR inside NSSA</br>External route information carried in this type LSA to distinguish from LSA Type 5 which is still prohibited in NSSA</br>ABR with the highest RID will translate to LSA type 5 and inject the external routes to other area |
 
-Area | Description
+Area | Description | Features 
 - | -
-Normal | 1,2,3,4,5 |
-Stub | 1,2,3 |
-Totally Stub | 1,2 |
-Not-So-Stubby Area | 1,2,3,7 |
-Totally Not-So-Stubby Area | 1,2,7 |
+Normal | 1,2,3,4,5 ||
+Stub | 1,2,3 | Has 0.0.0.0 route |
+Totally Stub | 1,2 | No 0.0.0.0 route, just a default route|
+Not-So-Stubby Area | 1,2,3,7 ||
+Totally Not-So-Stubby Area | 1,2,7 ||
 
 OSPF States | Description |
 - | - |
@@ -27,6 +27,27 @@ EXSTART | Decide on Master-Slave on who initiates communication of Database Desc
 EXCHANGE | Actually exchanging DBD packets. Also Link State Requests & Link State Advertisements are sent here, which determines if full Link State Updates should be sent. |
 LOADING | Link State Updates are sent |
 FULL | The Databases are synchronized fully |
+
+OSPF Interface Types | Description | 
+- | - |
+Notes | Point = NO DR & BDR</br>Multiaccess = More than one network device</br>Broadcast = Automatic Neighbors<br>Non-Broadcast = Manual Neighbor Configuration |
+Point-To-Point | No DR & BDR</br>POINT means NO DR-BDR|
+Broadcast | Multiaccess is when there's multiple points, with a switch coordinating this.</br>Has a DR |
+Non-Broadcast | Hub & Spoke</br> Still Multiaccess because it has multiple points|
+Non-Broadcast Multi-Access | DIDN'T EXIST IN GNS3</br>Frame Relay & ATM & X.25 fit this criteria</br>Manually define neighbors</br>It emulates broadcast |
+Point-To-Multipoint | Organizes many point-to-point networks</br>NO DR-BDR</br>I guess this dynamically finds neighbors, huh </br>Turns a MULTICAST NETWORK into a collection of point-to-point networksPstatus7  |
+Point-To-Multipoint Non-Broadcast | Manually define neighbors with NO DR-BDR</br>Non-Broadcast necessitates the static configuration of neighbors |
+
+Protocol | Administrative Distance |
+- | - |
+External BGP | 20 |
+Internal EIGRP | 90 |
+IGRP | 100 |
+OSPF | 110 |
+Intermediate System-to-Intermediate System (IS-IS) | 115 |
+Routing Information Protocol (RIP) | 120 |
+External EIGRP | 170
+Internal BGP | 200 |
 
 EIGRP Metrics |
 - |
@@ -42,22 +63,22 @@ Feasible Distance | Total metric between source router and destination. Includin
 Reported Distance & Advertised Distance | Feasible (aka total/entire) metric MINUS the first hop to the router ahead|
 Conversely, this means the first hop would be the feasible distance minus reported/advertised distance
 Successor | The BEST route to a destination |
-Feasible Successor | Route in reserve! Feasible means something different in this context. Feasible means shittier here when talking about routes/successors. With distance, feasible means better. |
-Feasibility Condition | LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS. If the Reported Distance of prospective routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)! |
-If reported distance of other routes is SMALLER than total successor, it counts. 
+Feasible Successor | Route in reserve! Feasible means something different in this context. Feasible means shittier when talking about routes/successors.</br>With distance, feasible means better. |
+Feasibility Condition | LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS.</br> If the Reported Distance of candidate routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)! |
+If reported distance of candidate routes is SMALLER than total successor, it counts. 
 
 
-BGP Best Path Algorithm | Description |
-- | - |
-Weight (1) | Cisco Proprietary </br> Highest </br> |
-Local Preference (2) | Choose outbound external path. It flows into all internal routers </br>Highest
-Locally Originated (3) | If two BGP routes are there and one is from our own router & the other is remote, favor the one coming from our own router listed as 0.0.0.0 as next-hop </br>More favored going down -> (default-originate, default-information originate, network, redistribute, aggregate-address) |
-AS Path (4) | Easy Peasy |
-Origin Code (5) | If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes (far away routes that were learned by redistribution) |
-MED (6) | The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets </br> Lower |
-eBGP vs iBGP  | This is TYPE of BGP.... NOT IGP vs redistributed/incomplete, that would be 5. |
-BGP Multipath | |
-Oldest Route | |
+BGP Best Path Algorithm | Ranking | What's Better | Direction | Description |
+- | - | - | - | - |
+Weight |1| Highest | Local | Cisco Proprietary </br> |
+Local Preference |2| Highest | In | Choose outbound external path. It flows into all internal routers
+Locally Originated |3| | | If two BGP routes are there and one is from our own router & the other is remote, favor the one coming from our own router listed as 0.0.0.0 as next-hop </br>More favored going down -> (default-originate, default-information originate, network, redistribute, aggregate-address) |
+AS Path |4| | | Easy Peasy |
+Origin Code |5| | | If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes far away routes that were learned by redistribution) </br> IGP, EGP, and Incomplete.</br> Respectively, those are i, e, and ?. "i" is IGP, "e" is EGP (precursor to BGP never used), "?" is incomplete</br>You will never see the "e" code</br>"?" can mean BGP because it doesn't fit under "i" & "e"</br>When you do a Network command in BGP, the code is if the "route" in BGP network command first came from IGP or BGP or whatever</br>Again, you'll never see "e". Only "i" & "?"|
+MED |6| Lower | Out |The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets  |
+eBGP vs iBGP  | 7 | | | This is TYPE of BGP.... NOT IGP vs redistributed/incomplete, that would be 5. |
+BGP Multipath | 8 | | |
+Oldest Route | 9 | | |
 
 BGP States | Description
 - | -
@@ -71,14 +92,14 @@ Established | Both peers exchange UPDATE messages. If there is an error within a
 
 DMVPN Registration | Description |
 - | - |
-NHRP Registration | A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS). |
-NHRP Resolution | A client sends the Private IP of the next hop and gets the Public IP |
+NHRP Registration | Private IP -> Public IP</br>Private IP (overlay), Public IP (underlay)</br>A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS). |
+NHRP Resolution | Private IP -> Public IP</br>A client sends the Private IP of the next hop and gets the Public IP |
 
 DMVPN Phases | Description |
 - | - |
 Phase 1 | Everything just goes through the Hub, simple as that. The hub will always be listed as the Next Hop for remote spokes.
-Phase 2 | The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke. It needs more information than the Private IP (such as the Public NBMA address). NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.
-Phase 3 | "ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect</br>
+Phase 2 | The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke.</br> It needs more information than the Private IP (such as the Public NBMA address).</br>NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. </br>NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</br>The traffic goes through the hub until an IPsec tunnel has been formed between the two communicating spokes. 
+Phase 3 | "ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br>Routing tables have DEFAULT ROUTES (THINNER ROUTE TABLES) and still spoke to spoke communication. Next Hop Route always Hub</br>YOU DON'T NEED THE FULL ROUTING TABLE OF ALL SPOKES!!!!!!! THE HUB WILL HELP WITH THE PARTICULAR SPOKES YOU WANT ON AN "AS NEEDED" BASIS, VIA NHRP REDIRECTS. I'm guessing the rest is summarized.
 
 
 IPV6 Addresses | Address |
@@ -137,8 +158,8 @@ GLBP | 224.0.0.102 |
 
 Multicast Trees | Description
 - | -	
-Shortest-Path Tree (SPT)/Source Tree | Receiver to Rendezvous Point	(S,G) |
-Rendezvous-Point Tree (RPT)/Shared Tree | Rendezvous Point to Receiver (*,G) </br> The reason it is (*,G) state is because it is eagerly looking for interested senders. RP will indicate which ones. 
+Shortest-Path Tree (SPT)</br>Source Tree | Sender to Rendezvous Point	(S,G) |
+Rendezvous-Point Tree (RPT)</br>Shared Tree | Rendezvous Point to Receiver (*,G) </br> The reason it is (*,G) state is because it is eagerly looking for interested senders. RP will indicate which ones. 
 
 
 MPLS Tables | Definition |
@@ -146,8 +167,8 @@ MPLS Tables | Definition |
 LDP | Routing Protocol that alerts everyone else on Labels |
 TDP | Virtually the same as LDP |
 LSR | Any router that exchanges Labels (All routers in domain) |
-LIB | LIB & LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table |
-LFIB | Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br> |
+LIB | LIB & LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table.</br> With the LIB, it sends it's labels to adjacent routers. |
+LFIB | Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br> LFIB is to match an label to another outgoing label. It's strictly looking at labels.|
 Push | Putting a label in the packet for the FIRST TIME |
 Swap | Changing labels in the middle of MPLS domain |
 Pop | Removing label at end |
@@ -187,6 +208,7 @@ Header Checksum | 16 | Error Checking a header.
 Source Address | 32 | 
 - | -
 Destination Address | 32 | 
+
 ### TCP Header
 TCP Header Field | Bits | Description |
 - | - | - | 
@@ -207,6 +229,16 @@ Urgent Pointer | 16 | If the URG flag is set, then this 16-bit field is an offse
 Options | 0-320 | More flags
 Padding | 32 | All zeroes indicating the packet had ended
 
+Wireless Type (802.11) | Speed | Frequency | Notes |
+- | - | - | - |
+802.11b | 11 Mbps | 2.4 GHz | |
+802.11a | 54 Mbps | 2.4 GHz | |
+802.11g | 54 Mbps | 2.4 GHz | |
+802.11n | 300 Mbps | 2.4 GHz - 5.0 GHz | |
+802.11ac | 450 Mbps - 1300 Mbps | 2.4 GHz - 5.0 GHz | |
+
+
+
 ## Multicast
 ### Sparse Mode
 ### Config
@@ -215,8 +247,12 @@ Padding | 32 | All zeroes indicating the packet had ended
 (config-if)# ip pim sparse-mode
 If you put access-list number after rp-address wildcard-mask, you can configure Auto-RP for redundancy as long as all interfaces are configured with multicast
 ### (S,G)
-If a router has (S,G) state, that means that routers who use that multicast address (G) as destination will only pass if the source is S. It's different than traditional routing because traditional route tables have no condition for the source address.
+If a router has (S,G) state, that means that routers who use that multicast address (G) as destination will only pass if the source is S AND when it's coming from the incoming address in the "show ip mroute" table. It's different than traditional routing because traditional route tables have no condition for the source address.
+https://blog.habets.se/2010/06/The-rules-of-multicast.html
+It clearly shows that packets that come from 1.0.0.2 are only accepted when they come in on interface Fa1/1. 
 (S,G) represents a route & a flow of traffic from sender to receiver
+### (Star,G)
+Doesn't care about the source at all. Any source. If the incoming interface says Null in "show ip mroute", the blog says it can still come from any interface. Remember this is to see which source routers are interested in sending to the group. You know which destination routers are interested to join particular groups due to IGMP Join messages.
 ### Steps
 - Source sends PIM Register to RP.
 - RP has (S,G) State
@@ -225,7 +261,57 @@ If a router has (S,G) state, that means that routers who use that multicast addr
 - When the client/receiver knows the real source (aka doesn't need to put *,G), the client now makes another path that's quickest to sender, and fills those (S,G) & "OIL" in that optimal path. That means that RP was only good for letting client know what exact sources/senders were interested in that group.
 - Client means the router next to the real client, registered by IGMP. THAT ROUTER send out PIM Prunes to kill out the states in the RPF/SPF related to Rendezvous point
 
-
+### BGP Always-Compare-Med
+Only compare the MED of two paths if they both have a MED attribute.
+## VXLAN
+IMPORTANT
+{MAC:AAAA.AAAA.AAAA.AAAA, VNI:100010, VTEP:E1/1}
+{MAC:BBBB.BBBB.BBBB.BBBB, VNI:100010, VTEP:192.168.10.22}
+If the host with mac-address is directly attached, the VTEP is the outgoing interface.
+If the host with mac-address is remote, the VTEP is another IP address.
+VTEP can be an interface or the IP address depending on the location of the host with MAC address.
+Multicast will lower the flooding of the ARP when the initial VTEP gets a packet, and flood out a few interfaces.
+Other devices will sign up for that Multicast & VNI, which will determine which ones get the broadcast/ARP to find the MAC Address.
+You seem them a lot in the Leaf & Spine architecture for a data center. Also called a CLOS network.
+This is for Overlays/Underlays and is a better alternative to OTV. 
+Uses the concept of overlay where the entire CLOS is Layer 3. This eliminates STP and have all links as forwarding without a loop.
+Layer 3 allows for rapid failover, called ECMP. This means it goes to another spine switch.
+VXLAN can mean what you want it to mean. Sometimes you can have the mapping for VLAN to VXLAN.
+You need both L2 AND L3 in a Data Center.
+L3 for Equal Cost Load Balancing and No STP and All forwarding links.
+L2 for Virtual Machine IP Address Consistency.
+VXLAN offers best of both worlds.
+You could manually flood, the smarter move is to use MP-BGP/EVPN or Multicast to send across the MAC Addresses
+### Multicast VXLAN
+Scalable and preferable to Head End Replication aka 
+When the ARP request from a host arrives to Leaf SW1 it will lookup its local table and if an entry is not found, it will encapsulate the ARP request over VXLAN and send it over the Multicast group configured for the specific VNI.
+THE SPINE SWITCHES ARE THE RENDESVOUS POINTS
+The multicast RP receive the packet and it will forward a copy to every VTEP that has joined the multicast group.
+A multicast address group maps to one VXLAN number called a VNI.
+BUM Traffic = Broadcast, Unknown Unicast, Multicast. BUM = Packets with multiple destinations.
+Let's talk about ADDRESS LEARNING!!!
+When it comes to Multicast Address Learning, there are FOUR COMPONENTS
+MAC ADDRESS ---- VNI (aka VXLAN Number) ---- VTEP/IP/INTERFACE ---- MULTICAST GROUP
+This table is filled when BUM Traffic from our host devices comes into the leaf switch.
+It will look at the VLAN ID of the BUM traffic from the host device (hanging from leaf switch), then map VLAN ID with the VNI from the configuration, then the VNI will look at the Multicast Group mapped to the VNI (aka VXLAN Number).
+The LEAF switches will be in this multicast group, representing a VNI/VXLAN Number. Or a single VLAN.
+The BUM Traffic (aka packet) will go out to certain leaf switches to find the location of the Destination IP. When it gets a response, it fills out the table of Destination MAC address (overlay) to Destination IP Overlay Leaf Address
+From the destination IP address of packet (overlay), it's mapped to MAC Address then IP address of remote switch (underlay leaf switch) for VTEP tunnels to form.
+To reiterate, in the source leaf switch, there is a destination MAC address entry (overlay (past destination leaf switch)) MAPPED to a IP or VNI/VXLAN to a destination leaf switch. Sometimes the destination is a combination of VNI & IP, like "nve1/10.1.1.40". This applies for entries in other leaf switches, otherwise the destination is an interface.
+### MP-BGP/EVPN
+Also called Head End Republication. 
+Not as good as multicast, only suitable generally for 20 switches.
+The MAC Address table to leaf switch look the same as multicast
+BGP is used for both the underlay AND overlay. I believe the underlay is for knowing which VTEP/Leaf Switch is where, and OVERLAY is for the Mac Addressses (L2VPN). 
+### VXLAN Underlay BGP
+For underlay BGP, the spine is the route reflector AND the leaves are the route reflector clients.
+For underlay BGP, you will still have to run IGP like OSPF or IS-IS or EIGRP. BGP here may be for large amounts of routes & networks for scaling. 
+### VXLAN Overlay BGP
+Clearly done to advertise the MAC addresses across the fabric. Fabric is CLOS Spine Leaf architecture.
+L2VPN = Address Family Identifier (25)
+EVPN = Subsequent Address Family (70)
+## Cisco ASA
+Active/Active failover is only available to ASAs in multiple context mode. In an Active/Active failover configuration, both ASAs can pass network traffic.
 
 
 
@@ -248,13 +334,13 @@ HSRP | 0000.0c07.ac0a |
 VRRP | 0000.5E00.01ac |
 GLBP | 0007.b400.XXYY </br>(X = Group, Y = Forwarding Number) |
 
-Regular STP Port States (802.1d) | Description |
-- | - |
-Disabled | |
-Blocking | |
-Listening | Doing jack shit to see if the topology changes. BPDUs are still sent to assess the land. |
-Learning | Looking at the source address of Ethernet Frames to populate the Mac Address Table |
-Forwarding | Good to go! |
+Regular STP Port States (802.1d) | Extra | Description |
+- | - | - |
+Disabled | | |
+Blocking | | |
+Listening | Listening for BPDUs | Doing jack shit to see if the topology changes. BPDUs are still sent to assess the land. |
+Learning | Learning MAC Addresses | Looking at the source address of Ethernet Frames to populate the Mac Address Table |
+Forwarding |  | Good to go! |
 
 Regular STP Port Roles (802.1d) | Description |
 - | - |
@@ -271,11 +357,11 @@ Forwarding | Good to go! |
 
 Rapid STP Port Roles (802.1w) | Description |
 - | - |
-Backup | This port serves as a secondary designated port in case the primary designated port fails. It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state. |
+Backup | BACKUP DESIGNATED PORT</br>This port serves as a secondary designated port in case the primary designated port fails.</br>It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state. |
 Disabled Port | Not in STP |
 Root Port | Port to reach the Root Bridge the fastest |
 Designated Port | Designated port is ALWAYS forwarding!! It is the port in a link/segment that has the lowest cost to the Root Bridge. If there is an already a RP in the point-to-point link, then the other link is designated.  Also, all ports in root switch are designated. |
-Alternate Port | This port serves as a secondary root port in case the primary root port fails. It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term) |
+Alternate Port | ALTERNATE ROOT PORT</br>This port serves as a secondary root port in case the primary root port fails.</br>It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term). Discarding replaces disabled, blocking & listening states|
 
 Port Security Features | Description |
 - | -
@@ -288,6 +374,13 @@ Port Security Violation | Description |
 Restrict | Log Entry
 Protect | No Log Entry
 Shutdown | Err-Disable
+
+STP Enhancements | Description |
+- | -
+BackboneFast | If there is an indirect link failure, nix off 20 seconds off the MAX AGE TIMER so it's just Listening & Learning State (15 seconds each, 30 seconds combined). 50 Seconds turned into 30 seconds
+
+### SVI
+The SVI serves as a default gateway to hosts in that VLAN. 
 
 ## GLBP Components
 ### Active Virtual Gateway
@@ -312,7 +405,26 @@ The switch checks the information found in the ARP request and compares it with 
 The aim for this is to prevent screwing with the ARP caches inside the networks. The ARP table links IP to MAC, and then the MAC address table finds the correct interface, so poisoning ARP table will send to wrong malicious interface.
 
 
+# <h1 id="cisco_security">Cisco Security</h1>
+### Security Level
+Like a waterfall, traffic from higher can go to lower security level. Traffic from lower security level cannot go into higher security level unless initiated by the "inside" higher security level.
 
+Terms | Description |
+- | - |
+Cisco Adaptive Security Appliance | Just does stateful firewalls, ACLs, remote access VPN, gateway VPN switching & security levels 
+Firepower features | Everything else the sun, like application context, context awareness, malware, Talos, Snort, URL filtering, OS fingerprinting. 
+Cisco ASA with FirePOWER Module | One way of having Firepower services (uses ASDM as the interface).
+Cisco Firepower standalone | Uses Cisco FTD (FirePOWER Threat Defense) as the GUI, very API based. Lacks the remote access VPN like ASA but that's about it
+
+Security Device | Description |
+- | - |
+ASA 55**-X | |
+ASA 5585-SSP*0 | |
+ASA 5500-X with FirePOWER Services | |
+Firepower 1000 Series | |
+Firepower 2100 Series | |
+Firepower 4100 Series | |
+Firepower 9300 | |
 
 
 # <h1 id="cloud_computing">Cloud Computing</h1>
@@ -327,31 +439,60 @@ Resource | Where in the Cloud/Service does this policy apply. Can be done granul
 
 S3 Tiers | Description |
 - | -
-S3 Standard | Availability  99.9%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br>
-S3 Reduced Redundancy Storage | Availability | 99.9%
+S3 Standard | Durability 99.999999999% (NINE 9's after decimal)</br>Availability  99.99%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br>
+S3 Reduced Redundancy Storage | Durability 99.99%</br>Availability 99.99%
 S3 Intelligent Tiering | Ideal to optimize storage costs automatically for long-lived data when access patterns are unknown or unpredictable.  </br> For a small monthly monitoring and automation fee per object, S3 monitors access patterns of the objects and moves objects that have not been accessed for 30 consecutive days to the infrequent access tier.
-S3 Standard Infrequently Accessed | Availability 99.9% Storage Costs $0.0125 per GB
+S3 Standard Infrequently Accessed | Durability 99.999999999% (NINE 9's after decimal)</br>Availability 99.9% Storage Costs $0.0125 per GB
 S3 One Zone Infrequently Accessed | Availability 99.5% Storage Costs $0.01 per GB
 S3 Glacier | Availability 99.9% Storage Costs $0.004 per GB
 S3 Glacier Deep Archive | Availabililty | 99.9% Storage Costs $0.00099 per GB
 
 EC2 Types | Description |
 - | -
-General Purpose | 		Names=> A1,T3,T3a,T2,M5,M5a,M4---Balance of compute, memory and networking resources. For Web Serveers & Code Repositories
-Compute Optimized | 		Names=> C5,C5n,C4,		Purpose Ideal for compute bound applications that benefit from high performance processor,		Use Cases Scientific Modeling, dedicated gaming servers & ad server engines
-Memory Optimized | 		Names=> R5,R5a,X1e,X1,High Memory,z1d,		Purpose Fast performance of workloads that process large data sets in memory,		Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,
-Accelerated Optimized | 		Names=> P3,P2,G3,F1,		Purpose Hardware accelerators, or co-processors,		Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,
-Storage Optimized | 		Names=> I3,I3en,D2,H1,		Purpose High, sequential read and write access to very large data sets on local storage,		Use Cases NoSQL, in-memory or transactional databases, data warehousing,
-Graphics Optimized | 		Names=> G3,		Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.,		Use Cases Gamers, AutoCAD, etc
-Graviton | 		If you put a g after the "names" above, it is a graviton ARM CPU |
+General Purpose | Names=> A1,T3,T3a,T2,M5,M5a,M4</br>Balance of compute, memory and networking resources.</br>Use Cases For Web Serveers & Code Repositories
+Compute Optimized | Names=> C5,C5n,C4,</br>Purpose Ideal for compute bound applications that benefit from high performance processor</br>Use Cases Scientific Modeling, dedicated gaming servers & ad server engines
+Memory Optimized | Names=> R5,R5a,X1e,X1,High Memory,z1d,</br>Purpose Fast performance of workloads that process large data sets in memory</br>Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,
+Accelerated Optimized | Names=> P3,P2,G3,F1,</br>Purpose Hardware accelerators, or co-processors</br>Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,
+Storage Optimized | Names=> I3,I3en,D2,H1,</br>Purpose High, sequential read and write access to very large data sets on local storage</br>Use Cases NoSQL, in-memory or transactional databases, data warehousing,
+Graphics Optimized | Names=> G3,</br>Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.</br>Use Cases Gamers, AutoCAD, etc
+Graviton | If you put a g after the "names" above, it is a graviton ARM CPU |
 
 EBS Drive Name|Drive|Description|API Name|Volume Size|Max IOPS|Use Cases|
 -|-|-|-|-|-|-|
-General Purpose|SSD|Balances Price and Performance|gp2|1GB - 16TB|16000|"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern| to strike that balance"
-Provisioned IOPS|SSD|Highest SSD Performance for mission-critical low latency or high throughput|io1|4GB - 16TB|64000|"Large Databases| IOPS greater than 16000| Throughput greater than 250MB| Throughput Optimized"
-Throughput Optimized|HDD|"Low-cost. Designed for frequently accessed| throughput intensive workloads."|st1|500GB - 15TB|500|"Data Warehouses| Big Data| Log Processing|"
+General Purpose|SSD|Balances Price and Performance|gp2|1GB - 16TB|16000|"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern to strike that balance"
+Provisioned IOPS|SSD|Highest SSD Performance for mission-critical low latency or high throughput|io1|4GB - 16TB|64000|"Large Databases IOPS greater than 16000 Throughput greater than 250MB Throughput Optimized"
+Throughput Optimized|HDD|"Low-cost. Designed for frequently accessed throughput intensive workloads."|st1|500GB - 15TB|500|"Data Warehouses Big Data Log Processing|"
 Cold|HDD|Lowest HDD Cost. Less frequently used workloads|sc1|500GB - 15TB|250|
-EBS Magnetic|Magnetic|Archival Storage||500GB - 15TB|40/200|
+EBS Magnetic | Magnetic | Archival Storage| | 500GB - 15TB 40/200|
+
+AWS Proton Environment Types
+-
+Reason: This sets up dev/staging/prod 
+AWS::EC2::VPC
+AWS::EC2::Subnet
+AWS::EC2::InternetGateway
+AWS::EC2::VPCGatewayAttachment
+AWS::EC2::RouteTable
+AWS::EC2::Route
+AWS::EC2::SubnetRouteTableAssociation
+AWS::EC2::SecurityGroup
+AWS::ECS::Cluster
+AWS::IAM::Role (used by ECS tasks, namely sts:AssumeRole)
+
+AWS Proton Service Types
+- 
+AWS::Logs::LogGroup
+AWS::ECS::TaskDefinition
+AWS::ECS::Service
+AWS::ElasticLoadBalancingV2::TargetGroup
+AWS::ElasticLoadBalancingV2::ListenerRule
+AWS::ApplicationAutoScaling::ScalableTarget
+AWS::ApplicationAutoScaling::ScalingPolicy
+AWS::CloudWatch::Alarm
+AWS::EC2::SecurityGroupIngress
+AWS::ElasticLoadBalancingV2::LoadBalancer
+AWS::ElasticLoadBalancingV2::Listener
+
 
 ## DynamoDB
 ### Consistent Reads
@@ -388,12 +529,6 @@ Kinesis allows real-time processing of streaming big data and the ability to rea
 Producer & Consumer model where you can put records & get records
 In Python, data is sent as a "byte stream"
 No shard auto-scaling like SQS
-### SQS
-
-
-
-
-
 
 
 
@@ -603,6 +738,12 @@ Trust | 		A relationship between domains that allows access by objects in one do
 Users |
 Volume |
 
+Cool Microsoft Functions | Parameters |
+- | - |
+VirtualAlloc | lpvAddress, dwSize, dwAllocationType
+VirtualAllocEx | hProcess, lpvAddress, dwSize, dwAllocationType
+WriteProcessMemory | hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesWritten (2nd = destination, 3rd = source)
+ReadProcessMemory | hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesRead (2nd = source, 3rd = destination)
 
 VirtualAlloc | 	Description |
 - | - |
@@ -617,15 +758,15 @@ hProcess | Process Handle to write in next 4</br>Next 4 parameters are those in 
 WriteProcessMemory | 		Description |
 - | - |
 hpProcess|	The Process where memory is to be written
-lpBaseAddress |  Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected
-lpBuffer| The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress
+lpBaseAddress | (DESTINATION) Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected
+lpBuffer| (SOURCE) The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress
 lpdwBytesWritten | 	A pointer containing the amount of bytes that were successfully written (passed by reference). A number will come back. This can be NULL
 
 ReadProcessMemory | Description |
 - | - |
 Notes | Identical to WrtiteProcessMemory (but for 2nd & 3rd parameters) 
-lpSource | Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory
-lpDest | Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory
+lpBaseAddress | (SOURCE) Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory
+lpBuffer | (DESTINATION) Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory
 
 Sentinel | 	
 - | 
@@ -763,6 +904,75 @@ TAB | TAB(4) </br> Put in Print Statements
 USR | USR(X) </br> Passes value of X to a machine language subroutine
 VAL | VAL(S$) </br> Convert string to int
 
+C++ STL Standard Template Library | Description |
+- | - |
+Vector | Add to the end only, as dynamic</br>Fast Insertion/Removal</br>Finding by Index fast</br> Finding by object very slow
+Deque | Allows adding to the beginning & end</br>Only disadvantage is finding by index is slower than vector
+List | Linked List</br>Very similar to Deque, but locations are all over memory</br>One difference with List compared to Deque is that inserting can happen in middle
+Forward List | Like a list, but there's only one pointer going to the next element.</br>No huge difference between List. 
+Set | STORES ITEMS IN A BINARY TREE STRUCTURE</br>Overhead when inserting</br>Finding items is way faster than insertion, because insertion sorts each time & puts it in sorted Binary Search Structure</br>Stores unique values which are sorted in a logarithmic complexity</br>Insert/Remove/Find = O(log(n))
+Unordered Set | Stores unique values that are NOT ordered.</br>USES HASHING</br>GREAT FOR FINDING & RETRIEVING, shit for iterating. Never use unordered sets for iterating & traversing</br>UNORDERED MEANS HASH MAP!!
+Map | Key-Value Pairs inserted AND sorted with Logarithmic complexity</br>Insertion/Access/Remove/Find is Logarithmic</br>You could still order/iterate.
+Unordered Map | Key-Value Pairs inserted AND sorted with Linear complexity</br>HASH TABLE</br>Insertion/Access/Remove/Find is n(1) which is Linear & Best Case Scenario</br>I'm guessing the tradeoff happens with ITERATING which would be impossble or practically useless
+Multiset | Sets with multiple values, that's ordered for iteration.</br>You'd use a Multiset when you want the SORTED BEHAVIOR on insertion automatically compared to Vector/Deque
+Unordered Multiset | Sets with multiple values, but with hash maps
+Stack | Stores elements in a Last-In-First-Out fashion.</br>Push/Pop/Top = O(1)
+Queue | Stores elements in a First-In-First-Out fashion.
+Priority Queue | Stores elements in a sorted order. First gets priority.
+
+C++ Const & Pointers | Descr
+Notes | When it comes to pointers & const, read right to left. IGNORE TYPE |
+const int * | CAN CHANGE POINTER, NOT INTEGER </br> Pointer to constant integer OR Pointer to integer constant  </br> Cannot change object being pointed at |
+int const * | SAME AS ABOVE </br> CAN CHANGE POINTER, NOT INTEGER </br> Pointer to constant </br> Pointer to constant integer </br> Cannot change object being pointed at </br> Same as above |
+int * const | Constant pointer, the pointer is constant | 
+const * int | DOES NOT APPLY!!! C:\makeshift\files\test_scripts\test.cpp:10:13: error: expected unqualified-id before 'int' </br> Cannot have variables that begin with pointers either </br> I believe there must be a type before the pointer symbol |
+int const * const | We know |
+const int * const  | We know |
+
+C++ Auto && | Description |
+- | - |
+rvalues | Usually they are parameters lixadxke Widget&& that are sent disposable anonymous objects in the arguments. This just passes the buck to the function. This is used for move semantics. Copy semantics uses pointers, not RValues |
+auto&& | Not an rvalue reference like int&& or Widget&&. </br> Catch all reference used in For Loops|
+
+Rust | Description |
+- | - |
+let a = 40 <> let c = &mut a | NO!!! |
+let mut a = 40 <> let c = & a | SOMEWHAT!!! </br> Warning: variable does not need to be mutable |
+let a = 40 <> let &c = & a | YES <br> Immutable reference |
+let mut a = 40 <> let c = &mut a | YES!!! </br> When it comes to mutable references, there can only be ONE |
+let a = 40 <> let c = &a | YES!!! </br>Immutable References </br> You can have MULTIPLE references that are immutable, unlike immutable (&mut) that must only have one </br> If you put & as an argument, then the function can BORROW the variable, and it won't be deleted after function is finished. |
+let a = 40 <> let c = a | YES!!! </br>When this happens, a is gone. MOVE semantics just take away variable "a".
+Scoping Mutable References |
+(references) let b: &i32 = &a | In C++, this is equivalent to int& b = &a, in real C++, there would be no & in a. C++ has the & in the parameters because you have to put the whole type down. Looking at the arguments/parameters, C++ is a->a, Rust is &a->a. The type of the variable is a reference WITH &.
+NOTE | When passing references, argument has "&" and parameter has "&", with result IN function AND calling function being the deferenced value (not pointer address)
+Option<T> | Some(T) / None. This means Something or Nothing. |
+Result<T,E> | Ok(T) / Err(E). | 
+* | Note, * character is only used for Box,Rc,Arc,wrappers, and not for &references. Immutable unless RefCell |
+Box<T> | Typically used for polymorphism like Box<dyn Animal>. |  
+Rc<T> | Reference counter where an object can have many owners |
+Arc<T> | Atomic reference counter that's thread safe
+
+Magento | Description
+- | - |
+app | |
+app/design | |
+app/design/frontend | Each module in each theme has layout/web folders, with other folders containing html/phtml files |
+app/design/adminhtml | |
+app/etc | di.xml for dependency injection, and vendor paths & registrations |
+app/i18n | |
+app/code | Modules containing Models/Controllers/Blocks |
+app/code/Magento | The actual code of Magento (models/controllers), corresponding with catalogs & checkout, etc |
+app/code/<vendor_name> | Your own custom code |
+bin | Only has Magento CLI executable script |
+dev | Stores automated functional tests which were run by the Magento Test Framework. |
+lib | CORE MAGENTO CODE. This contains all of Magento and vendor library files. It also includes all the non-module based Magento code. Basically, these are primitive objects that you will find in app/code|
+phpserver | This has the Router.php file which can be used to implement the PHP built-in server. |
+pub | An index.php file will be stored in this directory. You can use this file to run the application in production mode, as a security measure. Also has theme static files |
+setup | Magento’s installation setup |
+var | Variety of subfolders which contains classes, sessions, cache, database backups, and cached error reports. |
+vendor | NOTHING TO BEGIN WITH. THIS IS WHERE THIRD PARTY MAGENTO CODE FROM OTHER EXTENSIONS GO. If you're making your own It may be possible that custom code to override App/Code is put here |
+
+
 Design Patterns | Description |
 - | - |
 Abstract Factory | factory1 = ConcreteFactory1()</br></br> factory2 = ConcreteFactory2()</br></br> product_a = factory1.create_product_a()</br> product_b = factory2.create_product_b()</br>
@@ -782,55 +992,19 @@ Prototype | The Prototype pattern delegates the cloning process to the actual ob
 Proxy | Simply a class that acts on behalf on another class.</br>
 Observer | We all know what it does.</br> Subject has attach, detach & notify methods. </br> Observer has update methods.</br> Notify will do the for loop over update methods.</br> looks like</br> subject.attach(observer_a)</br> subject.attach(observer_b)</br>
 Singleton |
-State | Strategy Patterns are in each State object. A state object can have 2 to 5 to 10 methods, among different state objects.</br> A context object can have a State Object. A state object can have a context object. Two way.</br> context = Context(ConcreteStateA())</br> context.request1()</br> context.request2()</br>
-Strategy | Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrastsq with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br> context = Context(ConcreteStrategyA())</br> print("Client: Strategy is set to normal sorting.")</br> context.do_some_business_logic()</br> print("Client: Strategy is set to reverse sorting.")</br> context.strategy = ConcreteStrategyB()</br> context.do_some_business_logic()</br>
+State |  Strategy Patterns are in each State object. A state object can have 2 to 5 to 10 methods, among different state objects.</br> A context object can have a State Object. A state object can have a context object. Two way.</br> context = Context(ConcreteStateA())</br> context.request1()</br> context.request2()</br>
+Strategy | POLYMORPHISM IN A SEPARATE OBJECT!!!!!!!! Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrastsq with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br>  ANOTHER way to see strategy is that polymorphism is moved to another class rather than in client: mediaPlayer = MediaPlayer(YouTubeSearch()).search()
 Template | This adds standard usual behavior/code BEFORE OR AFTER a changing set of code. The code that changes will be implemented by subclasses.</br> Developers often use it to provide framework users with a simple means of extending standard functionality using inheritance.</br> Think of Python Decorators with Template pattern.</br> There is only one tree in this pattern with the top interface having two methods.</br> One function calls the other (with standard unchanging code around it) which the subclasses will implement & override.</br> abstract_class.template_method() - "Template method" will call subclass methods, so the template method changes</br>
 
-
-Assembly Instructions | Description |
-- | -
-MOV | MOV AX, 15 | Adds Valu eTo register
-ADD | ADD AX, BX | Assigns Value To Register
-SUB | SUB AX, 1 | Subtracts value to register
-AND | AND AL, 11011111b | Executes binary AND operation
-OR | OR AL, BX | Executes binary OR operation
-NOT | NOT AL | Executes binary NOT operation
-XOR | XOR AL, 01010101b | Executes binary XOR operation
-SHL/SHR | SHL AL, 1 | Shifts to the left or to the right.
-	Expulsed bit is in the Carry Flag (CF)
-ROL | Rotates to the left or the right, using or not CF | ROL AL, 1
-INC/DEC | INC AX | Increments or decrements a value
-STC | Sets CF value
-STD | STD | Sets DF to 1 or 0
-MUL | MOV AL, 00001Ah -- MUL 00002h | Multiplies or divides two numbers and stores it to AX,	Most significant bit stored in DX DIV | Ditto above, but for division |
-JMP | JMP calc | Jumps to a label
-CMP | CMP AL, 01234b | Performs a comparison
-PUSH ||
-STOS ||
-LOOP || 
-JA | CF = 0 and ZF = 0 |  Jump if Above 
-JAE | Jump if Above or Equal | CF = 0
-JBE
-JC | CF = 1 | Jump if Carry
-JE | ZF = 1 | Jump if Equal
-JG | ZF = 0 and SF = OF | Jump if Greater
-JGE | SF = OF | Jump if Greater of Equal
-JL | Jump if Less | SF <> OF
-JLE | Jump if Less or Equal | ZF = 1 or SF <> OF
-JO | OF = 1 | Jump if Overflow
-JP | PF = 1 | Jump if Parity
-JPE | Jump if Parity Even | PF = 1
-JS | SF = 1 | Jump if Sign
-JZ | Jump if Zero | ZF = 1
 
 React Hooks | Description |
 - | -
 constructor | Mount immediately before render | Initialize State
-componentDidMount | Mount immediately after render , Initialize state that requires DOM nodes, network requests and side effects
-shouldComponentUpdate | Update immediately after render , Allows developer to prevent rendering render, Code to display the component |
-getSnapshotBeforeUpdate | Update immediately before render output is committed to DOM , Capture DOM information such as scroll position which could change
-componentDidUpdate | Update immediately after render , Operate on updated DOM or handle network requests
-getDerivedStateFromProps | Mount and update before render , Takes props and state as parameter Used when state depends on props
+componentDidMount | Execute some custom code when mounting immediately after render</br>Initialize state that requires DOM nodes, network requests and side effects
+shouldComponentUpdate | Update immediately after render</br>Allows developer to prevent rendering render, Code to display the component |
+getSnapshotBeforeUpdate | Update immediately before render output is committed to DOM</br>Capture DOM information such as scroll position which could change
+componentDidUpdate | Execute some custom code when updating immediately after render</br>Operate on updated DOM or handle network requests
+getDerivedStateFromProps | Mount and update before render</br>Takes props and state as parameter Used when state depends on props
 componentWillUnmount | Unmount, Clean up things such as event handlers, cancel network requests, etc
 
 React Hooks |
@@ -856,7 +1030,8 @@ A semaphore seems like smaller mutexes that can lock more objects, while a mutex
 	  template: `
 	    <div>
 	      <form [formGroup]="form"
-	            (ngSubmit)="onSubmit(form.value, form.valid)"
+	            (ngSubmit)="onSubmit(foiption |
+- | - |rm.value, form.valid)"
 	            novalidate>
 	        <div>
 	          <label>
@@ -973,10 +1148,35 @@ A semaphore seems like smaller mutexes that can lock more objects, while a mutex
 	    );
 	  }
 	}
+### Erlang
+Erlang processes are lightweight, operate in (memory) isolation from other processes, and are scheduled by Erlang's Virtual Machine (VM). The creation time of process is very low, the memory footprint of a just spawned process is very small, and a single Erlang VM can have millions of processes running.
+Erlang processes are sfmall C structs that boucne around between scheduler threads and carry enough internal information to allow interpretation for a fixed number of instrucitons. There's no concept of shared memory in Erlang/Elixir: communication between different concurrent actors in the system must happen via message passing.
+### Algorithms
+Algorithms|N-Time|Description|
+-|-|-|
+Merge Sort|N-Log(N)|Divide array into two parts</br>swap when we are at pairs</br>Keep on going until everything is "Size 1"</br>Put everything back together by sorting back exponentially by two, by comparing the value of sorted array to an adjecent "chunk"'s value
+Quick Sort|N-Log(N)|It is very similar to Merge Sort, however, it's not dividing by TWO. It's picking a value called a pivot. Pivot is on the LEFT or RIGHT side of chunk (chunks are called partitions). Values beneath to the pivot is to the left, and values above pivot are to the right. There's no need to combine them (reduce) after the fact. Efficiency is based on distribution of numbers. If already sorted, it may pose a problem, and likely be N^2.
+Bubble Sort|n^2|Take a sliding scale of two, and run it through the array, sorting along the way along this sliding scale of two.
+
+Inteview Algorithms|N-Time|Description|
+-|-|-|
+A as root, B & E as 1st layer, C & D as 2nd layer beneath B (nothing under E) | - | - |
+Depth First Search|n|ABCDE!! Will look all the way down first on left side, then start going on right side when working it's way back up. Think of inverting a binary tree. Left Left Left Right Root Left Left Right.
+Breadth First Search|n|ABECD!! Top down.
 
 
 
-
+# <h1 id="Administration">Administration</h1>
+## DevOps
+Kubernetes Term | Description |
+- | - |
+Container | |
+Pod | Pod can have many containers |
+Node | Node can have many pods |
+Kubelet | The kubelet is the primary "node agent" that runs on each node.  | 
+KubeProxy | Watches the API server for pods/services changes in order to maintain the network up to date. |
+Master | The puppet master. Has Northbound & Southbound API like a controller |
+KubeCTL | Sends commands to the master. Users are the real master who tells Kubernetes master what to do.  |
 
 
 
@@ -999,7 +1199,7 @@ Router(config-if)# bandwidth 1000
 Router(config-if)# keepalive 3 7
 Router(config-if)# ip address 192.168.1.1 255.255.255.252
 Router(config-if)# tunnel source Ethernet 1
-Router(config-if)# tunnel destination 172.17.2.1
+Router(config-if)# tunnel destination 54.34.78.222
 Router(config-if)# tunnel key 1000
 Router(config-if)# tunnel mode gre ip
 Router(config-if)# ip mtu 1400
@@ -1381,6 +1581,8 @@ has msec option if under a second
 ### Troubleshooting
 R1# show ip mroute
 R1# show ip mroute 224.0.0.1
+### Prefix List
+R1# ip prefix-list GOON_PREFIX_LIST 192.168.0.16/28 ge 30 le 32
 ### Route Map
 ### Match
 R1(config)# route-map MYMAP permit 10
@@ -1583,7 +1785,72 @@ SW1(config)# spanning-tree uplinkfast
 ### Troubleshooting
 SW1#show spanning-tree
 SW1#show spanning-tree interface gi2/24 
-
+## VXLAN
+### Spine
+Set up an IGP like OSPF
+### Leaf (without multicast for BUM traffic (Broadcast, Unicast, Multicast))
+Set up an IGP like OSPF
+SW1(config)#int vxlan 1 
+SW1(config-if-vx1)#vxlan source-interface lo0
+</br>
+------ Source is a loopback like 7.7.7.7
+</br>
+SW1(config-if-vx1)#vxlan vlan 3 vni 3000
+SW1(config-if-vx1)#vxlan flood vtep 3.3.3.3
+</br>
+------ You flood to other leaf switches with same VLANs/VXLANS if not using Multicast
+</br>
+SW1(config)#int vlan 3
+SW1(config)#ip add virtual 192.168.3.254 255.255.255.0
+</br>
+------ This is the default gateway
+</br>
+SW1(config)#vlan 11
+SW1(config)#vn-segment 100011
+### Leaf (EVPN L2VPN)
+SW1(config)#int nve1 
+(network virtual endpoint)
+SW1(config-if-nve)#source-interface f01
+SW1(config-if-nve)#host-reachability protocol bgp
+SW1(config-if-nve)#member vni 100022
+SW1(config-if-nve-vni)#mcast-group 239.0.0.1
+(doesn't really mattern for BGP)
+(multicast is confusing)
+SW1(config)#evpn
+SW1(config-evpn)#vni 100011 l2
+SW1(config-evpn-evi)#rd auto
+SW1(config-evpn-evi)#route-target import auto
+SW1(config-evpn-evi)#route-target export auto
+### Leaf (Multicast)
+SW1(config)#member vni 100011
+SW1(config)#mcast-group 239.0.0.1
+### VXLAN (Read L2VPN routes)
+SW1#show bgp l2vpn evpn neighbors 10.1.1.2 advertised-routes
+### Types Of VXLAN
+Multicast (Data-Plane pertaining to ARP)
+Ingress Replication (BGP Control Plane) 
+### JUNIPER VXLAN
+1  set interfaces lo0 unit 0 family inet address 10.1.1.1
+2  set switch-options vtep-source-interface lo0.0
+3  set protocols pim interface lo0.0
+4  set protocols pim interface xe-0/0/0.0
+5  set protocols pim rp static address 10.2.2.2
+6  set protocols ospf area 0.0.0.0 interface lo0.0
+7  set protocols ospf area 0.0.0.0 interface xe-0/0/0.0
+8  set vlans VLAN1 vlan-id 100 vxlan vni 100 multicast-group 233.252.0.2
+9  set vlans VLAN1 vxlan encapsulate-inner-vlan
+10 set vlans VLAN1 vxlan unreachable-vtep-aging-timer 600
+11 set protocols l2-learning decapsulate-accept-inner-vlan
+12 set interfaces xe-0/0/0 unit 0 family inet address 10.2.2.100/24
+13 set interfaces xe-0/0/1 unit 0 family ethernet-switching interface-mode trunk
+14 set interfaces xe-0/0/1 unit 0 family ethernet-switching vlan members all
+15 set protocols ospf enable
+16 set protocols ospf area 0.0.0.0 interface em0.0 disable
+17 set protocols ospf area 0.0.0.0 interface all
+</br>
+Takeaways:
+2 = NVE or VTEP needs to have a source interface that's a Loopback, just like Cisco
+8 = Key. Makes a VLAN that has a VXLAN VNI and a multicast address, just like in other VXLANS
 
 # <h1 id="assembly">Assembly</h1>
 Hex Opcode|Opcode Extra|Decimal Opcode|Assembly Mnemonic|Description
