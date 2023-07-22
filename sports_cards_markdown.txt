@@ -1,0 +1,252 @@
+
+Silver Slam
+1997-98 Metal Universe
+1:6
+
+| Card Number | Player | Price |
+|-------------|--------------------|----------|
+| 1 SS  | Ray Allen | $10.00   |
+| 2 SS  | Kerry Kittles| $8.00 |
+| 3 SS  | Antoine Walker  | $6.00 |
+| 4 SS  | Scottie Pippen  | $15.00   |
+| 5 SS  | Damon Stoudamire   | $5.00 |
+| 6 SS  | Shawn Kemp   | $12.00   |
+| 7 SS  | Jerry Stackhouse   | $7.00 |
+| 8 SS  | John Wallace | $4.00 |
+| 9 SS  | Juwan Howard | $6.00 |
+| 10 SS | Gary Payton  | $20.00   |
+| 11 SS | Joe Smith | $3.00 |
+| 12 SS | Terrell Brandon | $4.00 |
+| 13 SS | Hakeem Olajuwon | $18.00   |
+| 14 SS | Tom Gugliotta| $5.00 |
+| 15 SS | Glen Rice | $7.00 |
+| 16 SS | Charles Barkley | $16.00   |
+| 17 SS | David Robinson  | $14.00   |
+| 18 SS | Patrick Ewing| $10.00   |
+| 19 SS | Christian Laettner | $6.00 |
+| 20 SS | Chris Webber | $8.00 |
+
+Planet Metal
+1997-98 Metal Universe
+1:24
+
+| Card Number | Player | Price |
+|-------------|-----------------|----------|
+| 1 PM  | Michael Jordan  | $50.00   |
+| 2 PM  | Allen Iverson   | $30.00   |
+| 3 PM  | Kobe Bryant  | $40.00   |
+| 4 PM  | Shaquille O'Neal| $35.00   |
+| 5 PM  | Stephon Marbury | $10.00   |
+| 6 PM  | Marcus Camby | $8.00 |
+| 7 PM  | Anfernee Hardaway| $15.00  |
+| 8 PM  | Kevin Garnett   | $25.00   |
+| 9 PM  | Shareef Abdur-Rahim| $12.00 | 
+| 10 PM | Dennis Rodman   | $20.00   |
+| 11 PM | Grant Hill| $22.00   |
+| 12 PM | Hakeem Olajuwon | $30.00   |
+| 13 PM | David Robinson  | $28.00   |
+| 14 PM | Charles Barkley | $25.00   |
+| 15 PM | Gary Payton  | $25.00   |
+
+Gold Universe
+1997-98 Metal Universe
+1:120
+
+| Card Number | Player | Price |
+|-------------|-----------------|----------|
+| 1 GU  | Damon Stoudamire| $25.00   |
+| 2 GU  | Shawn Kemp| $30.00   |
+| 3 GU  | John Stockton   | $40.00   |
+| 4 GU  | Jerry Stackhouse| $20.00   |
+| 5 GU  | John Wallace | $15.00   |
+| 6 GU  | Juwan Howard | $18.00   |
+| 7 GU  | David Robinson  | $35.00   |
+| 8 GU  | Gary Payton  | $38.00   |
+| 9 GU  | Joe Smith | $10.00   |
+| 10 GU | Charles Barkley | $45.00   |
+
+Titanium
+1997-98 Metal Universe Championship
+1:72
+
+| Card Number | Player   | Price |
+|-------------|----------------|----------|
+| 1 T   | Michael Jordan | $100.00  |
+| 2 T   | Allen Iverson  | $75.00   |
+| 3 T   | Kobe Bryant | $90.00   |
+| 4 T   | Shaquille O'Neal| $80.00  |
+| 5 T   | Stephon Marbury| $30.00   |
+| 6 T   | Marcus Camby   | $25.00   |
+| 7 T   | Anfernee Hardaway| $35.00 | 
+| 8 T   | Kevin Garnett  | $60.00   |
+| 9 T   | Shareef Abdur-Rahim| $28.00 | 
+| 10 T  | Dennis Rodman  | $50.00   |
+| 11 T  | Ray Allen| $40.00   |
+| 12 T  | Grant Hill  | $45.00   |
+| 13 T  | Kerry Kittles  | $20.00   |
+| 14 T  | Antoine Walker | $25.00   |
+| 15 T  | Scottie Pippen | $55.00   |
+| 16 T  | Damon Stoudamire| $30.00  |
+| 17 T  | Shawn Kemp  | $40.00   |
+| 18 T  | Hakeem Olajuwon| $70.00   |
+| 19 T  | Jerry Stackhouse| $25.00  |
+| 20 T  | Juwan Howard   | $28.00   |
+
+Platinum Portraits
+1997-98 Metal Universe
+1:288
+
+| Card Number | Player   | Price |
+|-------------|----------------|----------|
+| 1 PP  | Michael Jordan | $150.00  |
+| 2 PP  | Allen Iverson  | $100.00  |
+| 3 PP  | Kobe Bryant | $120.00  |
+| 4 PP  | Shaquille O'Neal| $110.00 | 
+| 5 PP  | Stephon Marbury| $40.00   |
+| 6 PP  | Marcus Camby   | $35.00   |
+| 7 PP  | Anfernee Hardaway| $50.00 | 
+| 8 PP  | Kevin Garnett  | $90.00   |
+| 9 PP  | Shareef Abdur-Rahim| $45.00 | 
+| 10 PP | Dennis Rodman  | $80.00   |
+| 11 PP | Ray Allen| $65.00   |
+| 12 PP | Grant Hill  | $70.00   |
+| 13 PP | Kerry Kittles
+
+  | $30.00   |
+| 14 PP | Antoine Walker | $35.00   |
+| 15 PP | Scottie Pippen | $95.00   |
+
+Precious Metal Emerald
+1997-98 Metal Universe
+Parallel Sets (serial to 100)
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 23 SN50  | Michael Jordan | $500.00   |
+| 41 SN50  | Kevin Garnett  | $400.00   |
+| 72 SN50  | Tim Duncan  | $350.00   |
+
+Precious Metal Red
+1997-98 Metal Universe
+Parallel Sets (serial to 100)
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 23 SN50  | Michael Jordan | $500.00   |
+| 41 SN50  | Kevin Garnett  | $400.00   |
+| 72 SN50  | Tim Duncan  | $350.00   |
+
+All-Millenium Team
+1997-98 Metal Universe Championship
+1:6
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 1AM   | Stephon Marbury| $10.00 |
+| 2AM   | Shareef Abdur-Rahim| $12.00 | 
+| 3AM   | Karl Malone | $25.00 |
+| 4AM   | Scottie Pippen | $20.00 |
+| 5AM   | Michael Jordan | $50.00   |
+| 6AM   | Marcus Camby   | $6.00 |
+| 7AM   | Kobe Bryant | $20.00 |
+| 8AM   | Allen Iverson  | $40.00 |
+| 9AM   | Kerry Kittles  | $15.00 |
+| 10AM  | Ray Allen| $60.00 |
+| 11AM  | Dennis Rodman  | $40.00 |
+| 12AM  | Damon Stoudamire| $25.00   |
+| 13AM  | Antoine Walker | $20.00 |
+| 14AM  | Anfernee Hardaway| $35.00  |
+| 15AM  | Hakeem Olajuwon| $10.00 |
+| 16AM  | Shawn Kemp  | $15.00 |
+| 17AM  | Antonio Daniels| $3.00 |
+| 18AM  | Juwan Howard   | $5.00 |
+| 19AM  | Gary Payton | $10.00 |
+| 20AM  | Tim Duncan  | $60.00 |
+
+Future Champions
+1997-98 Metal Universe Championship
+1:18
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 1 FC  | Tim Duncan  | $60.00 |
+| 2 FC  | Tony Battie | $18.00 |
+| 3 FC  | Keith Van Horn | $20.00 |
+| 4 FC  | Antonio Daniels| $15.00 |
+| 5 FC  | Chauncey Billups| $30.00   |
+| 6 FC  | Ron Mercer  | $10.00 |
+| 7 FC  | Tracy McGrady  | $45.00 |
+| 8 FC  | Danny Fortson  | $12.00 |
+| 9 FC  | Brevin Knight  | $10.00 |
+| 10 FC | Derek Anderson | $15.00 |
+| 11 FC | Bobby Jackson  | $12.00 |
+| 12 FC | Jacque Vaughn  | $10.00 |
+| 13 FC | Tim Thomas  | $12.00 |
+| 14 FC | Austin Croshere| $10.00 |
+| 15 FC | Kelvin Cato | $8.00  |
+
+Trophy Case
+1997-98 Metal Universe Championship
+1:96
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 1 TC  | Kevin Garnett  | $90.00 |
+| 2 TC  | Grant Hill  | $80.00 |
+| 3 TC  | Damon Stoudamire| $40.00   |
+| 4 TC  | Shaquille O'Neal| $70.00   |
+| 5 TC  | Ray Allen| $60.00 |
+| 6 TC  | Gary Payton | $65.00 |
+| 7 TC  | Shawn Kemp  | $75.00 |
+| 8 TC  | Hakeem Olajuwon| $85.00 |
+| 9 TC  | John Stockton  | $55.00 |
+| 10 TC | Antoine Walker | $45.00 |
+
+Championship Galaxy
+1997-98 Metal Universe Championship
+1:192
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 1 CG  | Kevin Garnett  | $80.00 |
+| 2 CG  | Grant Hill  | $75.00 |
+| 3 CG  | Damon Stoudamire| $35.00   |
+| 4 CG  | Shaquille O'Neal| $65.00   |
+| 5 CG  | Ray Allen| $50.00 |
+| 6 CG  | Gary Payton | $60.00 |
+| 7 CG  | Shawn Kemp  | $70.00 |
+| 8 CG  | Hakeem Olajuwon| $80.00 |
+| 9 CG  | John Stockton  | $50.00 |
+| 10 CG | Antoine Walker | $40.00 |
+
+Hardware
+1997-98 Metal Universe Championship
+1:360
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 1 H   | Stephon Marbury| $50.00 |
+| 2 H   | Shareef Abdur-Rahim| $45.00 | 
+| 3 H   | Shaquille O'Neal| $70.00 |
+| 4 H   | Scottie Pippen | $75.00 |
+| 5 H   | Michael Jordan | $250.00   |
+| 6 H   | Marcus Camby   | $35.00 |
+| 7 H   | Kobe Bryant | $200.00   |
+| 8 H   | Kevin Garnett  | $180.00   |
+| 9 H   | Kerry Kittles  | $30.00 |
+| 10 H  | Grant Hill  | $80.00 |
+| 11 H  | Dennis Rodman  | $60.00 |
+| 12 H  | Tim Duncan  | $160.00   |
+| 13 H  | Antonio Daniels| $25.00 |
+| 14 H  | Anfernee Hardaway| $55.00  |
+| 15 H  | Allen Iverson  | $100.00   |
+
+Precious Metal Gems
+1997-98 Metal Universe Championship
+Parallel Sets (serial to 50)
+
+| Card Number | Player   | Price  |
+|-------------|----------------|-----------|
+| 23 SN50  | Michael Jordan | $800.00   |
+| 41 SN50  | Kevin Garnett  | $700.00   |
+| 72 SN50  | Tim Duncan  | $650.00   |
