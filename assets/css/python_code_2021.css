@@ -1,40 +1,36 @@
-/* Python Syntax Highlighting */
-/* Note: Adjusted colors to be brighter while complementing the background color */
+/*!
+ * GitHub Dark v0.5.0
+ * Copyright (c) 2012 - 2017 GitHub, Inc.
+ * Licensed under MIT (https://github.com/primer/github-syntax-theme-generator/blob/master/LICENSE)
+ */
 
-/* Comments */
 .pl-c /* comment, punctuation.definition.comment, string.comment */ {
-  color: #ffa3d3;
+  color: #aa3a3a;
 }
 
-/* Constants, Variables, Strings */
 .pl-c1 /* constant, entity.name.constant, variable.other.constant, variable.language, support, meta.property-name, support.constant, support.variable, meta.module-reference, markup.quote, markup.raw, meta.diff.header */,
 .pl-s .pl-v /* string variable */ {
-  color: #ff95b5;
+  color: #fa3a9a;
 }
 
-/* Entities, Entity Names */
 .pl-e /* entity */,
 .pl-en /* entity.name */ {
-  color: #ffb08c;
+  color: #fa7a5a;
 }
 
-/* Variables, Strings */
 .pl-smi /* variable.parameter.function, storage.modifier.package, storage.modifier.import, storage.type.java, variable.other */,
 .pl-s .pl-s1 /* string source */ {
-  color: #ffa57d;
+  color: #fa5a4a;
 }
 
-/* Entity Tags */
 .pl-ent /* entity.name.tag */ {
-  color: #ffa782;
+  color: #fa2a6a;
 }
 
-/* Keywords, Storage */
 .pl-k /* keyword, storage, storage.type */ {
-  color: #ff9e88;
+  color: #fa3a5a;
 }
 
-/* Strings, Punctuation */
 .pl-s /* string */,
 .pl-pds /* punctuation.definition.string, source.regexp, string.regexp.character-class */,
 .pl-s .pl-pse .pl-s1 /* string punctuation.section.embedded source */,
@@ -42,110 +38,93 @@
 .pl-sr .pl-cce /* string.regexp constant.character.escape */,
 .pl-sr .pl-sre /* string.regexp source.ruby.embedded */,
 .pl-sr .pl-sra /* string.regexp string.regexp.arbitrary-repitition */ {
-  color: #ffa3b3;
+  color: #fa3a6a;
 }
 
-/* Variables */
 .pl-v /* variable */,
 .pl-ml /* markup.list, sublimelinter.mark.warning */ {
-  color: #ffa788;
+  color: #fa5a6a;
 }
 
-/* Invalid */
 .pl-bu /* invalid.broken, invalid.deprecated, invalid.unimplemented, message.error, brackethighlighter.unmatched, sublimelinter.mark.error */ {
-  color: #ffa5aa;
+  color: #fa7a6a;
 }
 
-/* Illegal */
 .pl-ii /* invalid.illegal */ {
-  color: #ffa99d;
-  background-color: #ff8c97;
+  color: #faaa6a;
+  background-color: #fa6a5a;
 }
 
-/* Carriage-Return */
 .pl-c2 /* carriage-return */ {
-  color: #ff9d9d;
-  background-color: #ff8892;
+  color: #fa6a6a;
+  background-color: #fa3a5a;
 }
 
-/* Carriage-Return Symbol */
 .pl-c2::before /* carriage-return */ {
   content: "^M";
 }
 
-/* String Regexp Escape */
 .pl-sr .pl-cce /* string.regexp constant.character.escape */ {
   font-weight: bold;
-  color: #ff8b93;
+  color: #fa6a6a;
 }
 
-/* Markup, Separators */
 .pl-mh /* markup.heading */,
 .pl-mh .pl-en /* markup.heading entity.name */,
 .pl-ms /* meta.separator */ {
   font-weight: bold;
-  color: #ffaa8e;
+  color: #fa9a7a;
 }
 
-/* Italic Markup */
 .pl-mi /* markup.italic */ {
   font-style: italic;
-  color: #ff9685;
+  color: #fa5a4a;
 }
 
-/* Bold Markup */
 .pl-mb /* markup.bold */ {
   font-weight: bold;
-  color: #ff9b87;
+  color: #fa3a6a;
 }
 
-/* Deleted Markup */
 .pl-md /* markup.deleted, meta.diff.header.from-file, punctuation.definition.deleted */ {
-  color: #ff9e89;
-  background-color: #ff8f8f;
+  color: #fa5a6a;
+  background-color: #fa4a5a;
 }
 
-/* Inserted Markup */
 .pl-mi1 /* markup.inserted, meta.diff.header.to-file, punctuation.definition.inserted */ {
-  color: #ffa287;
-  background-color: #ff8e85;
+  color: #fa7a6a;
+  background-color: #fa4a3a;
 }
 
-/* Changed Markup */
 .pl-mc /* markup.changed, punctuation.definition.changed */ {
-  color: #ffa485;
-  background-color: #ff8f8f;
+  color: #fa7a6a;
+  background-color: #fa4a5a;
 }
 
-/* Ignored Markup */
 .pl-mi2 /* markup.ignored, markup.untracked */ {
-  color: #ff9987;
-  background-color: #ff8f8f;
+  color: #fa3a6a;
+  background-color: #fa4a5a;
 }
 
-/* Diff Range */
 .pl-mdr /* meta.diff.range */ {
   font-weight: bold;
-  color: #ff8f8f;
+  color: #fa4a6a;
 }
 
-/* Output */
 .pl-mo /* meta.output */ {
-  color: #ffa88a;
+  color: #fa8a6a;
 }
 
-/* Brackets, Curly Braces, Quotes */
 .pl-ba /* brackethighlighter.tag, brackethighlighter.curly, brackethighlighter.round, brackethighlighter.square, brackethighlighter.angle, brackethighlighter.quote */ {
-  color: #ffa788;
+  color: #fa5a6a;
 }
 
-/* Gutter Mark */
 .pl-sg /* sublimelinter.gutter-mark */ {
-  color: #ffaa8e;
+  color: #fa9a6a;
 }
 
-/* Constant Link */
 .pl-corl /* constant.other.reference.link, string.other.link */ {
   text-decoration: underline;
-  color: #ff9d93;
+  color: #fa3a6a;
 }
+

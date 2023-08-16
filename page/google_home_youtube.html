@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_home_youtube/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_home_youtube/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_home_youtube/blob/master/google_youtube.py" target="_blank">google_youtube.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_home_youtube/master/google_youtube.py" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-play-any-audio-file-on-youtube-on-google-home-or-amazon-alexa" class="anchor" aria-hidden="true" href="#play-any-audio-file-on-youtube-on-google-home-or-amazon-alexa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Play any audio file on YouTube on Google Home or Amazon Alexa</h1>
+<h1><a id="user-content-this-also-turns-any-python-code-into-an-alexa-skill-or-google-home-action-with-a-one-line-decorator" class="anchor" aria-hidden="true" href="#this-also-turns-any-python-code-into-an-alexa-skill-or-google-home-action-with-a-one-line-decorator"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>This also turns ANY Python Code into an Alexa Skill or Google Home Action with a one-line decorator!!!!</h1>
+<p>I consider this one of my favorite accomplishments &amp; crowning achievements in Smart Speaker Developer, all deriving from my past experience that preceded it (which is also on GitHub)</p>
+<p>This will play the audio for any YouTube Video that you tell it. I primarily use this for Google Home.</p>
+<p>google_youtube.py is one giant Lambda Function inside of AWS. I realize I could have had this in Google Cloud Functions but I was completely fine having this in Amazon Lambda, simply because changes reflect right away in Lambda and Google Functions take about 40-60 seconds to redeploy each time it's changed, which is probably due to Docker Containers</p>
+<table>
+<thead>
+<tr>
+<th>Class/Function/Symbol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>def handle_exception</td>
+<td>Decorator to put on a function to gracefully handle exceptions</td>
+</tr>
+<tr>
+<td>def get_current_location</td>
+<td>Detect if this function is ran in Google Cloud/Amazon AWS or Local OS</td>
+</tr>
+<tr>
+<td>class AmazonAWS</td>
+<td>If Amazon Echo will be using this code, this will handle the Amazon Echo specific responses/payload that Amazon Alexa/Echo requires for audio &amp; text</td>
+</tr>
+<tr>
+<td>class GoogleCloud</td>
+<td>If Google Cloud will be using this code, this will handle the Google Cloud specific responses/payload that Google Cloud + Google Dialogflow requires for audio &amp; text</td>
+</tr>
+<tr>
+<td>def smart_speaker_decorator</td>
+<td>Turns ANY Python code into Smart Speaker code, so users can simply just focus on coding which abstracts away the Voice specific stuff. Uses the AmazonAWS &amp; GoogleCloud classes to determine the response for the device</td>
+</tr>
+<tr>
+<td>def get_audio_url_from_web_url</td>
+<td>If employers want this, contact me</td>
+</tr>
+<tr>
+<td>def lambda_handler</td>
+<td>I used Lambda Handler for Amazon AWS because I designed this as a Lambda Function to be used. If Google Home is using Amazon's Lambda (which it is), the Google Home endpoint is the Amazon API Gateway Function. I did this because of the quick rapid speed in which changes are reflected in Lambda while developing. I don't mind.</td>
+</tr>
+</tbody>
+</table>
+<h1><a id="user-content-def-smart_speaker_decorator" class="anchor" aria-hidden="true" href="#def-smart_speaker_decorator"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>def smart_speaker_decorator</h1>
+<div class="highlight highlight-source-python"><pre>
+
+<span class="pl-k">def</span> <span class="pl-en">smart_speaker_decorator</span>(<span class="pl-smi">type_of_output</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>):
+	<span class="pl-s"><span class="pl-pds">'''</span></span>
+<span class="pl-s">	This is a Decorator to turn any regular code into an Alexa Skill or Google Home Skill using Amazon AWS for now</span>
+<span class="pl-s">	<span class="pl-pds">'''</span></span>
+	<span class="pl-k">def</span> <span class="pl-en">first_function</span>(<span class="pl-smi">f</span>):
+		<span class="pl-k">def</span> <span class="pl-en">second_function</span>(<span class="pl-k">*</span><span class="pl-smi">args</span>,<span class="pl-k">**</span><span class="pl-smi">kwargs</span>):
+			<span class="pl-k">try</span>:
+				<span class="pl-c"><span class="pl-c">#</span>get_item</span>
+				<span class="pl-k">def</span> <span class="pl-en">get_item</span>(<span class="pl-smi">iterable</span>, <span class="pl-smi">index</span>, <span class="pl-smi">default</span><span class="pl-k">=</span><span class="pl-c1">None</span>):
+					<span class="pl-k">try</span>:
+						<span class="pl-k">return</span> operator.getitem(iterable, index)
+					<span class="pl-k">except</span>:
+						<span class="pl-k">return</span> default
+				<span class="pl-c"><span class="pl-c">#</span>initial variables (lambda or google event,context)</span>
+				amazon_aws <span class="pl-k">=</span> AmazonAWS()
+				google_cloud <span class="pl-k">=</span> GoogleCloud()
+				http_browser <span class="pl-k">=</span> HTTPBrowser()
+				event <span class="pl-k">=</span> get_item(args,<span class="pl-c1">0</span>)
+				context <span class="pl-k">=</span> get_item(args,<span class="pl-c1">1</span>)
+				<span class="pl-k">global</span> origin_type
+				<span class="pl-c"><span class="pl-c">#</span>########################</span>
+				<span class="pl-c"><span class="pl-c">#</span>    DETERMINES THE ORIGIN</span>
+				<span class="pl-c"><span class="pl-c">#</span>########################</span>
+				<span class="pl-c"><span class="pl-c">#</span>	CHECKS TO SEE IF THERE'S A SESSION-&gt;APPLICATION-&gt;APPLICATIONID, characteristic of Amazon Event Objects.</span>
+				<span class="pl-c"><span class="pl-c">#</span>It looks at the decorated get_request_json objects and sees if it put in an exception</span>
+				amazon_aws_alexa_request_json <span class="pl-k">=</span> amazon_aws.get_request_json(event)
+				google_cloud_alexa_request_json <span class="pl-k">=</span> google_cloud.get_request_json(event)
+				<span class="pl-k">if</span> google_cloud_alexa_request_json <span class="pl-k">!=</span> <span class="pl-c1">None</span>:
+					origin_type <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>google_cloud<span class="pl-pds">'</span></span>
+					origin <span class="pl-k">=</span> google_cloud
+				<span class="pl-k">elif</span> <span class="pl-s"><span class="pl-pds">'</span>amazonaws<span class="pl-pds">'</span></span> <span class="pl-k">in</span> <span class="pl-c1">str</span>(http_browser.get_http_header_host(event)):
+					origin_type <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>http_browser<span class="pl-pds">'</span></span>
+					origin <span class="pl-k">=</span> http_browser
+				<span class="pl-k">elif</span> amazon_aws_alexa_request_json <span class="pl-k">!=</span> <span class="pl-c1">None</span>:
+					origin_type <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>amazon_aws<span class="pl-pds">'</span></span>
+					origin <span class="pl-k">=</span> amazon_aws
+				<span class="pl-k">else</span>:
+					origin_type <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>http_browser<span class="pl-pds">'</span></span>
+					origin <span class="pl-k">=</span> http_browser
+				<span class="pl-c"><span class="pl-c">#</span>	Key Error is wrong attribute, Type Error is for doing getattr [] on a string</span>
+				<span class="pl-c"><span class="pl-c">#</span>	Origin is for Google Cloud because most of the time we want Google Devices</span>
+
+				<span class="pl-c"><span class="pl-c">#</span>########################</span>
+				<span class="pl-c"><span class="pl-c">#</span>    END DETERMINE ORIGIN</span>
+				<span class="pl-c"><span class="pl-c">#</span>########################</span>
+				<span class="pl-c"><span class="pl-c">#</span>	Lambda Functions will read this. Not Google Cloud Functions yet. Google Cloud Functions deploy too slowly</span>
+				destination <span class="pl-k">=</span> amazon_aws
+				<span class="pl-c"><span class="pl-c">#</span>	Handle the event object that passes by differently</span>
+				request_json <span class="pl-k">=</span> origin.get_request_json(event)
+				<span class="pl-c"><span class="pl-c">#</span>	Get Intent</span>
+				intent <span class="pl-k">=</span> origin.get_intent(request_json)
+				<span class="pl-c"><span class="pl-c">#</span>	Amazon Slot values &amp; parameters from Google Home</span>
+				parameters <span class="pl-k">=</span> origin.get_parameters(request_json)
+				<span class="pl-c"><span class="pl-c">#</span>	send intent to the function that called the decorator</span>
+				<span class="pl-k">if</span> <span class="pl-c1">isinstance</span>(parameters,<span class="pl-c1">dict</span>):
+					parameters.update({<span class="pl-s"><span class="pl-pds">"</span>intent<span class="pl-pds">"</span></span>:intent})
+				<span class="pl-k">else</span>:
+					parameters <span class="pl-k">=</span> {}
+				<span class="pl-c"><span class="pl-c">#</span>	RUN ACTUAL CODE</span>
+				result <span class="pl-k">=</span> f(event,context,<span class="pl-k">*</span>args, <span class="pl-k">**</span>parameters)
+				<span class="pl-c"><span class="pl-c">#</span>	END DEBUG</span>
+				<span class="pl-c"><span class="pl-c">#</span>	END RUN ACTUAL CODE</span>
+				<span class="pl-c"><span class="pl-c">#</span>	</span>
+				<span class="pl-c"><span class="pl-c">#</span>	</span>
+				<span class="pl-c"><span class="pl-c">#</span>	IF THIS IS A WEB REQUEST IN THE AMAZON API GATEWAY!!! (LAMBDA URL)</span>
+				<span class="pl-c"><span class="pl-c">#</span>	</span>
+				<span class="pl-k">if</span> <span class="pl-s"><span class="pl-pds">'</span>http_browser<span class="pl-pds">'</span></span> <span class="pl-k">==</span> origin_type:
+					<span class="pl-k">return</span> {<span class="pl-s"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span>: <span class="pl-c1">200</span>, <span class="pl-s"><span class="pl-pds">"</span>headers<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>application/json<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>: pprint.pformat(<span class="pl-c1">locals</span>()) }
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span>	Make Destination account for Google Cloud Functions if for some reason the processign is done there</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span>	If it's audio, send it in either Google or Amazon format</span>
+				<span class="pl-c"><span class="pl-c">#</span>	IF DOING AUDIO, SEND IT A DICT WITH AUDIO_URL &amp; TEXT_SPEECH!!</span>
+				<span class="pl-c"><span class="pl-c">#</span>	Destination means in this case, format JSON in Amazon AWS format</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				
+				<span class="pl-k">if</span> <span class="pl-s"><span class="pl-pds">'</span>audio<span class="pl-pds">'</span></span> <span class="pl-k">==</span> type_of_output:
+					<span class="pl-c"><span class="pl-c">#</span>usually for debugging, it will normally not be send that way</span>
+					<span class="pl-k">if</span> <span class="pl-c1">isinstance</span>(result,<span class="pl-c1">dict</span>) <span class="pl-k">==</span> <span class="pl-c1">False</span>:
+						result <span class="pl-k">=</span> {}
+					<span class="pl-k">return</span> origin.return_trip_json(origin.device_audio_response(<span class="pl-k">**</span>result))
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span>	TEXT is the fallback for either Amazon or Google</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-k">elif</span> <span class="pl-s"><span class="pl-pds">'</span>text<span class="pl-pds">'</span></span> <span class="pl-k">==</span> type_of_output:
+					<span class="pl-k">return</span> origin.return_trip_json(origin.device_text_response(<span class="pl-v">speech_output</span><span class="pl-k">=</span>result))
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span>	YOU should NEVER reach here. Fallback</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-k">return</span> {<span class="pl-s"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span>: <span class="pl-c1">200</span>, <span class="pl-s"><span class="pl-pds">"</span>headers<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>application/json<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>: pprint.pformat(<span class="pl-c1">locals</span>()) }
+			<span class="pl-k">except</span>:
+				exc_type, exc_obj, exc_tb <span class="pl-k">=</span> sys.exc_info()
+				exception_text <span class="pl-k">=</span> <span class="pl-c1">str</span>(exc_type) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">str</span>(exc_obj) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">str</span>(exc_tb.tb_lineno)
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span> DEBUG</span>
+				<span class="pl-c"><span class="pl-c">#</span> </span>
+				<span class="pl-c"><span class="pl-c">#</span>import traceback</span>
+				<span class="pl-c"><span class="pl-c">#</span>traceback.print_exc()</span>
+				<span class="pl-c"><span class="pl-c">#</span> </span>
+				<span class="pl-c"><span class="pl-c">#</span> AMAZON AWS ONLY</span>
+				<span class="pl-c"><span class="pl-c">#</span> </span>
+				<span class="pl-c"><span class="pl-c">#</span>return {'statusCode': 200, 'headers': {'Content-Type': 'application/json'}, 'body': exception_text + repr(locals())}</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-c"><span class="pl-c">#</span> IF EXTENDING THIS FOR GOOGLE CLOUD FUNCTIONS TO SEE THIS, ACTIVATE THE FOLLOWING</span>
+				<span class="pl-c"><span class="pl-c">#</span></span>
+				<span class="pl-k">return</span> origin.return_trip_json(origin.device_text_response(<span class="pl-v">speech_output</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Nothing was found. Say something else or be more specific. <span class="pl-pds">"</span></span> <span class="pl-k">+</span> exception_text))
+				<span class="pl-c"><span class="pl-c">#</span>return origin.return_trip_json(origin.device_text_response(speech_output=exception_text + pprint.pformat(locals())))</span>
+		<span class="pl-k">return</span> second_function
+	<span class="pl-k">return</span> first_function</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

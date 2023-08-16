@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cisco_reference_guides/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/cisco_reference_guides/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cisco_reference_guides/blob/master/readme.md" target="_blank">readme.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/cisco_reference_guides/master/readme.md" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="readme.md"><article class="markdown-body entry-content container-lg" itemprop="text"><h1><a id="user-content-two-web-pages" class="anchor" aria-hidden="true" href="#two-web-pages"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TWO WEB PAGES</h1>
+<h2><a id="user-content-cisco-commands" class="anchor" aria-hidden="true" href="#cisco-commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CISCO COMMANDS</h2>
+<p>I made two configuration guides that shows only the commands so I can get a clearer high-level view of the various Cisco Commands without the cruft around it, which I think would be helpful for Network Administrators, and which illustrates the power of automation to do this as well as automate Networks themselves (SDN). I think this would be valuable for current Network Admins or anyone coming up in the field, and it shows the power of the Cisco IOS in one place, where they could then transition into other vendors.</p>
+<p>The two web pages are for:</p>
+<p><a href="https://mmulcahy222.github.io/configuration_csr_1000v.html" rel="nofollow">Cisco CSR1000v</a></p>
+<p><a href="https://mmulcahy222.github.io/netconf.html" rel="nofollow">Cisco NEXUS Data Center &amp; MDS Storage Switches</a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/csr_1000v.png"><img src="../images/csr_1000v.png" alt="" style="max-width:100%;"></a></p>
+<p>If you want the Source Code or you have any questions, send me a message!</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class WebPage</td>
+<td>The Superclass that subsequent subclasses will be deriving from. It has just one function which retrieves the HTML file that holds the configuration command.</td>
+</tr>
+<tr>
+<td>class InformationPage</td>
+<td>Represents the page with the Cisco Command</td>
+</tr>
+<tr>
+<td>class TableOfContents</td>
+<td>Collection of Pages with cisco Commands</td>
+</tr>
+<tr>
+<td>class ConfigurationGuide</td>
+<td>Collection of Table Of Contents</td>
+</tr>
+<tr>
+<td>function record_cisco_commands</td>
+<td>Iterates through this chain outlined above</td>
+</tr>
+<tr>
+<td>function record_cisco_commands_by_toc_url_list</td>
+<td>Very similar behavior to the above, but instead you can send a list of TableOfContents as a parameter/argument to get the commands. This was how I got the commands for the Cisco Nexus &amp; MDS. Offers more flexibility when the situation calls for it</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-netconf-web-page-reference-guide" class="anchor" aria-hidden="true" href="#netconf-web-page-reference-guide"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>NETCONF WEB PAGE REFERENCE GUIDE</h2>
+<p>In September 2019, I happily made a NETCONF client using SSH just to get acclimated with NETCONF, since I knew it was a Southbound API to control the configuring of routers. I don't know why I didn't use NCClient which already existed, I was experimenting sending raw SSH/XML in NETCONF and using Paramiko seemed better and more educational for my aims (I'm not replacing NCCLIENT).</p>
+<p>In doing so, I wanted to do something more elaborate with this base NETCONF class that I made, so I simply got the XML of many different YANG Models that existed, and put the results in the webpage using Jinja2 Templates.</p>
+<p>I used a function in another repo (Helper_Functions) to parse the NETCONF into a text layout that makes the XML infinitely easier to read in a high level view. It gives the path of each XML value &amp; leaf, to easily imagine what is in the resulting XML, which makes NETCONF more practically useful, and more helpful to understand the Network Device. This was done for the top level NETCONF Yang Models.</p>
+<p><a href="https://mmulcahy222.github.io/netconf.html" rel="nofollow">NETCONF WEBSITE</a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/netconf_native.png"><img src="../images/netconf_native.png" alt="" style="max-width:100%;"></a></p>
+<p>Also, I made a separate table in the bottom of the page to list which Yang Models returned the largest XML files, to get a higher-level view of the data in the network device.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/netconf_totals.png"><img src="../images/netconf_totals.png" alt="" style="max-width:100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

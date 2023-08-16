@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/helper_functions/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/helper_functions/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/helper_functions/blob/master/__init__.py" target="_blank">__init__.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/helper_functions/master/__init__.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/helper_functions/blob/master/functions.py" target="_blank">functions.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/helper_functions/master/functions.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/helper_functions/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/helper_functions/blob/master/images" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-utility-functions" class="anchor" aria-hidden="true" href="#utility-functions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Utility Functions</h1>
+<p>Functions to make life easier as a Python Developer. There was some adjustments in using Python when I have come from PHP for 10 years &amp; Java before that. I put this in the Lib/site-packages folder so it could be imported in every single program/app I have made.</p>
+<table>
+<thead>
+<tr>
+<th>Functions</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>print_structure</td>
+<td>Takes any Dictionary that is deeply deeply nested in LOTS of levels (whether it's 10 or 100 or unlimited), and just simply shows the hierarchy of keys + list Indexes at every node, and the value. GONE are the days of guessing and messing around on the console to find out the right keys to access one little value on that deeply nested div of 100 levels.</td>
+</tr>
+<tr>
+<td>sanitize</td>
+<td>only include ASCII characters for cases with messy unicode and you don't care about Unicode</td>
+</tr>
+<tr>
+<td>get_item</td>
+<td>get a value in a list, with the option of a default value if there's a key error. Just handle the responsiblity of this somewhere else for cleaner code</td>
+</tr>
+<tr>
+<td>file_put_contents</td>
+<td>Just a throwback and habit of my old PHP days, haha. Puts data in a file by the filename</td>
+</tr>
+<tr>
+<td>file_get_contents</td>
+<td>Vice Versa keeping up with PHP theme</td>
+</tr>
+<tr>
+<td>get_html</td>
+<td>Get the HTML but with Browser Cookies/User Agent to increase the chances of getting the desired HTML (generally for scraping)</td>
+</tr>
+<tr>
+<td>dvkp</td>
+<td>From an old project I did, it gets the value of a dictionary based on a substring of a key. With an option for default argument if there's nothing.</td>
+</tr>
+</tbody>
+</table>
+<h1><a id="user-content-very-deeply-nested-keyvalue-data-structure-into-neat-text-to-find-the-order-of-keys--lists-to-access-value-in-structure" class="anchor" aria-hidden="true" href="#very-deeply-nested-keyvalue-data-structure-into-neat-text-to-find-the-order-of-keys--lists-to-access-value-in-structure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Very Deeply Nested Key/Value Data Structure into Neat Text to find the order of Keys &amp; Lists to access value in structure</h1>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/xml_hierarchy.jpg"><img src="../images/xml_hierarchy.jpg" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-utility-helper-functions" class="anchor" aria-hidden="true" href="#utility-helper-functions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Utility "Helper" functions</h1>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> collections <span class="pl-k">import</span> OrderedDict
+<span class="pl-k">from</span> http.cookiejar <span class="pl-k">import</span> CookieJar
+<span class="pl-k">import</span> urllib
+
+
+<span class="pl-c"><span class="pl-c">#</span> def print_value(value):</span>
+<span class="pl-c"><span class="pl-c">#</span> 	'''</span>
+<span class="pl-c"><span class="pl-c">#</span> 	print out the value column for the structure (either string )</span>
+<span class="pl-c"><span class="pl-c">#</span> 	'''</span>
+<span class="pl-c"><span class="pl-c">#</span> 	if isinstance(value, str) or isinstance(value, int):</span>
+<span class="pl-c"><span class="pl-c">#</span> 		#if it is string or int, send it. You have reached a "leaf" in the structure</span>
+<span class="pl-c"><span class="pl-c">#</span> 		return str(value).replace("\n"," ").strip()</span>
+<span class="pl-c"><span class="pl-c">#</span> 	else:</span>
+<span class="pl-c"><span class="pl-c">#</span> 		#Just print the type of class, instead of a whole entire tree. It's useless for us.</span>
+<span class="pl-c"><span class="pl-c">#</span> 		return type(value).__name__</span>
+
+<span class="pl-k">def</span> <span class="pl-en">print_structure</span>(<span class="pl-smi">structure</span>):
+	depth <span class="pl-k">=</span> <span class="pl-c1">0</span>
+	path <span class="pl-k">=</span> []
+	<span class="pl-k">def</span> <span class="pl-en">recurse</span>(<span class="pl-smi">structure</span>):
+		<span class="pl-k">nonlocal</span> depth
+		<span class="pl-k">nonlocal</span> path
+		text <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+		<span class="pl-k">if</span> <span class="pl-c1">isinstance</span>(structure, <span class="pl-c1">dict</span>) <span class="pl-k">or</span> <span class="pl-c1">isinstance</span>(structure, OrderedDict):
+			<span class="pl-k">for</span> k, value <span class="pl-k">in</span> structure.items():
+				depth <span class="pl-k">+=</span> <span class="pl-c1">1</span>
+				path.append(<span class="pl-c1">str</span>(k))
+				recurse(value)
+				path.pop()
+				depth <span class="pl-k">-=</span> <span class="pl-c1">1</span>
+		<span class="pl-k">elif</span> <span class="pl-c1">isinstance</span>(structure, <span class="pl-c1">list</span>):
+			<span class="pl-k">for</span> i, value <span class="pl-k">in</span> <span class="pl-c1">enumerate</span>(structure):
+				depth <span class="pl-k">+=</span> <span class="pl-c1">1</span>
+				path.append(<span class="pl-c1">str</span>(i))
+				recurse(value)
+				path.pop()
+				depth <span class="pl-k">-=</span> <span class="pl-c1">1</span>
+		<span class="pl-k">else</span>:
+			<span class="pl-c"><span class="pl-c">#</span>You Are now in a leaf of the structure, which can be an INT or a STRING</span>
+			keys <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>|<span class="pl-pds">"</span></span>.join(path)
+			value_string <span class="pl-k">=</span> <span class="pl-c1">str</span>(structure).replace(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>).strip()
+			text <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">{<span class="pl-k">:2</span>}</span> <span class="pl-c1">{<span class="pl-k">:80</span>}</span> <span class="pl-c1">{<span class="pl-k">:20</span>}</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>.format(<span class="pl-c1">str</span>(depth), keys,value_string)
+			<span class="pl-c1">print</span>(text.strip())
+	recurse(structure)
+	<span class="pl-k">return</span> structure
+
+
+<span class="pl-k">def</span> <span class="pl-en">sanitize</span>(<span class="pl-smi">word</span>):
+	<span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>.join([x <span class="pl-k">for</span> x <span class="pl-k">in</span> <span class="pl-c1">str</span>(word) <span class="pl-k">if</span> <span class="pl-c1">ord</span>(x) <span class="pl-k">&lt;</span> <span class="pl-c1">128</span>])
+
+<span class="pl-k">def</span> <span class="pl-en">get_item</span>(<span class="pl-smi">iterable</span>, <span class="pl-smi">index</span>, <span class="pl-smi">default</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>):
+	<span class="pl-k">try</span>:
+		<span class="pl-k">return</span> operator.getitem(iterable, index)
+	<span class="pl-k">except</span>:
+		<span class="pl-k">return</span> default
+
+
+
+<span class="pl-k">def</span> <span class="pl-en">file_put_contents</span>(<span class="pl-smi">filename</span>,<span class="pl-smi">data</span>):
+	f <span class="pl-k">=</span> <span class="pl-c1">open</span>(filename, <span class="pl-s"><span class="pl-pds">'</span>w<span class="pl-pds">'</span></span>)
+	data <span class="pl-k">=</span> sanitize(data)
+	w <span class="pl-k">=</span> f.write(data)
+	f.close()
+	<span class="pl-k">return</span> w
+
+<span class="pl-k">def</span> <span class="pl-en">file_add_contents</span>(<span class="pl-smi">filename</span>,<span class="pl-smi">data</span>):
+	f <span class="pl-k">=</span> <span class="pl-c1">open</span>(filename, <span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>)
+	data <span class="pl-k">=</span> sanitize(data)
+	w <span class="pl-k">=</span> f.write(data)
+	f.close()
+	<span class="pl-k">return</span> w
+
+<span class="pl-k">def</span> <span class="pl-en">file_put_image</span>(<span class="pl-smi">image_link</span>,<span class="pl-smi">file_name</span>):
+	f <span class="pl-k">=</span> <span class="pl-c1">open</span>(file_name, <span class="pl-s"><span class="pl-pds">'</span>wb<span class="pl-pds">'</span></span>)
+	w <span class="pl-k">=</span> f.write(requests.get(image_link, <span class="pl-v">timeout</span><span class="pl-k">=</span><span class="pl-c1">10</span>).content)
+	f.close()
+	<span class="pl-k">return</span> w
+
+<span class="pl-k">def</span> <span class="pl-en">file_get_contents</span>(<span class="pl-smi">filename</span>):
+	f <span class="pl-k">=</span> <span class="pl-c1">open</span>(filename, <span class="pl-s"><span class="pl-pds">'</span>r<span class="pl-pds">'</span></span>, <span class="pl-v">errors</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ignore<span class="pl-pds">'</span></span>)
+	r <span class="pl-k">=</span> f.read()
+	r <span class="pl-k">=</span> sanitize(r)
+	f.close()
+	<span class="pl-k">return</span> r
+
+<span class="pl-k">def</span> <span class="pl-en">get_html</span>(<span class="pl-smi">url</span>):
+	<span class="pl-k">try</span>:
+		req<span class="pl-k">=</span>urllib.request.Request(url, <span class="pl-c1">None</span>, {<span class="pl-s"><span class="pl-pds">'</span>User-Agent<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>Mozilla/5.0 (X11; Linux i686; G518Rco3Yp0uLV40Lcc9hAzC1BOROTJADjicLjOmlr4=) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>Accept<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>Accept-Charset<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>ISO-8859-1,utf-8;q=0.7,*;q=0.3<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>Accept-Language<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>en-US,en;q=0.8<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>Connection<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>keep-alive<span class="pl-pds">'</span></span>})
+		cj <span class="pl-k">=</span> CookieJar()
+		opener <span class="pl-k">=</span> urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+		response <span class="pl-k">=</span> opener.open(req)
+		raw_response <span class="pl-k">=</span> response.read().decode(<span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-v">errors</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ignore<span class="pl-pds">'</span></span>)
+		response.close()
+		raw_response <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>.join([x <span class="pl-k">for</span> x <span class="pl-k">in</span> <span class="pl-c1">str</span>(raw_response) <span class="pl-k">if</span> <span class="pl-c1">ord</span>(x) <span class="pl-k">&lt;</span> <span class="pl-c1">128</span>])
+		raw_response <span class="pl-k">=</span> raw_response.replace(<span class="pl-s"><span class="pl-pds">"</span>&lt;!DOCTYPE html&gt;<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>).replace(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>)
+		<span class="pl-k">return</span>(raw_response)
+	<span class="pl-k">except</span> urllib.request.HTTPError <span class="pl-k">as</span> inst:
+		output <span class="pl-k">=</span> <span class="pl-c1">format</span>(inst)
+		<span class="pl-c1">print</span>(output)
+
+<span class="pl-k">def</span> <span class="pl-en">dvkp</span>(<span class="pl-smi">dict</span>, <span class="pl-smi">key_part</span>, <span class="pl-smi">default</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>):
+	<span class="pl-k">try</span>:
+		<span class="pl-k">return</span> [value <span class="pl-k">for</span> key,value <span class="pl-k">in</span> <span class="pl-c1">dict</span>.items() <span class="pl-k">if</span> key_part <span class="pl-k">in</span> key][<span class="pl-c1">0</span>]
+	<span class="pl-k">except</span>:
+		<span class="pl-k">return</span> default</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

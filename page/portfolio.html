@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/assets" target="_blank">assets</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/portfolio/blob/master/assets" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/generate_page.py" target="_blank">generate_page.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/generate_page.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/portfolio/blob/master/index_template.j2" target="_blank">index_template.j2</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/portfolio/master/index_template.j2" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-portfolio-ironically" class="anchor" aria-hidden="true" href="#portfolio-ironically"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Portfolio, Ironically</h1>
+<p>The code to make the portfolio is in the portfolio.</p>
+<p>I was very happy to first use the Jinja2 Template to make this happen, and I'm thankful for the folks at Jinja for making this happen. I just found out that the maker of Flask web framework was who did Jinja.</p>
+<p>Jinja reminds me of the old PHTML Magento templates that I had to work with on a day-to-day basis (PHP)</p>
+<p>I am aware that Jinja not only can make Python Websites, but is very handy for Network Configuration &amp; Network Automation, especially when teamed with Netmiko.</p>
+<p>Nearly Hands free Network configuration!</p>
+<p>Without Jinja, this would have taken too long and it would have been an unpleasant experience</p>
+<p>GitHub API was used in the generate_page.py script to get the requisite data to fill up the Jinja Template</p>
+<p>The Jinja Template is located in index_template.j2</p>
+<p>Inspired by Iris "Blacklight" album and Commodore 64 Typography for warm nostalgic memories. This portfolio showcases web development skills mixed with programming, network &amp; cloud.</p>
+<p>For some of the HTML like the GitHub tables of files &amp; links, I made the HTML inside the Python script (the "Controller", not the "View" (Template)) because there was a lot of conditional logic and the view to me wasn't the best place for it, and Jinja syntax wasn't worth it for me with such logic. If there's a better way, let me know, but that's where I decided to tackle that objective.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generate_page.py</td>
+<td>Script that renders the jinja template</td>
+</tr>
+<tr>
+<td>index_template.js</td>
+<td>The Template itself</td>
+</tr>
+<tr>
+<td>assets/js/portfolio.js</td>
+<td>Pure JavaScript Code that alerts user as to what project he or she currently looking at</td>
+</tr>
+<tr>
+<td>assets/css/style.css</td>
+<td>Proprietary CSS styles for entire page</td>
+</tr>
+<tr>
+<td>assets/css/python_code.css</td>
+<td>CSS for highlighted Python Code. This is the default GitHub CSS for Python Code, with the colors changed by me</td>
+</tr>
+</tbody>
+</table>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

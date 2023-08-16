@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/.gitignore" target="_blank">.gitignore</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/rust_sports_cards/master/.gitignore" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/Cargo.lock" target="_blank">Cargo.lock</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/rust_sports_cards/master/Cargo.lock" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/Cargo.toml" target="_blank">Cargo.toml</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/rust_sports_cards/master/Cargo.toml" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/rust_sports_cards/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/src" target="_blank">src</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/rust_sports_cards/blob/master/src" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p>Disclaimer: I am very new at Rust, and there may be lots of code that's not idiomatic or ideally Rust-ic in best practices.</p>
+<p>Rust is one of those amazing languages that you would want to know in life. I love low-level programming &amp; working as close to the metal as I can, just as much as I enjoy high-level languages to abstract away many of the details for pseudocode or to churn out agile deliverables at a faster speed.</p>
+<p>I had enormous fun coding in Rust, and I can see why it's one of the most LOVED computer languages out there. C++ has to be mindful of this emerging threat, or they may become like Ada &amp; Pascal &amp; Delphi! I believe it's loved because I observe many functions for the many default types to ease development. It's also loved because it indeed has a massive learning curve that makes adherents relieved when they feel they finally get it and finally become fluent in it. They also love how they have elements of high-level libraries/programming with low-level speed, while still programming in the low-level way. As well as the fact that there's no dangling pointers or memory leaks</p>
+<p>I kind of wish I did this years ago.</p>
+<p>I am very very far from a Rustacean &amp; a Rust expert. There are some mistakes that I made here that I wouldn't do next time I make a program.</p>
+<p>I'm pleased that my first rust program was 400 lines. It's not the best "Rust" or idiomatic "Rust-ic", but it's far better than my first Python program.</p>
+<p>So.....this program simulates the experience when you buy a pack of Sports Card in the store! You pick a pack from a box, and you see what you pulled from the back, and if your pack was one of the best or not, as well as what was in each box. It takes you back to an earlier point in your life. Glad to have done this in Rust.</p>
+<p>For the eagle eyed viewer, each of the Inserts came from different packs of cards from the past, such as "Topps", "Fleer Metal", "Skybox", "Upper Deck" and so forth!</p>
+<p>Read the code to know what's going on, or ask me questions.</p>
+<p>Autograph <br>
+"Name" = "Autograph"<br>
+"Odds" = 1:72<br>
+AtomicRefractor <br>
+"Name" = "Atomic Refractor"<br>
+"Odds" = 1:244<br>
+PatchAutograph <br>
+"Name" = "Patch Autograph"<br>
+"Odds" = 1:60000<br>
+Plain <br>
+"Name" = "Plain"<br>
+"Odds" = 1:1<br>
+Patch <br>
+"Name" = "Patch"<br>
+"Odds" = 1:7500<br>
+Refractor <br>
+"Name" = "Refactor"<br>
+"Odds" = 1:72<br>
+Jersey <br>
+"Name" = "Jersey"<br>
+"Odds" = 1:2500<br>
+Insert(1) <br>
+"Name" = "Jam City"<br>
+"Odds" = 1:4<br>
+Insert(2) <br>
+"Name" = "Season's Best"<br>
+"Odds" = 1:16<br>
+Insert(3) <br>
+"Name" = "Rock Stars"<br>
+"Odds" = 1:36<br>
+Insert(4) <br>
+"Name" = "Quick Strike"<br>
+"Odds" = 1:96<br>
+Insert(5) <br>
+"Name" = "Thunder &amp; Lightning"<br>
+"Odds" = 1:144<br>
+Insert(6) <br>
+"Name" = "NetRageous"<br>
+"Odds" = 1:288<br>
+Insert(7) <br>
+"Name" = "Hardware"<br>
+"Odds" = 1:\</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/rust_card_project_1.png"><img src="../images/rust_card_project_1.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/rust_card_project_2.png"><img src="../images/rust_card_project_2.png" alt="" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-rust position-relative" data-snippet-clipboard-copy-content="#![allow(warnings, unused)]
+mod players;
+mod clear_console;
+use std::ops::Deref;
+use std::io;
+use rand::Rng;
+use rand::thread_rng;
+use rand::seq::SliceRandom;
+const amount_of_cards_in_pack:i8 = 7;
+const amount_of_packs_in_box:i8 = 24;
+#[derive(Debug, PartialEq,Clone)]
+enum SportsCardEnum
+{
+    Plain,
+    Insert(i32),
+    Refractor,
+    AtomicRefractor,
+    Autograph,
+    Jersey,
+    Patch,
+    PatchAutograph,
+}
+
+impl SportsCardEnum {
+    pub fn odds(&amp;self) -&gt; i32 {
+        match self {
+            SportsCardEnum::PatchAutograph =&gt; 60000,
+            SportsCardEnum::Patch =&gt; 7500,
+            SportsCardEnum::Jersey =&gt; 2500,
+            SportsCardEnum::Insert(7) =&gt; 360,
+            SportsCardEnum::Insert(6) =&gt; 288,
+            SportsCardEnum::Insert(5) =&gt; 144,
+            SportsCardEnum::AtomicRefractor =&gt; 244,
+            SportsCardEnum::Autograph =&gt; 128,
+            SportsCardEnum::Insert(4) =&gt; 96,
+            SportsCardEnum::Refractor =&gt; 72,
+            SportsCardEnum::Insert(3) =&gt; 36,
+            SportsCardEnum::Insert(2) =&gt; 16,
+            SportsCardEnum::Insert(1) =&gt; 4,
+            SportsCardEnum::Plain =&gt; 4,
+            _ =&gt; 1
+        }
+    }
+    pub fn name_of_insert(&amp;self) -&gt; &amp;str {
+        match self {
+            SportsCardEnum::Autograph =&gt; &quot;Autograph&quot;,
+            SportsCardEnum::AtomicRefractor =&gt; &quot;Atomic Refractor&quot;,
+            SportsCardEnum::PatchAutograph =&gt; &quot;Patch Autograph&quot;,
+            SportsCardEnum::Plain =&gt; &quot;Plain&quot;,
+            SportsCardEnum::Patch =&gt; &quot;Patch&quot;,
+            SportsCardEnum::Refractor =&gt; &quot;Refactor&quot;,
+            SportsCardEnum::Jersey =&gt; &quot;Jersey&quot;,
+            SportsCardEnum::Insert(1) =&gt; &quot;Jam City&quot;,
+            SportsCardEnum::Insert(2) =&gt; &quot;Season's Best&quot;,
+            SportsCardEnum::Insert(3) =&gt; &quot;Rock Stars&quot;,
+            SportsCardEnum::Insert(4) =&gt; &quot;Quick Strike&quot;,
+            SportsCardEnum::Insert(5) =&gt; &quot;Thunder &amp; Lightning&quot;,
+            SportsCardEnum::Insert(6) =&gt; &quot;NetRageous&quot;,
+            SportsCardEnum::Insert(7) =&gt; &quot;Hardware&quot;,
+            _ =&gt; &quot;Plain&quot;
+        }
+    }
+    pub fn multiplier(&amp;self) -&gt; f32
+    {
+        match self
+        {
+            SportsCardEnum::PatchAutograph =&gt; 5000.0,
+            SportsCardEnum::Patch =&gt; 2000.0,
+            SportsCardEnum::Jersey =&gt; 1000.0,
+            SportsCardEnum::Insert(6) =&gt; 150.0,
+            SportsCardEnum::AtomicRefractor =&gt; 130.0,
+            SportsCardEnum::Insert(5) =&gt; 100.0,
+            SportsCardEnum::Autograph =&gt; 75.0,
+            SportsCardEnum::Insert(4) =&gt; 75.0,
+            SportsCardEnum::Refractor =&gt; 75.0,
+            SportsCardEnum::Insert(3) =&gt; 25.0,
+            SportsCardEnum::Insert(2) =&gt; 20.0,
+            SportsCardEnum::Insert(1) =&gt; 8.0,
+            SportsCardEnum::Plain =&gt; 1.0,
+            _ =&gt; 1.0,
+        }
+    }
+}
+#[derive(Debug,Clone)]
+struct SportsCard
+{
+    sports_card_type: SportsCardEnum,
+    player_name: String,
+    player_tier: i8,
+    price: f32
+}
+impl SportsCard {
+    fn get_price(&amp;self) -&gt; f32 {
+        let base_price: f32 = match self.player_tier
+        {
+            _ if self.player_tier == 1 =&gt; 2.0,
+            _ if self.player_tier == 2 =&gt; 0.5,
+            _ if self.player_tier == 3 =&gt; 0.4,
+            _ if self.player_tier == 4 =&gt; 0.3,
+            _ if self.player_tier == 5 =&gt; 0.25,
+            _ if self.player_tier == 6 =&gt; 0.20,
+            _ if self.player_tier == 7 =&gt; 0.15,
+            _ if self.player_tier == 8 =&gt; 0.05,
+            _ =&gt; 1.0,
+        };
+        let multiplier: f32 = self.sports_card_type.multiplier();
+        let mut price = (base_price * multiplier);
+        price = match price
+        {
+            _ if price &gt;= 50.0 =&gt; price - (price % 10.0),
+            _ if price &gt;= 20.0 =&gt; price - (price % 5.0),
+            _ =&gt; price
+        };
+        price
+    }    
+}
+impl Default for SportsCard 
+{
+     fn default() -&gt; Self { 
+        SportsCard { 
+            sports_card_type: SportsCardEnum::Plain,
+            player_name: &quot;None&quot;.to_string(),
+            price: 1.50,
+            player_tier: 8
+        }
+     }
+}
+#[derive(Debug)]
+struct Pack
+{
+    cards: Vec&lt;SportsCard&gt;,
+    status_of_pack: SportsCardEnum,
+    begin_border: usize,
+    begin_insert_border: usize,
+}
+impl Pack {
+    fn get_regular_card(&amp;mut self) -&gt; SportsCard
+    {
+        let mut player_tuples = players::player_tuples;
+        let mut rng = thread_rng();
+        player_tuples.shuffle(&amp;mut thread_rng());
+        let player_tuple_length = player_tuples.len();
+        let shuffle_interval = 7;
+        let mut end_border = self.begin_border + shuffle_interval;
+        let index = rng.gen_range(self.begin_border..end_border);
+        let player = player_tuples[index];
+        //iterate to next level in tuple for the next function call
+        self.begin_border = self.begin_border + shuffle_interval;
+        let mut regular_card = SportsCard
+        { 
+            sports_card_type: SportsCardEnum::Plain,
+            player_name: player.0.to_string(),
+            player_tier: player.1,
+            ..Default::default() 
+        };
+        regular_card.price = regular_card.get_price();
+        regular_card
+    }
+    fn get_insert(&amp;mut self, sports_card_type: SportsCardEnum) -&gt; SportsCard {
+        let mut player_tuples = players::player_tuples;
+        player_tuples.shuffle(&amp;mut thread_rng());
+        // Only those ranked 1 to 4 ( Vec&lt;&amp;(&amp;str, i8) )
+        let mut player_inserts_tuple = player_tuples.iter().filter(|player| player.1 &lt;= 4).collect::&lt; Vec&lt;_&gt; &gt; ();
+        let mut rng = thread_rng();
+        player_inserts_tuple.shuffle(&amp;mut thread_rng());
+        let player_inserts_tuple_length = player_inserts_tuple.len();
+        let shuffle_interval = 7;
+        let mut end_border = self.begin_insert_border + shuffle_interval;
+        let index = rng.gen_range(self.begin_insert_border..end_border);
+        let player_insert = player_inserts_tuple[index];
+        //iterate to next level in tuple for the next function call
+        self.begin_insert_border = self.begin_insert_border + shuffle_interval;
+        let mut insert = SportsCard
+        { 
+            sports_card_type: sports_card_type,
+            player_name: player_insert.0.to_string(),
+            player_tier: player_insert.1,
+            ..Default::default() 
+        };
+        insert.price = insert.get_price();
+        insert
+    }
+    fn fill_pack(&amp;mut self) -&gt; () 
+    {
+        let mut cards: Vec&lt;SportsCard&gt; = vec![];
+        let mut rng = thread_rng();
+        let random_number = rng.gen_range(0..60000);
+        let pack_insert_type: SportsCardEnum = match random_number
+        {
+            _ if random_number % SportsCardEnum::PatchAutograph.odds() == 0  =&gt; SportsCardEnum::PatchAutograph,
+            _ if random_number % SportsCardEnum::Patch.odds() == 1  =&gt; SportsCardEnum::Patch,
+            _ if random_number % SportsCardEnum::Jersey.odds() == 2  =&gt; SportsCardEnum::Jersey,
+            _ if random_number % SportsCardEnum::Insert(6).odds() == 3  =&gt; SportsCardEnum::Insert(6),   
+            _ if random_number % SportsCardEnum::AtomicRefractor.odds() == 4  =&gt; SportsCardEnum::AtomicRefractor,
+            _ if random_number % SportsCardEnum::Insert(5).odds() == 5  =&gt; SportsCardEnum::Insert(5),
+            _ if random_number % SportsCardEnum::Autograph.odds() == 6  =&gt; SportsCardEnum::Autograph,
+            _ if random_number % SportsCardEnum::Insert(4).odds() == 7  =&gt; SportsCardEnum::Insert(4),
+            _ if random_number % SportsCardEnum::Refractor.odds() == 8  =&gt; SportsCardEnum::Refractor,
+            _ if random_number % SportsCardEnum::Insert(3).odds() == 9  =&gt; SportsCardEnum::Insert(3),
+            _ if random_number % SportsCardEnum::Insert(2).odds() == 10  =&gt; SportsCardEnum::Insert(2),
+            _ if random_number % SportsCardEnum::Insert(1).odds() == 0  =&gt; SportsCardEnum::Insert(1),
+            _ =&gt; SportsCardEnum::Plain,
+        };
+        self.status_of_pack = pack_insert_type.clone();
+        for i in (0..amount_of_cards_in_pack)
+        {
+            let mut card = self.get_regular_card();
+            card.price = card.get_price();
+            cards.push(card);
+        }
+        //If there is an insert, put ONE insert in
+        cards[3] = match pack_insert_type
+        {
+            _ if pack_insert_type != SportsCardEnum::Plain =&gt; {
+                let mut insert = self.get_insert(pack_insert_type);
+                insert.price = insert.get_price();
+                insert
+            },
+            _ =&gt; self.get_regular_card()
+        };
+        self.cards = cards.clone();
+        //regular cards gone
+    }
+    fn display(&amp;self) -&gt; ()
+    {
+        let mut price = 0.0;
+        println!(&quot;&quot;);
+        for card in &amp;self.cards
+        {
+            println!(&quot;You got a {:?} card of {} worth ${:.2}!&quot;, card.sports_card_type.name_of_insert(), card.player_name, card.price);
+            price += card.price;
+        }
+        println!(&quot;&quot;);
+        println!(&quot;The total price of your pack is ${:.2}!&quot;, price.round());
+        println!(&quot;&quot;);
+    } 
+    fn get_price(&amp;self) -&gt; f32
+    {
+        let mut pack_price = 0.0;
+        for card in &amp;self.cards
+        {
+            pack_price += card.price;
+        }
+        pack_price
+    }
+}
+impl Default for Pack 
+{
+     fn default() -&gt; Self { 
+        Pack { 
+            cards: vec![],
+            status_of_pack: SportsCardEnum::Plain,
+            begin_border: 0,
+            begin_insert_border: 0
+        }
+     }
+}
+#[derive(Debug)]
+struct Box
+{
+    packs: Vec&lt;Pack&gt;,
+    best_pack: Pack
+}
+impl Box {
+    fn fill_box(&amp;mut self) {
+    }
+    fn new() -&gt; Box
+    {
+        let mut packs = vec![];
+        for i in (0..amount_of_packs_in_box)
+        {
+            let mut pack = Pack::default();
+            pack.fill_pack();
+            packs.push(pack);
+        } 
+        Box { packs , ..Default::default()}
+    }
+    fn retrieve_pack(&amp;self,numeric_choice: i8) -&gt; &amp;Pack 
+    {
+        let index = numeric_choice as usize;
+        let packs = &amp;self.packs;
+        //zero-indexed
+        let pack = packs.get(index-1).unwrap();
+        pack
+    }
+    fn greatest_cards(&amp;self) -&gt; Pack 
+    {
+        let mut largest_pack_price = 0.0;
+        let mut largest_pack_index: usize = 0;
+        let mut best_cards: Vec&lt;(SportsCard,usize)&gt; = vec![];
+        let packs = &amp;self.packs;
+        for (pack_index, pack) in packs.iter().enumerate()
+        {
+            let mut current_pack_price = 0.0;
+            for card in &amp;pack.cards
+            {
+                current_pack_price += card.price;
+                best_cards.push((card.clone(),pack_index));          
+            }
+            //traverse the best cards vector
+            if current_pack_price &gt; largest_pack_price
+            {
+                largest_pack_price = current_pack_price;
+                largest_pack_index = pack_index;
+            }
+        }
+        let mut best_cards = best_cards.iter().filter(|a| a.0.sports_card_type != SportsCardEnum::Plain).collect::&lt; Vec&lt;_&gt; &gt;();
+        best_cards.sort_by(|a,b| (b.0.price).partial_cmp(&amp;a.0.price).unwrap_or(core::cmp::Ordering::Equal));
+        println!(&quot;The best pack was pack #{}\n&quot;, largest_pack_index + 1);
+        for best_card_tuple in best_cards
+        {
+            println!(&quot;In pack #{}, there was a {:?} card with 1:{:#} odds that was a {} insert worth ${:.2}&quot;, best_card_tuple.1 + 1, best_card_tuple.0.player_name, best_card_tuple.0.sports_card_type.odds(), best_card_tuple.0.sports_card_type.name_of_insert(), best_card_tuple.0.price);
+        }
+        (Pack{..Default::default()})
+    }   
+    fn ranking_pack(&amp;self, user_pack: &amp;Pack) -&gt; () 
+    {
+        let mut pack_prices_vector = vec![];
+        //fill vector of pack prices
+        for pack in &amp;self.packs
+        {
+            let mut pack_price = 0.0;
+            pack_prices_vector.push(pack.get_price());
+        }
+        pack_prices_vector.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        let mut tracking_index = 0;
+        let user_pack_price = user_pack.get_price();
+        for (i,pack_price) in pack_prices_vector.iter().enumerate()
+        {
+            if user_pack_price &lt;= *pack_price
+            {
+                tracking_index = i;
+                break;
+            }
+        }
+        let rank = amount_of_packs_in_box - tracking_index as i8;  
+        let rank_suffix = match rank % 10
+        {
+            1 =&gt; &quot;st&quot;,
+            2 =&gt; &quot;nd&quot;,
+            _ =&gt; &quot;th&quot;
+        };
+        let percentile = ((tracking_index as f32/24.0)*100.0).round();
+        //zero-index to human index
+        println!(&quot;Your pack was the {:#}{} best of {:#} packs. You're in {}% percentile.\n&quot;, rank,rank_suffix,pack_prices_vector.len(),percentile);
+    }
+}
+impl Default for Box {
+     fn default() -&gt; Self { 
+        Box {
+            packs: vec![],
+            best_pack: Pack::default()
+        }
+    }
+}
+fn main() {
+    clear_console::clear();
+    let mut choice = String::new();
+    while choice.trim().to_lowercase() != &quot;q&quot; &amp;&amp; choice.trim().to_lowercase() != &quot;quit&quot; &amp;&amp; choice.trim().to_lowercase() != &quot;no&quot; 
+    {
+        let mut box_instance = Box::new();
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|   1   |   2   |   3   |   4   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|   5   |   6   |   7   |   8   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|   9   |  10   |  11   |  12   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|  13   |  14   |  15   |  16   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|  17   |  18   |  19   |  20   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------&quot;);
+        println!(&quot;{}&quot;,&quot;|  21   |  22   |  23   |  24   |&quot;);
+        println!(&quot;{}&quot;,&quot;---------------------------------\n&quot;);
+        println!(&quot;{}&quot;,&quot;You're in Jondar's Comic Books &amp; Sports Cards!!!!! Welcome to my Store, we're happy to have you! A pack of basketcall cards will run you $4.00.\n&quot;);
+        println!(&quot;{}&quot;,&quot;Hope you pull a rare gem!!\n&quot;);
+        let mut message_to_user = format!(&quot;Pick a number between 1 &amp; {}\n&quot;, amount_of_packs_in_box); 
+        let mut numeric_choice = 0;
+        loop
+        {
+            choice.clear();
+            println!(&quot;{}&quot;,message_to_user);
+            io::stdin().read_line(&amp;mut choice).expect(&quot;error: unable to read user choice&quot;);
+            numeric_choice = choice.trim().parse::&lt;i8&gt;().unwrap_or(-1);
+            //bad
+            if numeric_choice &lt;  1 || numeric_choice &gt; amount_of_packs_in_box 
+            {
+                message_to_user = format!(&quot;Don't be silly. Choose a correct pack number between 1 &amp; {}...  &quot;,amount_of_packs_in_box);
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+        // Box.greatest_cards();    
+        clear_console::clear();
+        let pack = box_instance.retrieve_pack(numeric_choice);
+        println!(&quot;\nYou picked pack #{}!&quot;,choice.trim());
+        pack.display();
+        box_instance.ranking_pack(&amp;pack);
+        box_instance.greatest_cards();
+        println!(&quot;\nDo you want to open a pack from another box of cards?&quot;);
+        println!(&quot;\n(Write \&quot;No\&quot; or \&quot;Q\&quot; or \&quot;Quit\&quot; if you want to leave)\n&quot;);
+        choice.clear();
+        io::stdin().read_line(&amp;mut choice).expect(&quot;error: unable to read user choice&quot;);
+        clear_console::clear();
+    }
+}
+
+"><pre>#![allow(warnings, unused)]
+<span class="pl-k">mod</span> players;
+<span class="pl-k">mod</span> clear_console;
+<span class="pl-k">use</span> std<span class="pl-k">::</span>ops<span class="pl-k">::</span>Deref;
+<span class="pl-k">use</span> std<span class="pl-k">::</span>io;
+<span class="pl-k">use</span> rand<span class="pl-k">::</span>Rng;
+<span class="pl-k">use</span> rand<span class="pl-k">::</span>thread_rng;
+<span class="pl-k">use</span> rand<span class="pl-k">::</span>seq<span class="pl-k">::</span>SliceRandom;
+<span class="pl-k">const</span> amount_of_cards_in_pack:<span class="pl-k">i8</span> <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+<span class="pl-k">const</span> amount_of_packs_in_box:<span class="pl-k">i8</span> <span class="pl-k">=</span> <span class="pl-c1">24</span>;
+#[derive(Debug, PartialEq,Clone)]
+<span class="pl-k">enum</span> <span class="pl-en">SportsCardEnum</span>
+{
+    Plain,
+    <span class="pl-en">Insert</span>(<span class="pl-k">i32</span>),
+    Refractor,
+    AtomicRefractor,
+    Autograph,
+    Jersey,
+    Patch,
+    PatchAutograph,
+}
+
+<span class="pl-k">impl</span> <span class="pl-en">SportsCardEnum</span> {
+    <span class="pl-k">pub</span> <span class="pl-k">fn</span> <span class="pl-en">odds</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; <span class="pl-k">i32</span> {
+        <span class="pl-k">match</span> <span class="pl-c1">self</span> {
+            SportsCardEnum<span class="pl-k">::</span>PatchAutograph <span class="pl-k">=&gt;</span> <span class="pl-c1">60000</span>,
+            SportsCardEnum<span class="pl-k">::</span>Patch <span class="pl-k">=&gt;</span> <span class="pl-c1">7500</span>,
+            SportsCardEnum<span class="pl-k">::</span>Jersey <span class="pl-k">=&gt;</span> <span class="pl-c1">2500</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">7</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">360</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">6</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">288</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">5</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">144</span>,
+            SportsCardEnum<span class="pl-k">::</span>AtomicRefractor <span class="pl-k">=&gt;</span> <span class="pl-c1">244</span>,
+            SportsCardEnum<span class="pl-k">::</span>Autograph <span class="pl-k">=&gt;</span> <span class="pl-c1">128</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">4</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">96</span>,
+            SportsCardEnum<span class="pl-k">::</span>Refractor <span class="pl-k">=&gt;</span> <span class="pl-c1">72</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">3</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">36</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">2</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">16</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">1</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">4</span>,
+            SportsCardEnum<span class="pl-k">::</span>Plain <span class="pl-k">=&gt;</span> <span class="pl-c1">4</span>,
+            _ <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>
+        }
+    }
+    <span class="pl-k">pub</span> <span class="pl-k">fn</span> <span class="pl-en">name_of_insert</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; <span class="pl-k">&amp;</span><span class="pl-k">str</span> {
+        <span class="pl-k">match</span> <span class="pl-c1">self</span> {
+            SportsCardEnum<span class="pl-k">::</span>Autograph <span class="pl-k">=&gt;</span> <span class="pl-s">"Autograph"</span>,
+            SportsCardEnum<span class="pl-k">::</span>AtomicRefractor <span class="pl-k">=&gt;</span> <span class="pl-s">"Atomic Refractor"</span>,
+            SportsCardEnum<span class="pl-k">::</span>PatchAutograph <span class="pl-k">=&gt;</span> <span class="pl-s">"Patch Autograph"</span>,
+            SportsCardEnum<span class="pl-k">::</span>Plain <span class="pl-k">=&gt;</span> <span class="pl-s">"Plain"</span>,
+            SportsCardEnum<span class="pl-k">::</span>Patch <span class="pl-k">=&gt;</span> <span class="pl-s">"Patch"</span>,
+            SportsCardEnum<span class="pl-k">::</span>Refractor <span class="pl-k">=&gt;</span> <span class="pl-s">"Refactor"</span>,
+            SportsCardEnum<span class="pl-k">::</span>Jersey <span class="pl-k">=&gt;</span> <span class="pl-s">"Jersey"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">1</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Jam City"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">2</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Season's Best"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">3</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Rock Stars"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">4</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Quick Strike"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">5</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Thunder &amp; Lightning"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">6</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"NetRageous"</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">7</span>) <span class="pl-k">=&gt;</span> <span class="pl-s">"Hardware"</span>,
+            _ <span class="pl-k">=&gt;</span> <span class="pl-s">"Plain"</span>
+        }
+    }
+    <span class="pl-k">pub</span> <span class="pl-k">fn</span> <span class="pl-en">multiplier</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; <span class="pl-k">f32</span>
+    {
+        <span class="pl-k">match</span> <span class="pl-c1">self</span>
+        {
+            SportsCardEnum<span class="pl-k">::</span>PatchAutograph <span class="pl-k">=&gt;</span> <span class="pl-c1">5000.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>Patch <span class="pl-k">=&gt;</span> <span class="pl-c1">2000.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>Jersey <span class="pl-k">=&gt;</span> <span class="pl-c1">1000.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">6</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">150.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>AtomicRefractor <span class="pl-k">=&gt;</span> <span class="pl-c1">130.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">5</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">100.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>Autograph <span class="pl-k">=&gt;</span> <span class="pl-c1">75.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">4</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">75.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>Refractor <span class="pl-k">=&gt;</span> <span class="pl-c1">75.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">3</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">25.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">2</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">20.0</span>,
+            SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">1</span>) <span class="pl-k">=&gt;</span> <span class="pl-c1">8.0</span>,
+            SportsCardEnum<span class="pl-k">::</span>Plain <span class="pl-k">=&gt;</span> <span class="pl-c1">1.0</span>,
+            _ <span class="pl-k">=&gt;</span> <span class="pl-c1">1.0</span>,
+        }
+    }
+}
+#[derive(Debug,Clone)]
+<span class="pl-k">struct</span> <span class="pl-en">SportsCard</span>
+{
+    sports_card_type: SportsCardEnum,
+    player_name: <span class="pl-k">String</span>,
+    player_tier: <span class="pl-k">i8</span>,
+    price: <span class="pl-k">f32</span>
+}
+<span class="pl-k">impl</span> <span class="pl-en">SportsCard</span> {
+    <span class="pl-k">fn</span> <span class="pl-en">get_price</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; <span class="pl-k">f32</span> {
+        <span class="pl-k">let</span> base_price: <span class="pl-k">f32</span> <span class="pl-k">=</span> <span class="pl-k">match</span> <span class="pl-c1">self</span>.player_tier
+        {
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">1</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">2.0</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">2</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.5</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">3</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.4</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">4</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.3</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">5</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.25</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">6</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.20</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">7</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.15</span>,
+            _ <span class="pl-k">if</span> <span class="pl-c1">self</span>.player_tier <span class="pl-k">==</span> <span class="pl-c1">8</span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0.05</span>,
+            _ <span class="pl-k">=&gt;</span> <span class="pl-c1">1.0</span>,
+        };
+        <span class="pl-k">let</span> multiplier: <span class="pl-k">f32</span> <span class="pl-k">=</span> <span class="pl-c1">self</span>.sports_card_type.<span class="pl-en">multiplier</span>();
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> price <span class="pl-k">=</span> (base_price <span class="pl-k">*</span> multiplier);
+        price <span class="pl-k">=</span> <span class="pl-k">match</span> price
+        {
+            _ <span class="pl-k">if</span> price <span class="pl-k">&gt;=</span> <span class="pl-c1">50.0</span> <span class="pl-k">=&gt;</span> price <span class="pl-k">-</span> (price <span class="pl-k">%</span> <span class="pl-c1">10.0</span>),
+            _ <span class="pl-k">if</span> price <span class="pl-k">&gt;=</span> <span class="pl-c1">20.0</span> <span class="pl-k">=&gt;</span> price <span class="pl-k">-</span> (price <span class="pl-k">%</span> <span class="pl-c1">5.0</span>),
+            _ <span class="pl-k">=&gt;</span> price
+        };
+        price
+    }    
+}
+<span class="pl-k">impl</span> <span class="pl-c1">Default</span> <span class="pl-k">for</span> <span class="pl-en">SportsCard</span> 
+{
+     <span class="pl-k">fn</span> <span class="pl-en">default</span>() -&gt; <span class="pl-k">Self</span> { 
+        SportsCard { 
+            sports_card_type: SportsCardEnum<span class="pl-k">::</span>Plain,
+            player_name: <span class="pl-s">"None"</span>.<span class="pl-en">to_string</span>(),
+            price: <span class="pl-c1">1.50</span>,
+            player_tier: <span class="pl-c1">8</span>
+        }
+     }
+}
+#[derive(Debug)]
+<span class="pl-k">struct</span> <span class="pl-en">Pack</span>
+{
+    cards: <span class="pl-k">Vec</span><span class="pl-k">&lt;</span>SportsCard<span class="pl-k">&gt;</span>,
+    status_of_pack: SportsCardEnum,
+    begin_border: <span class="pl-k">usize</span>,
+    begin_insert_border: <span class="pl-k">usize</span>,
+}
+<span class="pl-k">impl</span> <span class="pl-en">Pack</span> {
+    <span class="pl-k">fn</span> <span class="pl-en">get_regular_card</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-c1">self</span>) -&gt; SportsCard
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> player_tuples <span class="pl-k">=</span> players<span class="pl-k">::</span>player_tuples;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> rng <span class="pl-k">=</span> <span class="pl-en">thread_rng</span>();
+        player_tuples.<span class="pl-en">shuffle</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-en">thread_rng</span>());
+        <span class="pl-k">let</span> player_tuple_length <span class="pl-k">=</span> player_tuples.<span class="pl-en">len</span>();
+        <span class="pl-k">let</span> shuffle_interval <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> end_border <span class="pl-k">=</span> <span class="pl-c1">self</span>.begin_border <span class="pl-k">+</span> shuffle_interval;
+        <span class="pl-k">let</span> index <span class="pl-k">=</span> rng.<span class="pl-en">gen_range</span>(<span class="pl-c1">self</span>.begin_border..end_border);
+        <span class="pl-k">let</span> player <span class="pl-k">=</span> player_tuples[index];
+        <span class="pl-c">//iterate to next level in tuple for the next function call</span>
+        <span class="pl-c1">self</span>.begin_border <span class="pl-k">=</span> <span class="pl-c1">self</span>.begin_border <span class="pl-k">+</span> shuffle_interval;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> regular_card <span class="pl-k">=</span> SportsCard
+        { 
+            sports_card_type: SportsCardEnum<span class="pl-k">::</span>Plain,
+            player_name: player.<span class="pl-c1">0</span>.<span class="pl-en">to_string</span>(),
+            player_tier: player.<span class="pl-c1">1</span>,
+            ..<span class="pl-c1">Default</span><span class="pl-k">::</span><span class="pl-en">default</span>() 
+        };
+        regular_card.price <span class="pl-k">=</span> regular_card.<span class="pl-en">get_price</span>();
+        regular_card
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">get_insert</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-c1">self</span>, sports_card_type: SportsCardEnum) -&gt; SportsCard {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> player_tuples <span class="pl-k">=</span> players<span class="pl-k">::</span>player_tuples;
+        player_tuples.<span class="pl-en">shuffle</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-en">thread_rng</span>());
+        <span class="pl-c">// Only those ranked 1 to 4 ( Vec&lt;&amp;(&amp;str, i8) )</span>
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> player_inserts_tuple <span class="pl-k">=</span> player_tuples.<span class="pl-en">iter</span>().<span class="pl-en">filter</span>(<span class="pl-k">|</span>player<span class="pl-k">|</span> player.<span class="pl-c1">1</span> <span class="pl-k">&lt;=</span> <span class="pl-c1">4</span>).<span class="pl-en">collect</span><span class="pl-k">::</span>&lt; <span class="pl-k">Vec</span>&lt;_&gt; &gt; ();
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> rng <span class="pl-k">=</span> <span class="pl-en">thread_rng</span>();
+        player_inserts_tuple.<span class="pl-en">shuffle</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-en">thread_rng</span>());
+        <span class="pl-k">let</span> player_inserts_tuple_length <span class="pl-k">=</span> player_inserts_tuple.<span class="pl-en">len</span>();
+        <span class="pl-k">let</span> shuffle_interval <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> end_border <span class="pl-k">=</span> <span class="pl-c1">self</span>.begin_insert_border <span class="pl-k">+</span> shuffle_interval;
+        <span class="pl-k">let</span> index <span class="pl-k">=</span> rng.<span class="pl-en">gen_range</span>(<span class="pl-c1">self</span>.begin_insert_border..end_border);
+        <span class="pl-k">let</span> player_insert <span class="pl-k">=</span> player_inserts_tuple[index];
+        <span class="pl-c">//iterate to next level in tuple for the next function call</span>
+        <span class="pl-c1">self</span>.begin_insert_border <span class="pl-k">=</span> <span class="pl-c1">self</span>.begin_insert_border <span class="pl-k">+</span> shuffle_interval;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> insert <span class="pl-k">=</span> SportsCard
+        { 
+            sports_card_type: sports_card_type,
+            player_name: player_insert.<span class="pl-c1">0</span>.<span class="pl-en">to_string</span>(),
+            player_tier: player_insert.<span class="pl-c1">1</span>,
+            ..<span class="pl-c1">Default</span><span class="pl-k">::</span><span class="pl-en">default</span>() 
+        };
+        insert.price <span class="pl-k">=</span> insert.<span class="pl-en">get_price</span>();
+        insert
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">fill_pack</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-c1">self</span>) -&gt; () 
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> cards: <span class="pl-k">Vec</span><span class="pl-k">&lt;</span>SportsCard<span class="pl-k">&gt;</span> <span class="pl-k">=</span> <span class="pl-c1">vec!</span>[];
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> rng <span class="pl-k">=</span> <span class="pl-en">thread_rng</span>();
+        <span class="pl-k">let</span> random_number <span class="pl-k">=</span> rng.<span class="pl-en">gen_range</span>(<span class="pl-c1">0</span>..<span class="pl-c1">60000</span>);
+        <span class="pl-k">let</span> pack_insert_type: SportsCardEnum <span class="pl-k">=</span> <span class="pl-k">match</span> random_number
+        {
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>PatchAutograph.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">0</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>PatchAutograph,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>Patch.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">1</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>Patch,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>Jersey.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">2</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>Jersey,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">6</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">3</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">6</span>),   
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>AtomicRefractor.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">4</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>AtomicRefractor,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">5</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">5</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">5</span>),
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>Autograph.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">6</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>Autograph,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">4</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">7</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">4</span>),
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span>Refractor.<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">8</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>Refractor,
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">3</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">9</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">3</span>),
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">2</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">10</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">2</span>),
+            _ <span class="pl-k">if</span> random_number <span class="pl-k">%</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">1</span>).<span class="pl-en">odds</span>() <span class="pl-k">==</span> <span class="pl-c1">0</span>  <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span><span class="pl-en">Insert</span>(<span class="pl-c1">1</span>),
+            _ <span class="pl-k">=&gt;</span> SportsCardEnum<span class="pl-k">::</span>Plain,
+        };
+        <span class="pl-c1">self</span>.status_of_pack <span class="pl-k">=</span> pack_insert_type.<span class="pl-en">clone</span>();
+        <span class="pl-k">for</span> i <span class="pl-k">in</span> (<span class="pl-c1">0</span>..amount_of_cards_in_pack)
+        {
+            <span class="pl-k">let</span> <span class="pl-k">mut</span> card <span class="pl-k">=</span> <span class="pl-c1">self</span>.<span class="pl-en">get_regular_card</span>();
+            card.price <span class="pl-k">=</span> card.<span class="pl-en">get_price</span>();
+            cards.<span class="pl-en">push</span>(card);
+        }
+        <span class="pl-c">//If there is an insert, put ONE insert in</span>
+        cards[<span class="pl-c1">3</span>] <span class="pl-k">=</span> <span class="pl-k">match</span> pack_insert_type
+        {
+            _ <span class="pl-k">if</span> pack_insert_type <span class="pl-k">!=</span> SportsCardEnum<span class="pl-k">::</span>Plain <span class="pl-k">=&gt;</span> {
+                <span class="pl-k">let</span> <span class="pl-k">mut</span> insert <span class="pl-k">=</span> <span class="pl-c1">self</span>.<span class="pl-en">get_insert</span>(pack_insert_type);
+                insert.price <span class="pl-k">=</span> insert.<span class="pl-en">get_price</span>();
+                insert
+            },
+            _ <span class="pl-k">=&gt;</span> <span class="pl-c1">self</span>.<span class="pl-en">get_regular_card</span>()
+        };
+        <span class="pl-c1">self</span>.cards <span class="pl-k">=</span> cards.<span class="pl-en">clone</span>();
+        <span class="pl-c">//regular cards gone</span>
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">display</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; ()
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> price <span class="pl-k">=</span> <span class="pl-c1">0.0</span>;
+        <span class="pl-c1">println!</span>(<span class="pl-s">""</span>);
+        <span class="pl-k">for</span> card <span class="pl-k">in</span> <span class="pl-k">&amp;</span><span class="pl-c1">self</span>.cards
+        {
+            <span class="pl-c1">println!</span>(<span class="pl-s">"You got a {:?} card of {} worth ${:.2}!"</span>, card.sports_card_type.<span class="pl-en">name_of_insert</span>(), card.player_name, card.price);
+            price <span class="pl-k">+=</span> card.price;
+        }
+        <span class="pl-c1">println!</span>(<span class="pl-s">""</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"The total price of your pack is ${:.2}!"</span>, price.<span class="pl-en">round</span>());
+        <span class="pl-c1">println!</span>(<span class="pl-s">""</span>);
+    } 
+    <span class="pl-k">fn</span> <span class="pl-en">get_price</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; <span class="pl-k">f32</span>
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> pack_price <span class="pl-k">=</span> <span class="pl-c1">0.0</span>;
+        <span class="pl-k">for</span> card <span class="pl-k">in</span> <span class="pl-k">&amp;</span><span class="pl-c1">self</span>.cards
+        {
+            pack_price <span class="pl-k">+=</span> card.price;
+        }
+        pack_price
+    }
+}
+<span class="pl-k">impl</span> <span class="pl-c1">Default</span> <span class="pl-k">for</span> <span class="pl-en">Pack</span> 
+{
+     <span class="pl-k">fn</span> <span class="pl-en">default</span>() -&gt; <span class="pl-k">Self</span> { 
+        Pack { 
+            cards: <span class="pl-c1">vec!</span>[],
+            status_of_pack: SportsCardEnum<span class="pl-k">::</span>Plain,
+            begin_border: <span class="pl-c1">0</span>,
+            begin_insert_border: <span class="pl-c1">0</span>
+        }
+     }
+}
+#[derive(Debug)]
+<span class="pl-k">struct</span> <span class="pl-en">Box</span>
+{
+    packs: <span class="pl-k">Vec</span><span class="pl-k">&lt;</span>Pack<span class="pl-k">&gt;</span>,
+    best_pack: Pack
+}
+<span class="pl-k">impl</span> <span class="pl-k">Box</span> {
+    <span class="pl-k">fn</span> <span class="pl-en">fill_box</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> <span class="pl-c1">self</span>) {
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">new</span>() -&gt; <span class="pl-k">Box</span>
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> packs <span class="pl-k">=</span> <span class="pl-c1">vec!</span>[];
+        <span class="pl-k">for</span> i <span class="pl-k">in</span> (<span class="pl-c1">0</span>..amount_of_packs_in_box)
+        {
+            <span class="pl-k">let</span> <span class="pl-k">mut</span> pack <span class="pl-k">=</span> Pack<span class="pl-k">::</span><span class="pl-en">default</span>();
+            pack.<span class="pl-en">fill_pack</span>();
+            packs.<span class="pl-en">push</span>(pack);
+        } 
+        <span class="pl-k">Box</span> { packs , ..<span class="pl-c1">Default</span><span class="pl-k">::</span><span class="pl-en">default</span>()}
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">retrieve_pack</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>,numeric_choice: <span class="pl-k">i8</span>) -&gt; <span class="pl-k">&amp;</span>Pack 
+    {
+        <span class="pl-k">let</span> index <span class="pl-k">=</span> numeric_choice <span class="pl-k">as</span> <span class="pl-k">usize</span>;
+        <span class="pl-k">let</span> packs <span class="pl-k">=</span> <span class="pl-k">&amp;</span><span class="pl-c1">self</span>.packs;
+        <span class="pl-c">//zero-indexed</span>
+        <span class="pl-k">let</span> pack <span class="pl-k">=</span> packs.<span class="pl-en">get</span>(index<span class="pl-k">-</span><span class="pl-c1">1</span>).<span class="pl-en">unwrap</span>();
+        pack
+    }
+    <span class="pl-k">fn</span> <span class="pl-en">greatest_cards</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>) -&gt; Pack 
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> largest_pack_price <span class="pl-k">=</span> <span class="pl-c1">0.0</span>;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> largest_pack_index: <span class="pl-k">usize</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> best_cards: <span class="pl-k">Vec</span><span class="pl-k">&lt;</span>(SportsCard,<span class="pl-k">usize</span>)<span class="pl-k">&gt;</span> <span class="pl-k">=</span> <span class="pl-c1">vec!</span>[];
+        <span class="pl-k">let</span> packs <span class="pl-k">=</span> <span class="pl-k">&amp;</span><span class="pl-c1">self</span>.packs;
+        <span class="pl-k">for</span> (pack_index, pack) <span class="pl-k">in</span> packs.<span class="pl-en">iter</span>().<span class="pl-en">enumerate</span>()
+        {
+            <span class="pl-k">let</span> <span class="pl-k">mut</span> current_pack_price <span class="pl-k">=</span> <span class="pl-c1">0.0</span>;
+            <span class="pl-k">for</span> card <span class="pl-k">in</span> <span class="pl-k">&amp;</span>pack.cards
+            {
+                current_pack_price <span class="pl-k">+=</span> card.price;
+                best_cards.<span class="pl-en">push</span>((card.<span class="pl-en">clone</span>(),pack_index));          
+            }
+            <span class="pl-c">//traverse the best cards vector</span>
+            <span class="pl-k">if</span> current_pack_price <span class="pl-k">&gt;</span> largest_pack_price
+            {
+                largest_pack_price <span class="pl-k">=</span> current_pack_price;
+                largest_pack_index <span class="pl-k">=</span> pack_index;
+            }
+        }
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> best_cards <span class="pl-k">=</span> best_cards.<span class="pl-en">iter</span>().<span class="pl-en">filter</span>(<span class="pl-k">|</span>a<span class="pl-k">|</span> a.<span class="pl-c1">0</span>.sports_card_type <span class="pl-k">!=</span> SportsCardEnum<span class="pl-k">::</span>Plain).<span class="pl-en">collect</span><span class="pl-k">::</span>&lt; <span class="pl-k">Vec</span>&lt;_&gt; &gt;();
+        best_cards.<span class="pl-en">sort_by</span>(<span class="pl-k">|</span>a,b<span class="pl-k">|</span> (b.<span class="pl-c1">0</span>.price).<span class="pl-en">partial_cmp</span>(<span class="pl-k">&amp;</span>a.<span class="pl-c1">0</span>.price).<span class="pl-en">unwrap_or</span>(core<span class="pl-k">::</span>cmp<span class="pl-k">::</span>Ordering<span class="pl-k">::</span>Equal));
+        <span class="pl-c1">println!</span>(<span class="pl-s">"The best pack was pack #{}<span class="pl-cce">\n</span>"</span>, largest_pack_index <span class="pl-k">+</span> <span class="pl-c1">1</span>);
+        <span class="pl-k">for</span> best_card_tuple <span class="pl-k">in</span> best_cards
+        {
+            <span class="pl-c1">println!</span>(<span class="pl-s">"In pack #{}, there was a {:?} card with 1:{:#} odds that was a {} insert worth ${:.2}"</span>, best_card_tuple.<span class="pl-c1">1</span> <span class="pl-k">+</span> <span class="pl-c1">1</span>, best_card_tuple.<span class="pl-c1">0</span>.player_name, best_card_tuple.<span class="pl-c1">0</span>.sports_card_type.<span class="pl-en">odds</span>(), best_card_tuple.<span class="pl-c1">0</span>.sports_card_type.<span class="pl-en">name_of_insert</span>(), best_card_tuple.<span class="pl-c1">0</span>.price);
+        }
+        (Pack{..<span class="pl-c1">Default</span><span class="pl-k">::</span><span class="pl-en">default</span>()})
+    }   
+    <span class="pl-k">fn</span> <span class="pl-en">ranking_pack</span>(<span class="pl-k">&amp;</span><span class="pl-c1">self</span>, user_pack: <span class="pl-k">&amp;</span>Pack) -&gt; () 
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> pack_prices_vector <span class="pl-k">=</span> <span class="pl-c1">vec!</span>[];
+        <span class="pl-c">//fill vector of pack prices</span>
+        <span class="pl-k">for</span> pack <span class="pl-k">in</span> <span class="pl-k">&amp;</span><span class="pl-c1">self</span>.packs
+        {
+            <span class="pl-k">let</span> <span class="pl-k">mut</span> pack_price <span class="pl-k">=</span> <span class="pl-c1">0.0</span>;
+            pack_prices_vector.<span class="pl-en">push</span>(pack.<span class="pl-en">get_price</span>());
+        }
+        pack_prices_vector.<span class="pl-en">sort_by</span>(<span class="pl-k">|</span>a, b<span class="pl-k">|</span> a.<span class="pl-en">partial_cmp</span>(b).<span class="pl-en">unwrap</span>());
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> tracking_index <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+        <span class="pl-k">let</span> user_pack_price <span class="pl-k">=</span> user_pack.<span class="pl-en">get_price</span>();
+        <span class="pl-k">for</span> (i,pack_price) <span class="pl-k">in</span> pack_prices_vector.<span class="pl-en">iter</span>().<span class="pl-en">enumerate</span>()
+        {
+            <span class="pl-k">if</span> user_pack_price <span class="pl-k">&lt;=</span> <span class="pl-k">*</span>pack_price
+            {
+                tracking_index <span class="pl-k">=</span> i;
+                <span class="pl-k">break</span>;
+            }
+        }
+        <span class="pl-k">let</span> rank <span class="pl-k">=</span> amount_of_packs_in_box <span class="pl-k">-</span> tracking_index <span class="pl-k">as</span> <span class="pl-k">i8</span>;  
+        <span class="pl-k">let</span> rank_suffix <span class="pl-k">=</span> <span class="pl-k">match</span> rank <span class="pl-k">%</span> <span class="pl-c1">10</span>
+        {
+            <span class="pl-c1">1</span> <span class="pl-k">=&gt;</span> <span class="pl-s">"st"</span>,
+            <span class="pl-c1">2</span> <span class="pl-k">=&gt;</span> <span class="pl-s">"nd"</span>,
+            _ <span class="pl-k">=&gt;</span> <span class="pl-s">"th"</span>
+        };
+        <span class="pl-k">let</span> percentile <span class="pl-k">=</span> ((tracking_index <span class="pl-k">as</span> <span class="pl-k">f32</span><span class="pl-k">/</span><span class="pl-c1">24.0</span>)<span class="pl-k">*</span><span class="pl-c1">100.0</span>).<span class="pl-en">round</span>();
+        <span class="pl-c">//zero-index to human index</span>
+        <span class="pl-c1">println!</span>(<span class="pl-s">"Your pack was the {:#}{} best of {:#} packs. You're in {}% percentile.<span class="pl-cce">\n</span>"</span>, rank,rank_suffix,pack_prices_vector.<span class="pl-en">len</span>(),percentile);
+    }
+}
+<span class="pl-k">impl</span> <span class="pl-c1">Default</span> <span class="pl-k">for</span> <span class="pl-k">Box</span> {
+     <span class="pl-k">fn</span> <span class="pl-en">default</span>() -&gt; <span class="pl-k">Self</span> { 
+        <span class="pl-k">Box</span> {
+            packs: <span class="pl-c1">vec!</span>[],
+            best_pack: Pack<span class="pl-k">::</span><span class="pl-en">default</span>()
+        }
+    }
+}
+<span class="pl-k">fn</span> <span class="pl-en">main</span>() {
+    clear_console<span class="pl-k">::</span><span class="pl-en">clear</span>();
+    <span class="pl-k">let</span> <span class="pl-k">mut</span> choice <span class="pl-k">=</span> <span class="pl-k">String</span><span class="pl-k">::</span><span class="pl-en">new</span>();
+    <span class="pl-k">while</span> choice.<span class="pl-en">trim</span>().<span class="pl-en">to_lowercase</span>() <span class="pl-k">!=</span> <span class="pl-s">"q"</span> <span class="pl-k">&amp;&amp;</span> choice.<span class="pl-en">trim</span>().<span class="pl-en">to_lowercase</span>() <span class="pl-k">!=</span> <span class="pl-s">"quit"</span> <span class="pl-k">&amp;&amp;</span> choice.<span class="pl-en">trim</span>().<span class="pl-en">to_lowercase</span>() <span class="pl-k">!=</span> <span class="pl-s">"no"</span> 
+    {
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> box_instance <span class="pl-k">=</span> <span class="pl-k">Box</span><span class="pl-k">::</span><span class="pl-en">new</span>();
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|   1   |   2   |   3   |   4   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|   5   |   6   |   7   |   8   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|   9   |  10   |  11   |  12   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|  13   |  14   |  15   |  16   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|  17   |  18   |  19   |  20   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"|  21   |  22   |  23   |  24   |"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"---------------------------------<span class="pl-cce">\n</span>"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"You're in Jondar's Comic Books &amp; Sports Cards!!!!! Welcome to my Store, we're happy to have you! A pack of basketcall cards will run you $4.00.<span class="pl-cce">\n</span>"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,<span class="pl-s">"Hope you pull a rare gem!!<span class="pl-cce">\n</span>"</span>);
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> message_to_user <span class="pl-k">=</span> <span class="pl-c1">format!</span>(<span class="pl-s">"Pick a number between 1 &amp; {}<span class="pl-cce">\n</span>"</span>, amount_of_packs_in_box); 
+        <span class="pl-k">let</span> <span class="pl-k">mut</span> numeric_choice <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+        <span class="pl-k">loop</span>
+        {
+            choice.<span class="pl-en">clear</span>();
+            <span class="pl-c1">println!</span>(<span class="pl-s">"{}"</span>,message_to_user);
+            io<span class="pl-k">::</span><span class="pl-en">stdin</span>().<span class="pl-en">read_line</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> choice).<span class="pl-en">expect</span>(<span class="pl-s">"error: unable to read user choice"</span>);
+            numeric_choice <span class="pl-k">=</span> choice.<span class="pl-en">trim</span>().<span class="pl-en">parse</span><span class="pl-k">::</span>&lt;<span class="pl-k">i8</span>&gt;().<span class="pl-en">unwrap_or</span>(<span class="pl-k">-</span><span class="pl-c1">1</span>);
+            <span class="pl-c">//bad</span>
+            <span class="pl-k">if</span> numeric_choice <span class="pl-k">&lt;</span>  <span class="pl-c1">1</span> <span class="pl-k">||</span> numeric_choice <span class="pl-k">&gt;</span> amount_of_packs_in_box 
+            {
+                message_to_user <span class="pl-k">=</span> <span class="pl-c1">format!</span>(<span class="pl-s">"Don't be silly. Choose a correct pack number between 1 &amp; {}...  "</span>,amount_of_packs_in_box);
+                <span class="pl-k">continue</span>;
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-k">break</span>;
+            }
+        }
+        <span class="pl-c">// Box.greatest_cards();    </span>
+        clear_console<span class="pl-k">::</span><span class="pl-en">clear</span>();
+        <span class="pl-k">let</span> pack <span class="pl-k">=</span> box_instance.<span class="pl-en">retrieve_pack</span>(numeric_choice);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"<span class="pl-cce">\n</span>You picked pack #{}!"</span>,choice.<span class="pl-en">trim</span>());
+        pack.<span class="pl-en">display</span>();
+        box_instance.<span class="pl-en">ranking_pack</span>(<span class="pl-k">&amp;</span>pack);
+        box_instance.<span class="pl-en">greatest_cards</span>();
+        <span class="pl-c1">println!</span>(<span class="pl-s">"<span class="pl-cce">\n</span>Do you want to open a pack from another box of cards?"</span>);
+        <span class="pl-c1">println!</span>(<span class="pl-s">"<span class="pl-cce">\n</span>(Write <span class="pl-cce">\"</span>No<span class="pl-cce">\"</span> or <span class="pl-cce">\"</span>Q<span class="pl-cce">\"</span> or <span class="pl-cce">\"</span>Quit<span class="pl-cce">\"</span> if you want to leave)<span class="pl-cce">\n</span>"</span>);
+        choice.<span class="pl-en">clear</span>();
+        io<span class="pl-k">::</span><span class="pl-en">stdin</span>().<span class="pl-en">read_line</span>(<span class="pl-k">&amp;</span><span class="pl-k">mut</span> choice).<span class="pl-en">expect</span>(<span class="pl-s">"error: unable to read user choice"</span>);
+        clear_console<span class="pl-k">::</span><span class="pl-en">clear</span>();
+    }
+}
+</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

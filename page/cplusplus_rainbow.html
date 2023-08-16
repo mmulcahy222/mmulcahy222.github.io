@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cplusplus_rainbow/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/cplusplus_rainbow/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cplusplus_rainbow/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/cplusplus_rainbow/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cplusplus_rainbow/blob/master/rainbow_waves.cpp" target="_blank">rainbow_waves.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/cplusplus_rainbow/master/rainbow_waves.cpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/cplusplus_rainbow/blob/master/rainbow_waves.exe" target="_blank">rainbow_waves.exe</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/cplusplus_rainbow/master/rainbow_waves.exe" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p>It's 2021. I've been doing software development since I was 5, started again at 17 and never looked back since. And after all this damn time....I finally did C++. I wanted to know the bleeding edge best, and to level my game up outside of easy abstracted languages like Python &amp; JavaScript. I realize the possibilities of C++ are near endless, and the fact that it's a level above assembly/metal is highly alluring. Serious tools &amp; software like Amazon AWS Hyperplane are in C++ and in order to make the tools in the data center or routing protocols, what better way than to struggle in C++.</p>
+<p>This is 300 lines of C++ to make moving rainbow C++ much more faster than anything in Python &amp; JavaScript. Worth the struggle.</p>
+<p>Interesting ideas is to have the mouse influence the waves, or to make other moving plots/shapes</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/rainbow_gif.gif"><img src="../images/rainbow_gif.gif" alt="" style="max-width:100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/rainbow_window.png"><img src="../images/rainbow_window.png" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-rainbow_wavescpp" class="anchor" aria-hidden="true" href="#rainbow_wavescpp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rainbow_waves.cpp</h1>
+<div class="highlight highlight-source-c++ position-relative" data-snippet-clipboard-copy-content="#include &lt;iostream&gt;
+#include &lt;windows.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;deque&gt;
+#include &lt;vector&gt;
+#include &lt;string.h&gt;
+#include &lt;tchar.h&gt;
+#include &lt;math.h&gt;
+using namespace std;
+//global variables
+static TCHAR szWindowClass[] = _T(&quot;DesktopApp&quot;);
+static TCHAR szTitle[] = _T(&quot;Rainbow Waves&quot;);
+
+int width = 1000;
+int height = 500;
+float iteration = 0;
+float vertical_wave_speed = 13;
+int color_index = 0;
+int line_count = 20;
+int color_line_jitter = 5;
+float distance_between_lines = .03;
+int hue_variance = 3;
+int horizontal_wave_distance = 30;
+
+HINSTANCE hInst;
+template &lt;class T&gt;
+void print(T object)
+{
+    cout &lt;&lt; object &lt;&lt; endl;
+}
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+COLORREF rgb_move_closer(int[] , int[] , int );
+COLORREF rainbow_generator(int);
+void DrawLines(HDC,RECT*, deque&lt;vector&lt;vector&lt;float&gt;&gt;&gt;);
+
+int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+{
+    WNDCLASSEX wcex;
+    wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = hInstance;
+    wcex.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.lpszMenuName = NULL;
+    wcex.lpszClassName = szWindowClass;
+    wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
+    if (!RegisterClassEx(&amp;wcex))
+    {
+        MessageBox(NULL,
+                    _T(&quot;Call to RegisterClassEx failed!&quot;),
+                    _T(&quot;Windows Desktop Guided Tour&quot;),
+                    0);
+        return 1;
+    }
+    hInst = hInstance;
+    HWND hWnd = CreateWindow(
+        szWindowClass,
+        szTitle,
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT,
+        width, height,
+        NULL,
+        NULL,
+        hInstance,
+        NULL);
+    if (!hWnd)
+    {
+        MessageBox(NULL,
+                    _T(&quot;Call to CreateWindow failed!&quot;),
+                    _T(&quot;Rainbow Waves&quot;),
+                    0);
+        return 1;
+    }
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
+    MSG msg;
+    const int ID_TIMER = 1;
+    bool ret = SetTimer(hWnd, ID_TIMER, 50, NULL);
+    if (ret == 0)
+        MessageBox(hWnd, &quot;Could not SetTimer()!&quot;, &quot;Error&quot;, MB_OK | MB_ICONEXCLAMATION);
+    while (GetMessage(&amp;msg, NULL, 0, 0))
+    {
+        TranslateMessage(&amp;msg);
+        DispatchMessage(&amp;msg);
+    }
+    return 0;
+}
+
+// COLORREF rgb_move_closer(int original_colors[], int target_colors[], int step) 
+// {
+//     int count = 0;
+//     int chunk;
+//     int new_colors[3];
+//     for(int counter = 0; counter &lt; 2; counter++)
+//     {
+//         int original_color = original_colors[counter];
+//         int target_color = target_colors[counter];
+//         int difference = original_color - target_color;
+//         chunk = (int)round(difference/steps);
+//         new_colors[counter] = original_color - (chunk * step);
+//         cout &lt;&lt; new_colors[counter] &lt;&lt; endl;
+//         counter++;
+//     }
+//     return RGB(new_colors[0],new_colors[1],new_colors[2]);
+// }
+
+COLORREF rainbow_generator(int index)
+{
+    //index must be 0 to 255
+    int red;
+    int grn;
+    int blu;
+    int region = (int)floor((index / 255.0) * 6);
+    int chunk = (int)((floor(index % 43) / 43) * 255);
+    switch (region)
+    {
+    case 0:
+        red = 255;
+        grn = chunk;
+        blu = 0;
+        break; //red
+    case 1:
+        red = 255 - chunk;
+        grn = 255;
+        blu = 0;
+        break; //yellow
+    case 2:
+        red = 0;
+        grn = 255;
+        blu = chunk;
+        break; //green
+    case 3:
+        red = 0;
+        grn = 255 - chunk;
+        blu = 255;
+        break; //cyan
+    case 4:
+        red = chunk;
+        grn = 0;
+        blu = 255;
+        break; //blue
+    case 5:
+        red = 255;
+        grn = 0;
+        blu = 255 - chunk;
+        break; //magenta
+    }
+    return RGB(red, grn, blu);
+}
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    PAINTSTRUCT ps;
+    HDC hdc;
+    switch (message)
+    {
+    case WM_COMMAND:
+    {
+    }
+    case WM_PAINT:
+    {
+        hdc = BeginPaint(hWnd, &amp;ps);
+        EndPaint(hWnd, &amp;ps);
+        return 0;
+        break;
+    }
+    case WM_TIMER:
+    {
+        RECT rect;
+        HDC hdc = GetDC(hWnd);
+        GetClientRect(hWnd,&amp;rect);
+        //background color
+        HBRUSH hBrush = CreateSolidBrush(RGB(0,0,0));
+        // FillRect(hdc, &amp;rect, hBrush);
+        //change color
+        //Allows the pen color to change
+        // SelectObject(hdc, GetStockObject(DC_PEN));
+        //actually choose the pen color to change
+        // SetDCPenColor(hdc, RGB(255, 255, 255));
+        //end change color
+        float separate_line_iteration;
+        float y;
+        int trailing_lines = 5;
+        deque&lt;vector&lt;vector&lt;float&gt;&gt;&gt; coordinates_lines;
+        separate_line_iteration = iteration/vertical_wave_speed;
+        for (int i = 0; i &lt; line_count; i++)
+        {
+            //WAS A HUGE BUG (SIZE WAS TOO MUCH)
+            vector&lt;vector&lt;float&gt;&gt; coordinates_line;
+            for (float x = 0; x &lt; rect.right; x = x + 5)
+            {
+                // cos(x/30) is the horizontal difference between waves
+                // (rect.bottom/2-50) is 
+                // cos(seperate_line_iteration) IS THE AMPLITUDE
+                y = rect.bottom / 2 + cos(x / horizontal_wave_distance) * (rect.bottom / 2 - 50) * cos(separate_line_iteration);
+                //NO LINE SPANNING THE HORIZONTAL SCREN
+                coordinates_line.push_back({x,y});
+            }
+
+            separate_line_iteration = separate_line_iteration - distance_between_lines;
+            coordinates_lines.push_back(coordinates_line);
+            if(coordinates_lines.size() &gt; line_count)
+            {
+                auto line_to_destroy = coordinates_lines.front();
+                coordinates_lines.pop_front();
+                line_to_destroy.clear();
+            }
+        }
+        DrawLines(hdc,&amp;rect,coordinates_lines);
+        iteration++;
+        ReleaseDC(hWnd, hdc);
+        break;
+    }
+    case WM_DESTROY:
+    {
+        PostQuitMessage(0);
+        break;
+    }
+    default:
+    {
+        return DefWindowProc(hWnd, message, wParam, lParam);
+        break;
+    }
+}
+return 0;
+}
+
+
+void DrawLines(HDC hdc, RECT *rect, deque&lt;vector&lt;vector&lt;float&gt;&gt;&gt; coordinates_lines)
+{
+    
+    HDC hdcBuffer = CreateCompatibleDC(hdc);
+    HBITMAP hbmBuffer = CreateCompatibleBitmap(hdc,rect-&gt;right,rect-&gt;bottom);
+    HGDIOBJ hbmOldBuffer = SelectObject(hdcBuffer, hbmBuffer);
+    SelectObject(hdcBuffer, GetStockObject(DC_PEN));
+    FillRect(hdcBuffer, rect, (HBRUSH)CreateSolidBrush(RGB(0, 0, 0)));
+    
+    HPEN pen;
+    float prell;
+    COLORREF color;
+
+    int line_index = 0;
+    int line_color_index = 0;
+    for (auto coordinates_line : coordinates_lines)
+    {    
+        for (auto coordinates : coordinates_line)
+        {
+            int x = (int)floor(coordinates[0]);
+            int y = (int)floor(coordinates[1]);
+            //remove the horizontal line, only show cosine waves
+            if (x &lt;= 0)
+            {
+                MoveToEx(hdcBuffer, x, y, 0);
+                SelectObject(hdcBuffer, GetStockObject(DC_PEN));
+                continue;
+            }
+            LineTo(hdcBuffer, x, (int)floor(y));
+        }
+        line_color_index = color_index + line_index;
+        line_color_index = (line_color_index &lt; 255) ? line_color_index : 0;
+        SetDCPenColor(hdcBuffer, rainbow_generator(line_color_index));
+        line_index += color_line_jitter;
+    }
+    color_index = color_index &lt; 256 ? color_index + hue_variance : 0;
+    BitBlt(hdc, 0, 0,rect-&gt;right,rect-&gt;bottom, hdcBuffer, 0, 0, SRCCOPY);
+    SelectObject(hdcBuffer, hbmOldBuffer);
+    DeleteDC(hdcBuffer);
+    DeleteObject(hbmBuffer);
+}
+"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>windows.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>stdlib.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>deque<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>vector<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>string.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>tchar.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>math.h<span class="pl-pds">&gt;</span></span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
+<span class="pl-c"><span class="pl-c">//</span>global variables</span>
+<span class="pl-k">static</span> TCHAR szWindowClass[] = _T(<span class="pl-s"><span class="pl-pds">"</span>DesktopApp<span class="pl-pds">"</span></span>);
+<span class="pl-k">static</span> TCHAR szTitle[] = _T(<span class="pl-s"><span class="pl-pds">"</span>Rainbow Waves<span class="pl-pds">"</span></span>);
+
+<span class="pl-k">int</span> width = <span class="pl-c1">1000</span>;
+<span class="pl-k">int</span> height = <span class="pl-c1">500</span>;
+<span class="pl-k">float</span> iteration = <span class="pl-c1">0</span>;
+<span class="pl-k">float</span> vertical_wave_speed = <span class="pl-c1">13</span>;
+<span class="pl-k">int</span> color_index = <span class="pl-c1">0</span>;
+<span class="pl-k">int</span> line_count = <span class="pl-c1">20</span>;
+<span class="pl-k">int</span> color_line_jitter = <span class="pl-c1">5</span>;
+<span class="pl-k">float</span> distance_between_lines = .<span class="pl-c1">03</span>;
+<span class="pl-k">int</span> hue_variance = <span class="pl-c1">3</span>;
+<span class="pl-k">int</span> horizontal_wave_distance = <span class="pl-c1">30</span>;
+
+HINSTANCE hInst;
+<span class="pl-k">template </span>&lt;<span class="pl-k">class</span> <span class="pl-en">T</span>&gt;
+<span class="pl-k">void</span> <span class="pl-en">print</span>(T object)
+{
+    cout &lt;&lt; object &lt;&lt; endl;
+}
+LRESULT CALLBACK <span class="pl-en">WndProc</span>(HWND, UINT, WPARAM, LPARAM);
+COLORREF <span class="pl-en">rgb_move_closer</span>(<span class="pl-k">int</span>[] , <span class="pl-k">int</span>[] , <span class="pl-k">int</span> );
+COLORREF <span class="pl-en">rainbow_generator</span>(<span class="pl-k">int</span>);
+<span class="pl-k">void</span> <span class="pl-en">DrawLines</span>(HDC,RECT*, deque&lt;vector&lt;vector&lt;<span class="pl-k">float</span>&gt;&gt;&gt;);
+
+<span class="pl-k">int</span> CALLBACK <span class="pl-en">WinMain</span>(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ <span class="pl-k">int</span> nCmdShow)
+{
+    WNDCLASSEX wcex;
+    wcex.<span class="pl-smi">cbSize</span> = <span class="pl-k">sizeof</span>(WNDCLASSEX);
+    wcex.<span class="pl-smi">style</span> = CS_HREDRAW | CS_VREDRAW;
+    wcex.<span class="pl-smi">lpfnWndProc</span> = WndProc;
+    wcex.<span class="pl-smi">cbClsExtra</span> = <span class="pl-c1">0</span>;
+    wcex.<span class="pl-smi">cbWndExtra</span> = <span class="pl-c1">0</span>;
+    wcex.<span class="pl-smi">hInstance</span> = hInstance;
+    wcex.<span class="pl-smi">hIcon</span> = <span class="pl-c1">LoadIcon</span>(hInstance, IDI_APPLICATION);
+    wcex.<span class="pl-smi">hCursor</span> = <span class="pl-c1">LoadCursor</span>(<span class="pl-c1">NULL</span>, IDC_ARROW);
+    wcex.<span class="pl-smi">hbrBackground</span> = (HBRUSH)(COLOR_WINDOW + <span class="pl-c1">1</span>);
+    wcex.<span class="pl-smi">lpszMenuName</span> = <span class="pl-c1">NULL</span>;
+    wcex.<span class="pl-smi">lpszClassName</span> = szWindowClass;
+    wcex.<span class="pl-smi">hIconSm</span> = <span class="pl-c1">LoadIcon</span>(wcex.<span class="pl-smi">hInstance</span>, IDI_APPLICATION);
+    <span class="pl-k">if</span> (!<span class="pl-c1">RegisterClassEx</span>(&amp;wcex))
+    {
+        <span class="pl-c1">MessageBox</span>(<span class="pl-c1">NULL</span>,
+                    <span class="pl-c1">_T</span>(<span class="pl-s"><span class="pl-pds">"</span>Call to RegisterClassEx failed!<span class="pl-pds">"</span></span>),
+                    <span class="pl-c1">_T</span>(<span class="pl-s"><span class="pl-pds">"</span>Windows Desktop Guided Tour<span class="pl-pds">"</span></span>),
+                    <span class="pl-c1">0</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+    }
+    hInst = hInstance;
+    HWND hWnd = <span class="pl-c1">CreateWindow</span>(
+        szWindowClass,
+        szTitle,
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT,
+        width, height,
+        <span class="pl-c1">NULL</span>,
+        <span class="pl-c1">NULL</span>,
+        hInstance,
+        <span class="pl-c1">NULL</span>);
+    <span class="pl-k">if</span> (!hWnd)
+    {
+        <span class="pl-c1">MessageBox</span>(<span class="pl-c1">NULL</span>,
+                    <span class="pl-c1">_T</span>(<span class="pl-s"><span class="pl-pds">"</span>Call to CreateWindow failed!<span class="pl-pds">"</span></span>),
+                    <span class="pl-c1">_T</span>(<span class="pl-s"><span class="pl-pds">"</span>Rainbow Waves<span class="pl-pds">"</span></span>),
+                    <span class="pl-c1">0</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+    }
+    <span class="pl-c1">ShowWindow</span>(hWnd, nCmdShow);
+    <span class="pl-c1">UpdateWindow</span>(hWnd);
+    MSG msg;
+    <span class="pl-k">const</span> <span class="pl-k">int</span> ID_TIMER = <span class="pl-c1">1</span>;
+    <span class="pl-k">bool</span> ret = <span class="pl-c1">SetTimer</span>(hWnd, ID_TIMER, <span class="pl-c1">50</span>, <span class="pl-c1">NULL</span>);
+    <span class="pl-k">if</span> (ret == <span class="pl-c1">0</span>)
+        <span class="pl-c1">MessageBox</span>(hWnd, <span class="pl-s"><span class="pl-pds">"</span>Could not SetTimer()!<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>, MB_OK | MB_ICONEXCLAMATION);
+    <span class="pl-k">while</span> (<span class="pl-c1">GetMessage</span>(&amp;msg, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>))
+    {
+        <span class="pl-c1">TranslateMessage</span>(&amp;msg);
+        <span class="pl-c1">DispatchMessage</span>(&amp;msg);
+    }
+    <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}
+
+<span class="pl-c"><span class="pl-c">//</span> COLORREF rgb_move_closer(int original_colors[], int target_colors[], int step) </span>
+<span class="pl-c"><span class="pl-c">//</span> {</span>
+<span class="pl-c"><span class="pl-c">//</span>     int count = 0;</span>
+<span class="pl-c"><span class="pl-c">//</span>     int chunk;</span>
+<span class="pl-c"><span class="pl-c">//</span>     int new_colors[3];</span>
+<span class="pl-c"><span class="pl-c">//</span>     for(int counter = 0; counter &lt; 2; counter++)</span>
+<span class="pl-c"><span class="pl-c">//</span>     {</span>
+<span class="pl-c"><span class="pl-c">//</span>         int original_color = original_colors[counter];</span>
+<span class="pl-c"><span class="pl-c">//</span>         int target_color = target_colors[counter];</span>
+<span class="pl-c"><span class="pl-c">//</span>         int difference = original_color - target_color;</span>
+<span class="pl-c"><span class="pl-c">//</span>         chunk = (int)round(difference/steps);</span>
+<span class="pl-c"><span class="pl-c">//</span>         new_colors[counter] = original_color - (chunk * step);</span>
+<span class="pl-c"><span class="pl-c">//</span>         cout &lt;&lt; new_colors[counter] &lt;&lt; endl;</span>
+<span class="pl-c"><span class="pl-c">//</span>         counter++;</span>
+<span class="pl-c"><span class="pl-c">//</span>     }</span>
+<span class="pl-c"><span class="pl-c">//</span>     return RGB(new_colors[0],new_colors[1],new_colors[2]);</span>
+<span class="pl-c"><span class="pl-c">//</span> }</span>
+
+COLORREF <span class="pl-en">rainbow_generator</span>(<span class="pl-k">int</span> index)
+{
+    <span class="pl-c"><span class="pl-c">//</span>index must be 0 to 255</span>
+    <span class="pl-k">int</span> red;
+    <span class="pl-k">int</span> grn;
+    <span class="pl-k">int</span> blu;
+    <span class="pl-k">int</span> region = (<span class="pl-k">int</span>)<span class="pl-c1">floor</span>((<span class="pl-c1">index</span> / <span class="pl-c1">255.0</span>) * <span class="pl-c1">6</span>);
+    <span class="pl-k">int</span> chunk = (<span class="pl-k">int</span>)((<span class="pl-c1">floor</span>(<span class="pl-c1">index</span> % <span class="pl-c1">43</span>) / <span class="pl-c1">43</span>) * <span class="pl-c1">255</span>);
+    <span class="pl-k">switch</span> (region)
+    {
+    <span class="pl-k">case</span> <span class="pl-c1">0</span>:
+        red = <span class="pl-c1">255</span>;
+        grn = chunk;
+        blu = <span class="pl-c1">0</span>;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>red</span>
+    <span class="pl-k">case</span> <span class="pl-c1">1</span>:
+        red = <span class="pl-c1">255</span> - chunk;
+        grn = <span class="pl-c1">255</span>;
+        blu = <span class="pl-c1">0</span>;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>yellow</span>
+    <span class="pl-k">case</span> <span class="pl-c1">2</span>:
+        red = <span class="pl-c1">0</span>;
+        grn = <span class="pl-c1">255</span>;
+        blu = chunk;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>green</span>
+    <span class="pl-k">case</span> <span class="pl-c1">3</span>:
+        red = <span class="pl-c1">0</span>;
+        grn = <span class="pl-c1">255</span> - chunk;
+        blu = <span class="pl-c1">255</span>;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>cyan</span>
+    <span class="pl-k">case</span> <span class="pl-c1">4</span>:
+        red = chunk;
+        grn = <span class="pl-c1">0</span>;
+        blu = <span class="pl-c1">255</span>;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>blue</span>
+    <span class="pl-k">case</span> <span class="pl-c1">5</span>:
+        red = <span class="pl-c1">255</span>;
+        grn = <span class="pl-c1">0</span>;
+        blu = <span class="pl-c1">255</span> - chunk;
+        <span class="pl-k">break</span>; <span class="pl-c"><span class="pl-c">//</span>magenta</span>
+    }
+    <span class="pl-k">return</span> <span class="pl-c1">RGB</span>(red, grn, blu);
+}
+LRESULT CALLBACK <span class="pl-en">WndProc</span>(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    PAINTSTRUCT ps;
+    HDC hdc;
+    <span class="pl-k">switch</span> (message)
+    {
+    <span class="pl-k">case</span> WM_COMMAND:
+    {
+    }
+    <span class="pl-k">case</span> WM_PAINT:
+    {
+        hdc = <span class="pl-c1">BeginPaint</span>(hWnd, &amp;ps);
+        <span class="pl-c1">EndPaint</span>(hWnd, &amp;ps);
+        <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+        <span class="pl-k">break</span>;
+    }
+    <span class="pl-k">case</span> WM_TIMER:
+    {
+        RECT rect;
+        HDC hdc = <span class="pl-c1">GetDC</span>(hWnd);
+        <span class="pl-c1">GetClientRect</span>(hWnd,&amp;rect);
+        <span class="pl-c"><span class="pl-c">//</span>background color</span>
+        HBRUSH hBrush = <span class="pl-c1">CreateSolidBrush</span>(<span class="pl-c1">RGB</span>(<span class="pl-c1">0</span>,<span class="pl-c1">0</span>,<span class="pl-c1">0</span>));
+        <span class="pl-c"><span class="pl-c">//</span> FillRect(hdc, &amp;rect, hBrush);</span>
+        <span class="pl-c"><span class="pl-c">//</span>change color</span>
+        <span class="pl-c"><span class="pl-c">//</span>Allows the pen color to change</span>
+        <span class="pl-c"><span class="pl-c">//</span> SelectObject(hdc, GetStockObject(DC_PEN));</span>
+        <span class="pl-c"><span class="pl-c">//</span>actually choose the pen color to change</span>
+        <span class="pl-c"><span class="pl-c">//</span> SetDCPenColor(hdc, RGB(255, 255, 255));</span>
+        <span class="pl-c"><span class="pl-c">//</span>end change color</span>
+        <span class="pl-k">float</span> separate_line_iteration;
+        <span class="pl-k">float</span> y;
+        <span class="pl-k">int</span> trailing_lines = <span class="pl-c1">5</span>;
+        deque&lt;vector&lt;vector&lt;<span class="pl-k">float</span>&gt;&gt;&gt; coordinates_lines;
+        separate_line_iteration = iteration/vertical_wave_speed;
+        <span class="pl-k">for</span> (<span class="pl-k">int</span> i = <span class="pl-c1">0</span>; i &lt; line_count; i++)
+        {
+            <span class="pl-c"><span class="pl-c">//</span>WAS A HUGE BUG (SIZE WAS TOO MUCH)</span>
+            vector&lt;vector&lt;<span class="pl-k">float</span>&gt;&gt; coordinates_line;
+            <span class="pl-k">for</span> (<span class="pl-k">float</span> x = <span class="pl-c1">0</span>; x &lt; rect.<span class="pl-smi">right</span>; x = x + <span class="pl-c1">5</span>)
+            {
+                <span class="pl-c"><span class="pl-c">//</span> cos(x/30) is the horizontal difference between waves</span>
+                <span class="pl-c"><span class="pl-c">//</span> (rect.bottom/2-50) is </span>
+                <span class="pl-c"><span class="pl-c">//</span> cos(seperate_line_iteration) IS THE AMPLITUDE</span>
+                y = rect.<span class="pl-smi">bottom</span> / <span class="pl-c1">2</span> + <span class="pl-c1">cos</span>(x / horizontal_wave_distance) * (rect.<span class="pl-smi">bottom</span> / <span class="pl-c1">2</span> - <span class="pl-c1">50</span>) * <span class="pl-c1">cos</span>(separate_line_iteration);
+                <span class="pl-c"><span class="pl-c">//</span>NO LINE SPANNING THE HORIZONTAL SCREN</span>
+                coordinates_line.<span class="pl-c1">push_back</span>({x,y});
+            }
+
+            separate_line_iteration = separate_line_iteration - distance_between_lines;
+            coordinates_lines.<span class="pl-c1">push_back</span>(coordinates_line);
+            <span class="pl-k">if</span>(coordinates_lines.<span class="pl-c1">size</span>() &gt; line_count)
+            {
+                <span class="pl-k">auto</span> line_to_destroy = coordinates_lines.<span class="pl-c1">front</span>();
+                coordinates_lines.<span class="pl-c1">pop_front</span>();
+                line_to_destroy.<span class="pl-c1">clear</span>();
+            }
+        }
+        <span class="pl-c1">DrawLines</span>(hdc,&amp;rect,coordinates_lines);
+        iteration++;
+        <span class="pl-c1">ReleaseDC</span>(hWnd, hdc);
+        <span class="pl-k">break</span>;
+    }
+    <span class="pl-k">case</span> WM_DESTROY:
+    {
+        <span class="pl-c1">PostQuitMessage</span>(<span class="pl-c1">0</span>);
+        <span class="pl-k">break</span>;
+    }
+    <span class="pl-k">default</span>:
+    {
+        <span class="pl-k">return</span> <span class="pl-c1">DefWindowProc</span>(hWnd, message, wParam, lParam);
+        <span class="pl-k">break</span>;
+    }
+}
+<span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}
+
+
+<span class="pl-k">void</span> <span class="pl-en">DrawLines</span>(HDC hdc, RECT *rect, deque&lt;vector&lt;vector&lt;<span class="pl-k">float</span>&gt;&gt;&gt; coordinates_lines)
+{
+    
+    HDC hdcBuffer = <span class="pl-c1">CreateCompatibleDC</span>(hdc);
+    HBITMAP hbmBuffer = <span class="pl-c1">CreateCompatibleBitmap</span>(hdc,rect-&gt;<span class="pl-smi">right</span>,rect-&gt;<span class="pl-smi">bottom</span>);
+    HGDIOBJ hbmOldBuffer = <span class="pl-c1">SelectObject</span>(hdcBuffer, hbmBuffer);
+    <span class="pl-c1">SelectObject</span>(hdcBuffer, <span class="pl-c1">GetStockObject</span>(DC_PEN));
+    <span class="pl-c1">FillRect</span>(hdcBuffer, rect, (HBRUSH)<span class="pl-c1">CreateSolidBrush</span>(<span class="pl-c1">RGB</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>)));
+    
+    HPEN pen;
+    <span class="pl-k">float</span> prell;
+    COLORREF color;
+
+    <span class="pl-k">int</span> line_index = <span class="pl-c1">0</span>;
+    <span class="pl-k">int</span> line_color_index = <span class="pl-c1">0</span>;
+    <span class="pl-k">for</span> (<span class="pl-k">auto</span> coordinates_line : coordinates_lines)
+    {    
+        <span class="pl-k">for</span> (<span class="pl-k">auto</span> coordinates : coordinates_line)
+        {
+            <span class="pl-k">int</span> x = (<span class="pl-k">int</span>)<span class="pl-c1">floor</span>(coordinates[<span class="pl-c1">0</span>]);
+            <span class="pl-k">int</span> y = (<span class="pl-k">int</span>)<span class="pl-c1">floor</span>(coordinates[<span class="pl-c1">1</span>]);
+            <span class="pl-c"><span class="pl-c">//</span>remove the horizontal line, only show cosine waves</span>
+            <span class="pl-k">if</span> (x &lt;= <span class="pl-c1">0</span>)
+            {
+                <span class="pl-c1">MoveToEx</span>(hdcBuffer, x, y, <span class="pl-c1">0</span>);
+                <span class="pl-c1">SelectObject</span>(hdcBuffer, <span class="pl-c1">GetStockObject</span>(DC_PEN));
+                <span class="pl-k">continue</span>;
+            }
+            <span class="pl-c1">LineTo</span>(hdcBuffer, x, (<span class="pl-k">int</span>)<span class="pl-c1">floor</span>(y));
+        }
+        line_color_index = color_index + line_index;
+        line_color_index = (line_color_index &lt; <span class="pl-c1">255</span>) ? line_color_index : <span class="pl-c1">0</span>;
+        <span class="pl-c1">SetDCPenColor</span>(hdcBuffer, <span class="pl-c1">rainbow_generator</span>(line_color_index));
+        line_index += color_line_jitter;
+    }
+    color_index = color_index &lt; <span class="pl-c1">256</span> ? color_index + hue_variance : <span class="pl-c1">0</span>;
+    <span class="pl-c1">BitBlt</span>(hdc, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>,rect-&gt;<span class="pl-smi">right</span>,rect-&gt;<span class="pl-smi">bottom</span>, hdcBuffer, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, SRCCOPY);
+    <span class="pl-c1">SelectObject</span>(hdcBuffer, hbmOldBuffer);
+    <span class="pl-c1">DeleteDC</span>(hdcBuffer);
+    <span class="pl-c1">DeleteObject</span>(hbmBuffer);
+}</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

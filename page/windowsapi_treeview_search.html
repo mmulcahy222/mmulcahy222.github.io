@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/windowsapi_treeview_search/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/windowsapi_treeview_search/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/windowsapi_treeview_search/blob/master/treeview.py" target="_blank">treeview.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/windowsapi_treeview_search/master/treeview.py" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-windows-tree-view-api" class="anchor" aria-hidden="true" href="#windows-tree-view-api"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Windows Tree View API</h1>
+<p>I did a bucket list project for myself. I really wanted to dig into the guts of the Windows API, and understand low-level to improve my understanding of the "higher-level" abstract code. I don't see anyone as a real programmer unless they understand real low-level details so they know what's going on. I can blab about this plenty. I have been using too many frameworks in JavaScript &amp; PHP in my life that fell out favor over time, rending all the time &amp; years I spend on those frameworks utterly useless. Ember.JS, Magento, Angular version. I'm looking at you.</p>
+<p>This is just restating a rant that I did for my Google Bookmarks repository which used the Keyboard &amp; Clipboard Listener Windows functions in user32.dll. As I said there, my friends &amp; peers were doing all this black magic in High School, and I needed to know how they did it (It was with Win32 API).</p>
+<p>So I did a deeper version of the Google Bookmarks Windows API code.</p>
+<p>Anytime a HotKey is pressed and the mouse is over an item in a tree view, it will do a search on what is inside the TreeView item.</p>
+<p>Sounds very easy, but it's actually not at all. I tried to do this for years, and only until I got a newer laptop and a harder resolve was I able to pull this off.</p>
+<p>This required my very first foray into code injection, process injection, and generally the sort of things any programmer I think should know.</p>
+<p>Very fun functions like</p>
+<ul>
+<li>GetWindowThreadProcessId</li>
+<li>OpenProcess</li>
+<li>VirtualAllocEx</li>
+<li>WriteProcessMemory</li>
+<li>SendMessageA</li>
+<li>ReadProcessMemory</li>
+<li>VirtualFreeEx</li>
+<li>CloseHandle</li>
+</ul>
+<p>By doing web searches on Windows GUI TreeViews via hotkeys, my life is automated and I could accomplish more in a small amount of time, and therefore become more informed about what I searched as well as code injection. This is the code that's typically hidden in frameworks, but frameworks are not enough for me as I don't want to be a code monkey who needs things hidden from me. That may serve well in a production environment, but to distinguish oneself and to ADD MORE FLEXIBLE FEATURES that's not in frameworks, I love learning one level down what I have to do.</p>
+<p>Assembly is a bridge too far, although I know some of that too.</p>
+<p>OH, another note. I used Python for this task. Why did I use Python? In describing this project on my Facebook, I said</p>
+<blockquote>
+<p>Who has the gumption &amp; courage to program into Microsoft MSDN?</p>
+<p>Programming hides ("abstracts") a lot of details inside the computer, but the most "senior" level employees should know the details that are hidden.</p>
+<p>I tried to use the module in Python called "Instant" which allows me to use C/C++ code inside of Python...BUTTTT I found out that it required an old version of the Python language (Python 2.7, not Python 3 that everyone uses now)</p>
+<p>I could use C++ but I'm not super skilled in C++ yet, and trying C++ made me reinvent the wheel multiple times when I could do this in a few lines of Python (this prevented me from using Microsoft MSDN API)</p>
+<p>What's left is CTypes, a Python module that lets you convert C++ code into Python style code, and that's how I've been doing it! I LOVE CTYPES</p>
+<p>CTypes can prototype C++ code before actually using C++</p>
+</blockquote>
+<h1><a id="user-content-the-function-to-retrieve-the-text-from-the-selected-tree-view-item-in-treeviewpy" class="anchor" aria-hidden="true" href="#the-function-to-retrieve-the-text-from-the-selected-tree-view-item-in-treeviewpy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The function to retrieve the text from the selected Tree View Item in treeview.py</h1>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">class</span> <span class="pl-v">TVITEMA</span>(<span class="pl-v">Structure</span>):
+    <span class="pl-s1">_fields_</span> <span class="pl-c1">=</span> ((<span class="pl-s">'mask'</span>, <span class="pl-v">UINT</span>), (<span class="pl-s">'hItem'</span>, <span class="pl-v">UINT</span>),
+                (<span class="pl-s">'state'</span>, <span class="pl-v">UINT</span>), (<span class="pl-s">'stateMask'</span>, <span class="pl-v">UINT</span>), (<span class="pl-s">'pszTextx'</span>, <span class="pl-v">LPSTR</span>),
+                (<span class="pl-s">'cchTextMax'</span>, <span class="pl-s1">c_int</span>), (<span class="pl-s">'iImage'</span>, <span class="pl-s1">c_int</span>), (<span class="pl-s">'iSelectedImage'</span>, <span class="pl-s1">c_int</span>), (<span class="pl-s">'children'</span>, <span class="pl-s1">c_int</span>), (<span class="pl-s">'lparam'</span>, <span class="pl-v">LPARAM</span>))
+<span class="pl-k">def</span> <span class="pl-en">get_selected_item_text</span>():
+    <span class="pl-s1">systreeview_hwnds</span> <span class="pl-c1">=</span> <span class="pl-en">get_systreeview32_hwnds</span>(
+        <span class="pl-en">get_window_children</span>(<span class="pl-en">get_hwnd</span>(<span class="pl-s">"Redacted"</span>)))
+    <span class="pl-k">for</span> <span class="pl-s1">hwnd</span> <span class="pl-c1">in</span> <span class="pl-s1">systreeview_hwnds</span>:
+        <span class="pl-s1">root_item_handle_int</span> <span class="pl-c1">=</span> <span class="pl-s1">u</span>.<span class="pl-v">SendMessageA</span>(
+            <span class="pl-s1">hwnd</span>, <span class="pl-v">TVM_GETNEXTITEM</span>, <span class="pl-v">TVGN_ROOT</span>, <span class="pl-c1">0</span>)
+        <span class="pl-c"># print("Root Item", hex(root_item_handle_int))</span>
+        <span class="pl-c"># SELECTING CODE</span>
+        <span class="pl-s1">selected_item_handle_int</span> <span class="pl-c1">=</span> <span class="pl-s1">u</span>.<span class="pl-v">SendMessageA</span>(
+            <span class="pl-s1">hwnd</span>, <span class="pl-v">TVM_GETNEXTITEM</span>, <span class="pl-v">TVGN_CARET</span>, <span class="pl-c1">0</span>)
+        <span class="pl-c"># print("Selected Item", hex(selected_item_handle_int))</span>
+        <span class="pl-s1">text_buffer_size</span> <span class="pl-c1">=</span> <span class="pl-c1">127</span>
+        <span class="pl-c"># make item object</span>
+        <span class="pl-s1">selected_item</span> <span class="pl-c1">=</span> <span class="pl-v">TVITEMA</span>()
+        <span class="pl-s1">selected_item</span>.<span class="pl-s1">hItem</span> <span class="pl-c1">=</span> <span class="pl-s1">selected_item_handle_int</span>
+        <span class="pl-s1">selected_item</span>.<span class="pl-s1">mask</span> <span class="pl-c1">=</span> <span class="pl-v">TVIF_TEXT</span> <span class="pl-c1">|</span> <span class="pl-v">TVIF_HANDLE</span>
+        <span class="pl-s1">selected_item</span>.<span class="pl-s1">cchTextMax</span> <span class="pl-c1">=</span> <span class="pl-c1">127</span>
+        <span class="pl-s1">item_memory_size</span> <span class="pl-c1">=</span> <span class="pl-en">sizeof</span>(<span class="pl-s1">selected_item</span>) <span class="pl-c1">+</span> <span class="pl-c1">1024</span>
+        <span class="pl-s1">process_id_dword</span> <span class="pl-c1">=</span> <span class="pl-v">DWORD</span>()
+        <span class="pl-c"># note: DO NOT FORGET THE BYREF FOR PUTTING VARIABLES IN THAT WILL COME OUT WITH A NEW VALUE (IN SOME CASES LIKE THIS DWORD)</span>
+        <span class="pl-s1">thread_id</span> <span class="pl-c1">=</span> <span class="pl-s1">u</span>.<span class="pl-v">GetWindowThreadProcessId</span>(<span class="pl-s1">hwnd</span>, <span class="pl-en">byref</span>(<span class="pl-s1">process_id_dword</span>))
+        <span class="pl-c"># note, if it was a long pointer, extracting it would be .contents (similar to dereferencing with &amp;. Since it's not a pointer, you use .value</span>
+        <span class="pl-s1">process_id</span> <span class="pl-c1">=</span> <span class="pl-s1">process_id_dword</span>.<span class="pl-s1">value</span>
+        <span class="pl-c"># now that you have process ID, open Process</span>
+        <span class="pl-s1">k</span>.<span class="pl-v">OpenProcess</span>.<span class="pl-s1">argtypes</span> <span class="pl-c1">=</span> [<span class="pl-v">DWORD</span>, <span class="pl-v">BOOL</span>, <span class="pl-v">DWORD</span>]
+        <span class="pl-s1">k</span>.<span class="pl-v">OpenProcess</span>.<span class="pl-s1">restype</span> <span class="pl-c1">=</span> <span class="pl-v">HANDLE</span>
+        <span class="pl-s1">process</span> <span class="pl-c1">=</span> <span class="pl-s1">k</span>.<span class="pl-v">OpenProcess</span>(<span class="pl-v">PROCESS_VM_OPERATION</span> <span class="pl-c1">|</span> <span class="pl-v">PROCESS_VM_READ</span> <span class="pl-c1">|</span>
+                                <span class="pl-v">PROCESS_VM_WRITE</span> <span class="pl-c1">|</span> <span class="pl-v">PROCESS_QUERY_INFORMATION</span>, <span class="pl-c1">False</span>, <span class="pl-s1">process_id_dword</span>)
+        <span class="pl-c"># print("PROCESS_ID", process_id)</span>
+        <span class="pl-c"># print("PROCESS", process)</span>
+        <span class="pl-c"># https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex</span>
+        <span class="pl-c"># allocate space for the item object &amp; text object in this process</span>
+        <span class="pl-s1">address_item_remote</span> <span class="pl-c1">=</span> <span class="pl-s1">k</span>.<span class="pl-v">VirtualAllocEx</span>(
+            <span class="pl-s1">process</span>, <span class="pl-c1">0</span>, <span class="pl-s1">item_memory_size</span>, <span class="pl-v">MEM_COMMIT</span>, <span class="pl-v">PAGE_READWRITE</span>)
+        <span class="pl-s1">address_text_remote</span> <span class="pl-c1">=</span> <span class="pl-s1">k</span>.<span class="pl-v">VirtualAllocEx</span>(
+            <span class="pl-s1">process</span>, <span class="pl-c1">0</span>, <span class="pl-s1">text_buffer_size</span>, <span class="pl-v">MEM_COMMIT</span>, <span class="pl-v">PAGE_READWRITE</span>)
+        <span class="pl-c"># when you copy the selected item in the remote process, put the new memory address pointer in that item</span>
+        <span class="pl-s1">selected_item</span>.<span class="pl-s1">pszTextx</span> <span class="pl-c1">=</span> <span class="pl-s1">address_text_remote</span>
+        <span class="pl-c"># print("address_item_remote", hex(address_item_remote))</span>
+        <span class="pl-c"># print("address_text_remote", hex(address_text_remote))</span>
+        <span class="pl-s1">item_memory_size</span> <span class="pl-c1">=</span> <span class="pl-en">sizeof</span>(<span class="pl-s1">selected_item</span>)
+        <span class="pl-s1">bytes_written</span> <span class="pl-c1">=</span> <span class="pl-v">DWORD</span>()
+        <span class="pl-s1">k</span>.<span class="pl-v">WriteProcessMemory</span>(<span class="pl-s1">process</span>, <span class="pl-s1">address_item_remote</span>, <span class="pl-en">byref</span>(
+            <span class="pl-s1">selected_item</span>), <span class="pl-s1">item_memory_size</span>, <span class="pl-en">byref</span>(<span class="pl-s1">bytes_written</span>))
+        <span class="pl-s1">u</span>.<span class="pl-v">SendMessageA</span>(<span class="pl-s1">hwnd</span>, <span class="pl-v">TVM_GETITEM</span>, <span class="pl-v">TVGN_CARET</span>, <span class="pl-s1">address_item_remote</span>)
+        <span class="pl-s1">text_buffer</span> <span class="pl-c1">=</span> <span class="pl-en">create_string_buffer</span>(<span class="pl-s1">text_buffer_size</span>)
+        <span class="pl-s1">bytes_size</span> <span class="pl-c1">=</span> <span class="pl-s1">text_buffer_size</span>
+        <span class="pl-s1">bytes_read</span> <span class="pl-c1">=</span> <span class="pl-v">DWORD</span>()
+        <span class="pl-s1">k</span>.<span class="pl-v">ReadProcessMemory</span>(<span class="pl-s1">process</span>, <span class="pl-s1">address_text_remote</span>, <span class="pl-en">byref</span>(
+            <span class="pl-s1">text_buffer</span>), <span class="pl-s1">text_buffer_size</span>, <span class="pl-en">byref</span>(<span class="pl-s1">bytes_read</span>))
+        <span class="pl-c"># print("BYTES READ", bytes_read)</span>
+        <span class="pl-s1">selected_item_text</span> <span class="pl-c1">=</span> <span class="pl-s1">text_buffer</span>.<span class="pl-s1">value</span>.<span class="pl-en">decode</span>()
+        <span class="pl-s1">k</span>.<span class="pl-v">VirtualFreeEx</span>(<span class="pl-s1">process</span>, <span class="pl-s1">address_item_remote</span>, <span class="pl-c1">0</span>, <span class="pl-v">MEM_RELEASE</span>)
+        <span class="pl-s1">k</span>.<span class="pl-v">VirtualFreeEx</span>(<span class="pl-s1">process</span>, <span class="pl-s1">address_text_remote</span>, <span class="pl-c1">0</span>, <span class="pl-v">MEM_RELEASE</span>)
+        <span class="pl-s1">k</span>.<span class="pl-v">CloseHandle</span>(<span class="pl-s1">process</span>)
+        <span class="pl-k">return</span> <span class="pl-s1">selected_item_text</span></pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

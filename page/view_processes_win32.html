@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/view_processes_win32/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/view_processes_win32/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/view_processes_win32/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/view_processes_win32/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/view_processes_win32/blob/master/process_popup.cpp" target="_blank">process_popup.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/view_processes_win32/master/process_popup.cpp" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">I made a Windows Pop Up that displays the Processes that hogs up the most resources using C++ &amp; Direct Win32 API.</p>
+<p dir="auto">I know what you're thinking now.</p>
+<p dir="auto">"BUT MARK!!! THE TASK MANAGER ALREADY DOES THE SAME THING!! What even is the purpose!"</p>
+<p dir="auto">Super easy!</p>
+<ol dir="auto">
+<li>The task manager takes 10-30 seconds to show up. The details tab takes a while. However, this popup comes up in 0.002 seconds. Very efficient!</li>
+<li>How else can one know these inner details unless they practically do this themselves, such as getting these snapshots like PROCESSENTRY32 structure &amp; CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);</li>
+</ol>
+<p dir="auto">The WM_TIMER in the Windows Procedure will update the popup every minute, it was activated with SetTimer(hWnd, 1, 1000, NULL) before the message loop.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/popup_process.gif"><img src="../images/popup_process.gif" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">UPDATE:</p>
+<p dir="auto">I added two more columns into this program months after I first created it, which are the "# of Handles" AND the "CPU Percentage", which makes it a total of five columns!</p>
+<table>
+<thead>
+<tr>
+<th>Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process Name</td>
+</tr>
+<tr>
+<td>Memory</td>
+</tr>
+<tr>
+<td>Process ID</td>
+</tr>
+<tr>
+<td>Handles</td>
+</tr>
+<tr>
+<td>CPU Percentage</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">The first four were easily retrievable with a few lines of advanced C++ Win32 API low-level calls. Just a few lines.</p>
+<p dir="auto">I decided to have the number of Handles in the 4th column, because this is a feature that I only saw in SysInternals/Process Explorer, and NOT in the default Task Manager (except for Total # of Handles, not by process)</p>
+<p dir="auto">Luckily for me the number of handles were retrievable by 4 lines of C++ code, like so:</p>
+<p dir="auto">PDWORD handle_count_struct_instance = new DWORD;
+GetProcessHandleCount(hProcess, handle_count_struct_instance);
+int handle_count = *handle_count_struct_instance;
+delete handle_count_struct_instance;</p>
+<p dir="auto">Weirdly, I --HAD-- to make this into a HEAP object declared with "New" to get the code to even work, which I try to do a little as possible because of the potential of memory leaks.</p>
+<p dir="auto">But now we're reaching the toughest of them all and that's the CPU Percentage!!!!!!!!!!!!</p>
+<p dir="auto">OH MY GOODNESS, what a freaking challenge. There are no Win32 calls to just simply get it, like there were with the three other columns. You had to do it yourself. I came this far, and I need this for diagnosing, so why was I going to stop. I get to learn something the way.</p>
+<p dir="auto">Sadly, this required lots of studying &amp; homework &amp; taking together the best of many ideas to do so. Since this is using WM_TIMER, the last value of the Kernel/User/Exit/Creation time of the process had to have been recorded, which I did in a map (or a "Dict" of using Python). This was many hours of work with many tries &amp; many solutions.</p>
+<p dir="auto">To see my solution at calculating the CPU percentage from a process, please view the code below!!! The great thing about it is that this solution mirrors the Task Manager CPU's percentage!!</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/view_processes_code.png"><img src="../images/view_processes_code.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

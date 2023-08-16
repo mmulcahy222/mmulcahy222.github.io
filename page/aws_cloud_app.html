@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/aws_cloud_app/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/aws_cloud_app/master/README.md" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">Amazon Cloud Application that collects data 24/7 on Amazon AWS Cloud, involving lots of AWS &amp; Linux configuration.</p>
+<p dir="auto">The AWS service of choice was EC2. The database choice was SQLite inside the instance/EBS, which should cut down on Write Cost units</p>
+<p dir="auto">The largest challenge of this app was to really make sure the Python Script inside was running 24/7, because sometimes memory leaks crop in one of the imported Python libraries which ruin the CPU Utilization.</p>
+<p dir="auto">Fortunately there was CloudWatch &amp; CloudWatch alarms that did a Status Instance check every 5 minutes, and it even came with an ACTION to automatically REBOOT when the Instance check failed, so that's activated.</p>
+<p dir="auto">Despite this setup, I detected that sometimes the script inside called "Cloud.py" still isn't running after the reboot.</p>
+<p dir="auto">I did a Cron Job as a Python Script that would check if the script was running with "ps -a", and if it wasn't, then start it, and if multiple copies were running, then remove the processes except for one.</p>
+<p dir="auto">I had some severe problems with the CronJob for a while, then I discovered that people should NOT use the squiggly line/symbol as "Home" inside the cron entry through "crontab -e" (or /etc/cron.d), but rather the FULL path retrieved from "pwd" without the ~ symbol. I learned hours the hard way.</p>
+<p dir="auto">The star of the show is the "Screen" application in Linux, that was what I used. Screen allows processes to start when there is no active SSH connection going! According to the internet, "Screen or GNU Screen is a terminal multiplexer. In other words, it means that you can start a screen session and then open any number of windows (virtual terminals) inside that session. Processes running in Screen will continue to run when their window is not visible even if you get disconnected"</p>
+<p dir="auto">I'll describe more about this in the future, or you can ask me!</p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

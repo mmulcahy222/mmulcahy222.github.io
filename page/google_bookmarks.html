@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_bookmarks/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/bookmarks_gone.py" target="_blank">bookmarks_gone.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_bookmarks/master/bookmarks_gone.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/states" target="_blank">states</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/google_bookmarks/blob/master/states" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-state-design-pattern--microsoft-windows-api-chrome-bookmarks" class="anchor" aria-hidden="true" href="#state-design-pattern--microsoft-windows-api-chrome-bookmarks"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>State Design Pattern &amp; Microsoft Windows API (Chrome Bookmarks)</h1>
+<p>As I wrote in a previous repository, I always wanted to try out the Windows API since I was a kid. I used to program in BASIC in Commodore 64 when I was very young, and my friends were using programs to move/click/drag their mouse in Windows API &amp; C++ in perfect shapes. They were doing all this crazy wizard stuff to impress everybody and I wanted in.</p>
+<p>The deep comprehensive Win32 API is one of those bucket list things.</p>
+<blockquote>
+<p>The Windows architecture is heavily layered. Function calls that a programmer makes may be redirected 3 times or more before any action is actually performed. There is an unignorable penalty for calling Win32 functions from a user-mode application. However, the upside is equally unignorable: code written in higher levels of the windows system is much easier to write. Complex operations that involve initializing multiple data structures and calling multiple sub-functions can be performed by calling only a single higher-level function. The Win32 API comprises 3 modules: KERNEL32, USER32, and GDI32. KERNEL32 is layered on top of NTDLL, and most calls to KERNEL32 functions are simply redirected into NTDLL function calls. USER32 and GDI32 are both based on WIN32K (a kernel-mode module, responsible for the Windows "look and feel"), although USER32 also makes many calls to the more-primitive functions in GDI32. This and NTDLL both provide an interface to the Windows NT kernel, NTOSKRNL</p>
+</blockquote>
+<p>I reached a point where I had many multiple use cases, and making a program has accomplished all of them in a fell swoop.</p>
+<ol>
+<li>Needed to learn more about the State Design Pattern (and design patterns in general)</li>
+<li>I badly needed to clean up my Internet bookmarks in a much faster, automated way</li>
+<li>I wanted to work more with the low level Win32 functions</li>
+</ol>
+<p>Enter the Google Bookmarks program that solves all of this for me. I made this into a menu format where the State Design Pattern/State Machine was used, just for experimentation. It allowed for this to be extended for many other new features via other new states in the states folder, which will be menu options.</p>
+<p>Here is the initial menu you will see in the State Design Pattern:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/initial_menu.jpg"><img src="../images/initial_menu.jpg" alt="" style="max-width:100%;"></a></p>
+<p>Win32 is used here for two purposes. Record Keystrokes, and listen to Clipboard changes, and run a callback function/book when the clipboard changes. In one state, the Clipboard will record the links in a text file that will be removed from the Google Bookmarks when moving into another "State"</p>
+<p>I made an entire headless window JUST to record Clipboard Listeners to run a callback function. This might have been overkill in retrospect and maybe it could have been condensed. This is the same process to make a pure Window in C or Python without using dependencies like TKinter or GTK.</p>
+<p>I figure, WHY use these dependencies and tools others have made when I can go into the low-level details that's documented (unlike ntdll.dll and of course the Kernel which I don't even have the time to experiment with)</p>
+<p>I wrote this in a separate blog post.</p>
+<blockquote>
+<p>I am happy I did this attached handywork in my free time. It organizes my Google Bookmarks in a menu using the STATE Design Pattern, and the language was Python, and I made sure I used the difficult unwieldy 1980's Microsoft Windows API, instead of relying on readymade frameworks like .Net or Universal Windows Platform which obfuscate details. REAL professionals will WANT to know those details to be more indispensible. I just wanted to know some the low-level details near the kernel level at ntdll.dll, and improve on my design patterns (practically), by stuggling intensely to come out to the other side a stronger developer like the more "senior" members of my team. I want to be a senior developer, CIO &amp; owner &amp; have near PHD knowledge of this. I love what the Windows API can do, by knowing the low-level details, you are simply a better developer, you just know more about conventional languages which hide details, and you could troubleshoot problems that the easy languages can't, and you can simply DO MORE THINGS, and you could do speed optimization.</p>
+</blockquote>
+<p>The Keyboard Hook only took online line compared to the Clipboard listener below, because I commented:</p>
+<blockquote>
+<p>because it is WH_KEYBOARD_LL, it doesn't require an external DLL injected into it, unlike WH_KEYBOARD &amp; WH_CALLWNDFUNC</p>
+</blockquote>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>__main__<span class="pl-pds">'</span></span>:
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>ONE LINE SETS UP KEYBOARD HOOK</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>and because it is WH_KEYBOARD_LL, it doesn't require an external DLL injected into it, unlike WH_KEYBOARD &amp; WH_CALLWNDFUNC</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	kHook <span class="pl-k">=</span> user32.SetWindowsHookExW(<span class="pl-c1">WH_KEYBOARD_LL</span>, keyboard_low_level, <span class="pl-c1">None</span>, <span class="pl-c1">0</span>)
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>Creating a dummy window with the only SOLE purpose of recording clipboard changes</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c1">WNDPROCTYPE</span> <span class="pl-k">=</span> WINFUNCTYPE(c_int, <span class="pl-c1">HWND</span>, c_uint, <span class="pl-c1">WPARAM</span>, <span class="pl-c1">LPARAM</span>)
+	<span class="pl-k">class</span> <span class="pl-en">WNDCLASSEX</span>(<span class="pl-e">Structure</span>):
+		_fields_ <span class="pl-k">=</span> [(<span class="pl-s"><span class="pl-pds">"</span>cbSize<span class="pl-pds">"</span></span>, c_uint),
+					(<span class="pl-s"><span class="pl-pds">"</span>style<span class="pl-pds">"</span></span>, c_uint),
+					(<span class="pl-s"><span class="pl-pds">"</span>lpfnWndProc<span class="pl-pds">"</span></span>, <span class="pl-c1">WNDPROCTYPE</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>cbClsExtra<span class="pl-pds">"</span></span>, c_int),
+					(<span class="pl-s"><span class="pl-pds">"</span>cbWndExtra<span class="pl-pds">"</span></span>, c_int),
+					(<span class="pl-s"><span class="pl-pds">"</span>hInstance<span class="pl-pds">"</span></span>, <span class="pl-c1">HANDLE</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>hIcon<span class="pl-pds">"</span></span>, <span class="pl-c1">HANDLE</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>hCursor<span class="pl-pds">"</span></span>, <span class="pl-c1">HANDLE</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>hBrush<span class="pl-pds">"</span></span>, <span class="pl-c1">HANDLE</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>lpszMenuName<span class="pl-pds">"</span></span>, <span class="pl-c1">LPCWSTR</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>lpszClassName<span class="pl-pds">"</span></span>, <span class="pl-c1">LPCWSTR</span>),
+					(<span class="pl-s"><span class="pl-pds">"</span>hIconSm<span class="pl-pds">"</span></span>, <span class="pl-c1">HANDLE</span>)]
+	wclassName <span class="pl-k">=</span> <span class="pl-s"><span class="pl-k">u</span><span class="pl-pds">'</span>Dummy<span class="pl-pds">'</span></span>
+	wndClass <span class="pl-k">=</span> WNDCLASSEX()
+	wndClass.cbSize <span class="pl-k">=</span> sizeof(<span class="pl-c1">WNDCLASSEX</span>)
+	wndClass.lpfnWndProc <span class="pl-k">=</span> WNDPROCTYPE(wnd_proc)
+	wndClass.lpszClassName <span class="pl-k">=</span> wclassName
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>Registering class called wndClass (containing class name) is necessary for Classname to work with CreateWindowExW.</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	user32.RegisterClassExW(byref(wndClass))
+	<span class="pl-c"><span class="pl-c">#</span>Headless dummy window</span>
+	hwnd_dummy <span class="pl-k">=</span> user32.CreateWindowExW(<span class="pl-c1">0</span>, wclassName, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>)
+	<span class="pl-c"><span class="pl-c">#</span>apply clipboard listening to the headless window</span>
+	<span class="pl-c"><span class="pl-c">#</span>If we were makign a real window, we use the ShowWindow &amp; maybe the Update Window Function</span>
+	user32.AddClipboardFormatListener(hwnd_dummy)
+	msg <span class="pl-k">=</span> MSG()
+	lpmsg <span class="pl-k">=</span> pointer(msg)
+	<span class="pl-c"><span class="pl-c">#</span>Utilize display</span>
+	<span class="pl-c"><span class="pl-c">#</span> print_banner()</span>
+	<span class="pl-k">while</span> user32.GetMessageW(lpmsg, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>) <span class="pl-k">!=</span> <span class="pl-c1">0</span>:
+		user32.TranslateMessage(lpmsg)
+		user32.DispatchMessageW(lpmsg)</pre></div>
+<p>Now that we have the Keyboard &amp; Clipboard listeners ready, it is now time to implement the states.</p>
+<p>The Context Object inside /states coordinates the state objects beautifully. The State object and all of it's descendent subclasses are inside the /states folder, which I hope you check out</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> .state <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">from</span> .singletonmeta <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-c"><span class="pl-c">#</span>subclasses must be put here </span>
+<span class="pl-k">from</span> .copytofilestate <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">from</span> .defaultstate <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">from</span> .exitstate <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">from</span> .removebookmarkstate <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">class</span> <span class="pl-en">Context</span>:
+	<span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-c1">self</span>.state_directory <span class="pl-k">=</span> {i.<span class="pl-c1">__name__</span>.lower():i() <span class="pl-k">for</span> i <span class="pl-k">in</span> State.<span class="pl-c1">__subclasses__</span>()}
+		<span class="pl-c"><span class="pl-c">#</span>since the state objects are created upon the instantiation of context, we got to put in the context for all of them to enable two-way communication &amp; two-way coupling. The purpose of this is to change the state to another state inside a state object</span>
+		<span class="pl-k">for</span> _,state <span class="pl-k">in</span> <span class="pl-c1">self</span>.state_directory.items():
+			state._context <span class="pl-k">=</span> <span class="pl-c1">self</span>
+	<span class="pl-k">def</span> <span class="pl-en">set_state</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">state_name</span>):
+		<span class="pl-c"><span class="pl-c">#</span>This does the transition. This looks at the name directory of the directory above (with single class objects) and picks out the class, so it doesn't make a new class for each transition. A waste of memory if adding in new class objects.</span>
+		<span class="pl-c1">self</span>._state <span class="pl-k">=</span> <span class="pl-c1">self</span>.state_directory.get(state_name.lower(),<span class="pl-c1">self</span>.state_directory[<span class="pl-s"><span class="pl-pds">'</span>defaultstate<span class="pl-pds">'</span></span>])
+		<span class="pl-c"><span class="pl-c">#</span>There is a two way communication/coupling/composition between context/object and the state. Context has state, state has context (below). The reason is because we're changing states inside the state itself.</span>
+		<span class="pl-c1">self</span>.print_banner()
+	<span class="pl-k">def</span> <span class="pl-en">process_keystroke</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">keystroke</span>):
+		<span class="pl-c1">print</span>(<span class="pl-s">f</span><span class="pl-pds">"</span><span class="pl-s">You pressed </span><span class="pl-c1">{</span>keystroke<span class="pl-c1">}</span><span class="pl-pds">"</span>)
+		keymap_function <span class="pl-k">=</span> <span class="pl-c1">self</span>._state.keymap.get(keystroke,<span class="pl-k">lambda</span>:<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>Pick something in the menu<span class="pl-pds">"</span></span>))
+		keymap_function()
+	<span class="pl-k">def</span> <span class="pl-en">print_banner</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-c1">print</span>()
+		current_state_name <span class="pl-k">=</span> <span class="pl-c1">self</span>._state.<span class="pl-c1">__class__</span>.<span class="pl-c1">__name__</span>
+		<span class="pl-c1">print</span>(<span class="pl-s">f</span><span class="pl-pds">"</span><span class="pl-s">You are in </span><span class="pl-c1">{</span>current_state_name<span class="pl-c1">}</span><span class="pl-pds">"</span>)
+		<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>+<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">3</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">20</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>+<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">3</span>)
+		<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">{<span class="pl-k">:10s</span>}</span> <span class="pl-c1">{<span class="pl-k">:10s</span>}</span><span class="pl-pds">"</span></span>.format(<span class="pl-s"><span class="pl-pds">"</span>Key<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span>))
+		<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>+<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">3</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">20</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>+<span class="pl-pds">"</span></span> <span class="pl-k">*</span> <span class="pl-c1">3</span>)
+		<span class="pl-k">for</span> keyboard_char,state_instance <span class="pl-k">in</span> <span class="pl-c1">self</span>._state.keymap.items():
+			<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">{<span class="pl-k">:10s</span>}</span> <span class="pl-c1">{<span class="pl-k">:10s</span>}</span><span class="pl-pds">"</span></span>.format(keyboard_char,state_instance.<span class="pl-c1">__name__</span>))
+		<span class="pl-c1">print</span>()
+	<span class="pl-k">def</span> <span class="pl-c1">__getattr__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>, <span class="pl-smi">name</span>):
+		<span class="pl-s"><span class="pl-pds">'''</span></span>
+<span class="pl-s">		Just like Variable Functions in PHP, it will call the proper function based on the name</span>
+<span class="pl-s">		If the function doesn't exist at it, it will call the __getattr__ function in the context, then __getattr__ function in the state</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-k">return</span> <span class="pl-c1">getattr</span>(<span class="pl-c1">self</span>._state,name)
+
+<span class="pl-k">class</span> <span class="pl-en">State</span>:
+	keymap <span class="pl-k">=</span> {}
+	<span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-k">pass</span>
+	<span class="pl-k">def</span> <span class="pl-en">run</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-k">pass</span>
+	<span class="pl-k">def</span> <span class="pl-en">go_defaultstate</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-c"><span class="pl-c">#</span>corresponds to the name of the directory of states in Context</span>
+		<span class="pl-c1">self</span>._context.set_state(<span class="pl-s"><span class="pl-pds">'</span>defaultstate<span class="pl-pds">'</span></span>)
+	<span class="pl-k">def</span> <span class="pl-c1">__getattr__</span>(<span class="pl-k">*</span><span class="pl-smi">args</span>, <span class="pl-k">**</span><span class="pl-smi">kwargs</span>):
+		<span class="pl-c"><span class="pl-c">#</span>By using the __getattr__ dundermethods, I don't have to implement methods that don't do anything if the user is not in the state for it.</span>
+		<span class="pl-k">return</span> <span class="pl-k">lambda</span> <span class="pl-k">*</span><span class="pl-smi">args</span>:<span class="pl-c1">None</span></pre></div>
+<h1><a id="user-content-statescopytofilestatepy" class="anchor" aria-hidden="true" href="#statescopytofilestatepy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>states/copytofilestate.py</h1>
+<p>When you are in this state, the clipboard listener actually does important stuff. You will copy &amp; paste a link and it will show up in a text file (and show up on the console). This text file will later delete links in Google Bookmarks in the "Remove Bookmark" state. This way I don't have to keep on clicking "Remove Bookmarks" #Automation!!</p>
+<p>On an aside, I also made this because I used to  put all the tabs I wanted gone on Google Chrome and then use my own Google Extension to remove them, but then I was flagged by the site for "spamming" &amp; "hammering their server". There is no need to access the site to do this mass deletion of unwanted bookmarks by this state design program.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/copy_fill.jpg"><img src="../images/copy_fill.jpg" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-statesremovebookmarkstatepy" class="anchor" aria-hidden="true" href="#statesremovebookmarkstatepy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>states/removebookmarkstate.py</h1>
+<p>Here is a picture of links being removed from Google Bookmarks</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/remove.jpg"><img src="../images/remove.jpg" alt="" style="max-width:100%;"></a></p>
+<p>There was only two links in this demonstration but it can go up to hundreds or unlimited. I'll put up a piece key of code that I made myself that will search through an entire nested Dictionary Structure to just zero into the part of Google Bookmarks to change. Remember, extracting a part of a very nested dictionary will change the main dictionary as Python Dictionaries are immutable</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">search_structure</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">structure</span>, <span class="pl-smi">search</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,<span class="pl-smi">depth</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">1</span>):
+		list_of_keys <span class="pl-k">=</span> <span class="pl-c1">None</span>
+		<span class="pl-k">def</span> <span class="pl-en">recurse</span>(<span class="pl-smi">structure</span>, <span class="pl-smi">path</span><span class="pl-k">=</span>[], <span class="pl-smi">search</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>):
+			<span class="pl-k">nonlocal</span> list_of_keys
+			<span class="pl-k">if</span> <span class="pl-c1">isinstance</span>(structure, <span class="pl-c1">dict</span>):
+				<span class="pl-k">for</span> k, value <span class="pl-k">in</span> structure.items():
+					path.append(k)
+					recurse(value, <span class="pl-v">path</span><span class="pl-k">=</span>path, <span class="pl-v">search</span><span class="pl-k">=</span>search)
+					path.pop()
+			<span class="pl-k">elif</span> <span class="pl-c1">isinstance</span>(structure, <span class="pl-c1">list</span>):
+				<span class="pl-k">for</span> i, value <span class="pl-k">in</span> <span class="pl-c1">enumerate</span>(structure):
+					path.append(i)
+					recurse(value, <span class="pl-v">path</span><span class="pl-k">=</span>path, <span class="pl-v">search</span><span class="pl-k">=</span>search)
+					path.pop()
+			<span class="pl-k">if</span> <span class="pl-c1">str</span>(search) <span class="pl-k">==</span> <span class="pl-c1">str</span>(structure):
+				list_of_keys <span class="pl-k">=</span> copy(path)
+		recurse(structure,<span class="pl-v">search</span><span class="pl-k">=</span>search)
+		list_of_keys <span class="pl-k">=</span> list_of_keys[<span class="pl-c1">0</span>:depth]
+		<span class="pl-k">for</span> key <span class="pl-k">in</span> list_of_keys:
+			structure <span class="pl-k">=</span> structure[key]
+		<span class="pl-k">return</span> structure</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>
