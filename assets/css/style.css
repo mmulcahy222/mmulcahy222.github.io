@@ -35,7 +35,7 @@
 
 @font-face {
   font-family: "cisco_thin";
-  src: url("../fonts/CiscoSans-thin.ttf") format("truetype"); /* Update the path */
+  src: url("../fonts/CiscoSans-Thin.ttf") format("truetype"); /* Update the path */
   font-weight: bold;
   font-style: normal;
 }
