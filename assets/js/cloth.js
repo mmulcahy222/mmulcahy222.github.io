@@ -336,7 +336,7 @@ function start() {
     animate();
 }
 // Event listener when the window has loaded
-window.onload = function () {
+// window.onload = function () {
     // Get canvas and context
     canvas = document.getElementById('cloth');
     ctx = canvas.getContext('2d');
@@ -345,7 +345,7 @@ window.onload = function () {
     canvas.height = canvas_height;
     // Start the cloth simulation
     start();
-};
+// };
 // Listen for the scroll event on the window
 var isAnimating = false; // Track animation state
 // STOP ANIMATION WHEN EXITING
