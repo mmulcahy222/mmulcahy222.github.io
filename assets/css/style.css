@@ -574,7 +574,7 @@ pre::-webkit-scrollbar {
 {
     margin: 10;
     padding: 10;
-    width: 700px;
+    width: 200px;
     height: min-content;
 }
 .section_project .github_html a
