@@ -342,5 +342,14 @@ projects_json = [
         "language": "N/A",
         "picture_file_name": "logo.jpg",
         "github_html": "<table><tbody><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/blender_microsoft_ice/blob/master/images\" target=\"_blank\">images</a></div><div class=\"raw_link\"><a href=\"https://github.com/mmulcahy222/blender_microsoft_ice/blob/master/images\" target=\"_blank\">Github Link</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/blender_microsoft_ice/blob/master/microsoft_26.blend\" target=\"_blank\">microsoft_26.blend</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/blender_microsoft_ice/master/microsoft_26.blend\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/blender_microsoft_ice/blob/master/readme.md\" target=\"_blank\">readme.md</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/blender_microsoft_ice/master/readme.md\" target=\"_blank\">Raw</a></div></td></tr></tbody></table>"
-    }
+    },
+    {
+        "repository_name": "terraform_hands_on",
+        "project_name": "Amazon AWS & Microsoft Azure Terraform IaaS",
+        "description": "1) Amazon AWS Transit Gateway 2) Microsoft Azure equivalent of a Transit Gateway 3) VPC Lattice",
+        "language": "Terraform",
+        "picture_file_name": "terraform_2_pings.png",
+        "github_html": "<table><tbody><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_hands_on/blob/master/README.md\" target=\"_blank\">README.md</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/README.md\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_hands_on/blob/master/aws_transit_gateway.tf\" target=\"_blank\">aws_transit_gateway.tf</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/aws_transit_gateway.tf\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_hands_on/blob/master/azure_transit_gateway.tf\" target=\"_blank\">azure_transit_gateway.tf</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/azure_transit_gateway.tf\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_hands_on/blob/master/images\" target=\"_blank\">images</a></div><div class=\"raw_link\"><a href=\"https://github.com/mmulcahy222/terraform_hands_on/blob/master/images\" target=\"_blank\">Github Link</a></div></td></tr></tbody></table>"
+    },
+
 ]
