@@ -290,9 +290,9 @@ projects_json = [
     {
         "repository_name": "terraform_reference_guides",
         "project_name": "Terraform Reference Guides",
-        "description": "One stop place for terraform commands for the three main public clouds (Microsoft, Amazon, Google)",
-        "language": "Python",
-        "picture_file_name": "image_terraform.png",
+        "description": "One stop place for terraform help for the four main public clouds (Microsoft, Amazon, Google, IBM) (updated in Sept 2023)",
+        "language": "Python & JS",
+        "picture_file_name": "terraform_guide_2023.png",
         "github_html": "<table><tbody><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_reference_guides/blob/master/README.md\" target=\"_blank\">README.md</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/terraform_reference_guides/master/README.md\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_reference_guides/blob/master/get_pages_r.py\" target=\"_blank\">get_pages_r.py</a></div><div class=\"raw_link\"><a href=\"https://raw.githubusercontent.com/mmulcahy222/terraform_reference_guides/master/get_pages_r.py\" target=\"_blank\">Raw</a></div></td></tr><tr><td><div class=\"file_name\"><a href=\"https://github.com/mmulcahy222/terraform_reference_guides/blob/master/images\" target=\"_blank\">images</a></div><div class=\"raw_link\"><a href=\"https://github.com/mmulcahy222/terraform_reference_guides/blob/master/images\" target=\"_blank\">Github Link</a></div></td></tr></tbody></table>"
     },
     {
