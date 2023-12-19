@@ -12,6 +12,7 @@
   font-style: normal;
 }
 
+
 @font-face {
   font-family: "dewi_light";
   src: url("../fonts/RFDewiExpanded-Light.ttf") format("truetype"); /* Update the path */
@@ -41,29 +42,49 @@
 }
 
 @font-face {
-    font-family: "cisco_reg";
-    src: url("../fonts/CiscoSans.ttf") format("truetype"); /* Update the path */
-    font-weight: bold;
-    font-style: normal;
-  }
+  font-family: "cisco_reg";
+  src: url("../fonts/CiscoSans.ttf") format("truetype"); /* Update the path */
+  font-weight: bold;
+  font-style: normal;
+}
 
-  @font-face {
-    font-family: "avenir";
-    src: url("../fonts/AvenirLTStd-Black.otf") format("opentype"); /* Update the path */
-    font-weight: bold;
-    font-style: normal;
-  }
+@font-face {
+  font-family: "avenir";
+  src: url("../fonts/AvenirLTStd-Black.otf") format("opentype"); /* Update the path */
+  font-weight: bold;
+  font-style: normal;
+}
 
-  @font-face {
-    font-family: "avenir_book";
-    src: url("../fonts/AvenirLTStd-Book.otf") format("opentype"); /* Update the path */
-    font-weight: bold;
-    font-style: normal;
-  }
+@font-face {
+  font-family: "avenir_book";
+  src: url("../fonts/AvenirLTStd-Book.otf") format("opentype"); /* Update the path */
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "amazon_ember_bold";
+  src: url("../fonts/AmazonEmber_Bd.ttf") format("truetype"); /* Update the path */
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "amazon_ember_light";
+  src: url("../fonts/AmazonEmber_Lt.ttf") format("truetype"); /* Update the path */
+}
+
+@font-face {
+  font-family: "amazon_ember_regular";
+  src: url("../fonts/AmazonEmber_Rg.ttf") format("truetype"); /* Update the path */
+}
+
+
 
 
 body {
   background: linear-gradient(to right, #d50e5a, #4e3e82);
+  /*background-color: #ED2734;*/
   color: white;
   width: 100%;
   margin: 0;
@@ -87,9 +108,10 @@ section {
   width: 100%;
   /*min-height: 250px;*/
   position: relative;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   padding: 40px;
   display: flex;
+
 }
 .section_left {
   flex: 1;
@@ -199,6 +221,7 @@ canvas {
 #section_about_me .section_left {
   flex: 70%;
   hyphens: auto;
+
 }
 #section_about_me .section_right {
   flex: 30%;
@@ -345,32 +368,41 @@ canvas {
 #section_projects_title div {
   display: flex;
 }
-.section_project
+section.section_project
 {
-    background: linear-gradient(to right, #250838, red);
+    padding: 30px 0px;
+    background: radial-gradient(ellipse farthest-corner at bottom left, #320015 5%, #00002a 40%, #00002a 45%, black 70%);
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right, #ff6506, #eb2323, #be0082, #8e0098, #7200ac, #4c00cd, #2d15de,#00BBfF);
+    border-image-slice: 1;
+
 }
 .section_project div
 {
     display: flex;
 }
 .section_project .section_left {
-    /* box-sizing: border-box; */
-    padding: 15px;
+     box-sizing: border-box; 
+    /*padding: 15px;*/
     flex: 35%;
     justify-content: right;
     align-items: center;
+    /*background-color: #ED2734;*/
   }
 .section_project .section_left img {
     width: 250px;
     height: 250px;
   }
-  .section_project .section_right {
+.section_project .section_right {
+  font-family: "amazon_ember_light", verdana;
     box-sizing: border-box;
     padding: 15px;
     flex: 65%;
+    /*background-color: black;*/
   }
-  .section_project .section_three {
+.section_project .section_three {
     flex: 30%;
+    background-color: black;
   }
 /*projects*/
 #section_projects_title {
@@ -379,13 +411,18 @@ canvas {
   #section_projects_title div {
     display: flex;
   }
+  .section_project .project_detail {
+    font-family: "amazon_ember_light", verdana;
+    margin-bottom: 20px;
+  }
+  
   .section_project .project_title {
-    font-family: "cisco_light", verdana;
+    font-family: "amazon_ember_bold", verdana;
     font-size: 32px;
   }
   .section_project .language_detail
   {
-    font-family: "cisco_light", verdana;
+    font-family: "amazon_ember_light", verdana;
     font-size: 27px;
   }
   .section_project .project_image {
@@ -396,17 +433,17 @@ canvas {
     text-align: right;
   }
   .section_project .project_info {
-    font-family: "cisco_thin", helvetica, Arial;
     font-size: 28px;
     flex-direction: column;
     align-items: center;
     height: 100%;
     justify-content: left;
   }
-  .section_project .project_detail {
-    margin-bottom: 20px;
-  }
-  
+.section_project .project_detail a {
+  font-family: "amazon_ember_regular", helvetica, Arial;
+  font-size: 30px;
+}
+
 /*projects*/
 #section_projects_title {
   justify-content: center;
@@ -423,7 +460,7 @@ canvas {
 
 .section_project .project_details {
   font-family: "cisco_thin", verdana;
-  font-size: 28px;
+  font-size: 24px;
   flex-direction: column;
   height: 100%;
 }
