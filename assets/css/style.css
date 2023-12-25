@@ -455,11 +455,11 @@ section.section_project
     justify-content: left;
   }
 .section_project .project_detail a {
-  font-family: "barlow_light", helvetica, Arial;
+  font-family: "barlow_regular", helvetica, Arial;
   margin-top: 20px;
   margin-right: 25px;
-  font-size: 23px;
-  color: #ff3500;
+  font-size: 25px;
+  color: #9999bb;
 }
 
 /*projects*/
