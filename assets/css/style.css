@@ -456,9 +456,9 @@ section.section_project
   }
 .section_project .project_detail a {
   font-family: "barlow_light", helvetica, Arial;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-right: 25px;
-  font-size: 20px;
+  font-size: 23px;
   color: #ff3500;
 }
 
