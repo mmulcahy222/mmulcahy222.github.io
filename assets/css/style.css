@@ -80,10 +80,21 @@
 }
 
 
+@font-face {
+  font-family: "barlow_light";
+  src: url("../fonts/Barlow-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "barlow_regular";
+  src: url("../fonts/Barlow-Regular.ttf") format("truetype");
+}
+
 
 
 body {
-  background: linear-gradient(to right, #d50e5a, #4e3e82);
+  /*background: linear-gradient(to right, #d50e5a, #4e3e82);*/
+  background: radial-gradient(ellipse farthest-corner at bottom left, #320015 5%, #00002a 40%, #00002a 45%, black 70%);
   /*background-color: #ED2734;*/
   color: white;
   width: 100%;
@@ -136,7 +147,9 @@ li {
 a, a:visited, a:hover, a:active
 {
     font-family: "cisco_light";
-    color: rgb(240, 229, 72);
+    color: #ff5300fa;
+     text-decoration-thickness: 1px;
+     text-underline-offset: 6px;
 }
 #header {
   width: 100%;
@@ -370,6 +383,7 @@ canvas {
 }
 section.section_project
 {
+    color: #ffeeee;
     padding: 30px 0px;
     background: radial-gradient(ellipse farthest-corner at bottom left, #320015 5%, #00002a 40%, #00002a 45%, black 70%);
     border-bottom: 5px solid transparent;
@@ -394,7 +408,7 @@ section.section_project
     height: 250px;
   }
 .section_project .section_right {
-  font-family: "amazon_ember_light", verdana;
+  font-family: "barlow_light", verdana;
     box-sizing: border-box;
     padding: 15px;
     flex: 65%;
@@ -412,18 +426,19 @@ section.section_project
     display: flex;
   }
   .section_project .project_detail {
-    font-family: "amazon_ember_light", verdana;
+    font-family: "barlow_light", verdana;
     margin-bottom: 20px;
   }
   
   .section_project .project_title {
-    font-family: "amazon_ember_bold", verdana;
+    color: #ffaa44;
+    font-family: "barlow_regular", verdana;
     font-size: 32px;
   }
   .section_project .language_detail
   {
-    font-family: "amazon_ember_light", verdana;
-    font-size: 27px;
+    font-family: "barlow_light", verdana;
+    font-size: 23px;
   }
   .section_project .project_image {
     
@@ -440,7 +455,7 @@ section.section_project
     justify-content: left;
   }
 .section_project .project_detail a {
-  font-family: "amazon_ember_regular", helvetica, Arial;
+  font-family: "barlow_light", helvetica, Arial;
   font-size: 30px;
 }
 
@@ -460,7 +475,7 @@ section.section_project
 
 .section_project .project_details {
   font-family: "cisco_thin", verdana;
-  font-size: 24px;
+  font-size: 21px;
   flex-direction: column;
   height: 100%;
 }
@@ -479,10 +494,9 @@ section.section_project
 /*README*/
 /* README */
 #readme {
-  background: linear-gradient(to right, #d50e5a, #4e3e82);
   box-sizing: border-box;
   padding: 0 40px;
-  font-family: "cisco_thin", verdana;
+  font-family: "barlow_light", verdana;
 }
 
 .read_me_title {
@@ -534,7 +548,7 @@ section.section_project
 }
 
 .markdown-body p {
-  font-family: "cisco_light";
+  font-family: "barlow_light";
   margin-bottom: 25px;
   color: #ffffff; 
 }
@@ -543,7 +557,7 @@ section.section_project
 .markdown-body h2,
 .markdown-body h3 {
   /* color: #e80040; */
-  font-family: "cisco_light";
+  font-family: "barlow_light";
   font-weight: 100;
   font-size: 16px;
   padding-bottom: 0.3em;
@@ -593,7 +607,7 @@ pre::-webkit-scrollbar {
     padding: 10px;
   margin: 20px;
   /* Use a thin font for the text */
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "barlow_light", Helvetica, Arial, sans-serif;
   font-weight: 200;
   font-size:18px;
   border-radius: 10px;
