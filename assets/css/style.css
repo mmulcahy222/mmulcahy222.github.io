@@ -147,7 +147,7 @@ li {
 a, a:visited, a:hover, a:active
 {
     font-family: "cisco_light";
-    color: #ff5300fa;
+    color: #ff2300ff;
      text-decoration-thickness: 1px;
      text-underline-offset: 6px;
 }
@@ -431,7 +431,7 @@ section.section_project
   }
   
   .section_project .project_title {
-    color: #ffaa44;
+    color: #ffba34;
     font-family: "barlow_regular", verdana;
     font-size: 32px;
   }
@@ -455,7 +455,7 @@ section.section_project
     justify-content: left;
   }
 .section_project .project_detail a {
-  font-family: "barlow_light", helvetica, Arial;
+  font-family: "barlow_regular", helvetica, Arial;
   font-size: 30px;
 }
 
