@@ -433,7 +433,7 @@ section.section_project
   .section_project .project_title {
     color: #ffba34;
     font-family: "barlow_regular", verdana;
-    font-size: 32px;
+    font-size: 30px;
   }
   .section_project .language_detail
   {
@@ -455,8 +455,11 @@ section.section_project
     justify-content: left;
   }
 .section_project .project_detail a {
-  font-family: "barlow_regular", helvetica, Arial;
-  font-size: 30px;
+  font-family: "barlow_light", helvetica, Arial;
+  margin-top: 10px;
+  margin-right: 25px;
+  font-size: 20px;
+  color: #ff1500;
 }
 
 /*projects*/
