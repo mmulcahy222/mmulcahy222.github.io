@@ -1,0 +1,157 @@
+- project_name: Search Windows Tree View Items
+  file_path: windows_api/soulseek_search_gui.cpp
+  description: Search online for tree-item values in desktop windows applications, via memory chip injection using kernel32.dll & VirtualAllocEx (hardest one & capstone)
+  language: C++
+- project_name: Search Windows Tree View Items
+  file_path: windows_api/windows_gui.hpp
+  description: Strategy Design Pattern to search different sites based on the user choice with BS_PUSHLIKE on CreateWindow function in user32.dll & gdi32.dll (Raw MSDN, no framework)
+  language: C++
+- project_name: Search Windows Tree View Items
+  file_path: windows_api/windows_gui.cpp
+  description: Generate the GUI for the user to choose the site, without any high-level easy abstracted framework (done in RAW C++ Win32 MSDN)
+  language: C++
+- project_name: TODO List (C++ Kernel Version)
+  file_path: windows_api/todo_windows.cpp
+  description: TODO List with NO FRAMEWORK except for bare Win32 C++ with NO external wrappers/libraries. Pure raw masochastic C++ Win32 without MFC/QT Framework.
+  language: C++
+- project_name: Homemade Task Manager (Win32)
+  file_path: windows_api/process_popup.cpp
+  description: A lightning fast pop-up view of the currently running processes on a computer (Win32 C++ with no external wrappers). There are no magic Win32 kernel functions to get the CPU percentage of a process, unlike other metrics. Manual calculation.
+  language: C++
+- project_name: Stop Frozen Windows Processes above 250000 KB
+  file_path: windows_api/large_memory.cpp
+  description: Raw C++ Win32 program to terminate processes that are above 250000 KB, to speed up the computer instantaneously. Very great tool to use with AutoHotKey (Win+K)
+  language: C++
+- project_name: Colliding Objects On Desktop
+  file_path: windows_api/transparent_popup_collision.cpp
+  description: Win32 C++ pop-up app (using WS_POPUP) to show words colliding, with a transparent background
+  language: C++
+- project_name: Uforia Alexa Skill to guess numbers
+  file_path: alexa\repos\alexa_number_guess\number_guess.py
+  description: Number Guessing Alexa Skill for a gaming company with amazing entrepreneur, which was ranked in top 100 on Amazon. Sound clips stored remotely when I should have used S3.
+  language: Python
+- project_name: Uforia Alexa Skill Hangman
+  file_path: alexa\repos\alexa_hangman\hangman.py
+  description: A Hangman game skill for Alexa.
+  language: Python
+- project_name: Connecting to Network Devices with Low Level Network Sockets
+  file_path: cisco_python\async_socket_connection.py
+  description: An asynchronous socket connection to network devices. Do not use, Netmiko is better. Done for learning when I couldn't get Paramiko to work (before)
+  language: Python
+- project_name: Connecting to Network Devices with Low Level Network Sockets
+  file_path: cisco_python\sync_socket_connection.py
+  description: A synchronous socket connection to network devices. Network Automation.
+  language: Python
+- project_name: Data ETL (Australian Company)
+  file_path: australia_mobile\mobile.py
+  description: Convert messy phone log data into neat CSV via advanced regex. Done for an Australian company to clean unstructured data for data analysis. ETL.
+  language: Python
+- project_name: Netconf
+  file_path: netconf/netconf.py
+  description: Network Automation via NETCONF + Configure both CLI/NETCONF via Python, to analyze all the key/value pairs & configurable values in a Cisco CSR V1000 router. Subclassing was separate for Netconf & regular CLI.
+  language: Python
+- project_name: TreeView Search Python
+  file_path: windows_api/treeview.py
+  description: Same TreeView Windows Code Injection search, done in Python instead of C++. I did the Python first, as it would be near impossbile for me to do it in C++ to start (in the beginning)
+  language: Python
+- project_name: Rust Sports Cards
+  file_path: rust_projects\sports_cards\src\main.rs
+  description: A Rust program for managing sports cards.
+  language: Rust
+- project_name: Rust Image Reducer
+  file_path: rust_projects\image_reduce\src\main.rs
+  description: A Rust tool to reduce image sizes.
+  language: Rust
+- project_name: Python OpenGL Pyramids
+  file_path: opengl_python\4_pyramid_texture.py
+  description: OpenGL of a spinning 3D pyramid in Python!!! Looks like an amazing video game & Nintendo 64!!! (love OpenGL)
+  language: Python
+- project_name: AWS Transit Gateway
+  file_path: terraform/old_config/aws_transit_gateway.tf
+  description: Terraform configuration for AWS Transit Gateway.
+  language: Terraform
+- project_name: Azure Transit Gateway
+  file_path: terraform/old_config/azure_transit_gateway.tf
+  description: Terraform configuration for Azure's version of Transit Gateway.
+  language: Terraform
+- project_name: AWS Lattice
+  file_path: terraform/old_config/lattice.tf
+  description: Terraform configuration for AWS Lattice.
+  language: Terraform
+- project_name: Terraform AWS CI/CD for ECS/ECR containers
+  file_path: ci_cd/cicd_ecs_portfolio.tf
+  description: Modifying & committing an HTML file in GitHub will spearhead a process with CodePipeline & CodeBuild to update an ECR container/ECS task with the new HTML
+  language: Terraform
+- project_name: Terraform AWS CI/CD for ECS/ECR containers
+  file_path: ci_cd/buildspec.yml
+  description: Build specification for Terraform AWS CI/CD pipeline.
+  language: Terraform
+- project_name: Turn any Python Code to Alexa OR Google Home Skill
+  file_path: google_home/tube_agent\google_youtube.py
+  description: Decorator to turn Python code into Alexa or Google Home skills.
+  language: Python
+- project_name: Extract audio URL from YouTube
+  file_path: alexa/youtube/youtube.py
+  description: Extracts audio URLs from YouTube for Alexa skills.
+  language: Python
+- project_name: Nimli
+  file_path: nimli_2011/import_items.php
+  description: Imports 40000 items to the Nimli Magento Store from the boss's CSV, including configurable products.
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_attributes.php
+  description: Imports attributes to the Nimli Magento Store
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_azuri_images.php
+  description: Imports images to the Nimli Magento Store
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_brand.php
+  description: Imports brands to the Nimli Magento Store
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_categories.php
+  description: Imports categories to the Nimli Magento Store
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_images.php
+  description: Imports images to the Nimli Magento Store
+  language: PHP
+- project_name: Nimli
+  file_path: nimli_2011/import_material_and_fabric.php
+  description: Imports Material & Fabric to the Nimli Magento Store
+  language: PHP
+- project_name: Wordpress WatuPro plugin
+  file_path: watupro_repo/watupro.php
+  description: Automatically updates a student's test scores from a Wordpress Page & plugin that has functionality for students taking exams. 
+  language: PHP
+- project_name: React
+  file_path: react/react_project/src/components/app.js
+  description: (app.js)Test out when the hooks for a functional & class component are called with a counter in React.js 
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/counter.js
+  description: (counter.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/counterclass.js
+  description: (counterclass.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/counterfunctional.js
+  description: (counterfunctional.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/log.js
+  description: (log.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/reduxresult.js
+  description: (reduxresult.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+- project_name: React
+  file_path: react/react_project/src/components/reduxstore.js
+  description: (reduxstore.js) Test out when the hooks for a functional & class component are called with a counter in React.js
+  language: JS
+

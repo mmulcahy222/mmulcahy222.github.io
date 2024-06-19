@@ -1,0 +1,245 @@
+@font-face {
+  font-family: "amazon_ember_bold";
+  src: url("../fonts/AmazonEmber_Bd.ttf") format("truetype"); /* Update the path */
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "amazon_ember_light";
+  src: url("../fonts/AmazonEmber_Lt.ttf") format("truetype"); /* Update the path */
+}
+
+@font-face {
+  font-family: "amazon_ember_regular";
+  src: url("../fonts/AmazonEmber_Rg.ttf") format("truetype"); /* Update the path */
+}
+
+@font-face {
+  font-family: "barlow";
+  src: url("../fonts/Barlow-Regular.ttf") format("truetype"); /* Update the path */
+}
+
+@font-face {
+  font-family: "barlow_medium";
+  src: url("../fonts/Barlow-medium.ttf") format("truetype"); /* Update the path */
+}
+
+@font-face {
+  font-family: "barlow_thin";
+  src: url("../fonts/Barlow-Thin-webfont.ttf") format("truetype"); /* Update the path */
+}
+@font-face {
+  font-family: "barlow_extralight";
+  src: url("../fonts/Barlow-ExtraLight-webfont.ttf") format("truetype"); /* Update the path */
+}
+@font-face {
+  font-family: "barlow_light";
+  src: url("../fonts/Barlow-Light-webfont.ttf") format("truetype"); /* Update the path */
+}
+@font-face {
+  font-family: "vartek_light";
+  src: url("../fonts/vartek-condensedlight.otf") format("opentype"); /* Update the path */
+}
+@font-face {
+  font-family: "vartek_regular";
+  src: url("../fonts/vartek-condensedregular.otf") format("opentype"); /* Update the path */
+}
+@font-face {
+  font-family: "uasquare";
+  src: url("../fonts/uasquare.ttf") format("truetype"); /* Update the path */
+}
+@font-face {
+  font-family: "industria";
+  src: url("../fonts/industria.ttf") format("truetype"); /* Update the path */
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+body
+{
+	margin: 0;
+	color: #fff8f8;
+	padding: 0;
+	background-color: black;
+	font-size: 18px;
+	font-family: "barlow_light", "amazon_ember_regular";
+}
+
+
+ul
+{
+	list-style: none;
+}
+
+.portfolio_small_section
+{
+    padding: 1px 10px;
+    background: radial-gradient(ellipse farthest-corner at bottom left, #20002a 10%, #10002a 40%, #00002a 65%, black 90%);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #ff6506, #eb2323, #be0082, #8e0098, #7200ac, #4c00cd, #2d15de,#00BBfF);
+    border-image-slice: 1;
+}
+
+#skills
+{
+	background: radial-gradient(ellipse farthest-corner at bottom left, #200020 10%, #00002a 40%, #00002a 45%, black 70%);
+}
+
+
+.portfolio_small_section h3 {
+  color: #ffba3b;
+  margin: 20px 0px;
+  font-size: 30px;
+}
+
+.portfolio_small_section li {
+  font-size: 25px;
+}
+
+/* Center align name and top */
+.header {
+  font-family: "vartek_light";
+  background: radial-gradient(ellipse farthest-corner at bottom left, #770022 10%, #DD331C 50%, #441122 90%);
+  padding: 20px 0px;
+  border-top: none;
+  text-align: center;
+	color: #ffffff;
+   border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #ff6506, #eb2323, #be0082, #8e0098, #7200ac, #4c00cd, #2d15de,#00BBfF);
+    border-image-slice: 1;
+}
+
+
+.name
+{
+   font-size: 80px;
+   /*font-weight: 100;*/
+   /*font-family: "industria";*/
+   background-image: linear-gradient(to bottom, #ffF500, #ff9900);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   -webkit-text-stroke: 1px #FFFFFF25;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6); /* Adjust the values as needed */
+    letter-spacing: 50px;
+    word-spacing: 15px;
+   margin-bottom:30px;
+}
+
+
+.header div[class^="line"] {
+  font-size: 40px;
+  
+  background-image: linear-gradient(to bottom, #FFFFFF, #FF8888);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15); /* Adjust the values as needed */
+  
+    word-spacing: 10px;
+}
+
+.header div.line-2
+{
+  font-size: 60px;
+}
+
+.header div.line-3
+{
+  font-size: 30px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  word-spacing: 10px;
+}
+
+
+#certifications ul li,
+#work-experience ul li
+{
+	list-style-type: "-   ";
+}
+
+
+.fix
+{
+  font-family: "Verdana";
+}
+.vartek_regular
+{
+  font-family: "vartek_regular";
+  font-size: 1.1em;
+}
+
+
+
+
+/* Container for left and right sections */
+.portfolio_small_section {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 50vh; /* Set to full viewport height for demonstration */
+}
+
+/* Left section - 50% width */
+.portfolio_small_left {
+    display: flex;
+    width: 40%;
+    justify-content: center;
+}
+
+.portfolio_item_image
+{
+    height: auto;
+    max-width: 450px;
+}
+
+/* Right section - 50% width */
+.portfolio_small_right {
+    padding: 15px 10px 10px 0px;
+    box-sizing: border-box;
+    width: 60%;
+    font-size: 26px;
+    display: flex;
+    flex-direction: column;
+    color: #fff8f8aa;
+
+}
+
+/* Rows inside the right section */
+.portfolio_small_right > div {
+    width: 100%;
+    display: flex;
+}
+
+/* First row - 25% height */
+.portfolio_small_right .portfolio_small_row_1 {
+    height: 33%;
+    color: #ffba34ee;
+    font-size: 30px;
+    align-items: flex-start;
+}
+
+/* Second row - 50% height */
+.portfolio_small_right .portfolio_small_row_2 {
+    height: 33%;
+    /*background-color: #a0a0a0;  Optional: for visualization */
+    align-items: center;
+    font-size: 28px;
+    line-height: 1.1em;
+}
+
+/* Third row - 25% height */
+.portfolio_small_right .portfolio_small_row_3 {
+    height: 33%;
+    /*background-color: #808080;  Optional: for visualization */
+    align-items: flex-end;
+
+}
