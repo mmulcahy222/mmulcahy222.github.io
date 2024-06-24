@@ -7,7 +7,7 @@
       
     </style>
     <link href="assets/css/prism.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/portfolio_code.css?t=1718824921">
+    <link rel="stylesheet" href="assets/css/portfolio_code.css?t=1719255850">
 
 </head>
 <body>
@@ -8394,12 +8394,112 @@ reducer: {
 export default store;
 </code>
             </pre>
+        </section>        <section>
+            <div class="project_header">
+                
+                <div class="project_name">LeetCode</div>
+                <div class="description">Growing list of grinding LeetCode algorithms on my own.</div>
+                <div class="languages">Python</div>
+            </div>
+            <pre class="line-numbers">
+                <code class="language-python">def permutation_in_string(small_string,long_string):
+    &#039;&#039;&#039;
+    is a permutation of small string in long string (true or false)
+
+    NOTE: NEETCODE DID A FREQUENCY ARRAY OF A TO Z, OF 26 KEY ENTRIES
+    &#039;&#039;&#039;
+    length_small_string = len(small_string)
+    length_long_string = len(long_string)
+    
+    # fill dict of small string
+    char_map_small_string = {}
+    for l in small_string:
+        char_map_small_string[l] = char_map_small_string.get(l,0) + 1;
+
+    # fill dict of sliding window that&#039;s fixed
+    char_map_sliding_window = {} 
+    for l in long_string[0:length_small_string]:
+        char_map_sliding_window[l] = char_map_sliding_window.get(l,0) + 1;
+
+    # sliding window from left to right, fixed size
+    for right in range(length_small_string,length_long_string):
+        left = right - length_small_string
+        letter_right = long_string[right]
+        letter_left = long_string[left]
+        print(char_map_small_string,char_map_sliding_window)
+        if char_map_sliding_window == char_map_small_string:
+            return True
+        # the character map will reflect when the sliding window moves right
+        char_map_sliding_window[letter_left] = char_map_sliding_window[letter_left] - 1
+        # do this for equality. Remove from charmap if it&#039;s zero
+        if char_map_sliding_window[letter_left] == 0:
+            del char_map_sliding_window[letter_left]
+        char_map_sliding_window[letter_right] = char_map_sliding_window.get(letter_right,0) + 1
+
+    return False
+
+# permutation_in_string(&quot;abee&quot;,&quot;fibembaeewellon&quot;)
+
+
+
+
+
+
+def minimum_window_substring(string_small, string_long):
+    # Create a set of unique characters in the small string
+    set_string_small = set(string_small)
+    # Map each character in the small string to its count
+    char_map_string_small = {}
+    for c in string_small:
+        char_map_string_small[c] = char_map_string_small.get(c, 0) + 1
+        # Initialize a deque 
+        stack = deque()
+        # Initialize a map to keep track of characters in the long string
+        char_map_string_long = {}
+        # Initialize variables for the final result
+        max_length = 0
+        result = &#039;&#039;
+        # Iterate over each character in the long string
+        for index, character_long in enumerate(string_long):
+            # If the character is in the small string
+            if character_long in set_string_small:
+                # Add the character to the window stack
+                stack.append([character_long, index])
+                # Update the character count in the long string map
+                char_map_string_long[character_long] = char_map_string_long.get(character_long, 0) + 1
+                # Update the right pointer to the current index
+                right = index
+                # If the window size exceeds the small string size, remove the leftmost character
+                if len(stack) &gt; len(string_small):
+                    # Remove the leftmost character from the window
+                    pop_node = stack.popleft()
+                    removed_character = pop_node[0]
+                    removed_position = pop_node[1]
+                    # Update the left pointer to the removed character&#039;s position
+                    left = removed_position
+                    # Decrease the character count in the long string map
+                    char_map_string_long[removed_character] = char_map_string_long.get(removed_character, 0) - 1
+            # If the character counts in the small and long string maps match
+            if char_map_string_small == char_map_string_long:
+                # Calculate the length of the current window
+                string_length = stack[-1][1] - stack[0][1]
+                # Update the maximum length found so far
+                max_length = max(max_length, string_length)
+                # If the current window is smaller than the maximum length, update the result
+                if string_length &lt;= max_length:
+                    result = string_long[stack[0][1]: stack[-1][1] + 1]
+        # Return the minimum window substring
+    return result
+            
+
+# minimum_window_substring(&quot;abc&quot;,&quot;adobecodebanc&quot;)</code>
+            </pre>
         </section>    
     
 
 
     <script src="assets/js/prism.js"></script>
-    <script src="assets/js/prism-python.min.js?t=1718824921"></script>
+    <script src="assets/js/prism-python.min.js?t=1719255850"></script>
     
 
     <script>
