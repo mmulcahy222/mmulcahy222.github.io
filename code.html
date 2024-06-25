@@ -2,12 +2,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark Mulcahy's History Of Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="keywords" content="Win32, C++, Rust, kernel32.dll, user32.dll, VirtualAllocEx, WriteProcessMemory">
+      <meta name="author" content="Mark Mulcahy">
+      <meta name="publisher" content="Mark Mulcahy">
+      <meta name="copyright" content="Mark Mulcahy">
+      <meta name="description" content="Mark Mulcahy's code">
+      <meta name="page-topic" content="Coding">
+      <meta name="page-type" content="Blogging">
+      <meta name="audience" content="Everyone">
+      <meta name="robots" content="index, follow">
+    <title>Code (Win32, C++, Rust, kernel32.dll, user32.dll, VirtualAllocEx, WriteProcessMemory)</title>
     <style>
       
     </style>
     <link href="assets/css/prism.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/portfolio_code.css?t=1719255850">
+    <link rel="stylesheet" href="assets/css/portfolio_code.css?t=1719349131">
 
 </head>
 <body>
@@ -18,6 +28,7 @@
                 <div class="project_name">Search Windows Tree View Items</div>
                 <div class="description">Search online for tree-item values in desktop windows applications, via memory chip injection using kernel32.dll &amp; VirtualAllocEx (hardest one &amp; capstone)</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -207,6 +218,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
                 <div class="project_name">Search Windows Tree View Items</div>
                 <div class="description">Strategy Design Pattern to search different sites based on the user choice with BS_PUSHLIKE on CreateWindow function in user32.dll &amp; gdi32.dll (Raw MSDN, no framework)</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -344,6 +356,7 @@ LRESULT APIENTRY WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 <div class="project_name">Search Windows Tree View Items</div>
                 <div class="description">Generate the GUI for the user to choose the site, without any high-level easy abstracted framework (done in RAW C++ Win32 MSDN)</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -456,6 +469,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
                 <div class="project_name">TODO List (C++ Kernel Version)</div>
                 <div class="description">TODO List with NO FRAMEWORK except for bare Win32 C++ with NO external wrappers/libraries. Pure raw masochastic C++ Win32 without MFC/QT Framework.</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -992,6 +1006,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
                 <div class="project_name">Homemade Task Manager (Win32)</div>
                 <div class="description">A lightning fast pop-up view of the currently running processes on a computer (Win32 C++ with no external wrappers). There are no magic Win32 kernel functions to get the CPU percentage of a process, unlike other metrics. Manual calculation.</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -1286,6 +1301,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
                 <div class="project_name">Stop Frozen Windows Processes above 250000 KB</div>
                 <div class="description">Raw C++ Win32 program to terminate processes that are above 250000 KB, to speed up the computer instantaneously. Very great tool to use with AutoHotKey (Win+K)</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -1375,6 +1391,7 @@ void terminate_process(int pid)
                 <div class="project_name">Colliding Objects On Desktop</div>
                 <div class="description">Win32 C++ pop-up app (using WS_POPUP) to show words colliding, with a transparent background</div>
                 <div class="languages">C++</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-cpp">#include &lt;iostream&gt;
@@ -2091,6 +2108,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
                 <div class="project_name">Uforia Alexa Skill to guess numbers</div>
                 <div class="description">Number Guessing Alexa Skill for a gaming company with amazing entrepreneur, which was ranked in top 100 on Amazon. Sound clips stored remotely when I should have used S3.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import os, sys
@@ -2316,6 +2334,7 @@ def build_ssml_response(speech_output, should_end_session, session_attributes = 
                 <div class="project_name">Uforia Alexa Skill Hangman</div>
                 <div class="description">A Hangman game skill for Alexa.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import os, sys
@@ -2527,6 +2546,7 @@ def build_ssml_response(speech_output, should_end_session, session_attributes = 
                 <div class="project_name">Connecting to Network Devices with Low Level Network Sockets</div>
                 <div class="description">An asynchronous socket connection to network devices. Do not use, Netmiko is better. Done for learning when I couldn&#039;t get Paramiko to work (before)</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import asyncio
@@ -2713,6 +2733,7 @@ class CiscoAsyncObject(object):
                 <div class="project_name">Connecting to Network Devices with Low Level Network Sockets</div>
                 <div class="description">A synchronous socket connection to network devices. Network Automation.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import asyncio
@@ -2786,6 +2807,7 @@ class CiscoSyncObject():
                 <div class="project_name">Data ETL (Australian Company)</div>
                 <div class="description">Convert messy phone log data into neat CSV via advanced regex. Done for an Australian company to clean unstructured data for data analysis. ETL.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import regex, sys, csv, functools,operator,time
@@ -3037,6 +3059,7 @@ for node in nodes:
                 <div class="project_name">Netconf</div>
                 <div class="description">Network Automation via NETCONF + Configure both CLI/NETCONF via Python, to analyze all the key/value pairs &amp; configurable values in a Cisco CSR V1000 router. Subclassing was separate for Netconf &amp; regular CLI.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import paramiko
@@ -3208,6 +3231,7 @@ if __name__ == &#039;__main__&#039;:
                 <div class="project_name">TreeView Search Python</div>
                 <div class="description">Same TreeView Windows Code Injection search, done in Python instead of C++. I did the Python first, as it would be near impossbile for me to do it in C++ to start (in the beginning)</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import ctypes
@@ -3423,6 +3447,7 @@ while u.GetMessageW(lpmsg, 0, 0, 0) != 0:
                 <div class="project_name">Rust Sports Cards</div>
                 <div class="description">A Rust program for managing sports cards.</div>
                 <div class="languages">Rust</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-rust">#![allow(warnings, unused)]
@@ -3841,6 +3866,7 @@ fn main() {
                 <div class="project_name">Rust Image Reducer</div>
                 <div class="description">A Rust tool to reduce image sizes.</div>
                 <div class="languages">Rust</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-rust">//allow dead code
@@ -3928,6 +3954,7 @@ fn compress_image(image_path: &amp;str, image_quality: u8) {
                 <div class="project_name">Python OpenGL Pyramids</div>
                 <div class="description">OpenGL of a spinning 3D pyramid in Python!!! Looks like an amazing video game &amp; Nintendo 64!!! (love OpenGL)</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import OpenGL
@@ -4443,6 +4470,7 @@ glDeleteVertexArrays(1, vao)
                 <div class="project_name">AWS Transit Gateway</div>
                 <div class="description">Terraform configuration for AWS Transit Gateway.</div>
                 <div class="languages">Terraform</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-hcl"># VPCS
@@ -4704,6 +4732,7 @@ resource &quot;aws_ec2_transit_gateway_vpc_attachment&quot; &quot;vpc_2_attachme
                 <div class="project_name">Azure Transit Gateway</div>
                 <div class="description">Terraform configuration for Azure&#039;s version of Transit Gateway.</div>
                 <div class="languages">Terraform</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-hcl">
@@ -5226,6 +5255,7 @@ resource &quot;azurerm_virtual_network_peering&quot; &quot;hub_to_vpc_2&quot; {
                 <div class="project_name">AWS Lattice</div>
                 <div class="description">Terraform configuration for AWS Lattice.</div>
                 <div class="languages">Terraform</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-hcl">#######################
@@ -5560,6 +5590,7 @@ resource &quot;aws_vpclattice_target_group_attachment&quot; &quot;vpc_lattice_ta
                 <div class="project_name">Terraform AWS CI/CD for ECS/ECR containers</div>
                 <div class="description">Modifying &amp; committing an HTML file in GitHub will spearhead a process with CodePipeline &amp; CodeBuild to update an ECR container/ECS task with the new HTML</div>
                 <div class="languages">Terraform</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-hcl">
@@ -5886,6 +5917,7 @@ resource &quot;aws_codepipeline&quot; &quot;mark_codepipeline&quot; {
                 <div class="project_name">Terraform AWS CI/CD for ECS/ECR containers</div>
                 <div class="description">Build specification for Terraform AWS CI/CD pipeline.</div>
                 <div class="languages">Terraform</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-hcl">version: 0.2
@@ -5925,6 +5957,7 @@ artifacts:
                 <div class="project_name">Turn any Python Code to Alexa OR Google Home Skill</div>
                 <div class="description">Decorator to turn Python code into Alexa or Google Home skills.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import json
@@ -6658,6 +6691,7 @@ if __name__ == &#039;__main__&#039;:
                 <div class="project_name">Extract audio URL from YouTube</div>
                 <div class="description">Extracts audio URLs from YouTube for Alexa skills.</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">import json
@@ -6784,6 +6818,7 @@ if __name__ == &#039;__main__&#039;:
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports 40000 items to the Nimli Magento Store from the boss&#039;s CSV, including configurable products.</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7141,6 +7176,7 @@ while ($row = mysql_fetch_assoc($result))
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports attributes to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7285,6 +7321,7 @@ add_attributes_with_options_to_magento();
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports images to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7377,6 +7414,7 @@ foreach (Mage::getModel(&#039;catalog/product&#039;)-&gt;getCollection()-&gt;
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports brands to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7481,6 +7519,7 @@ fpve($parent_array);
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports categories to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7585,6 +7624,7 @@ while($row = mysql_fetch_assoc($result))
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports images to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7697,6 +7737,7 @@ foreach($parent_image_array as $sku)
                 <div class="project_name">Nimli</div>
                 <div class="description">Imports Material &amp; Fabric to the Nimli Magento Store</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?php
@@ -7822,6 +7863,7 @@ foreach(Mage::getModel(&#039;catalog/product&#039;)-&gt;getCollection() as $prod
                 <div class="project_name">Wordpress WatuPro plugin</div>
                 <div class="description">Automatically updates a student&#039;s test scores from a Wordpress Page &amp; plugin that has functionality for students taking exams.</div>
                 <div class="languages">PHP</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-php">&lt;?
@@ -8028,6 +8070,7 @@ foreach ($student_answers as $key =&gt; $student_answer) {
                 <div class="project_name">React</div>
                 <div class="description">(app.js)Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import { Provider } from &#039;react-redux&#039;;
@@ -8069,6 +8112,7 @@ export default App;
                 <div class="project_name">React</div>
                 <div class="description">(counter.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import React, { useState } from &#039;react&#039;;
@@ -8118,6 +8162,7 @@ export default Counter;
                 <div class="project_name">React</div>
                 <div class="description">(counterclass.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import React, { Component } from &#039;react&#039;;
@@ -8215,6 +8260,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ClassCounter);</code
                 <div class="project_name">React</div>
                 <div class="description">(counterfunctional.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import React, { useState, useEffect, useLayoutEffect } from &#039;react&#039;;
@@ -8289,6 +8335,7 @@ export default CounterFunctional;
                 <div class="project_name">React</div>
                 <div class="description">(log.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import React from &#039;react&#039;;
@@ -8320,6 +8367,7 @@ export default Log;
                 <div class="project_name">React</div>
                 <div class="description">(reduxresult.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import React from &#039;react&#039;;
@@ -8345,6 +8393,7 @@ export default ReduxResult;
                 <div class="project_name">React</div>
                 <div class="description">(reduxstore.js) Test out when the hooks for a functional &amp; class component are called with a counter in React.js</div>
                 <div class="languages">JS</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-js">import { configureStore, createSlice } from &#039;@reduxjs/toolkit&#039;;
@@ -8398,8 +8447,9 @@ export default store;
             <div class="project_header">
                 
                 <div class="project_name">LeetCode</div>
-                <div class="description">Growing list of grinding LeetCode algorithms on my own.</div>
+                <div class="description">Growing list of grinding LeetCode algorithms on my own (Note- ChatGPT did the comments)</div>
                 <div class="languages">Python</div>
+                <div class="portfolio" onclick="window.location.href = 'https://mmulcahy222.github.io'">Click for Portfolio</div>
             </div>
             <pre class="line-numbers">
                 <code class="language-python">def permutation_in_string(small_string,long_string):
@@ -8499,7 +8549,7 @@ def minimum_window_substring(string_small, string_long):
 
 
     <script src="assets/js/prism.js"></script>
-    <script src="assets/js/prism-python.min.js?t=1719255850"></script>
+    <script src="assets/js/prism-python.min.js?t=1719349131"></script>
     
 
     <script>
@@ -8522,14 +8572,17 @@ def minimum_window_substring(string_small, string_long):
     });
 
 
-// Function to generate a random HSL color object
-function getColor() { 
-  return {
-    hue: 360 * Math.random(),
-    saturation: 25 + 70 * Math.random(),
-    lightness: 90
-  };
-}
+
+    
+
+// // Function to generate a random HSL color object
+// function getColor() { 
+//   return {
+//     hue: 360 * Math.random(),
+//     saturation: 25 + 70 * Math.random(),
+//     lightness: 90
+//   };
+// }
 
 
 // const observerCallback = (entries, observer) => {
