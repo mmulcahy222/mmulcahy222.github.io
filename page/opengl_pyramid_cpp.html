@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/1_pyramid_python.py" target="_blank">1_pyramid_python.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/1_pyramid_python.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/4_code.png" target="_blank">4_code.png</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/4_code.png" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/4_pyramid_gif_output_600w.gif" target="_blank">4_pyramid_gif_output_600w.gif</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/4_pyramid_gif_output_600w.gif" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/4_pyramid_texture.py" target="_blank">4_pyramid_texture.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/4_pyramid_texture.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/pyramid_1_spinning.cpp" target="_blank">pyramid_1_spinning.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/pyramid_1_spinning.cpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/opengl_pyramid_cpp/blob/master/spinning_pyramid.gif" target="_blank">spinning_pyramid.gif</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/opengl_pyramid_cpp/master/spinning_pyramid.gif" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">Please pardon the name of this repository. This is done in Python, not C++</p>
+<p dir="auto">In my free time I wanted to improve my coding skills by making some graphics in OpenGL, which is the same library used in Blender &amp; Rockstar Games &amp; most games not in DirectX.</p>
+<p dir="auto">I originally started in the apex mother language of C++ and all I could have done was a spinning color pyramid that has the colors of the Blocks in Mario Kart 64.</p>
+<p dir="auto">I wanted to go above that and do more, but I noticed that I was just hitting massive roadblocks in C++ and I had limited time.</p>
+<p dir="auto">I had to bite the bullet &amp; suck it up.</p>
+<p dir="auto">I had to use Python to do anything more. If I wanted to progress in doing Vertex Shaders &amp; Fragment Shaders, I had to suck up my pride and resort to an easier language like Python.</p>
+<p dir="auto">And I feel like I'm making massive gains in my comprehension of OpenGL by using Python. Finally not stuck for now. Everything is ongoing, I'm having a great time, I want to make something more substantial with physics &amp; movement &amp; so forth. With the great PyOpenGL Library, the calls are mostly identical to C++'s GLUT/GLFW/OpenGL libaries!!!</p>
+<p dir="auto">What's beautiful about Python is that I can focus on the algorithm, then always port it back to C++ when I figured out how to do things in Python. Without the Python step, I would be going nowhere, or creepily slow as others figure things out in that same time.</p>
+<p dir="auto">And that's a workflow I've always championed. Use Python when necessary, despite it's reputation as not "low-level" or cool or "close to the metal".</p>
+<p dir="auto">Thanks Python!</p>
+<p dir="auto">I will admit that when I started I was letting the Gordon-Ramsay Sheldon Cooper type elitists get to me with the attitude of "YOU'RE NOT A REAL ENGINEER IF YOU'RE NOT PROGRAMMING A VIDEO GAME IN ASSEMBLY!!!! YOU'RE AN IMPOSTOR WHO DOESN'T BELONG HERE &amp; WORKS ON SOMETHING ELSE". Then I was extremely stupid enough to have this attitude to a lesser extent to others, which is why I was reluctant to even use Python for this task in the workflow.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/1_pyramid_python_smaller.gif"><img src="../images/1_pyramid_python_smaller.gif" alt="" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto">What you see here is an ongoing process. I figured out how to add more than 1 shape here with a API function called glDrawElementsInstanced. By doing this, the gl_InstanceID variable in the vertex Shader can be used to differentiate between the different instances (this variable is not a uniform variable passed down from the program).</p>
+<p dir="auto">I REALLY WANT TO HAVE THIS do Physics and bounce off each other, and there's various approaches one can take to do this. I'm trying to figure this all out. Should this be done on a compute GPU shader, or in the program as variables passed down. If this is never done, it's all good. This is something for me to incrementally dip into when I want to be challenged or when I feel a little rusty, and I ain't talking about the language Rust.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/2_pyramid_multiple_python_smaller.gif"><img src="../images/2_pyramid_multiple_python_smaller.gif" alt="" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto">Update: I don't feel I am going to be working on the physics of this. I am doing this in Python, so that goes against the physics I want. Also, other tools like Blender seem better for that task. I figured out how I can use multiple arrays into one Shader, and I prefer multiple arrays because I don't want to be repeating the same vertices thousands of times in the array for the same shape (like a bad database). A VBO/VAO could be useful for physics in the future, so that's why I spend time figuring that out (better &amp; more scalable than an array of uniform variables from program to GPU shaders). It seems I already have to have the buffer defined before the rendering loop. There might be ways around that, but since I'm not a professional in OpenGL, I'm not going to look at it at this time. Other ways I could have implemented physics could be a uniform variable in the shaders that have an array of model vertices, but I found out that that wasn't scalable as it can't hold a massive amount of instances in that array in the shader. Also found out about Compute Shaders as a possibility. Those were my 3 physics options. If the latter is a great option and can implement pure physics, then let me know.</p>
+<p dir="auto">While I don't have the physics as of now with limited time, I was successful in getting an open world with textures AND added in some complicated ambient &amp; diffuse &amp; specular lighting! I am pleased with the result. One of the favorite things I coded after <a href="https://mmulcahy222.github.io/#treeview_search_gui_cpp" rel="nofollow">https://mmulcahy222.github.io/#treeview_search_gui_cpp</a></p>
+<p dir="auto">See the <a href="https://www.youtube.com/watch?v=Y1vCY-wgbR4" rel="nofollow">FULL VIDEO OVER HERE</a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/4_pyramid_gif_output_600w.gif"><img src="../images/4_pyramid_gif_output_600w.gif" alt="" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/4_code.png"><img src="../images/4_code.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

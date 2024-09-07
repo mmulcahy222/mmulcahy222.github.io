@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/words_collide_win32/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/words_collide_win32/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/words_collide_win32/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/words_collide_win32/blob/master/images" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">Another soul-breaking project is what this was, albeit fun &amp; rewarding!</p>
+<p dir="auto">I felt limited by making everything in literal WINDOWS, and wanted to test out more of the capabilities besides it. I know the three different kind of Windows that can be created in CreateWindowsEx are WS_POPUP, WS_OVERLAPPED and WS_CHILD.</p>
+<p dir="auto">Wanted to make something that didn't have a close/minimize/x button for once.</p>
+<p dir="auto">Then we wound up getting this!</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/transparent_popup_collision.gif"><img src="../images/transparent_popup_collision.gif" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">I was very lucky to even have transparent text behind a window showing up in the WS_POPUP, but this did the trick</p>
+<p dir="auto">BLENDFUNCTION blend = {0};
+blend.BlendOp = AC_SRC_OVER;
+blend.SourceConstantAlpha = 255;
+blend.AlphaFormat = AC_SRC_ALPHA;
+SIZE sizeWnd = {width, height};
+//ptpox &amp; ptsrc in the center
+POINT ptPos = {(GetSystemMetrics(SM_CXSCREEN) - width) / 2, (GetSystemMetrics(SM_CYSCREEN) - height) / 2};
+POINT ptSrc = {0, 0};
+UpdateLayeredWindow(hWnd, hDC, &amp;ptPos, &amp;sizeWnd, hCDC, &amp;ptSrc, 0, &amp;blend, ULW_ALPHA);</p>
+<p dir="auto">For collision detection, we had this</p>
+<p dir="auto">BOOL did_rects_collide(RECT word1, RECT word2)
+{
+if (word1.left &lt; word2.right &amp;&amp; word1.right &gt; word2.left &amp;&amp; word1.top &lt; word2.bottom &amp;&amp; word1.bottom &gt; word2.top)
+{
+return true;
+}
+return false;
+}</p>
+<p dir="auto">It is absolutely NOT the greatest physics in the world after the collision is detected, I was just playing around. I had to mess around with some weights to get ideal physics going, as we had some mishaps. Some of the collisions kept on sticking to each other. I'm just glad the words aren't overlapping, LOL, and that there's some semblance of interaction.</p>
+<p dir="auto">Some of the collisions are sticking to each other because the angles insist on remaining the same throughout, which they do. It is possible that I can change this in the future if it's that important via trigonometry, but that wasn't the primary purpose of doing this (yet)</p>
+<p dir="auto">Note a video link below.</p>
+<p dir="auto"><a href="https://www.youtube.com/watch?v=o-BrqI63vDg&amp;t=14s" rel="nofollow">FULL YOUTUBE VIDEO HERE IF INTERESTED</a></p>
+<p dir="auto">One bug I faced was that the words were jittering back and forth when touching. That's because collisions were recording like "Word 2, Word 7" and "Word 7, Word 2". To overcome this challenge, I changed to search for the existence of a reverse pair in the vector before adding it, in the "add_transparent_text_to_desktop()" function where most of this happens. I don't see a major run-time cost given these vectors in collisions only had 2 to 5 entries at most.</p>
+<p dir="auto">Bouncing off of each other DOES happen when the words are coming at each other in the opposites. (they collide then go opposites, when both come at each other)</p>
+<p dir="auto">In cases where words are going in the same direction but one catches up to each other, the speeds of the two words transpose.</p>
+<p dir="auto">By the time you read this, this might be improved. But I just wanted the words on a screen moving, the collision &amp; changing of color when they touch is mere a bonus.</p>
+<p dir="auto">The full code is above and on GitHub, and I'll post the function for the "adding the transparent text" here:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/transparent_popup_collision_code.png"><img src="../images/transparent_popup_collision_code.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

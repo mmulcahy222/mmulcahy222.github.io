@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/todo_list_win32_cpp/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/todo_list_win32_cpp/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/todo_list_win32_cpp/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/todo_list_win32_cpp/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/todo_list_win32_cpp/blob/master/todo_windows.cpp" target="_blank">todo_windows.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/todo_list_win32_cpp/master/todo_windows.cpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/todo_list_win32_cpp/blob/master/todo_windows_static.exe" target="_blank">todo_windows_static.exe</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/todo_list_win32_cpp/master/todo_windows_static.exe" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">This may have been the 3rd or 4th hardest thing I've ever done in my list, aside from the Code Injection program I did in April 2020 [<a href="https://mmulcahy222.github.io/#windowsapi_treeview_search" rel="nofollow">https://mmulcahy222.github.io/#windowsapi_treeview_search</a>] &amp; [<a href="https://mmulcahy222.github.io/#treeview_search_gui_cpp" rel="nofollow">https://mmulcahy222.github.io/#treeview_search_gui_cpp</a>] and an experience I had in Magento for an E-Commerce company in 2012 related to Varien Administration Panels for Magento (which is since easy now).</p>
+<p dir="auto">So this is a TODO LIST!!!!!</p>
+<p dir="auto">Oh, but not just ANY To Do list. Not a React.JS To Do list in Javascript, which I could do in my sleep. You see, this is a To Do list done in C++ &amp; Win32 API. No wrappers, no QT, no MFC, no C#, none of that.</p>
+<p dir="auto">This is the insane but dedicated masochistic way of doing it, which is direct Win32 API calls at user32.dll, kernel32.dll, and commctrl32.dll. I did it as a way to experiment, to LEARN, to explore, to get BETTER as a human being. And to do something that would actually serve use to me in the future.</p>
+<p dir="auto">How does one learn when all the details are hidden? I went as far as I'm willing to go, because the only way to drill down more in the details is for people to impractically look at direct kernel calls at ntdll.dll &amp; undocumented functions with the NT suffixed on these API calls, which has no documentation and one has to guess oneselves.....OR to do assembly which is counterproductive except as to just read out of curiosity. Because how far can one go with this unless they're starting to look into electrical engineering, Karnaugh Tables, and Transistors/Logic Gate/Capacitors &amp; Phosphorus/Boson doping on silicon to guide elections and then string theory at the yottometers?</p>
+<p dir="auto">If one can do C++, they can do anything abstract easier, and more abstract in the higher levels, which is why I elected to punish myself this way. Not just any C++ like wrapped QT (paid) or MFC or other wrappers, but the Win32 API.</p>
+<p dir="auto">The other advantage to Win32 API is that it offers near infinitely more flexibility &amp; capability, at the cost of time. Undoubtedly use cases will crop up where the limits of high-level abstrasct and honestly easier but slower interpreted languages will be made apparent. Proficiency in Win32 will help in this regard.</p>
+<p dir="auto">Let's get to the program itself, shall we?</p>
+<p dir="auto">We have two classes which guide this.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/todo_windows.gif"><img src="../images/todo_windows.gif" alt="" style="max-width: 100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgendaItem</td>
+<td>A instance of a line inside of this program</td>
+</tr>
+<tr>
+<td>AgendaList</td>
+<td>A list that contains AgendaItems, which is attached to the window (or HWND parent_hwnd). HWND stands for handle</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">AgendaItem contains a function to DRAW the items called draw(HWND&amp;), and a function to calculate the position of the items, using another function called calculate_positions()</p>
+<table>
+<thead>
+<tr>
+<th>Agenda Item Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>draw</td>
+<td>Draw the buttons of ONE row/item</td>
+</tr>
+<tr>
+<td>calculate_positions</td>
+<td>calculate the widths &amp; positions of every "control" (boxes/buttons) based off of the ID of the row</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">AgendaList contains the inner vector of AgendaItem pointers, and the functions are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Agenda List Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create_agenda_item</td>
+<td>mainly done in the initialization</td>
+</tr>
+<tr>
+<td>delete_agenda_item</td>
+<td></td>
+</tr>
+<tr>
+<td>add_new_agenda_item_below</td>
+<td>When clicking on the + button on the row, add a new item in the vector and set the focus on the new row. Similar to Jupyter cells</td>
+</tr>
+<tr>
+<td>redraw</td>
+<td>Uses a callback to destroy all the controls in the main parent_hwnd called DestroyChildCallback inside of EnumChildWindows (which recursively gets rid of all of them) which will repaint everything new. Called in both delete_agenda_item &amp; add_new_agenda_item</td>
+</tr>
+<tr>
+<td>save_into_text_file</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">There were some regrettable design decisions that may have came about when doing this, with the SetWindowsLongPtr functions &amp; GetWindowsLongPtr functions, and composition within classes. All the classes needed awareness of each other, just like a State Object needs awareness (composition) of the Context object in the State Design pattern, and vice versa. They may have been other better ways to skin this cat, whether it was through parameters, or other API calls.</p>
+<p dir="auto">Also, the text is SAVE when the focus is removed off of the text boxes. It seems these events could either be detected in WM_COMMAND as a HIWORD(wParam), or in WM_NOTIFY, and this happened to be WM_COMMAND, like so</p>
+<p dir="auto">case WM_COMMAND:
+{
+switch (LOWORD(wParam))
+{
+//clicking on the text edit box
+case 1:
+{
+//HIWORD(wParam) is the control-defined notification code according to the docs at <a href="https://docs.microsoft.com/en-us/windows/win32/menurc/wm-command" rel="nofollow">https://docs.microsoft.com/en-us/windows/win32/menurc/wm-command</a>
+//The notification codes for this edit box is located in <a href="https://docs.microsoft.com/en-us/windows/win32/controls/en-killfocus" rel="nofollow">https://docs.microsoft.com/en-us/windows/win32/controls/en-killfocus</a>
+//I was unable to use WM_NOTIFY, it only worked with WM_COMMAND</p>
+<p dir="auto">A lot more of the code is explained in the attached picture below in comments!</p>
+<p dir="auto">If you have any questions, please ask!</p>
+<p dir="auto">todo_windows.cpp</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/todo_windows_code.png"><img src="../images/todo_windows_code.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

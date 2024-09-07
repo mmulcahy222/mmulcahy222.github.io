@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/regex_data_lake/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/regex_data_lake/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/regex_data_lake/blob/master/helper.py" target="_blank">helper.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/regex_data_lake/master/helper.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/regex_data_lake/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/regex_data_lake/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/regex_data_lake/blob/master/mobile.py" target="_blank">mobile.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/regex_data_lake/master/mobile.py" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-clean-logs-of-mobile-data" class="anchor" aria-hidden="true" href="#clean-logs-of-mobile-data"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Clean logs of mobile data</h1>
+<p>This was a freelance project all the way from Australia where I had to clean a large messy file of data and put it into very neat CSV files.</p>
+<p>Each line of this messy file was different, so I had to detect which structure of messy data it was with Regular Expressions.</p>
+<p>The task was:</p>
+<blockquote>
+<p>I have converted over 1000 pages of phone records (PDF tables) into text files. I want the data in these text files to be saved to a CSV / google sheet. The data will be filtered by column and row.  Specifically I want to extract Call date/time, Duration, is the "event" an SMS, Called number, Reference to phone record. Sample inputs (text files) and expected output (google sheet with three tabs) is here: Screen shots of phone records will be provided so you can see what the records looked like in pdf.</p>
+</blockquote>
+<p>My response:</p>
+<blockquote>
+<p>As always very happy with Mark's work - he's responsive, enthusiastic and most importantly gets the job done. A pleasure to work with.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mobile.py</td>
+<td>Decipher messy code with regular expressions to turn it into neat CSV files so my Australian client can use Pandas for data analysis</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/logs_2016.png"><img src="../images/logs_2016.png" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-code-snippet" class="anchor" aria-hidden="true" href="#code-snippet"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Code Snippet</h1>
+<div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>note</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>TWO TYPES OF ROWS</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>1) data = ['Data', '0.02MB', '0.02MB', '$0.00000', '$0.00000', '$0.00000']</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>2) calls =  ['Mobile', 'Call', '09:46', '0418695084', '0.00MB', '$9.35000', '$0.00000', '$0.00000']</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>//ANCHOR: REGEX ROWS</span>
+data_regex_row <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (series_of_words_regex , space_new_regex , disk_space_regex , space_new_regex , disk_space_regex , space_new_regex , currency_regex , space_new_regex , currency_regex , space_new_regex , currency_regex)
+calls_mobile_regex_row <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (series_of_words_regex , space_new_regex, duration_regex , space_new_regex , phone_number_regex , space_new_regex , disk_space_regex , space_new_regex , currency_regex , space_new_regex , currency_regex , space_new_regex , currency_regex)
+sms_national_regex_row <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (series_of_words_regex , space_new_regex, integer_regex , space_new_regex , phone_number_regex , space_new_regex , disk_space_regex , space_new_regex , currency_regex , space_new_regex , currency_regex , space_new_regex , currency_regex)
+calls_phone_regex_row <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-c1">%s</span>(<span class="pl-c1">%s</span>)<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (series_of_words_regex , space_new_regex, duration_regex , space_new_regex , phone_number_regex , space_new_regex , currency_regex , space_new_regex , duration_regex)</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

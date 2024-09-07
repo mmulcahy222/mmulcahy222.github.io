@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/laptops/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/laptops/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/laptops/blob/master/client.py" target="_blank">client.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/laptops/master/client.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/laptops/blob/master/lib" target="_blank">lib</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/laptops/blob/master/lib" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-freelance-laptop-project" class="anchor" aria-hidden="true" href="#freelance-laptop-project"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Freelance Laptop Project</h1>
+<p>In 2017 I was tasked to get all the laptop specifications for a various list of Laptops I was given, which would be used in the Laptop store <a href="https://www.agintechllc.com" rel="nofollow">https://www.agintechllc.com</a>.</p>
+<p>I had to get the ../images &amp; data from various sources, so I used the template design pattern to separate the various sources (HP/IceCat/Asus/etc). Those classes are in the lib folder.</p>
+<p>The HTML was saved locally on my own computer, and then data was extracted in different ways which was why they were separated into different classes.</p>
+<p>Look at the file cdb_v2.py</p>
+<p>Sometimes when you get the HTML of a page, you don't get the full HTML in something like the requests package in Python.</p>
+<p>Enter Chrome Remote Debugger to automate this and GET me the entire HTML.</p>
+<p>By refactoring the code into various sources, I could choose the order it would read to get the laptop specifications instead of having a convoluted mess.</p>
+<p>cdb_v2.py</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> sys, lxml, json, urllib, re, time
+<span class="pl-k">import</span> urllib.request
+<span class="pl-k">import</span> websocket
+<span class="pl-k">from</span> threading <span class="pl-k">import</span> Thread
+
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>	CLASS</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-c"><span class="pl-c">#</span>	<span class="pl-k">NOTE</span>: FOR THE MAJORITY OF THESE FUNCTIONS, YOU CAN PASS IN EITHER AN ACTUAL WEB SOCKET OR THE TITLE OF THE WEB PAGE!!! Typically it would be listed as "ws" as the parameter</span>
+<span class="pl-c"><span class="pl-c">#</span></span>
+<span class="pl-k">class</span> <span class="pl-en">cdb</span>:
+	web_sockets <span class="pl-k">=</span> []
+	<span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-c1">self</span>.initialize_web_sockets()
+	<span class="pl-k">def</span> <span class="pl-en">get_json_by_url</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		url <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>http://localhost:9222/json<span class="pl-pds">'</span></span>
+		raw_response <span class="pl-k">=</span> urllib.request.urlopen(url)
+		response_string <span class="pl-k">=</span> raw_response.read().decode(raw_response.info().get_param(<span class="pl-s"><span class="pl-pds">'</span>charset<span class="pl-pds">'</span></span>) <span class="pl-k">or</span> <span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>)
+		chrome_json <span class="pl-k">=</span> json.loads(response_string)
+		<span class="pl-k">return</span> chrome_json
+	<span class="pl-c"><span class="pl-c">#</span>this function is only ran once, making a list of dictionaries with web sockets &amp; title (multidimensional)</span>
+	<span class="pl-k">def</span> <span class="pl-en">initialize_web_sockets</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		chrome_list <span class="pl-k">=</span> <span class="pl-c1">self</span>.get_json_by_url()
+		<span class="pl-k">for</span> node <span class="pl-k">in</span> chrome_list:
+			<span class="pl-c1">type</span> <span class="pl-k">=</span> node[<span class="pl-s"><span class="pl-pds">'</span>type<span class="pl-pds">'</span></span>]
+			title <span class="pl-k">=</span> node[<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>]
+			<span class="pl-c"><span class="pl-c">#</span>to see if the key is in dictionary, use this syntax</span>
+			<span class="pl-k">if</span> <span class="pl-c1">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>page<span class="pl-pds">'</span></span> <span class="pl-k">and</span> <span class="pl-s"><span class="pl-pds">'</span>webSocketDebuggerUrl<span class="pl-pds">'</span></span> <span class="pl-k">in</span> node:
+				ws_url <span class="pl-k">=</span> node[<span class="pl-s"><span class="pl-pds">'</span>webSocketDebuggerUrl<span class="pl-pds">'</span></span>]
+				<span class="pl-c"><span class="pl-c">#</span>self explanatory, but builds</span>
+				<span class="pl-c1">self</span>.web_sockets.append({<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>:websocket.create_connection(ws_url),<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>:title})
+	<span class="pl-k">def</span> <span class="pl-en">free_sockets</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-k">for</span> socket <span class="pl-k">in</span> <span class="pl-c1">self</span>.web_sockets:
+			socket.close()
+	<span class="pl-c"><span class="pl-c">#</span>parameter substring is the TITLE of the url in lower case</span>
+	<span class="pl-c"><span class="pl-c">#</span>returns the web socket from localhost:9222/json</span>
+	<span class="pl-c"><span class="pl-c">#</span>parameter: substring of title of site</span>
+	<span class="pl-c"><span class="pl-c">#</span>returns: actual web socket</span>
+	<span class="pl-k">def</span> <span class="pl-en">get_ws_by_name</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">substring</span>):
+		array <span class="pl-k">=</span> <span class="pl-c1">self</span>.web_sockets
+		<span class="pl-c"><span class="pl-c">#</span>if in string</span>
+		<span class="pl-k">for</span> node <span class="pl-k">in</span> array:
+			title_lower_case <span class="pl-k">=</span> node[<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>].lower()
+			<span class="pl-k">if</span> substring <span class="pl-k">in</span> title_lower_case:
+				<span class="pl-k">return</span> node[<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>]
+		<span class="pl-k">return</span> <span class="pl-c1">0</span>
+	<span class="pl-k">def</span> <span class="pl-en">get_first_tab_web_socket</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-k">return</span> <span class="pl-c1">self</span>.web_sockets[<span class="pl-c1">1</span>][<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>]
+	<span class="pl-c"><span class="pl-c">#</span>this is what really does the work</span>
+	<span class="pl-k">def</span> <span class="pl-en">low_level_call</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">web_socket</span>,<span class="pl-smi">cri_parameters</span>):
+		<span class="pl-c"><span class="pl-c">#</span>dumps makes it into the string type</span>
+		function_call_as_json_string <span class="pl-k">=</span> json.dumps(cri_parameters)
+		dom <span class="pl-k">=</span> web_socket.send(function_call_as_json_string)
+		response <span class="pl-k">=</span> web_socket.recv()
+		<span class="pl-c"><span class="pl-c">#</span>loads turn string into an object/data structure/list/dict/etc</span>
+		data <span class="pl-k">=</span> json.loads(response)
+		<span class="pl-k">return</span> data
+	<span class="pl-c"><span class="pl-c">#</span>add new Chrome Remote Debugger directives in here (call function uses this)</span>
+	<span class="pl-k">def</span> <span class="pl-en">get_parameter</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">name</span>, <span class="pl-smi">params</span> <span class="pl-k">=</span> {}):
+		dict_of_dicts <span class="pl-k">=</span> {
+			<span class="pl-s"><span class="pl-pds">'</span>reload<span class="pl-pds">'</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Page.reload<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: params},
+			<span class="pl-s"><span class="pl-pds">'</span>document<span class="pl-pds">'</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>DOM.getDocument<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: params},
+			<span class="pl-s"><span class="pl-pds">'</span>navigate<span class="pl-pds">'</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Page.navigate<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: params},
+			<span class="pl-s"><span class="pl-pds">'</span>evaluate<span class="pl-pds">'</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Runtime.evaluate<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: params}
+		}
+		<span class="pl-k">return</span> dict_of_dicts[name]
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>WS CAN BE THE WEB SOCKET OR THE TITLE NAME!!!</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span>command is a name (like 'reload', where the dicts are in get_parameter function)</span>
+	<span class="pl-c"><span class="pl-c">#</span>example: cri_1.call('wesnoth','reload')</span>
+	<span class="pl-c"><span class="pl-c">#</span>or cdb.call('wesnoth',{"method": "Page.reload", "id": 1, "params": {}})</span>
+	<span class="pl-c"><span class="pl-c">#</span>or cdb.call("database",'navigate',params={'url':'http://www.goonery.com'})</span>
+	<span class="pl-k">def</span> <span class="pl-en">call</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">ws</span>,<span class="pl-smi">command</span>,<span class="pl-smi">params</span> <span class="pl-k">=</span> {}):
+		<span class="pl-c"><span class="pl-c">#</span>if the command is NOT a typical dictionary directive to google and if it's TEXT, use the function called get parameter</span>
+		<span class="pl-k">if</span> <span class="pl-c1">bool</span>(re.match(<span class="pl-s"><span class="pl-pds">"</span>^[A-Za-z]*$<span class="pl-pds">"</span></span>, <span class="pl-c1">str</span>(command))):
+			command <span class="pl-k">=</span> <span class="pl-c1">self</span>.get_parameter(command,params)
+		<span class="pl-k">if</span> <span class="pl-c1">isinstance</span>(ws,websocket._core.WebSocket):
+			web_socket <span class="pl-k">=</span> ws
+		<span class="pl-k">else</span>:
+			web_socket <span class="pl-k">=</span> <span class="pl-c1">self</span>.get_ws_by_name(ws)
+		response <span class="pl-k">=</span> <span class="pl-c1">self</span>.low_level_call(web_socket,command)
+		<span class="pl-k">return</span> response
+	<span class="pl-k">def</span> <span class="pl-en">sanitize</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">string</span>):
+		<span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>.join([x <span class="pl-k">for</span> x <span class="pl-k">in</span> string <span class="pl-k">if</span> <span class="pl-c1">ord</span>(x) <span class="pl-k">&lt;</span> <span class="pl-c1">128</span>])
+	<span class="pl-k">def</span> <span class="pl-en">get_html</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">ws</span>):
+		<span class="pl-c1">self</span>.call(ws,{<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>DOM.enable<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: {}})
+		response_document <span class="pl-k">=</span> <span class="pl-c1">self</span>.call(ws,<span class="pl-s"><span class="pl-pds">'</span>document<span class="pl-pds">'</span></span>)
+		<span class="pl-c1">print</span>(response_document)
+		node_id <span class="pl-k">=</span> response_document[<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>root<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>nodeId<span class="pl-pds">'</span></span>]
+		<span class="pl-c1">print</span>(node_id)
+		response_outer_html <span class="pl-k">=</span> <span class="pl-c1">self</span>.call(ws,{<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>DOM.getOuterHTML<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">'</span>nodeId<span class="pl-pds">'</span></span>:node_id}})
+		outer_html <span class="pl-k">=</span> response_outer_html[<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>outerHTML<span class="pl-pds">'</span></span>]
+		outer_html <span class="pl-k">=</span> <span class="pl-c1">self</span>.sanitize(outer_html)
+		<span class="pl-c1">self</span>.call(ws,{<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>DOM.disable<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: {}})
+		<span class="pl-k">return</span> outer_html
+	<span class="pl-k">def</span> <span class="pl-en">run_javascript</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>, <span class="pl-smi">ws</span>, <span class="pl-smi">expression</span>):
+		response <span class="pl-k">=</span> <span class="pl-c1">self</span>.call(ws,{<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Runtime.evaluate<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">'</span>expression<span class="pl-pds">'</span></span>:expression}})
+		<span class="pl-k">if</span> <span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">in</span> response[<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>]:
+			<span class="pl-k">return</span> response[<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>result<span class="pl-pds">'</span></span>][<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span>]
+		<span class="pl-k">else</span>:
+			<span class="pl-k">return</span> response
+	<span class="pl-k">def</span> <span class="pl-en">go_to_page</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">ws</span>,<span class="pl-smi">url</span>):
+		response <span class="pl-k">=</span> <span class="pl-c1">self</span>.call(ws,{<span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Page.navigate<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">'</span>url<span class="pl-pds">'</span></span>:url}})
+		<span class="pl-k">return</span> response</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/Dockerfile" target="_blank">Dockerfile</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mark_aws_cicd/master/Dockerfile" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mark_aws_cicd/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/buildspec.yml" target="_blank">buildspec.yml</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mark_aws_cicd/master/buildspec.yml" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/cicd_ecs_portfolio.tf" target="_blank">cicd_ecs_portfolio.tf</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/mark_aws_cicd/master/cicd_ecs_portfolio.tf" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/mark_aws_cicd/blob/master/images" target="_blank">Github Link</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><h1 id="user-content-cicd-of-containers-in-terraform" dir="auto"><a class="heading-link" href="#cicd-of-containers-in-terraform">CI/CD OF CONTAINERS IN TERRAFORM<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></h1>
+<p dir="auto">This gets three birds with one stone:</p>
+<ol dir="auto">
+<li>Docker Containers in the Cloud (ECS/ECR)</li>
+<li>Continuous Integration/Continuous Deployment (CI/CD)</li>
+<li>Terraform</li>
+</ol>
+<p dir="auto">This was done in TERRAFORM, so easier customization by text &amp; easier takedowns of entire infrastructure can happen with 1 or a few keystrokes.</p>
+<p dir="auto">When a commit happens in GitHub, it starts off a process that will build a container, push the container into the Elastic Container Repository, which would then deployed into ECS as a task.</p>
+<p dir="auto">To see the picture better, it goes from CodeBuild to Elastic Container Registry (ECR) to Elastic Container (ECS).</p>
+<p dir="auto">What is stitching all of this together. Great question! This is coming from CodePipeline.</p>
+<p dir="auto">CodePipeline will listen to the changes from GitHub, very much likely from Webhooks. This will prompt this flow of CodeBuild, then ECR, to ECS.</p>
+<p dir="auto">CodePipeline will even handle the deployment for us, which doesn't even necessitate the configuration of CodeDeploy! This I found out the hard arduous time-consuming way.</p>
+<p dir="auto">CodePipeline is in three steps. Source, Build &amp; Deploy. Source is connecting to GitHub, Build is running a buildspec.yml on a high-spec machine under the hood, and Deploy does what it says to almost anywhere you wish.</p>
+<p dir="auto">Three stages in CodePipeline.</p>
+<p dir="auto">However, there's a poetic irony.</p>
+<p dir="auto">CodeBuild adds more stages, in three phases. Pre-Build, Build, Post-Build.</p>
+<p dir="auto">Pre-Build sets up the environment variables, Build makes the container, and Post-Build pushes the container to ECR.</p>
+<p dir="auto">Going through the error messages is like escaping a cage like Houdini but I managed, such as the line "aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"</p>
+<p dir="auto">As you can see, CodePipeline calls three stages and one of those stages call three phrases, so it's a big pipeline calling a mini one with build.</p>
+<p dir="auto">But this works. And it was hard. And rewarding. Done in Terraform.</p>
+<p dir="auto">Don't bother using any tokens. They're deactivated.</p>
+<p dir="auto">buildspec.yml</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/buildspec.png"><img src="../images/buildspec.png" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">ci_cd.tf</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/terraform_cicd_polacode.png"><img src="../images/terraform_cicd_polacode.png" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">other screenshots</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/cicd_4.png"><img src="../images/cicd_4.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/cicd_3.png"><img src="../images/cicd_3.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/cicd_1.png"><img src="../images/cicd_1.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/cicd_2.png"><img src="../images/cicd_2.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

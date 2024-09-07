@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/newpaltzartist/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/newpaltzartist/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/newpaltzartist/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/newpaltzartist/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/newpaltzartist/blob/master/index.html" target="_blank">index.html</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/newpaltzartist/master/index.html" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/newpaltzartist/blob/master/miller_art.json" target="_blank">miller_art.json</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/newpaltzartist/master/miller_art.json" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">I made this website for my Dad's friend to showcase his art all the way in 2009, and I did not even put it up in my original portfolio, because it was such an old rudimentary website, and it was one of my first websites I've ever made. There was a reason for that. It was rudimentary, it used antiquated technology &amp; jQuery.</p>
+<p dir="auto">But then something changed. See, everybody was paying all of this money annually for hosting, and nobody really wanted to pay. I proposed the idea of putting it on Github.io, as it was a static website.</p>
+<p dir="auto">I had to change all of the parts that had PHP into all JavaScript, and you can bet I absolutely had a blast using 2020-2021 Javascript idioms like Filter/Map/Reduce/Some and all of that as well as arrow functions.</p>
+<p dir="auto">Since Microsoft was super generous to allow people to put up their portfolio online for free like you're doing right now (so long as it's static without PHP), we have a happy customer in Howard Miller who now has his static site up for all to see, after I proposed that Github idea to him.</p>
+<p dir="auto"><a href="https://newpaltzartist.github.io" rel="nofollow">NEW PALTZ ARTIST SITE --- CLICK HERE</a></p>
+<p dir="auto">I just really had to change the Filter part of the categories of art, which formerly used PHP, and I used vanille Javascript to dynamically create the overlay when clicking on the artwork rather than relying on the previous library called Facebox. For some reason when I originally did it it was using PHP, but since this was github.io (no PHP/Perl/Python), it was all javascript. Worked out great!</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/npa_site.png"><img src="../images/npa_site.png" alt="" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-js position-relative overflow-auto" data-snippet-clipboard-copy-content="async function filter(jsartattribute, jsartvalue) {
+    hovercounter = 0;;
+
+    //get json at miller_art.json in plain javascript
+    miller_json = await $.getJSON(&quot;miller_art.json&quot;);
+    //filter the json so the jsartvalue is equal to ANY inside the type attribute
+    //use ES6 Arrow Functions
+    var filtered_json = miller_json.filter(item =&gt; item[&quot;type&quot;].some(i =&gt; i == jsartvalue));
+    if(jsartvalue == &quot;all&quot;){
+        filtered_json = miller_json;
+    }
+
+    $(&quot;#mainContent&quot;).bind('mouseover', function() {
+        hovercontent();
+    });
+
+    filtered_html = '';
+    for (var i = 0; i &lt; filtered_json.length; i++) {
+        item = filtered_json[i];
+        id = item[&quot;id&quot;];
+        description = item[&quot;description&quot;];
+        filtered_html += `&lt;div class=&quot;picturediv&quot;&gt;&lt;a href=&quot;javascript:generate_center_overlay(${id},'${description}')&quot; class=&quot;&quot; border=0&gt;&lt;div class=&quot;colorbackground&quot;&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center&quot;&gt;&lt;img class=&quot;imageclickable&quot; src=&quot;art/Miller_Howard_${id}_t.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;`;
+    }
+
+    $(&quot;#gallerydiv&quot;).html(filtered_html);
+
+    maincontent(&quot;galleries&quot;);
+    
+    transitions();
+    //if img doesn't load, delete the picturediv
+    $(&quot;#gallerydiv img&quot;).bind('error', function() {
+        $(this).parent().parent().parent().remove();
+    });
+    setTimeout(&quot;$('.imageclickable').each(function () {verticalalign(this);});&quot;, 200);
+}
+"><pre><span class="pl-k">async</span> <span class="pl-k">function</span> <span class="pl-en">filter</span><span class="pl-kos">(</span><span class="pl-s1">jsartattribute</span><span class="pl-kos">,</span> <span class="pl-s1">jsartvalue</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-s1">hovercounter</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span><span class="pl-kos">;</span>
+
+    <span class="pl-c">//get json at miller_art.json in plain javascript</span>
+    <span class="pl-s1">miller_json</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">$</span><span class="pl-kos">.</span><span class="pl-en">getJSON</span><span class="pl-kos">(</span><span class="pl-s">"miller_art.json"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">//filter the json so the jsartvalue is equal to ANY inside the type attribute</span>
+    <span class="pl-c">//use ES6 Arrow Functions</span>
+    <span class="pl-k">var</span> <span class="pl-s1">filtered_json</span> <span class="pl-c1">=</span> <span class="pl-s1">miller_json</span><span class="pl-kos">.</span><span class="pl-en">filter</span><span class="pl-kos">(</span><span class="pl-s1">item</span> <span class="pl-c1">=&gt;</span> <span class="pl-s1">item</span><span class="pl-kos">[</span><span class="pl-s">"type"</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-en">some</span><span class="pl-kos">(</span><span class="pl-s1">i</span> <span class="pl-c1">=&gt;</span> <span class="pl-s1">i</span> <span class="pl-c1">==</span> <span class="pl-s1">jsartvalue</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">if</span><span class="pl-kos">(</span><span class="pl-s1">jsartvalue</span> <span class="pl-c1">==</span> <span class="pl-s">"all"</span><span class="pl-kos">)</span><span class="pl-kos">{</span>
+        <span class="pl-s1">filtered_json</span> <span class="pl-c1">=</span> <span class="pl-s1">miller_json</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+
+    <span class="pl-en">$</span><span class="pl-kos">(</span><span class="pl-s">"#mainContent"</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">bind</span><span class="pl-kos">(</span><span class="pl-s">'mouseover'</span><span class="pl-kos">,</span> <span class="pl-k">function</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-en">hovercontent</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+
+    <span class="pl-s1">filtered_html</span> <span class="pl-c1">=</span> <span class="pl-s">''</span><span class="pl-kos">;</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">var</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">filtered_json</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">item</span> <span class="pl-c1">=</span> <span class="pl-s1">filtered_json</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-s1">id</span> <span class="pl-c1">=</span> <span class="pl-s1">item</span><span class="pl-kos">[</span><span class="pl-s">"id"</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-s1">description</span> <span class="pl-c1">=</span> <span class="pl-s1">item</span><span class="pl-kos">[</span><span class="pl-s">"description"</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-s1">filtered_html</span> <span class="pl-c1">+=</span> <span class="pl-s">`&lt;div class="picturediv"&gt;&lt;a href="javascript:generate_center_overlay(<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>,'<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">description</span><span class="pl-kos">}</span></span>')" class="" border=0&gt;&lt;div class="colorbackground"&gt;&lt;/div&gt;&lt;div style="text-align: center"&gt;&lt;img class="imageclickable" src="art/Miller_Howard_<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>_t.jpg"&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;`</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+
+    <span class="pl-en">$</span><span class="pl-kos">(</span><span class="pl-s">"#gallerydiv"</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">html</span><span class="pl-kos">(</span><span class="pl-s1">filtered_html</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+
+    <span class="pl-en">maincontent</span><span class="pl-kos">(</span><span class="pl-s">"galleries"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    
+    <span class="pl-en">transitions</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">//if img doesn't load, delete the picturediv</span>
+    <span class="pl-en">$</span><span class="pl-kos">(</span><span class="pl-s">"#gallerydiv img"</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">bind</span><span class="pl-kos">(</span><span class="pl-s">'error'</span><span class="pl-kos">,</span> <span class="pl-k">function</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-en">$</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">parent</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">parent</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">parent</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">remove</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">setTimeout</span><span class="pl-kos">(</span><span class="pl-s">"$('.imageclickable').each(function () {verticalalign(this);});"</span><span class="pl-kos">,</span> <span class="pl-c1">200</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

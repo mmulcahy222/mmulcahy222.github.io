@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/data_analysis_miscellaneous/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/get_data.py" target="_blank">get_data.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/data_analysis_miscellaneous/master/get_data.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/nba2021_advanced_20200218.csv" target="_blank">nba2021_advanced_20200218.csv</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/data_analysis_miscellaneous/master/nba2021_advanced_20200218.csv" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/data_analysis_miscellaneous/blob/master/s3_version_nba_player_extra_information_20200222.csv" target="_blank">s3_version_nba_player_extra_information_20200222.csv</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/data_analysis_miscellaneous/master/s3_version_nba_player_extra_information_20200222.csv" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><h1><a id="user-content-data-project-1-car-prices-in-2018" class="anchor" aria-hidden="true" href="#data-project-1-car-prices-in-2018"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data Project #1 (Car Prices in 2018)</h1>
+<p>I was asked by someone to find out if the car they were getting was a good deal. I took all the 2005 Toyota Camrys and used the Mileage &amp; Price as the metrics as one of the variables to make this determination.</p>
+<p>After using a Javascript bookmarklet to acquire the data of hundreds of cars of that year + model, I made a simple histogram (w/ Kernel Density Estimation) to see how the price she was seeking measured up with general trends.</p>
+<p>According to the histogram &amp; KDE, it has peaked at $6000, and her deal is selling it for $5000 with 110000 miles. Visualizing data shows that she's not getting a raw deal by the trusted mechanic's auction.</p>
+<p>After the histograph, I made a scatterplot &amp; pretty heatmap to juxtapose mileage with the price, and look at general trends.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/histogram.jpg"><img src="../images/histogram.jpg" alt="" style="max-width:100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/linear_regression.jpg"><img src="../images/linear_regression.jpg" alt="" style="max-width:100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/heat_map.jpg"><img src="../images/heat_map.jpg" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-data-project-2-nba-draft--stats-in-2021" class="anchor" aria-hidden="true" href="#data-project-2-nba-draft--stats-in-2021"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data Project #2 (NBA Draft &amp; Stats in 2021)</h1>
+<p>I wanted to experiment with the AWS suite of Data Science Tools like AWS Glue, Kinesis Data Streams, Kinesis Firehose, Athena, S3, DynamoDB.,</p>
+<p>To do this I needed to make some data sets. I thought about doing one for music, and also thought about NBA stats. My solution was to do it for the NBA player stats.</p>
+<p>I made one dataset from Wikipedia where it held the information for where NBA players were drafted, and this was retrieved/scraped from Wikipedia, one of the world's ultimate data sources. The rest were NBA stats from 2020-21 that I simply easily downloaded from Kaggle.com.</p>
+<p>I decided to make two datasets to put them in different places in Amazon, so I would use AWS Glue to combine the two, and use Athena for it, or use a Federated Query or some way to crossreference it.</p>
+<p>The code to retrieve the data is in get_data.py</p>
+<p>Unfortunately, I kept on getting "Zero Records Returned", even though I put down the S3 folder (not the file) in the AWS Glue Crawler, so I abandoned this quick project. I only did this to get a rudimentary feel for the Data part of the AWS Cloud anyway.</p>
+<h1><a id="user-content-data-project-3-kinesis-in-python-in-2020" class="anchor" aria-hidden="true" href="#data-project-3-kinesis-in-python-in-2020"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data Project #3 (Kinesis in Python in 2020)</h1>
+<p>I was just messing around with the Boto3 interface for Kinesis with Python to ingest data into a Kinesis stream.</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># To add a new cell, type '# %%'</span>
+<span class="pl-c"># To add a new markdown cell, type '# %% [markdown]'</span>
+<span class="pl-c"># %%</span>
+<span class="pl-k">import</span> <span class="pl-s1">boto3</span>
+<span class="pl-k">from</span> <span class="pl-s1">itertools</span> <span class="pl-k">import</span> <span class="pl-s1">cycle</span>
+<span class="pl-k">import</span> <span class="pl-s1">os</span>
+<span class="pl-k">import</span> <span class="pl-s1">sys</span>
+<span class="pl-k">import</span> <span class="pl-s1">time</span>
+<span class="pl-k">import</span> <span class="pl-s1">random</span>
+<span class="pl-k">import</span> <span class="pl-s1">datetime</span>
+<span class="pl-k">import</span> <span class="pl-s1">time</span>
+<span class="pl-k">from</span> <span class="pl-s1">helpers</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+<span class="pl-k">import</span> <span class="pl-s1">json</span>
+<span class="pl-c"># %%</span>
+<span class="pl-s1">stream_name</span> <span class="pl-c1">=</span> <span class="pl-s">'remove'</span>
+<span class="pl-s1">kinesis_client</span> <span class="pl-c1">=</span> <span class="pl-s1">boto3</span>.<span class="pl-en">client</span>(<span class="pl-s">'kinesis'</span>, <span class="pl-s1">region_name</span><span class="pl-c1">=</span><span class="pl-s">'us-east-1'</span>)
+<span class="pl-s1">kinesis_description</span> <span class="pl-c1">=</span> <span class="pl-s1">kinesis_client</span>.<span class="pl-en">describe_stream</span>(<span class="pl-v">StreamName</span><span class="pl-c1">=</span><span class="pl-s1">stream_name</span>)
+<span class="pl-s1">shard_id</span> <span class="pl-c1">=</span> <span class="pl-s1">kinesis_description</span>.<span class="pl-en">get</span>(<span class="pl-s">"StreamDescription"</span>, {}).<span class="pl-en">get</span>(<span class="pl-s">"Shards"</span>, {})[
+    <span class="pl-c1">0</span>].<span class="pl-en">get</span>(<span class="pl-s">"ShardId"</span>, {})
+<span class="pl-c"># %%</span>
+<span class="pl-k">def</span> <span class="pl-en">producer</span>(<span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>):
+    <span class="pl-s">'''</span>
+<span class="pl-s">    PRODUCER</span>
+<span class="pl-s">    Note: I chose not to put this in it's own class.</span>
+<span class="pl-s">    named_arguments:</span>
+<span class="pl-s">    stream_name</span>
+<span class="pl-s">    iterations</span>
+<span class="pl-s">    delay_between_iterations</span>
+<span class="pl-s">    '''</span>
+    <span class="pl-s1">stream_name</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'stream_name'</span>, <span class="pl-s">'remove'</span>)
+    <span class="pl-s1">iterations</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'iterations'</span>, <span class="pl-c1">5</span>)
+    <span class="pl-s1">delay_between_iterations</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'delay_between_iterations'</span>, <span class="pl-c1">.01</span>)
+    <span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span>
+    <span class="pl-s1">cycle_generator</span> <span class="pl-c1">=</span> <span class="pl-en">cycle</span>(<span class="pl-s">"123456789"</span>)
+    <span class="pl-k">for</span> <span class="pl-s1">number</span> <span class="pl-c1">in</span> <span class="pl-s1">cycle_generator</span>:
+        <span class="pl-s1">payload</span> <span class="pl-c1">=</span> {}
+        <span class="pl-s1">payload</span>[<span class="pl-s">'goon_value'</span>] <span class="pl-c1">=</span> <span class="pl-s1">number</span> <span class="pl-c1">*</span> <span class="pl-s1">random</span>.<span class="pl-en">randrange</span>(<span class="pl-c1">1</span>, <span class="pl-c1">10</span>)
+        <span class="pl-s1">payload</span>[<span class="pl-s">'timestamp'</span>] <span class="pl-c1">=</span> <span class="pl-s1">time</span>.<span class="pl-en">time</span>()
+        <span class="pl-en">print</span>(<span class="pl-s1">payload</span>)
+        <span class="pl-s1">time</span>.<span class="pl-en">sleep</span>(<span class="pl-s1">delay_between_iterations</span>)
+        <span class="pl-s1">put_response</span> <span class="pl-c1">=</span> <span class="pl-s1">kinesis_client</span>.<span class="pl-en">put_record</span>(
+            <span class="pl-v">StreamName</span><span class="pl-c1">=</span><span class="pl-s1">stream_name</span>,
+            <span class="pl-v">Data</span><span class="pl-c1">=</span><span class="pl-s1">json</span>.<span class="pl-en">dumps</span>(<span class="pl-s1">payload</span>),
+            <span class="pl-v">PartitionKey</span><span class="pl-c1">=</span><span class="pl-en">str</span>(<span class="pl-s1">count</span>))
+        <span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-s1">count</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span>
+        <span class="pl-k">if</span> <span class="pl-s1">count</span> <span class="pl-c1">&gt;</span> <span class="pl-s1">iterations</span>:
+            <span class="pl-k">break</span>
+<span class="pl-c"># %%</span>
+<span class="pl-k">def</span> <span class="pl-en">consumer</span>(<span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>):
+    <span class="pl-s1">iterations</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'iterations'</span>, <span class="pl-c1">2</span>)
+    <span class="pl-s1">limit</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'limit'</span>, <span class="pl-c1">1000</span>)
+    <span class="pl-s1">delay_between_iterations</span> <span class="pl-c1">=</span> <span class="pl-s1">kwargs</span>.<span class="pl-en">get</span>(<span class="pl-s">'delay_between_iterations'</span>, <span class="pl-c1">0</span>)
+    <span class="pl-s1">record_responses</span> <span class="pl-c1">=</span> []
+    <span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span>
+    <span class="pl-s1">shard_iterator_response</span> <span class="pl-c1">=</span> <span class="pl-s1">kinesis_client</span>.<span class="pl-en">get_shard_iterator</span>(
+        <span class="pl-v">StreamName</span><span class="pl-c1">=</span><span class="pl-s1">stream_name</span>, <span class="pl-v">ShardId</span><span class="pl-c1">=</span><span class="pl-s1">shard_id</span>, <span class="pl-v">ShardIteratorType</span><span class="pl-c1">=</span><span class="pl-s">'TRIM_HORIZON'</span>)
+    <span class="pl-s1">shard_iterator</span> <span class="pl-c1">=</span> <span class="pl-s1">shard_iterator_response</span>.<span class="pl-en">get</span>(<span class="pl-s">'ShardIterator'</span>, <span class="pl-c1">None</span>)
+    <span class="pl-k">while</span> <span class="pl-s1">count</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">iterations</span>:
+        <span class="pl-s1">record_response</span> <span class="pl-c1">=</span> <span class="pl-s1">kinesis_client</span>.<span class="pl-en">get_records</span>(
+            <span class="pl-v">ShardIterator</span><span class="pl-c1">=</span><span class="pl-s1">shard_iterator</span>, <span class="pl-v">Limit</span><span class="pl-c1">=</span><span class="pl-s1">limit</span>)
+        <span class="pl-s1">shard_iterator</span> <span class="pl-c1">=</span> <span class="pl-s1">record_response</span>.<span class="pl-en">get</span>(<span class="pl-s">"NextShardIterator"</span>, {})
+        <span class="pl-s1">record_responses</span>.<span class="pl-en">append</span>(<span class="pl-s1">record_response</span>)
+        <span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-s1">count</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span>
+    <span class="pl-k">return</span> <span class="pl-s1">record_responses</span>
+<span class="pl-s1">record_responses</span> <span class="pl-c1">=</span> <span class="pl-en">consumer</span>()
+<span class="pl-c"># %%</span>
+<span class="pl-s1">first_record_data_bytes</span> <span class="pl-c1">=</span> <span class="pl-s1">record_responses</span>[<span class="pl-c1">0</span>][<span class="pl-s">'Records'</span>][<span class="pl-c1">0</span>][<span class="pl-s">'Data'</span>]
+<span class="pl-s1">first_record_data</span> <span class="pl-c1">=</span> <span class="pl-s1">json</span>.<span class="pl-en">loads</span>(<span class="pl-s1">first_record_data_bytes</span>)
+<span class="pl-s1">a</span> <span class="pl-c1">=</span> <span class="pl-en">int</span>(<span class="pl-s1">first_record_data</span>[<span class="pl-s">'goon_value'</span>])
+<span class="pl-s1">b</span> <span class="pl-c1">=</span> <span class="pl-s1">a</span> <span class="pl-c1">+</span> <span class="pl-c1">1111111</span>
+<span class="pl-s1">b</span>
+<span class="pl-c"># %%</span></pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

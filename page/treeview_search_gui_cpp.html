@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/treeview_search_gui_cpp/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/search_gui.cpp" target="_blank">search_gui.cpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/treeview_search_gui_cpp/master/search_gui.cpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/search_strategy_factory.hpp" target="_blank">search_strategy_factory.hpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/treeview_search_gui_cpp/master/search_strategy_factory.hpp" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/treeview_search_gui_cpp/blob/master/windows_gui.hpp" target="_blank">windows_gui.hpp</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/treeview_search_gui_cpp/master/windows_gui.hpp" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">In April 2020, I have long spoke about my magnum opus of my programming life, and that was getting the data of a Tree View Item on a Windows Desktop app, then doing a search on it.</p>
+<p dir="auto">I explained more about that here.</p>
+<p dir="auto"><a href="https://mmulcahy222.github.io/#windowsapi_treeview_search" rel="nofollow">https://mmulcahy222.github.io/#windowsapi_treeview_search</a></p>
+<p dir="auto">It was done in here. I wanted to add more to it. I wanted to achieve the following objectives.</p>
+<ol dir="auto">
+<li>
+<p dir="auto">Beef up my C++ skills by porting a Python application to C++. Also, it's easier to explore Win32 API using C++ than with Python, now that I'm better at mastering C++ workflows.</p>
+</li>
+<li>
+<p dir="auto">Make a far far superior &amp; snappier application that's actually a pleasure to use, and opens "snappily" in milliseconds.</p>
+</li>
+<li>
+<p dir="auto">Work on making menus &amp; pop-ups &amp; buttons &amp; controls &amp; my very first ever Windows GUI application!!!! It only took me this long as a software engineer.</p>
+</li>
+<li>
+<p dir="auto">I knew this was going to be needing some design patterns &amp; architectural design, and it was a pleasure to do this in a difficult language like C++. I never did the strategy pattern beforee. The strategy design pattern was what I had in mind, and I wound up mixing the Factory design pattern with the Strategy design pattern for efficiency. This factory returns singletons, because it would be madness to keep on instantiating new Strategy objects when they are all the damn same, and I feel my implementation of that is pretty great and love it.</p>
+</li>
+</ol>
+<p dir="auto">I give to you.... this!</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/buttons.jpg"><img src="../images/buttons.jpg" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">If you click on a tree view item like this, it will do a web search on the text of the tree view that's clicked on.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/TreeView_MultiSelect.jpg"><img src="../images/TreeView_MultiSelect.jpg" alt="" style="max-width: 100%;"></a></p>
+<p dir="auto">The program starts in search_gui.cpp, and that imports windows_gui.hpp, and windows_gui.hpp in turn imports search_strategy_factory.hpp. There could have been a better way of arranging all of this with #IFDEF and so on, but I am absolutely NOT a guru at C++ at this time when it comes to this, coming from Python &amp; PHP and abstract easy languages. The program works, though, LOL. I am fine with a better way however, and in the real world will do what's best practice.</p>
+<p dir="auto">As a result of porting the April 2020 Python project into C++ with a GUI interface, the program is usable &amp; beautifully efficient &amp; workable. It leverages the strategy design pattern, and the strategy objects are decoupled with the Factory design pattern which you can find in search_strategy_factory.cpp. Many people said that Factories should always return "new" objects each time, but I'm not down with that, if you have a good explanationa as to why, tell me and I will look into it, but I like it this way.</p>
+<p dir="auto">Just like in the April 2020 project, the key WinAPI functins to retrieve the Tree View Data via Process Memory injection are</p>
+<table>
+<thead>
+<tr>
+<th>Kernel32.dll API function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WriteProcessMemory</td>
+<td>(Puts OUR local TVITEM object into the remote process)</td>
+</tr>
+<tr>
+<td>SendMessageA</td>
+<td>(message is TVM_GETITEM, and fills out the TVItem structure we put in)</td>
+</tr>
+<tr>
+<td>GetLastError</td>
+<td>(error checking)</td>
+</tr>
+<tr>
+<td>ReadProcessMemory</td>
+<td>(gets the remote TVITEM object at remote_item_address, and puts it in local &amp;item)</td>
+</tr>
+<tr>
+<td>ReadProcessMemory</td>
+<td>(gets the remote text object at remote_text_address, and puts it in local &amp;buffer)</td>
+</tr>
+</tbody>
+</table>
+<h1 dir="auto"><a id="user-content-search_guicpp" class="anchor" aria-hidden="true" href="#search_guicpp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>search_gui.cpp</h1>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/search_gui.png"><img src="../images/search_gui.png" alt="" style="max-width: 100%;"></a></p>
+<h1 dir="auto"><a id="user-content-windows_guihpp" class="anchor" aria-hidden="true" href="#windows_guihpp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>windows_gui.hpp</h1>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/windows_gui.png"><img src="../images/windows_gui.png" alt="" style="max-width: 100%;"></a></p>
+<h1 dir="auto"><a id="user-content-search_strategy_factorycpp" class="anchor" aria-hidden="true" href="#search_strategy_factorycpp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>search_strategy_factory.cpp</h1>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/search_strategy_factory.png"><img src="../images/search_strategy_factory.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

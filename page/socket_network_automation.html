@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/socket_network_automation/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/all_commands.py" target="_blank">all_commands.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/socket_network_automation/master/all_commands.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/all_commands.txt" target="_blank">all_commands.txt</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/socket_network_automation/master/all_commands.txt" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/async_socket_connection.py" target="_blank">async_socket_connection.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/socket_network_automation/master/async_socket_connection.py" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/socket_network_automation/blob/master/sync_socket_connection.py" target="_blank">sync_socket_connection.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/socket_network_automation/master/sync_socket_connection.py" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-connecting-to-network-routersswitches-using-raw-sockets" class="anchor" aria-hidden="true" href="#connecting-to-network-routersswitches-using-raw-sockets"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connecting to Network Routers/Switches using Raw Sockets</h1>
+<p>Recently, I made software classes that use SSH Paramiko to interface with Network Router/Switches with Python for Network Automation.</p>
+<p>You could check that code I made later for SSH in <a href="https://www.github.com/mmulcahy/netconf">https://www.github.com/mmulcahy/netconf</a></p>
+<p>Before that, I made this, which is using very raw low-level sockets to access the routers/switches with Python, as an experiment and learning experience for myself.</p>
+<p>Of course, sockets are one level down readymade libraries like telnetlib &amp; paramiko, and learning the lower level components of how things work under the hood can only help your comprehensive understand of high level abstract languages that is used more practically in the real world, and it's recommended by me and many other purists in stackoverflow. I love the lower level &amp; assembly and would code in assembly if I won the lottery and had free time forever.</p>
+<p>There are two classes here:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>async_socket_connection.py</td>
+<td>Uses asynchronous sockets from the asyncio python library. This is very useful to run concurrent commands to gather data from multiple devices quickly for troubleshooting. This class holds all of the parsing &amp; CLI reading &amp; connecting code</td>
+</tr>
+<tr>
+<td>sync_socket_connection.py</td>
+<td>Allows for synchronous commands &amp; bytes to be sent out, as opposed to synchronous. This could be useful for consoles &amp; commands requiring blocking/waiting. It creates one instance of the async_socket_connection class, but done in the syntax and activation methods of asynchronous python code.</td>
+</tr>
+<tr>
+<td>all_commands.py</td>
+<td>This is just a client file that uses the classes above, to test it out. This particular code gets all the Cisco "Show" Troubleshooting Commands in a router, AND it displays the results of the show commands! (I should have done this for all commands)</td>
+</tr>
+<tr>
+<td>all_commands.txt</td>
+<td>All troubleshooting commands thanks to the network automation script</td>
+</tr>
+</tbody>
+</table>
+<h1><a id="user-content-snippet-of-all_commandstxt" class="anchor" aria-hidden="true" href="#snippet-of-all_commandstxt"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippet of all_commands.txt</h1>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/all_commands.jpg"><img src="../images/all_commands.jpg" alt="" style="max-width:100%;"></a></p>
+<h1><a id="user-content-async_socket_connectionpy" class="anchor" aria-hidden="true" href="#async_socket_connectionpy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>async_socket_connection.py</h1>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> asyncio
+<span class="pl-k">import</span> regex
+<span class="pl-k">import</span> traceback
+<span class="pl-k">import</span> sys
+<span class="pl-k">import</span> time
+<span class="pl-k">from</span> helper <span class="pl-k">import</span> <span class="pl-k">*</span>
+<span class="pl-k">class</span> <span class="pl-en">CiscoAsyncObject</span>(<span class="pl-c1">object</span>):
+	command_timeout <span class="pl-k">=</span> <span class="pl-c1">40</span>
+	<span class="pl-k">def</span> <span class="pl-en">byte_to_string</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">obj</span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>byte_to_string</span>
+<span class="pl-s">		clean up a raw byte stream by recv. Chiefly used in read function.</span>
+<span class="pl-s">		Arguments:</span>
+<span class="pl-s">			obj {bytes (recv(1024))} -- messy bytes</span>
+<span class="pl-s">		Returns:</span>
+<span class="pl-s">			string -- so beautifully neat</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		text <span class="pl-k">=</span> obj.decode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>ignore<span class="pl-pds">'</span></span>)
+		text <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>.join([x <span class="pl-k">for</span> x <span class="pl-k">in</span> <span class="pl-c1">str</span>(text) <span class="pl-k">if</span> <span class="pl-c1">ord</span>(x) <span class="pl-k">&lt;</span> <span class="pl-c1">128</span>])
+		<span class="pl-k">return</span> text
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">async_cisco_socket</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">loop</span>,<span class="pl-smi">ip</span>,<span class="pl-smi">port</span> <span class="pl-k">=</span><span class="pl-c1">23</span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>async_cisco_socket</span>
+<span class="pl-s">		</span>
+<span class="pl-s">		This should be like the __init__ function of a socket class, but I don't know how to do init in an asynchronous context. So the end result will be that this will just populate self.reader &amp; self.writer of this object</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		connect_retries <span class="pl-k">=</span> <span class="pl-c1">8</span>
+		tries <span class="pl-k">=</span> <span class="pl-c1">0</span>
+		<span class="pl-c"><span class="pl-c">#</span>try this the amount of connect_retries times</span>
+		<span class="pl-k">while</span> tries <span class="pl-k">&lt;</span> connect_retries:
+			<span class="pl-k">try</span> :
+				reader, writer <span class="pl-k">=</span> <span class="pl-k">await</span> asyncio.open_connection(ip, port, <span class="pl-v">loop</span><span class="pl-k">=</span>loop)
+				<span class="pl-k">if</span>(reader <span class="pl-k">is</span> <span class="pl-k">not</span> <span class="pl-c1">None</span>):
+					hostname_line(ip,<span class="pl-s"><span class="pl-pds">'</span>Socket Created<span class="pl-pds">'</span></span>)
+					<span class="pl-c"><span class="pl-c">#</span>when the connection begins and you have to write "en" &amp; password for Socket</span>
+					<span class="pl-c1">self</span>.ip <span class="pl-k">=</span> ip
+					<span class="pl-c1">self</span>.hostname <span class="pl-k">=</span> get_hostname(ip)
+					<span class="pl-c1">self</span>.reader <span class="pl-k">=</span> reader
+					<span class="pl-c1">self</span>.writer <span class="pl-k">=</span> writer
+					<span class="pl-k">await</span> <span class="pl-c1">self</span>.initialize_socket()
+					<span class="pl-k">break</span>
+				<span class="pl-k">else</span>:
+					<span class="pl-c1">print</span>(reader,writer)
+			<span class="pl-k">except</span> <span class="pl-c1">ConnectionRefusedError</span>:
+				tries <span class="pl-k">=</span> tries <span class="pl-k">+</span> <span class="pl-c1">1</span>
+				hostname_line(ip,<span class="pl-s"><span class="pl-pds">"</span>Couldn't connect because of ConnectionRefusedError<span class="pl-pds">"</span></span>)
+			<span class="pl-k">except</span> <span class="pl-c1">TimeoutError</span>:
+				tries <span class="pl-k">=</span> tries <span class="pl-k">+</span> <span class="pl-c1">1</span>
+				hostname_line(ip,<span class="pl-s"><span class="pl-pds">"</span>Couldn't connect because of TimeoutError<span class="pl-pds">"</span></span>)
+				<span class="pl-k">await</span> asyncio.sleep(<span class="pl-c1">1</span>)
+			<span class="pl-k">except</span> <span class="pl-c1">Exception</span> <span class="pl-k">as</span> exc:
+				tries <span class="pl-k">=</span> tries <span class="pl-k">+</span> <span class="pl-c1">1</span>
+				hostname_line(ip,<span class="pl-s"><span class="pl-pds">"</span>Generic Exception -&gt; <span class="pl-c1">%s</span><span class="pl-pds">"</span></span> <span class="pl-k">%</span> (exc))
+		<span class="pl-k">if</span> tries <span class="pl-k">&gt;=</span> connect_retries:
+			hostname_line(ip,<span class="pl-s"><span class="pl-pds">"</span>No socket connection because it exhausted it's maximum limit of retries.<span class="pl-pds">"</span></span>)
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">sendline</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">command</span>,<span class="pl-k">**</span><span class="pl-smi">kwargs</span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>sendline</span>
+<span class="pl-s">		</span>
+<span class="pl-s">		sendlines a command into the socket (Cisco here), and you could make it return the text to show up in the loop results, OR you could have it print as it goes. I prefer to have it print as it goes, and I did that option. </span>
+<span class="pl-s"></span>
+<span class="pl-s">		Kwargs is:</span>
+<span class="pl-s"></span>
+<span class="pl-s">		expect = regex, which will break the recv read calls</span>
+<span class="pl-s">		print = True/False, which prints the message as it goes</span>
+<span class="pl-s">		newline = True/False (default True)</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		chunks <span class="pl-k">=</span> []
+		text <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+		start_time_timeout_check <span class="pl-k">=</span> time.time()		
+		reader <span class="pl-k">=</span> <span class="pl-c1">self</span>.reader
+		writer <span class="pl-k">=</span> <span class="pl-c1">self</span>.writer
+		ip <span class="pl-k">=</span> <span class="pl-c1">self</span>.ip
+		hostname <span class="pl-k">=</span> <span class="pl-c1">self</span>.hostname
+		print_it <span class="pl-k">=</span> kwargs.get(<span class="pl-s"><span class="pl-pds">'</span>print<span class="pl-pds">'</span></span>,<span class="pl-c1">False</span>)
+		<span class="pl-c"><span class="pl-c">#</span>expect regex that will break the recv loop</span>
+		expect_regex <span class="pl-k">=</span> kwargs.get(<span class="pl-s"><span class="pl-pds">'</span>expect<span class="pl-pds">'</span></span>,<span class="pl-c1">None</span>)
+		default_regex <span class="pl-k">=</span> hostname <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>.*<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>[#|\^|&gt;]<span class="pl-pds">'</span></span>
+		<span class="pl-c"><span class="pl-c">#</span>the default is in the right</span>
+		expect_regex <span class="pl-k">=</span> expect_regex <span class="pl-k">if</span> expect_regex <span class="pl-k">!=</span> <span class="pl-c1">None</span> <span class="pl-k">else</span> default_regex
+		<span class="pl-c"><span class="pl-c">#</span>IF NEWLINE KWARGS IS FALSE</span>
+		<span class="pl-k">if</span> kwargs.get(<span class="pl-s"><span class="pl-pds">"</span>newline<span class="pl-pds">"</span></span>) <span class="pl-k">is</span> <span class="pl-c1">False</span>:
+			command <span class="pl-k">=</span> command
+		<span class="pl-k">else</span>:
+			command <span class="pl-k">=</span> command <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>
+		<span class="pl-c"><span class="pl-c">#</span>clear line</span>
+		<span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">3</span>):
+			writer.write(<span class="pl-s"><span class="pl-k">b</span><span class="pl-pds">"</span><span class="pl-cce">\x15</span><span class="pl-pds">"</span></span>)
+			<span class="pl-k">await</span> asyncio.sleep(<span class="pl-c1">.05</span>)
+		<span class="pl-c"><span class="pl-c">#</span>do actual sending</span>
+		writer.write(command.encode())
+		<span class="pl-k">while</span> <span class="pl-c1">1</span>:
+			<span class="pl-c"><span class="pl-c">#</span>Break up out of here no matte what, by the command timeout</span>
+			total_time <span class="pl-k">=</span> time.time() <span class="pl-k">-</span> start_time_timeout_check	
+			<span class="pl-c"><span class="pl-c">#</span> print("%s %s" % (command,total_time))</span>
+			<span class="pl-k">if</span> total_time <span class="pl-k">&gt;</span> <span class="pl-c1">self</span>.command_timeout:
+				<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">'</span>"<span class="pl-c1">%s</span>" has timed out<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (command))
+				<span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>Time Out<span class="pl-pds">'</span></span>
+			<span class="pl-k">try</span>:
+				chunk <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-c1">self</span>.reader.read(<span class="pl-c1">8024</span>)
+				<span class="pl-k">if</span> <span class="pl-k">not</span> chunk:
+					<span class="pl-k">break</span>
+				chunk <span class="pl-k">=</span> <span class="pl-c1">self</span>.byte_to_string(chunk)
+				chunk_length <span class="pl-k">=</span> <span class="pl-c1">len</span>(chunk)
+				text <span class="pl-k">=</span> text <span class="pl-k">+</span> chunk
+				<span class="pl-c"><span class="pl-c">#</span> print("REGEX&gt; ", expect_regex,  len(chunk), chunk.replace('\n', ' ').replace('\r', ' '),regex.search(expect_regex,chunk))</span>
+				<span class="pl-c"><span class="pl-c">#</span>stop doing the recv at if the expect regex is not in the ENTIRE TEXT or the exception. It will stop at expect</span>
+				<span class="pl-k">if</span> regex.search(expect_regex,text) <span class="pl-k">is</span> <span class="pl-k">not</span> <span class="pl-c1">None</span>:
+					<span class="pl-c"><span class="pl-c">#</span> print(command, "Expect happened")</span>
+					<span class="pl-k">break</span>
+				
+				
+			<span class="pl-k">except</span> <span class="pl-c1">Exception</span> <span class="pl-k">as</span> exc:
+				<span class="pl-c1">print</span>(hostname_line(ip, <span class="pl-s"><span class="pl-pds">"</span>Exception as <span class="pl-c1">%s</span><span class="pl-pds">"</span></span> <span class="pl-k">%</span> (exc)))
+				traceback.print_exc()
+				<span class="pl-k">await</span> asyncio.sleep(<span class="pl-c1">.5</span>)
+				<span class="pl-k">continue</span>
+			<span class="pl-k">except</span>:
+				<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>)
+		<span class="pl-c"><span class="pl-c">#</span>END READ</span>
+		<span class="pl-c"><span class="pl-c">#</span>THIS IS DONE TO KEEP TRACK OF ? COMMANDS</span>
+		<span class="pl-c"><span class="pl-c">#</span>This is for later text cleanup</span>
+		<span class="pl-k">if</span> <span class="pl-c1">len</span>(command) <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>:
+			<span class="pl-c1">self</span>.current_command <span class="pl-k">=</span> command.strip()
+		<span class="pl-c"><span class="pl-c">#</span>just get the result without fluff</span>
+		<span class="pl-c"><span class="pl-c">#</span>remove command in beginning &amp; prompt at end</span>
+		text <span class="pl-k">=</span> text.replace(<span class="pl-c1">self</span>.current_command,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>)
+		text <span class="pl-k">=</span> text.replace(<span class="pl-c1">self</span>.current_command.replace(<span class="pl-s"><span class="pl-pds">'</span> ?<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>),<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>)
+		text <span class="pl-k">=</span> regex.sub(<span class="pl-c1">self</span>.current_command,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,text)
+		text <span class="pl-k">=</span> text.strip()
+		<span class="pl-c"><span class="pl-c">#</span>clean will remove the prompt, and other custom cleaning</span>
+		<span class="pl-c"><span class="pl-c">#</span>remove the prompt in the end!</span>
+		text <span class="pl-k">=</span> regex.sub(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\n</span><span class="pl-c1">%s</span>.*[#|\^|&gt;]<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (<span class="pl-c1">self</span>.hostname),<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,text)
+		text <span class="pl-k">=</span> regex.sub(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-c1">%s</span><span class="pl-pds">'</span></span> <span class="pl-k">%</span> (<span class="pl-c1">self</span>.current_command.replace(<span class="pl-s"><span class="pl-pds">'</span> ?<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>)),<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,text)
+		<span class="pl-c"><span class="pl-c">#</span> text = text.strip()</span>
+		<span class="pl-c"><span class="pl-c">#</span>clean up it for the console</span>
+		text <span class="pl-k">=</span> sanitize(text.replace(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\n</span><span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>).replace(<span class="pl-s"><span class="pl-pds">"</span>�<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>).strip())
+		text <span class="pl-k">=</span> regex.sub(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\r</span>\s*<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\r</span><span class="pl-pds">'</span></span>,text)
+		<span class="pl-c"><span class="pl-c">#</span>does the printing in each send line IF kwargs print is true (like print=True as parameter)</span>
+		<span class="pl-k">if</span> kwargs.get(<span class="pl-s"><span class="pl-pds">"</span>newline<span class="pl-pds">"</span></span>) <span class="pl-k">==</span> <span class="pl-c1">True</span>:
+			header <span class="pl-k">=</span> wrap(wrap_hostname_line(ip,<span class="pl-s"><span class="pl-pds">'</span>Results of "<span class="pl-c1">%s</span>"<span class="pl-pds">'</span></span> <span class="pl-k">%</span> (command)))
+			<span class="pl-c1">print</span>(header <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span> <span class="pl-k">+</span> text)
+		<span class="pl-k">return</span> text
+
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">initialize_socket</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>initialize_socket</span>
+<span class="pl-s">		this is called by the async_connect to get to the config mode</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.sendline(<span class="pl-s"><span class="pl-pds">'</span>en<span class="pl-pds">'</span></span>,<span class="pl-v">expect</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Password<span class="pl-pds">"</span></span>)
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.sendline(<span class="pl-s"><span class="pl-pds">'</span>goon<span class="pl-pds">'</span></span>)
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.sendline(<span class="pl-s"><span class="pl-pds">'</span>terminal length 0<span class="pl-pds">'</span></span>)
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.config_mode()
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">config_mode</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>config mode</span>
+<span class="pl-s">		Goes Into Config Mode of course</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.sendline(<span class="pl-s"><span class="pl-pds">"</span>configure terminal<span class="pl-pds">"</span></span>)
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">privileged_mode</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>privilged_mode</span>
+<span class="pl-s">		the mode before global config mode, which is privileged mode</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.config_mode()
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.sendline(<span class="pl-s"><span class="pl-pds">"</span>end<span class="pl-pds">"</span></span>)
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">write</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">command</span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>write</span>
+<span class="pl-s">		</span>
+<span class="pl-s">		Write raw BYTES</span>
+<span class="pl-s"></span>
+<span class="pl-s">		command is in BYTES, not string</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-c"><span class="pl-c">#</span> print("Writing: %s" % (command))</span>
+		<span class="pl-c1">self</span>.writer.write(command)
+	<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">clear_line</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">command</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-k">b</span><span class="pl-pds">"</span><span class="pl-cce">\x15</span><span class="pl-pds">"</span></span>):
+		<span class="pl-s"><span class="pl-pds">'''</span>clear_line</span>
+<span class="pl-s">		</span>
+<span class="pl-s">		Simply writes b'<span class="pl-cce">\x15</span>' into Telnet which clears the line! This is required for those ? help commands.</span>
+<span class="pl-s">		This also represents Ctrl+U in the ASCII map, and is verified in Wireshark.</span>
+<span class="pl-s">		<span class="pl-pds">'''</span></span>
+		<span class="pl-k">await</span> <span class="pl-c1">self</span>.write(<span class="pl-s"><span class="pl-k">b</span><span class="pl-pds">"</span><span class="pl-cce">\x15</span><span class="pl-pds">"</span></span>)</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

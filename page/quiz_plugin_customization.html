@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/quiz_plugin_customization/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/quiz_plugin_customization/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/quiz_plugin_customization/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/quiz_plugin_customization/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/quiz_plugin_customization/blob/master/watupro.php" target="_blank">watupro.php</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/quiz_plugin_customization/master/watupro.php" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><h1><a id="user-content-customized-watupro-quiz-plugin-in-wordpress-to-automate-the-new-grades-upon-questionanswer-changes" class="anchor" aria-hidden="true" href="#customized-watupro-quiz-plugin-in-wordpress-to-automate-the-new-grades-upon-questionanswer-changes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Customized WatuPro quiz plugin in Wordpress to automate the new grades upon question/answer changes</h1>
+<p>In 2020, I was blessed to land an opportunity to customize a WordPress plugin! The client was outstanding. The task was to alter the default functionality of the WatuPro quiz plugin. The default functionality of the WatuPro Quiz plugin does not change the grades if the answers of the questions change, and understandably the client wanted this to happen, to automate the process for him in one fell swoop, rather than the time-sucking drudgery of doing this one-by-one. The use case was calling for another solution.</p>
+<p>Fortunately, the WatuPro plugin offered plenty of hooks inside of their plugin in anticipation for anyone extending their plugin for extra functionality, and mine was in the hook named 'wp-saved-question'.</p>
+<p>Anytime a user saved the Edit Question page in the admin (with the answers), the changes reflected in the grading system and the occurences of the tests that were already taken with the new grades, accounting for the new answers.</p>
+<p>For a fantasy football environment :) this was very ideal!</p>
+<p>I upgraded my laptop from below i3 to i5 in 2020, so I was able to use Microsoft Visual Studio Code to it's most fullest extent, and had extensive experience with the "Debugging Console" in the bottom, so I could have my plugin replicate a lot of the original functionality, and see what was being passed in the functions in a regular pass, and the structure of data inside of them. This was the most I was immersed in the "Debugging Console" because the other times it was too slow on a slower laptop to get much out of it, but here I managed to grasp it and work in a faster speed then was anticipated by the Client (1.5 days!). To reverse engineer this bulky plugin, the Call Stack in the breakpoint indicated the flow in which to discover the sequence, especially conditional breakpoints for CRUD Database operations.</p>
+<p>A "question" data structure had to have a dictionary/array item of answers to calculate the score, which would have been very difficult to find without a debugging console. The last two items of code demonstrate the discovery to calculate the grade in the native way that the plugin does it rather than implementing this function all by myself.</p>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-c">//Iterate through all student taking IDS, then iterate through the questions to calculate totals</span>
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span>takings</span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>taking</span>)
+{
+	<span class="pl-s1"><span class="pl-c1">$</span>taking_id</span> = <span class="pl-s1"><span class="pl-c1">$</span>taking</span>-&gt;<span class="pl-c1">ID</span>;
+	<span class="pl-s1"><span class="pl-c1">$</span>total</span> = <span class="pl-s1"><span class="pl-c1">$</span>score</span> = <span class="pl-s1"><span class="pl-c1">$</span>max_points</span> = <span class="pl-s1"><span class="pl-c1">$</span>achieved</span> = <span class="pl-s1"><span class="pl-c1">$</span>num_empty</span> = <span class="pl-s1"><span class="pl-c1">$</span>num_wrong</span> = <span class="pl-c1">0</span>;
+	<span class="pl-c">//Iterate through the questions to calculate totals</span>
+	<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span>questions</span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>question</span>) {
+		<span class="pl-s1"><span class="pl-c1">$</span>question_id</span> = <span class="pl-s1"><span class="pl-c1">$</span>question</span>-&gt;<span class="pl-c1">ID</span>;
+		<span class="pl-c">//According to the store_result function in the watopro.php lib file, a $question object is a database row.</span>
+		<span class="pl-s1"><span class="pl-c1">$</span>answers</span> = <span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">get_results</span>(<span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">prepare</span>(<span class="pl-s">"SELECT * FROM "</span>.<span class="pl-c1">WATUPRO_ANSWERS</span>.<span class="pl-s">" WHERE question_id=%d AND question_id&gt;0 ORDER BY sort_order"</span>, <span class="pl-s1"><span class="pl-c1">$</span>question_id</span>));
+		<span class="pl-c">//this part is necessary for the WTPQuestion::max_scores function. It's looking at this q_answers variable I just put below</span>
+		<span class="pl-s1"><span class="pl-c1">$</span>question</span>-&gt;<span class="pl-c1">q_answers</span> = <span class="pl-s1"><span class="pl-c1">$</span>answers</span>;</pre></div>
+<p>I was legit blessed for the client in 2020, and he said:</p>
+<blockquote>
+<p>Mark was absolutely outstanding for the entirety of the project. He worked quickly, communicated often, and executed the job tasks perfectly. I could not be more pleased with Mark! I would highly recommend him to others.</p>
+</blockquote>
+<p>I got 5 stars and he did too. I said in return:</p>
+<blockquote>
+<p>I want to thank Jim Atkinson for this amazing fun opportunity! Everything was completely straightforward, clearly laid out, and he gave me all the space &amp; leeway to get everything done. I lucked out with my last 3. I worked with some new software in the course of this, it was pretty cool. If you are considering a contract with Jim, please do it with confidence &amp; zero trepidation.</p>
+</blockquote>
+<p>So Cisco/Juniper/Cloud Network Automation peeps, I can bring this to you!</p>
+<p>There is a demonstration of how this plugin works to underscore the point.</p>
+<p>You change what the correct answer is in the question part of the plugin. As soon as the question is saved, the grades of the test, which is ideal for his use case. Really cool trick by automation. If I change the answer of one question, everything should reverse, and it did in these two ../images.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="../images/watupro_test_1.png"><img src="../images/watupro_test_1.png" alt="" style="max-width:100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/watupro_test_2.png"><img src="../images/watupro_test_2.png" alt="" style="max-width:100%;"></a></p>
+<p>The first part of the project updated the grades for the tests, and the second part updated the grades/point for the answer the student gave for each exam. I'll put up the second phase of the project on the README.md, but please see the whole source code at watupro.php for what I did. The code I added is in the bottom of the default watupro.php file!</p>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-c">////////////////////</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//  SECOND TWEAK (UPDATE THE OTHER TABLE AS WELL, WHICH IS THE WP_WATUPRO_STUDENT_PLUGIN APP. THE REASON FOR THIS IS TO UPDATE THE SINGLE PAGE VIEW OF THE EXAM TAKEN OCCURENCES, AS IT READS FROM THAT TABLE!!!</span>
+<span class="pl-c">//</span>
+<span class="pl-c">////////////////////</span>
+<span class="pl-s1"><span class="pl-c1">$</span>student_answers</span> = <span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">get_results</span>(<span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">prepare</span>(<span class="pl-s">"SELECT * FROM "</span>.<span class="pl-c1">WATUPRO_STUDENT_ANSWERS</span>.<span class="pl-s">" WHERE exam_id=%d ORDER BY ID DESC "</span>,<span class="pl-s1"><span class="pl-c1">$</span>exam_id</span>));
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span>student_answers</span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>key</span> =&gt; <span class="pl-s1"><span class="pl-c1">$</span>student_answer</span>) {
+	<span class="pl-s1"><span class="pl-c1">$</span>student_answer_question_id</span> = <span class="pl-s1"><span class="pl-c1">$</span>student_answer</span>-&gt;<span class="pl-c1">question_id</span>;
+    <span class="pl-s1"><span class="pl-c1">$</span>answers</span> = <span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">get_results</span>(<span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">prepare</span>(<span class="pl-s">"SELECT * FROM "</span>.<span class="pl-c1">WATUPRO_ANSWERS</span>. <span class="pl-s">" WHERE question_id=%d  AND question_id&gt;0 ORDER BY sort_order"</span>,<span class="pl-s1"><span class="pl-c1">$</span>student_answer_question_id</span>));
+    <span class="pl-s1"><span class="pl-c1">$</span>question</span> = <span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">get_row</span>(<span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">prepare</span>(<span class="pl-s">"SELECT * FROM "</span>.<span class="pl-c1">WATUPRO_QUESTIONS</span>. <span class="pl-s">" WHERE ID=%d"</span>,<span class="pl-s1"><span class="pl-c1">$</span>student_answer_question_id</span>));
+    <span class="pl-s1"><span class="pl-c1">$</span>question</span>-&gt;<span class="pl-c1">q_answers</span> = <span class="pl-s1"><span class="pl-c1">$</span>answers</span>;
+    <span class="pl-s1"><span class="pl-c1">$</span>answers_values</span> = <span class="pl-en">array_map</span>(<span class="pl-k">function</span>(<span class="pl-s1"><span class="pl-c1">$</span>answer</span>){<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>answer</span>-&gt;<span class="pl-c1">answer</span>;},<span class="pl-s1"><span class="pl-c1">$</span>answers</span>);
+	<span class="pl-s1"><span class="pl-c1">$</span>answers_quotes</span> = <span class="pl-en">array_map</span>(<span class="pl-k">function</span>(<span class="pl-s1"><span class="pl-c1">$</span>answer_value</span>){<span class="pl-k">return</span> <span class="pl-s">'"'</span>. <span class="pl-s1"><span class="pl-c1">$</span>answer_value</span> . <span class="pl-s">'"'</span>;},<span class="pl-s1"><span class="pl-c1">$</span>answers_values</span>);
+	<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_ids</span> = <span class="pl-en">array</span>();
+	<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_names</span> = <span class="pl-s1"><span class="pl-c1">$</span>student_answer</span>-&gt;<span class="pl-c1">answer</span>;
+	<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_names</span> = <span class="pl-en">str_replace</span>(<span class="pl-s1"><span class="pl-c1">$</span>answers_values</span>,<span class="pl-s1"><span class="pl-c1">$</span>answers_quotes</span>,<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_names</span>);
+	<span class="pl-k">foreach</span>(<span class="pl-en">str_getcsv</span>(<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_names</span>) <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_name</span>)
+	{
+		<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_name</span> = <span class="pl-en">trim</span>(<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_name</span>);
+		<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span>answers</span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>answer</span>) {
+			<span class="pl-k">if</span>(<span class="pl-en">strtolower</span>(<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_full_name</span>) == <span class="pl-en">strtolower</span>(<span class="pl-s1"><span class="pl-c1">$</span>answer</span>-&gt;<span class="pl-c1">answer</span>))
+			{
+				<span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_ids</span>[] = <span class="pl-s1"><span class="pl-c1">$</span>answer</span>-&gt;<span class="pl-c1">ID</span>;
+			}
+		}
+	}
+	<span class="pl-en">list</span>(<span class="pl-s1"><span class="pl-c1">$</span>points</span>, <span class="pl-s1"><span class="pl-c1">$</span>correct</span>, <span class="pl-s1"><span class="pl-c1">$</span>is_empty</span>) = <span class="pl-v">WTPQuestion</span>::<span class="pl-en">calc_answer</span>(<span class="pl-s1"><span class="pl-c1">$</span>question</span>, <span class="pl-s1"><span class="pl-c1">$</span>chosen_answer_ids</span>,<span class="pl-s1"><span class="pl-c1">$</span>answers</span>);
+	<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span>debug</span>)
+	{
+		<span class="pl-k">echo</span> <span class="pl-s">"-------\n"</span>;
+		<span class="pl-k">echo</span> <span class="pl-s">"POINTS: $points\n"</span>;
+		<span class="pl-k">echo</span> <span class="pl-s">"CORRECT: $correct\n"</span>;
+		<span class="pl-k">echo</span> <span class="pl-s">"IS EMPTY: $is_empty\n"</span>;
+	}
+	<span class="pl-s1"><span class="pl-c1">$</span>result</span> = <span class="pl-s1"><span class="pl-c1">$</span>wpdb</span>-&gt;<span class="pl-en">update</span>(<span class="pl-c1">WATUPRO_STUDENT_ANSWERS</span>, <span class="pl-en">array</span>(
+	    	<span class="pl-s">"points"</span> =&gt; <span class="pl-s1"><span class="pl-c1">$</span>points</span>,
+			<span class="pl-s">"is_correct"</span> =&gt; <span class="pl-s1"><span class="pl-c1">$</span>correct</span>,
+	    ),
+		<span class="pl-en">array</span>(
+			<span class="pl-s">"ID"</span>=&gt;<span class="pl-s1"><span class="pl-c1">$</span>student_answer</span>-&gt;<span class="pl-c1">ID</span>
+		)
+	);
+	<span class="pl-k">echo</span> <span class="pl-s1"><span class="pl-c1">$</span>result</span>;
+}
+<span class="pl-c">////////////////////</span>
+<span class="pl-c">//</span>
+<span class="pl-c">//  END CHANGING THE SINGLE VIEW SECTION IN THE WP_WATUPRO_STUDENT_PLUGIN</span>
+<span class="pl-c">//</span>
+<span class="pl-c">////////////////////</span></pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

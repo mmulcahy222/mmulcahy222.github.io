@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_home_audiobooks/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_home_audiobooks/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/google_home_audiobooks/blob/master/google_cloud_3_choice_audiobook.py" target="_blank">google_cloud_3_choice_audiobook.py</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/google_home_audiobooks/master/google_cloud_3_choice_audiobook.py" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content p-5" itemprop="text"><h1><a id="user-content-google-home-audiobook-player" class="anchor" aria-hidden="true" href="#google-home-audiobook-player"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Google Home Audiobook Player</h1>
+<p>If you want to listen to Audio Files &amp; Audiobooks on Google Home, the code is located in google_cloud_3_choice_audiobook.py as well as below.</p>
+<p>The Audiobooks will have to be located in Google Cloud Storage. I put the audiobooks in Google Cloud because Google Home will be interfacing with Google DialogFlow, and I wanted it all in one ecoystem.</p>
+<p>You say part of the filename, and it will play the corresponding audiobook to listen to on Google Home. If I was still using this or doing this professionally, I would have used Firebase AND then part of the filename (fallback) to play the corresponding audio file.</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> flask <span class="pl-k">import</span> Flask, request
+<span class="pl-k">import</span> os,sys,json,time
+<span class="pl-k">from</span> google.cloud <span class="pl-k">import</span> storage
+<span class="pl-k">from</span> google.oauth2 <span class="pl-k">import</span> service_account
+
+<span class="pl-k">def</span> <span class="pl-en">lambda_handler</span>(<span class="pl-smi">request</span>):
+    <span class="pl-k">try</span>:
+        <span class="pl-c"><span class="pl-c">#</span>This happens INSIDE of Google Functions with no interaction with Amazon AWS Lambda</span>
+        <span class="pl-c"><span class="pl-c">#</span><span class="pl-k">NOTE</span>: You will have to make a Service Account for this</span>
+        <span class="pl-c"><span class="pl-c">#</span>https://cloud.google.com/docs/authentication/production</span>
+        <span class="pl-c"><span class="pl-c">#</span>https://console.cloud.google.com/apis/credentials/serviceaccountkey</span>
+        request_json <span class="pl-k">=</span> get_request(request)
+        choice <span class="pl-k">=</span> get_parameter(request_json,<span class="pl-s"><span class="pl-pds">'</span>any<span class="pl-pds">'</span></span>)
+        blobs_in_storage <span class="pl-k">=</span> get_blobs_in_bucket(<span class="pl-s"><span class="pl-pds">'</span>mystoragebucket<span class="pl-pds">'</span></span>)
+        blob_file_object <span class="pl-k">=</span> get_blob_by_part(blobs_in_storage,choice)
+        <span class="pl-c"><span class="pl-c">#</span>get url right in here</span>
+        audio_url <span class="pl-k">=</span> blob_file_object.generate_signed_url(<span class="pl-c1">int</span>(time.time() <span class="pl-k">+</span> <span class="pl-c1">3600</span>))
+        <span class="pl-k">return</span> google_return(build_response(audio_url))
+    <span class="pl-k">except</span>:
+        exc_type, exc_obj, exc_tb <span class="pl-k">=</span> sys.exc_info()
+        exception_text <span class="pl-k">=</span> <span class="pl-c1">str</span>(exc_type) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">str</span>(exc_obj) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-c1">str</span>(exc_tb.tb_lineno)
+        <span class="pl-k">return</span> google_return(exception_text)
+
+<span class="pl-k">def</span> <span class="pl-en">get_request</span>(<span class="pl-smi">request</span>):
+    <span class="pl-c"><span class="pl-c">#</span>only purpose is for portability between windows system &amp; google functions</span>
+    <span class="pl-k">if</span> os.name <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>nt<span class="pl-pds">'</span></span>:
+        <span class="pl-k">return</span> request
+    <span class="pl-k">else</span>:
+        <span class="pl-k">return</span> request.get_json()
+
+<span class="pl-k">def</span> <span class="pl-en">handle_exception</span>(<span class="pl-smi">func</span>):
+    <span class="pl-k">def</span> <span class="pl-en">wrapper</span>(<span class="pl-k">*</span><span class="pl-smi">args</span>,<span class="pl-k">**</span><span class="pl-smi">kwargs</span>):
+        <span class="pl-k">try</span>:
+            <span class="pl-k">return</span> func(<span class="pl-k">*</span>args,<span class="pl-k">**</span>kwargs)
+        <span class="pl-k">except</span>:
+            <span class="pl-k">return</span> <span class="pl-c1">False</span>
+    <span class="pl-k">return</span> wrapper
+
+<span class="pl-c"><span class="pl-c">#</span>get request value</span>
+<span class="pl-en">@handle_exception</span>    
+<span class="pl-k">def</span> <span class="pl-en">get_parameter</span>(<span class="pl-smi">response_json</span>,<span class="pl-smi">key</span>,<span class="pl-smi">value</span><span class="pl-k">=</span><span class="pl-c1">False</span>):
+    <span class="pl-k">return</span> response_json.get(<span class="pl-s"><span class="pl-pds">'</span>queryResult<span class="pl-pds">'</span></span>).get(<span class="pl-s"><span class="pl-pds">'</span>parameters<span class="pl-pds">'</span></span>).get(key)
+
+<span class="pl-en">@handle_exception</span>
+<span class="pl-k">def</span> <span class="pl-en">get_blob_by_part</span>(<span class="pl-smi">list</span>, <span class="pl-smi">part</span>):
+    <span class="pl-k">return</span> [value <span class="pl-k">for</span> value <span class="pl-k">in</span> <span class="pl-c1">list</span> <span class="pl-k">if</span> part <span class="pl-k">in</span> value.name][<span class="pl-c1">0</span>]
+
+<span class="pl-k">def</span> <span class="pl-en">get_blobs_in_bucket</span>(<span class="pl-smi">bucket_name</span>):
+    <span class="pl-s"><span class="pl-pds">"""</span>Lists all the blobs in the bucket.<span class="pl-pds">"""</span></span>
+    storage_client <span class="pl-k">=</span> get_client()
+    bucket <span class="pl-k">=</span> storage_client.get_bucket(bucket_name)
+    blobs <span class="pl-k">=</span> bucket.list_blobs()
+    <span class="pl-k">return</span> <span class="pl-c1">list</span>(blobs)
+
+<span class="pl-k">def</span> <span class="pl-en">build_response</span>(<span class="pl-smi">audio_url</span>):
+    response_json <span class="pl-k">=</span> {
+        <span class="pl-c"><span class="pl-c">#</span>"fulfillmentText": str(speech_output),</span>
+        <span class="pl-s"><span class="pl-pds">"</span>payload<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>google<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>richResponse<span class="pl-pds">"</span></span>: {
+                    <span class="pl-s"><span class="pl-pds">"</span>items<span class="pl-pds">"</span></span>: [
+                        {
+                            <span class="pl-s"><span class="pl-pds">"</span>simpleResponse<span class="pl-pds">"</span></span>: {
+                                <span class="pl-s"><span class="pl-pds">"</span>textToSpeech<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Reading Audiobook<span class="pl-pds">"</span></span>
+                            }
+                        }
+                        ,
+                        {
+                            <span class="pl-s"><span class="pl-pds">"</span>mediaResponse<span class="pl-pds">"</span></span>: {
+                                <span class="pl-s"><span class="pl-pds">"</span>mediaType<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>AUDIO<span class="pl-pds">"</span></span>,
+                                <span class="pl-s"><span class="pl-pds">"</span>mediaObjects<span class="pl-pds">"</span></span>: [
+                                    {
+                                        <span class="pl-s"><span class="pl-pds">"</span>contentUrl<span class="pl-pds">"</span></span>: <span class="pl-c1">str</span>(audio_url),
+                                        <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Audio Book<span class="pl-pds">"</span></span>,
+                                        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Audio Book<span class="pl-pds">"</span></span>
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                    ,
+                    <span class="pl-s"><span class="pl-pds">"</span>suggestions<span class="pl-pds">"</span></span>: [
+                        {
+                            <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Suggestion<span class="pl-pds">"</span></span>
+                        }
+                    ]
+                }
+            }
+        }
+    }
+    <span class="pl-k">return</span> json.dumps(response_json)
+
+<span class="pl-k">def</span> <span class="pl-en">google_return</span>(<span class="pl-smi">text</span>):
+    <span class="pl-k">return</span> (text, <span class="pl-c1">200</span>, {<span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>application/json<span class="pl-pds">"</span></span>})
+
+<span class="pl-k">def</span> <span class="pl-en">get_client</span>():
+    <span class="pl-c"><span class="pl-c">#</span>The purpose is to do temporary signed URLS with a special client</span>
+    <span class="pl-c"><span class="pl-c">#</span></span>
+    <span class="pl-c"><span class="pl-c">#</span>if windows</span>
+    <span class="pl-k">if</span> os.name <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>nt<span class="pl-pds">'</span></span>:
+        <span class="pl-k">return</span> storage.Client.from_service_account_json(
+        <span class="pl-s"><span class="pl-pds">'</span>xxx<span class="pl-pds">'</span></span>)
+    <span class="pl-c"><span class="pl-c">#</span>if in google cloud</span>
+    <span class="pl-k">else</span>:
+        <span class="pl-c"><span class="pl-c">#</span>https://googleapis.github.io/google-cloud-python/latest/core/auth.html</span>
+        <span class="pl-c"><span class="pl-c">#</span>https://google-auth.readthedocs.io/en/latest/user-guide.html#service-account-private-key-files</span>
+        <span class="pl-c"><span class="pl-c">#</span>https://google-auth.readthedocs.io/en/latest/user-guide.html#application-default</span>
+        auth_json <span class="pl-k">=</span> {
+          <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>service_account<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>project_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>read-agent<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>private_key_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>NUNYA BUSINESS<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>private_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Nobody's business<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>client_email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>opaline-goonery-service@read-agent.iam.gserviceaccount.com<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>client_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>NUNYA BUSINESS<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>auth_uri<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://accounts.google.com/o/oauth2/auth<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>token_uri<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://oauth2.googleapis.com/token<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>auth_provider_x509_cert_url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://www.googleapis.com/oauth2/v1/certs<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>client_x509_cert_url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://www.googleapis.com/robot/v1/metadata/x509/NUNYA BUSINESS<span class="pl-pds">"</span></span>
+        }
+        credentials <span class="pl-k">=</span> service_account.Credentials.from_service_account_info(auth_json)
+        scoped_credentials <span class="pl-k">=</span> credentials.with_scopes([<span class="pl-s"><span class="pl-pds">'</span>https://www.googleapis.com/auth/cloud-platform<span class="pl-pds">'</span></span>])
+        <span class="pl-k">return</span> storage.Client(<span class="pl-v">credentials</span><span class="pl-k">=</span>credentials)
+ 
+
+
+
+<span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>__main__<span class="pl-pds">'</span></span>:
+    <span class="pl-c"><span class="pl-c">#</span>SIMULATE DIALOGFLOW</span>
+    request <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">"</span>responseId<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>25f548f3-1f10-4801-a59c-92c64be459d5<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>queryResult<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>queryText<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>read anger<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>parameters<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>any<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>seduce<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>allRequiredParamsPresent<span class="pl-pds">"</span></span>: <span class="pl-c1">True</span>, <span class="pl-s"><span class="pl-pds">"</span>intent<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>projects/read-agent/agent/intents/NO<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>displayName<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>choose_audiobook<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>intentDetectionConfidence<span class="pl-pds">"</span></span>: <span class="pl-c1">0.91</span>, <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>}, <span class="pl-s"><span class="pl-pds">"</span>originalDetectIntentRequest<span class="pl-pds">"</span></span>: {<span class="pl-s"><span class="pl-pds">"</span>payload<span class="pl-pds">"</span></span>: {} }, <span class="pl-s"><span class="pl-pds">"</span>session<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>projects/read-agent/agent/sessions/NO<span class="pl-pds">"</span></span>} 
+    <span class="pl-c1">print</span>(lambda_handler(request))</pre></div>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>

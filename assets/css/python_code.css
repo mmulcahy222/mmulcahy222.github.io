@@ -1,0 +1,151 @@
+/* Python Syntax Highlighting */
+/* Note: Adjusted colors to be brighter while complementing the background color */
+
+/* Comments */
+.pl-c /* comment, punctuation.definition.comment, string.comment */ {
+  color: #ffa3d3;
+}
+
+/* Constants, Variables, Strings */
+.pl-c1 /* constant, entity.name.constant, variable.other.constant, variable.language, support, meta.property-name, support.constant, support.variable, meta.module-reference, markup.quote, markup.raw, meta.diff.header */,
+.pl-s .pl-v /* string variable */ {
+  color: #ff95b5;
+}
+
+/* Entities, Entity Names */
+.pl-e /* entity */,
+.pl-en /* entity.name */ {
+  color: #ffb08c;
+}
+
+/* Variables, Strings */
+.pl-smi /* variable.parameter.function, storage.modifier.package, storage.modifier.import, storage.type.java, variable.other */,
+.pl-s .pl-s1 /* string source */ {
+  color: #ffa57d;
+}
+
+/* Entity Tags */
+.pl-ent /* entity.name.tag */ {
+  color: #ffa782;
+}
+
+/* Keywords, Storage */
+.pl-k /* keyword, storage, storage.type */ {
+  color: #ff9e88;
+}
+
+/* Strings, Punctuation */
+.pl-s /* string */,
+.pl-pds /* punctuation.definition.string, source.regexp, string.regexp.character-class */,
+.pl-s .pl-pse .pl-s1 /* string punctuation.section.embedded source */,
+.pl-sr /* string.regexp */,
+.pl-sr .pl-cce /* string.regexp constant.character.escape */,
+.pl-sr .pl-sre /* string.regexp source.ruby.embedded */,
+.pl-sr .pl-sra /* string.regexp string.regexp.arbitrary-repitition */ {
+  color: #ffa3b3;
+}
+
+/* Variables */
+.pl-v /* variable */,
+.pl-ml /* markup.list, sublimelinter.mark.warning */ {
+  color: #ffa788;
+}
+
+/* Invalid */
+.pl-bu /* invalid.broken, invalid.deprecated, invalid.unimplemented, message.error, brackethighlighter.unmatched, sublimelinter.mark.error */ {
+  color: #ffa5aa;
+}
+
+/* Illegal */
+.pl-ii /* invalid.illegal */ {
+  color: #ffa99d;
+  background-color: #ff8c97;
+}
+
+/* Carriage-Return */
+.pl-c2 /* carriage-return */ {
+  color: #ff9d9d;
+  background-color: #ff8892;
+}
+
+/* Carriage-Return Symbol */
+.pl-c2::before /* carriage-return */ {
+  content: "^M";
+}
+
+/* String Regexp Escape */
+.pl-sr .pl-cce /* string.regexp constant.character.escape */ {
+  font-weight: bold;
+  color: #ff8b93;
+}
+
+/* Markup, Separators */
+.pl-mh /* markup.heading */,
+.pl-mh .pl-en /* markup.heading entity.name */,
+.pl-ms /* meta.separator */ {
+  font-weight: bold;
+  color: #ffaa8e;
+}
+
+/* Italic Markup */
+.pl-mi /* markup.italic */ {
+  font-style: italic;
+  color: #ff9685;
+}
+
+/* Bold Markup */
+.pl-mb /* markup.bold */ {
+  font-weight: bold;
+  color: #ff9b87;
+}
+
+/* Deleted Markup */
+.pl-md /* markup.deleted, meta.diff.header.from-file, punctuation.definition.deleted */ {
+  color: #ff9e89;
+  background-color: #ff8f8f;
+}
+
+/* Inserted Markup */
+.pl-mi1 /* markup.inserted, meta.diff.header.to-file, punctuation.definition.inserted */ {
+  color: #ffa287;
+  background-color: #ff8e85;
+}
+
+/* Changed Markup */
+.pl-mc /* markup.changed, punctuation.definition.changed */ {
+  color: #ffa485;
+  background-color: #ff8f8f;
+}
+
+/* Ignored Markup */
+.pl-mi2 /* markup.ignored, markup.untracked */ {
+  color: #ff9987;
+  background-color: #ff8f8f;
+}
+
+/* Diff Range */
+.pl-mdr /* meta.diff.range */ {
+  font-weight: bold;
+  color: #ff8f8f;
+}
+
+/* Output */
+.pl-mo /* meta.output */ {
+  color: #ffa88a;
+}
+
+/* Brackets, Curly Braces, Quotes */
+.pl-ba /* brackethighlighter.tag, brackethighlighter.curly, brackethighlighter.round, brackethighlighter.square, brackethighlighter.angle, brackethighlighter.quote */ {
+  color: #ffa788;
+}
+
+/* Gutter Mark */
+.pl-sg /* sublimelinter.gutter-mark */ {
+  color: #ffaa8e;
+}
+
+/* Constant Link */
+.pl-corl /* constant.other.reference.link, string.other.link */ {
+  text-decoration: underline;
+  color: #ff9d93;
+}

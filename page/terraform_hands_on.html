@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>Portfolio</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/python_code.css">
+</head>
+
+<body>
+    <div class="github_html">
+        <table><tbody><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/README.md" target="_blank">README.md</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/README.md" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/aws_transit_gateway.tf" target="_blank">aws_transit_gateway.tf</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/aws_transit_gateway.tf" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/azure_transit_gateway.tf" target="_blank">azure_transit_gateway.tf</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/azure_transit_gateway.tf" target="_blank">Raw</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/images" target="_blank">images</a></div><div class="raw_link"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/images" target="_blank">Github Link</a></div></td></tr><tr><td><div class="file_name"><a href="https://github.com/mmulcahy222/terraform_hands_on/blob/master/lattice.tf" target="_blank">lattice.tf</a></div><div class="raw_link"><a href="https://raw.githubusercontent.com/mmulcahy222/terraform_hands_on/master/lattice.tf" target="_blank">Raw</a></div></td></tr></tbody></table>
+    </div>
+
+            
+    <div id="readme_html">
+        <div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><p dir="auto">It was a pure joy to do a HANDS ON practical project &amp; to grind &amp; struggle the hard way, from the ground up, to make some architectures.</p>
+<p dir="auto">I did three terraform files which I have put in this REPO, related to Cloud Networking. 2 on Amazon Cloud, 1 on Microsoft Azure.</p>
+<ol dir="auto">
+<li>I used Transit Gateway in AWS to connect two VPC's together. I could have used a VPN to connect to it if I wanted to, but all I really did was SSH into one of the VPC's (spokes) and it connected to the other one by going through the transit gateway. Be sure to check the full config in the links on top of the page.</li>
+</ol>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/terraform_1_pings.png"><img src="../images/terraform_1_pings.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/terraform_1_iaas.png"><img src="../images/terraform_1_iaas.png" alt="" style="max-width: 100%;"></a></p>
+<ol start="2" dir="auto">
+<li>I come from a strong Amazon AWS Background, but I discovered that Microsoft Azure has actually more job openings and is gaining market share. I did hands on work on Microsoft Azure, Terraform &amp; Cloud Networking on a practical hands-on basis. Thing is, there is no native Transit Gateway in Microsoft Azure. This made it that much more challenging. But in turn, more rewarding. They would be using Virtual Network Gateways, which doubles as a VPN endpoint &amp; VPN capable device if you desire it so. VNet Peerings are required here for Azure, and be sure that the peerings are on BOTH sides for the Virtual Network Gateway to work. Be sure to check the full config in the links on top of the page.</li>
+</ol>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/terraform_2_pings.png"><img src="../images/terraform_2_pings.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/terraform_2_iaas.png"><img src="../images/terraform_2_iaas.png" alt="" style="max-width: 100%;"></a></p>
+<ol start="3" dir="auto">
+<li>Amazon AWS Lattice. At first it was very very hard. I'm like how the hell is it simplifying ANYTHING when I have to go through this rigamarole &amp; come across new constructs I've never seen. But having worked with it HANDS ON with my hands dirty in the trenches for days, I ... GET IT. I really .... GET IT. What it does? It decouples the implementation of various computing styles of many levels into one API at the listener rule &amp; the listener path &amp; public DNS that can be CNAMEd into a neater URI/URL. I made the default VPC the client VPC that will be associated with the service network, which I learned is not even a VPC itself! The service network connects with a Lambda, and another VPC that holds EC2. Of course, it can have EKS/ELB, but this was a Lattice project!</li>
+</ol>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="../images/terraform_3_pings.png"><img src="../images/terraform_3_pings.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/terraform_3_pings_2.png"><img src="../images/terraform_3_pings_2.png" alt="" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="../images/terraform_3_iaas.png"><img src="../images/terraform_3_iaas.png" alt="" style="max-width: 100%;"></a></p>
+</article></div>
+    </div>
+
+
+</body>
+
+</html>
