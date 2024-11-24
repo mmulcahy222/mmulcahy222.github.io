@@ -1,0 +1,217 @@
+@font-face {
+  font-family: 'InfraThin';
+  src: url('../fonts/Infra-Thin.otf') format('opentype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('../fonts/SF-UI-Text-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: 'MyriadLight';
+  src: url('../fonts/MyriadPro-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: 'MyriadUltraLight';
+  src: url('../fonts/myriad-set-pro-100-ultralight.ttf') format('truetype');
+}
+
+.wrapper
+{
+	padding: 0px 30px;
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /*THE NEXT THREE PREVENT THE PADDING FROM SCREWING WITH THE WIDTHS!*/
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.page_title
+{
+	text-align: center;
+	padding: 30px;
+	font-family: 'InfraThin';
+	font-size: 90px;
+	border-bottom: 1px solid #B2B2B2;
+}
+.subtitle
+{
+	position: relative;
+	top: 5px;
+	font-size: 16px;
+}
+.second_row {
+    border-bottom: 1px solid #B2B2B2;
+    font-family: "SanFrancisco";
+    font-size:21px;
+    color: #676767;
+    letter-spacing: .9px;
+    overflow: hidden;
+}
+.second_row > div
+{
+    float: left;
+}
+.second_row > div:not(:last-child)
+{
+	border-right: 1px solid #b2b2b2;
+}
+.second_row_column_1
+{
+    text-align: right;
+    padding:25px 45px 25px 0px;
+    width: 50%;
+}
+.second_row_column_2
+{
+    text-align: left;
+    padding:25px 0px 25px 45px;
+    width: 50%;
+}
+.third_row > div
+{
+	text-align: justify;
+    float: left;
+    padding: 25px;
+}
+.third_row_column_1
+{
+    text-align: left;
+    padding:25px 25px 25px 25px;
+    width: 60%;
+}
+.third_row_column_2
+{
+    text-align: left;
+    padding: 25px 25px 25px 25px;
+    width: 40%;
+}
+.section
+{
+	font-family: "MyriadLight";
+	margin-bottom: 50px;
+}
+.section ul
+{
+	/*Overrides the default so the title solely determines the padding length*/
+	margin: 0px;
+	/*VERY SHITTY WAY OF ALIGNING BULLET POINTS TO THE LEFT COLUMN WITH PADDING LEFT*/ 
+	padding-left: 16px;
+}
+.section li
+{
+	text-align: justify;
+	/*Distance from Bullet Point*/ 
+	padding: 0px 0px 0px 8px;
+}
+.section_title
+{
+	font-family: "InfraThin";
+	text-transform: uppercase;
+	font-size: 19px;
+	padding-bottom: 20px;
+	color: #373737;
+}
+.design
+{
+	text-align: center;
+}
+.design_image 
+{
+    width: 425px;
+    height: 200px;
+}
+/*div[class*='item']*/
+.job_item
+{
+	border-left: 3px solid #CCCCCC;
+	padding-left: 10px;
+	/*MARGIN, NOT PADDING, FOR THE GRAY BAR BELOW*/
+	margin-bottom: 25px;
+}
+.company_name
+{
+	font-family: "SanFrancisco";
+	font-size: 18px;
+}
+.title_date
+{
+	font-style: italic;
+}
+.degree
+{
+	color: #333333;
+	font-family: "SanFrancisco";
+	font-size: 18px;
+}
+.college
+{
+	font-style: italic;
+	color: #333333;
+}
+.certification
+{
+	font-family: "SanFrancisco";
+	font-size: 18.5px;
+}
+.certification_date
+{
+	font-style: italic;
+}
+.section .certification_list
+{
+	list-style-image: url('../images/certification_small.png');
+	/*override wider rule above to account for image*/
+	padding-left: 22px;
+}
+.certification_list li:not(:last-child)
+{
+	padding-bottom: 22px;
+}
+/*languages*/
+.languages_table tr td:nth-child(1)
+{
+	width: 25%;
+}
+.languages_table tr td:nth-child(2)
+{
+	width: 25%;
+}.languages_table tr td:nth-child(3)
+{
+	width: 50%;
+}
+.languages_table td
+{
+	padding: 4px 0px;
+}
+.bar {
+	background-color: #dddddd;
+	width: 200px;
+	height: 10px;
+}
+.bar-inner {
+	background-color: #777777;
+	height: 100%;
+	position: relative;
+}
+/*skills*/
+.skill_item
+{
+	padding-bottom:21px;
+}
+.skill_broad_title
+{
+	font-weight: bold;
+	padding-bottom:3px;
+}
+.skill_item ul li
+{
+	font-style: italic;
+	color: #221144;
+	list-style: circle;
+}

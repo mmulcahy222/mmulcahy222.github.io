@@ -1,0 +1,6767 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" id="main_css_sheet" href="assets/css/notes.css?t=<?php echo time(); ?>">
+    <title>Interview Notes</title>
+</head>
+
+<body>
+    <div class="left">
+        <div class="projects_content">
+            <a href="#cisco_routing">1. Cisco Routing</a>
+            <a href="#cisco_switching">2. Cisco Switching</a>
+            <a href="#cloud_computing">3. Cloud Computing</a>
+            <a href="#cloud_networking">4. Cloud Networking</a>
+            <a href="#software_engineering">5. Software Engineering</a>
+            <a href="#microsoft">6. Microsoft</a>
+            <a href="#configuration">7. Configuration</a>
+            <a href="#administration">8. Administration</a>
+            <a href="#assembly">9. Assembly</a>
+        </div>
+        <div class="css_radio_boxes_div">
+            <div>
+                <input type="radio" name="css_style" value="IBM 3270" id="ibm_3270_button">
+                <label for="css_style">IBM 3270</label>
+            </div>
+            <div>
+                <input type="radio" name="css_style" value="Commodore 64" id="commodore_64_button">
+                <label for="css_style">Commodore 64</label>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <h1><h1 id="cisco_routing">Cisco Routing</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Link State</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LSA 1</td>
+<td>Router</td>
+<td>One per router, per area <br/>Lists RID &amp; all interfaces in that area</br>Flooded only in that area</td>
+</tr>
+<tr>
+<td>LSA 2</td>
+<td>Network</td>
+<td>One per transit network</br>Created by DR in the subnet</br>Represent the subnet fa all the interfaces in it</br>Flooded only in that area</td>
+</tr>
+<tr>
+<td>LSA 3</td>
+<td>Network Summary </br> (external area route)</td>
+<td>Created by ABR Represents: Networks in an area when being advertised into another area</br>Defines the Subnets in the origin area and their costs</br>Does not define the topology of the origin area</br>Flooded only within its area of the origin. Re-originated on ABR</td>
+</tr>
+<tr>
+<td>LSA 4</td>
+<td>ASBR Summary</td>
+<td>Created by ABR Advertises a host route to reach an</br>ASBR Contains ABSR's RID and ABR's cost to reach it</br>Flooded only within its area of the origin Re-originated on ABRs</td>
+</tr>
+<tr>
+<td>LSA 5</td>
+<td>AS Route </br> (external AS route)</td>
+<td>Created by ASBR for external routes injected into OSPF Flooded to all areas</td>
+</tr>
+<tr>
+<td>LSA 6</td>
+<td>Group Membership (MOSPF)</td>
+<td></td>
+</tr>
+<tr>
+<td>LSA 7</td>
+<td>NSSA External</td>
+<td>Created by ASBR inside NSSA</br>External route information carried in this type LSA to distinguish from LSA Type 5 which is still prohibited in NSSA</br>ABR with the highest RID will translate to LSA type 5 and inject the external routes to other area</td>
+</tr>
+</tbody>
+</table>
+<p>Area | Description | Features <br />
+- | -<br />
+Normal | 1,2,3,4,5 ||<br />
+Stub | 1,2,3 | Has 0.0.0.0 route |<br />
+Totally Stub | 1,2 | No 0.0.0.0 route, just a default route|<br />
+Not-So-Stubby Area | 1,2,3,7 ||<br />
+Totally Not-So-Stubby Area | 1,2,7 ||</p>
+<table>
+<thead>
+<tr>
+<th>OSPF States</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOWN</td>
+<td>No OSPF Neighbors Detected</td>
+</tr>
+<tr>
+<td>ATTEMPT/INIT</td>
+<td>One router sent a hello packet. The other is yet to respond. Seen in one way.</td>
+</tr>
+<tr>
+<td>2-WAY</td>
+<td>Both routers SEEN each other's packet. Incoming Hello has it's own Router ID.</td>
+</tr>
+<tr>
+<td>EXSTART</td>
+<td>Decide on Master-Slave on who initiates communication of Database Descriptor Packets (DBD)</td>
+</tr>
+<tr>
+<td>EXCHANGE</td>
+<td>Actually exchanging DBD packets. Also Link State Requests &amp; Link State Advertisements are sent here, which determines if full Link State Updates should be sent.</td>
+</tr>
+<tr>
+<td>LOADING</td>
+<td>Link State Updates are sent</td>
+</tr>
+<tr>
+<td>FULL</td>
+<td>The Databases are synchronized fully</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>OSPF Interface Types</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notes</td>
+<td>Point = NO DR &amp; BDR</br>Multiaccess = More than one network device</br>Broadcast = Automatic Neighbors<br>Non-Broadcast = Manual Neighbor Configuration</td>
+</tr>
+<tr>
+<td>Point-To-Point</td>
+<td>No DR &amp; BDR</br>POINT means NO DR-BDR</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>Multiaccess is when there's multiple points, with a switch coordinating this.</br>Has a DR</td>
+</tr>
+<tr>
+<td>Non-Broadcast</td>
+<td>Hub &amp; Spoke</br> Still Multiaccess because it has multiple points</td>
+</tr>
+<tr>
+<td>Non-Broadcast Multi-Access</td>
+<td>DIDN'T EXIST IN GNS3</br>Frame Relay &amp; ATM &amp; X.25 fit this criteria</br>Manually define neighbors</br>It emulates broadcast</td>
+</tr>
+<tr>
+<td>Point-To-Multipoint</td>
+<td>Organizes many point-to-point networks</br>NO DR-BDR</br>I guess this dynamically finds neighbors, huh </br>Turns a MULTICAST NETWORK into a collection of point-to-point networksPstatus7</td>
+</tr>
+<tr>
+<td>Point-To-Multipoint Non-Broadcast</td>
+<td>Manually define neighbors with NO DR-BDR</br>Non-Broadcast necessitates the static configuration of neighbors</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Administrative Distance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>External BGP</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Internal EIGRP</td>
+<td>90</td>
+</tr>
+<tr>
+<td>IGRP</td>
+<td>100</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>110</td>
+</tr>
+<tr>
+<td>Intermediate System-to-Intermediate System (IS-IS)</td>
+<td>115</td>
+</tr>
+<tr>
+<td>Routing Information Protocol (RIP)</td>
+<td>120</td>
+</tr>
+<tr>
+<td>External EIGRP</td>
+<td>170</td>
+</tr>
+<tr>
+<td>Internal BGP</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EIGRP Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bandwidth</td>
+</tr>
+<tr>
+<td>Load</td>
+</tr>
+<tr>
+<td>Delay (K3)</td>
+</tr>
+<tr>
+<td>Reliability</td>
+</tr>
+<tr>
+<td>MTU</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feasibility Definitions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feasible Distance</td>
+<td>Total metric between source router and destination. Including first hop, including reported/advertised distance.</td>
+</tr>
+<tr>
+<td>Reported Distance &amp; Advertised Distance</td>
+<td>Feasible (aka total/entire) metric MINUS the first hop to the router ahead</td>
+</tr>
+<tr>
+<td>Conversely, this means the first hop would be the feasible distance minus reported/advertised distance</td>
+<td></td>
+</tr>
+<tr>
+<td>Successor</td>
+<td>The BEST route to a destination</td>
+</tr>
+<tr>
+<td>Feasible Successor</td>
+<td>Route in reserve! Feasible means something different in this context. Feasible means shittier when talking about routes/successors.</br>With distance, feasible means better.</td>
+</tr>
+<tr>
+<td>Feasibility Condition</td>
+<td>LOOK AT THE REPORTED DISTANCE (2nd value) OF ALL THE ROUTES IN EIGRP ALL LINKS.</br> If the Reported Distance of candidate routes is smaller than the feasible (total) distance of the current successor route, then it counts, because the cost would be is smaller (better)!</td>
+</tr>
+<tr>
+<td>If reported distance of candidate routes is SMALLER than total successor, it counts.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>BGP Best Path Algorithm</th>
+<th>Ranking</th>
+<th>What's Better</th>
+<th>Direction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weight</td>
+<td>1</td>
+<td>Highest</td>
+<td>Local</td>
+<td>Cisco Proprietary </br></td>
+</tr>
+<tr>
+<td>Local Preference</td>
+<td>2</td>
+<td>Highest</td>
+<td>In</td>
+<td>Choose outbound external path. It flows into all internal routers</td>
+</tr>
+<tr>
+<td>Locally Originated</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>If two BGP routes are there and one is from our own router &amp; the other is remote, favor the one coming from our own router listed as 0.0.0.0 as next-hop </br>More favored going down -&gt; (default-originate, default-information originate, network, redistribute, aggregate-address)</td>
+</tr>
+<tr>
+<td>AS Path</td>
+<td>4</td>
+<td></td>
+<td></td>
+<td>Easy Peasy</td>
+</tr>
+<tr>
+<td>Origin Code</td>
+<td>5</td>
+<td></td>
+<td></td>
+<td>If route from far away was learned by an IGP (Interior Gateway Protocol), then favor it over redistributed routes far away routes that were learned by redistribution) </br> IGP, EGP, and Incomplete.</br> Respectively, those are i, e, and ?. "i" is IGP, "e" is EGP (precursor to BGP never used), "?" is incomplete</br>You will never see the "e" code</br>"?" can mean BGP because it doesn't fit under "i" &amp; "e"</br>When you do a Network command in BGP, the code is if the "route" in BGP network command first came from IGP or BGP or whatever</br>Again, you'll never see "e". Only "i" &amp; "?"</td>
+</tr>
+<tr>
+<td>MED</td>
+<td>6</td>
+<td>Lower</td>
+<td>Out</td>
+<td>The MED value is sent to the ISP to possibly influence the ISP as to which router in the internal enterprise to send it's packets</td>
+</tr>
+<tr>
+<td>eBGP vs iBGP</td>
+<td>7</td>
+<td></td>
+<td></td>
+<td>This is TYPE of BGP.... NOT IGP vs redistributed/incomplete, that would be 5.</td>
+</tr>
+<tr>
+<td>BGP Multipath</td>
+<td>8</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Oldest Route</td>
+<td>9</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>BGP States</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>BGP resources are initialized by the router. BGP inbound connection attempts are refused. BGP initiates a TCP connection to the peer.</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>You're in middle of 3 way handshake</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Not a good place to be. Waiting too long for 3 way handshake</td>
+</tr>
+<tr>
+<td>OpenSent</td>
+<td>OPEN message is sent, and is waiting to hear back</td>
+</tr>
+<tr>
+<td>OpenConfirm</td>
+<td>OPEN message is received, now sending keepalive</td>
+</tr>
+<tr>
+<td>Established</td>
+<td>Both peers exchange UPDATE messages. If there is an error within any of the UPDATE messages, the BGP peer will send a NOTIFICATION message and enter the Idle state.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DMVPN Registration</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NHRP Registration</td>
+<td>Private IP -&gt; Public IP</br>Private IP (overlay), Public IP (underlay)</br>A client signs up with a Hub's mapping table of Tunnel IP (Private) and NBMA Service Provider (Public IPS).</td>
+</tr>
+<tr>
+<td>NHRP Resolution</td>
+<td>Private IP -&gt; Public IP</br>A client sends the Private IP of the next hop and gets the Public IP</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DMVPN Phases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1</td>
+<td>Everything just goes through the Hub, simple as that. The hub will always be listed as the Next Hop for remote spokes.</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>The Next Hop of the remote spoke will not be through the Hub, but will go through the Private IP address of the Tunnel of the other spoke.</br> It needs more information than the Private IP (such as the Public NBMA address).</br>NHRP Resolution goes from Spoke to Hub, then Hub to Remote Spoke, then Remote Spoke to our Spoke (a circle), with the Public IP. Then it doesn't have to go through the Hub again to get the public address to do the DMVPN ping to remote spoke. </br>NOTE. To do Phase II, you configure multipoint GRE on all hub-and-spoke tunnel interfaces.</br>The traffic goes through the hub until an IPsec tunnel has been formed between the two communicating spokes.</td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td>"ip nhrp redirect" on hub.</br> "ip nhrp shortcut" on spokes. </br> The first IP packet from the spoke goes into the hub, because the hub is the default route (not the spoke in Phase II).</br> That first IP packet triggered a NHRP resolution packet (in the beginning)</br> A redirect goes from the hub to the originating spoke.</br> A NHRP Resolution request continues from the hub to the destination spoke.</br> Routing Table of Spoke is much thinner with a default router to the hub to send a NHRP Redirect!!! This is KEY! Next hop doesn't matter as much due to default route summarization.</br>When the spokes receive the NHRP redirect, they will both send a NHRP resolution to figure out each other's NBMA IP addresses.</br>The spoke routers will then install a new entry in the routing table so that they can reach each other directly. This comes as a result of the mutual NHRP resolution between the spokes, that were brought about by the NHRP redirect.</br>The traffic goes through the hub until the spoke gets an NHRP resolution and the CEF next-hop is overwritten/changed.</br>The hub has more of a role in this setup, it's just that the resolution is handled by the remote spoke. Somehow this is greater.</td>
+
+
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>IPV6 Addresses</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EUI</td>
+<td>Put in FFFE in middle of MAC address, flip 7th bit</td>
+</tr>
+<tr>
+<td>Global Unicast</td>
+<td>2000::/3</td>
+</tr>
+<tr>
+<td>Link Local</td>
+<td>FE80::/10</td>
+</tr>
+<tr>
+<td>Loopback</td>
+<td>::1/128</td>
+</tr>
+<tr>
+<td>Multicast</td>
+<td>FF00::/8</td>
+</tr>
+<tr>
+<td>Solicited Node</td>
+<td>FF02::1:FF00:0000/104</td>
+</tr>
+<tr>
+<td>Unique Local</td>
+<td>FC00::/7</td>
+</tr>
+<tr>
+<td>Unspecified</td>
+<td>::/128</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Hello Timers Again</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF Hello Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>RIP Update Timer</td>
+<td>30</td>
+</tr>
+<tr>
+<td>BGP Keepalive Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>HSRP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GLBP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BPDU Hello Timer</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Timers</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF Hello Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>OSPF Dead Timer</td>
+<td>40</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>EIGRP Dead Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer (low speed)</td>
+<td>60</td>
+</tr>
+<tr>
+<td>EIGRP Hello Timer (high speed)</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Update Timer</td>
+<td>30</td>
+</tr>
+<tr>
+<td>RIP Invalid Timer</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Holddown Timer</td>
+<td>180</td>
+</tr>
+<tr>
+<td>RIP Flush Timer</td>
+<td>240</td>
+</tr>
+<tr>
+<td>BGP Keepalive Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>BGP Hold Timer</td>
+<td>6</td>
+</tr>
+<tr>
+<td>HSRP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>HSRP Hold Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>GLBP Hello Timer</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GLBP Hold Timer</td>
+<td>10</td>
+</tr>
+<tr>
+<td>CDP Timer</td>
+<td>60</td>
+</tr>
+<tr>
+<td>BPDU Hello Timer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>BPDU Listening Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>BPDU Learning Timer</td>
+<td>15</td>
+</tr>
+<tr>
+<td>BPDU Max Age Blocking Timer</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Multicast</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF (all OSPF routers)</td>
+<td>224.0.0.5</td>
+</tr>
+<tr>
+<td>OSPF (all DR's/BDR's)</td>
+<td>224.0.0.6</td>
+</tr>
+<tr>
+<td>RIP</td>
+<td>224.0.0.9</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>224.0.0.10</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>224.0.0.18</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>224.0.0.102</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Multicast Trees</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shortest-Path Tree (SPT)</br>Source Tree</td>
+<td>Sender to Rendezvous Point   (S,G)</td>
+</tr>
+<tr>
+<td>Rendezvous-Point Tree (RPT)</br>Shared Tree</td>
+<td>Rendezvous Point to Receiver (<em>,G) </br> The reason it is (</em>,G) state is because it is eagerly looking for interested senders. RP will indicate which ones.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>MPLS Tables</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDP</td>
+<td>Routing Protocol that alerts everyone else on Labels</td>
+</tr>
+<tr>
+<td>TDP</td>
+<td>Virtually the same as LDP</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>Any router that exchanges Labels (All routers in domain)</td>
+</tr>
+<tr>
+<td>LIB</td>
+<td>LIB &amp; LFIB holds label information but LIB only gets information from regular (RIB) non-CEF routing table.</br> With the LIB, it sends it's labels to adjacent routers.</td>
+</tr>
+<tr>
+<td>LFIB</td>
+<td>Label Forwarding Information Base</br> Filled by RIB/FIB/LIB. Remember, FIB is CEF table</br> The CEF counterpart to LIB</br> LFIB is to match an label to another outgoing label. It's strictly looking at labels.</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>Putting a label in the packet for the FIRST TIME</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>Changing labels in the middle of MPLS domain</td>
+</tr>
+<tr>
+<td>Pop</td>
+<td>Removing label at end</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>Remove the whole header</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Data Center Models</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000</td>
+<td>They are remote line cards that connect to the 5000, or 7000 or 9000 switches</br> Non Chassis Switches that can be 1U or 2U</br> It is REALLY only a set of extra ports that extends out, nothing more. A dumb box.</br> It says the reason for their existence is to put the main 5000/7000/9000 switch in the END OF THE ROW while having servers retain TOP OF RACK functionality to clean up the cabling setup. </br> Placed on Top of the rack</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>Aggregation &amp; Access &amp; Storage switch</td>
+</tr>
+<tr>
+<td>7000</td>
+<td>Nexus 7k supports OTV, LISP, MPLS and some other L3 things that 5k doesn't. </br> Core &amp; Aggregation switch </br>Very neat looking with plastic doors &amp; teal borders &amp; gray door handles</td>
+</tr>
+<tr>
+<td>9000</td>
+<td>No doors, looks like a basement appliance/radiator.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>SD-WAN Conventions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OMP</td>
+<td>Protocol to push configuration</td>
+</tr>
+<tr>
+<td>vBond</td>
+<td>On-boards the vEdge into the system. Connected to all devices</td>
+</tr>
+<tr>
+<td>vEdge</td>
+<td>Router that gets policies from vSmart &amp; OMP.</td>
+</tr>
+<tr>
+<td>vManage</td>
+<td>Dashboard</td>
+</tr>
+<tr>
+<td>vSmart</td>
+<td>The "brains" that manages control &amp; data policies for the vEdges via OMP</td>
+</tr>
+</tbody>
+</table>
+<h3>IPv4 Headers</h3>
+<table>
+<thead>
+<tr>
+<th>IPV4 Header Field</th>
+<th>Bits</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td>4</td>
+<td>IP packet type. Value "4" means it's IPV4</td>
+</tr>
+<tr>
+<td>Header Length</td>
+<td>4</td>
+<td>Header Length. Not the size of packet</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>8</td>
+<td>Differentiated Services Code Point. ECN (Explicit Congestion Notification) is the last 2 bits, depending of the use of ECN.</td>
+</tr>
+<tr>
+<td>Total Length</td>
+<td>16</td>
+<td>The entire size of the packet, including header &amp; data</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Identification</td>
+<td>16</td>
+<td>If a packet is framgmented, this will identify the fragments</td>
+</tr>
+<tr>
+<td>Flags</td>
+<td>3</td>
+<td>Bit 0 = Reserved as 0, Bit 1 = Don't Fragment (DF), Bit 2 = More Fragments (MF)</td>
+</tr>
+<tr>
+<td>Fragment Offset</td>
+<td>13</td>
+<td>Indicates number of data bytes preceeding or ahead of the fragment.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Time To Live</td>
+<td>8</td>
+<td>Time To Live</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>8</td>
+<td>IP has lots of protocols. Specifies if it's something like EIGRP, BGP, OSPF, VRRP. Obviously, 256 different possibiltities.</td>
+</tr>
+<tr>
+<td>Header Checksum</td>
+<td>16</td>
+<td>Error Checking a header.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Source Address</td>
+<td>32</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>Destination Address</td>
+<td>32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>TCP Header</h3>
+<table>
+<thead>
+<tr>
+<th>TCP Header Field</th>
+<th>Bits</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source Port</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>Destination Port</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sequence Number</td>
+<td>32</td>
+<td>Identifying a TCP Segment. This is the identifying number for SYN/ACKS &amp; Windowing</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Acknowledge Number</td>
+<td>32</td>
+<td>If the ACK flag is set then the value of this field is the next sequence number that the sender of the ACK is expecting. This acknowledges receipt of all prior bytes (if any). The first ACK sent by each end acknowledges the other end's initial sequence number itself, but no data.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Data Offset (TCP Header Length)</td>
+<td>4</td>
+<td>Header Length of TCP measured in Quadwords.</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>3</td>
+<td>Set this to zero</td>
+</tr>
+<tr>
+<td>Flags</td>
+<td>9</td>
+<td>NS - Not used much, Experimental to protect agaisnt malicious concealment from sender </br>CWR - Congestion Window Received</br>ECE - Allows Congestion Notification, depending on the SYN flag setting</br>URG - Urgent Pointer</br>ACK - Indicates that Acknowledge Pointer Field Is Significant</br>PSH - Push buffered data to the receiving application</br>RST - Reset Connection</br>SYN - Synchronize Sequence Numbers. Only the first packet sent from each end should have this flag set.</br>FIN - Last Packet from Sender</br></td>
+</tr>
+<tr>
+<td>Window Size</td>
+<td>16</td>
+<td>The size of the receive window, which specifies the number of window size units[c] that the sender of this segment is currently willing to receive.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Header Checksum</td>
+<td>16</td>
+<td>Error checking for integrity</td>
+</tr>
+<tr>
+<td>Urgent Pointer</td>
+<td>16</td>
+<td>If the URG flag is set, then this 16-bit field is an offset from the sequence number indicating the last urgent data byte.</td>
+</tr>
+<tr>
+<td>Options</td>
+<td>0-320</td>
+<td>More flags</td>
+</tr>
+<tr>
+<td>Padding</td>
+<td>32</td>
+<td>All zeroes indicating the packet had ended</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Wireless Type (802.11)</th>
+<th>Speed</th>
+<th>Frequency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>802.11b</td>
+<td>11 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11a</td>
+<td>54 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11g</td>
+<td>54 Mbps</td>
+<td>2.4 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11n</td>
+<td>300 Mbps</td>
+<td>2.4 GHz - 5.0 GHz</td>
+<td></td>
+</tr>
+<tr>
+<td>802.11ac</td>
+<td>450 Mbps - 1300 Mbps</td>
+<td>2.4 GHz - 5.0 GHz</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Multicast</h2>
+<h3>Sparse Mode</h3>
+<h3>Config</h3>
+<p>(config)# ip pim rp-address 20.0.0.1<br />
+(config-if)# interface Ethernet3/2<br />
+(config-if)# ip pim sparse-mode<br />
+If you put access-list number after rp-address wildcard-mask, you can configure Auto-RP for redundancy as long as all interfaces are configured with multicast</p>
+<h3>(S,G)</h3>
+<p>If a router has (S,G) state, that means that routers who use that multicast address (G) as destination will only pass if the source is S. It's different than traditional routing because traditional route tables have no condition for the source address.<br />
+(S,G) represents a route &amp; a flow of traffic from sender to receiver</p>
+<h3>(Star,G)</h3>
+<p>Doesn't care about the source at all. Any source. </p>
+<h3>Steps</h3>
+<ul>
+<li>Source sends PIM Register to RP.</li>
+<li>RP has (S,G) State</li>
+<li>If RP has no (*,G) from the Client, it sends PIM Stop message to Source. Multicast traffic will no longer send to RP and it will try again to register in 3 minutes.</li>
+<li>When the receiver is finally on the rendezvous point, the path to sender to RP finally gets it's (S,G) states with the OIL (outgoing interface) established. Those (S,G) states are particular routes to the receiver, for that multicast group/address.</li>
+<li>When the client/receiver knows the real source (aka doesn't need to put *,G), the client now makes another path that's quickest to sender, and fills those (S,G) &amp; "OIL" in that optimal path. That means that RP was only good for letting client know what exact sources/senders were interested in that group.</li>
+<li>Client means the router next to the real client, registered by IGMP. THAT ROUTER send out PIM Prunes to kill out the states in the RPF/SPF related to Rendezvous point</li>
+</ul>
+<h3>BGP Always-Compare-Med</h3>
+<p>Only compare the MED of two paths if they both have a MED attribute.</p>
+<h2>VXLAN</h2>
+<p>You seem them a lot in the Leaf &amp; Spine architecture for a data center. Also called a CLOS network.<br />
+This is for Overlays/Underlays and is a better alternative to OTV. <br />
+Uses the concept of overlay where the entire CLOS is Layer 3. This eliminates STP and have all links as forwarding without a loop.<br />
+Layer 3 allows for rapid failover, called ECMP. This means it goes to another spine switch.<br />
+VXLAN can mean what you want it to mean. Sometimes you can have the mapping for VLAN to VXLAN.<br />
+You need both L2 AND L3 in a Data Center.<br />
+L3 for Equal Cost Load Balancing and No STP and All forwarding links.<br />
+L2 for Virtual Machine IP Address Consistency.<br />
+VXLAN offers best of both worlds.<br />
+You could manually flood, the smarter move is to use MP-BGP/EVPN or Multicast to send across the MAC Addresses</p>
+<h3>Multicast VXLAN</h3>
+<p>Scalable and preferable to Head End Replication aka <br />
+When the ARP request from a host arrives to Leaf SW1 it will lookup its local table and if an entry is not found, it will encapsulate the ARP request over VXLAN and send it over the Multicast group configured for the specific VNI.<br />
+THE SPINE SWITCHES ARE THE RENDESVOUS POINTS<br />
+The multicast RP receive the packet and it will forward a copy to every VTEP that has joined the multicast group.<br />
+A multicast address group maps to one VXLAN number called a VNI.<br />
+BUM Traffic = Broadcast, Unknown Unicast, Multicast. BUM = Packets with multiple destinations.<br />
+Let's talk about ADDRESS LEARNING!!!<br />
+When it comes to Multicast Address Learning, there are FOUR COMPONENTS<br />
+MAC ADDRESS ---- VNI (aka VXLAN Number) ---- VTEP/IP/INTERFACE ---- MULTICAST GROUP<br />
+This table is filled when BUM Traffic from our host devices comes into the leaf switch.<br />
+It will look at the VLAN ID of the BUM traffic from the host device (hanging from leaf switch), then map VLAN ID with the VNI from the configuration, then the VNI will look at the Multicast Group mapped to the VNI (aka VXLAN Number).<br />
+The LEAF switches will be in this multicast group, representing a VNI/VXLAN Number. Or a single VLAN.<br />
+The BUM Traffic (aka packet) will go out to certain leaf switches to find the location of the Destination IP. When it gets a response, it fills out the table of Destination MAC address (overlay) to Destination IP Overlay Leaf Address<br />
+From the destination IP address of packet (overlay), it's mapped to MAC Address then IP address of remote switch (underlay leaf switch) for VTEP tunnels to form.<br />
+To reiterate, in the source leaf switch, there is a destination MAC address entry (overlay (past destination leaf switch)) MAPPED to a IP or VNI/VXLAN to a destination leaf switch. Sometimes the destination is a combination of VNI &amp; IP, like "nve1/10.1.1.40". This applies for entries in other leaf switches, otherwise the destination is an interface.</p>
+<h3>MP-BGP/EVPN</h3>
+<p>Also called Head End Republication. <br />
+Not as good as multicast, only suitable generally for 20 switches.<br />
+The MAC Address table to leaf switch look the same as multicast<br />
+BGP is used for both the underlay AND overlay. I believe the underlay is for knowing which VTEP/Leaf Switch is where, and OVERLAY is for the Mac Addressses (L2VPN). </p>
+<h3>VXLAN Underlay BGP</h3>
+<p>For underlay BGP, the spine is the route reflector AND the leaves are the route reflector clients.<br />
+For underlay BGP, you will still have to run IGP like OSPF or IS-IS or EIGRP. BGP here may be for large amounts of routes &amp; networks for scaling. </p>
+<h3>VXLAN Overlay BGP</h3>
+<p>Clearly done to advertise the MAC addresses across the fabric. Fabric is CLOS Spine Leaf architecture.<br />
+L2VPN = Address Family Identifier (25)<br />
+EVPN = Subsequent Address Family (70)</p>
+<h2>Cisco ASA</h2>
+<p>Active/Active failover is only available to ASAs in multiple context mode. In an Active/Active failover configuration, both ASAs can pass network traffic.</p>
+<h1><h1 id="cisco_switching">Cisco Switching Information</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>FHRP MAC Addresses</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSRP</td>
+<td>0000.0c07.ac0a</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>0000.5E00.01ac</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>0007.b400.XXYY </br>(X = Group, Y = Forwarding Number)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Regular STP Port States (802.1d)</th>
+<th>Extra</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Listening</td>
+<td>Listening for BPDUs</td>
+<td>Doing jack shit to see if the topology changes. BPDUs are still sent to assess the land.</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Learning MAC Addresses</td>
+<td>Looking at the source address of Ethernet Frames to populate the Mac Address Table</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td></td>
+<td>Good to go!</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Regular STP Port Roles (802.1d)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled Port</td>
+<td>Not in STP</td>
+</tr>
+<tr>
+<td>Root Port</td>
+<td>Port to reach the Root Bridge the fastest</td>
+</tr>
+<tr>
+<td>Designated Port</td>
+<td>Designated port is ALWAYS forwarding!! It is the port in a link/segment that has the lowest cost to the Root Bridge. If there is an already a RP in the point-to-point link, then the other link is designated.  Also, all ports in root switch are designated.</td>
+</tr>
+<tr>
+<td>Non-Designated Port</td>
+<td>This will be in the Blocking state. One segment willdk have no root ports, and the designated port will be forwarding (lowest path to root bridge), meaning the other one is non-designated and therefore will be what's blocked.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rapid STP Port States (802.1w)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discarding</td>
+<td>Disabled/Blocking/Listening ALL IN ONE called Discarding</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Looking at the source address of Ethernet Frames to populate the Mac Address Table</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Good to go!</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rapid STP Port Roles (802.1w)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backup</td>
+<td>BACKUP DESIGNATED PORT</br>This port serves as a secondary designated port in case the primary designated port fails.</br>It is in a discarding state unless a failure of the designated port occurs, in which case it is moved to a forwarding state.</td>
+</tr>
+<tr>
+<td>Disabled Port</td>
+<td>Not in STP</td>
+</tr>
+<tr>
+<td>Root Port</td>
+<td>Port to reach the Root Bridge the fastest</td>
+</tr>
+<tr>
+<td>Designated Port</td>
+<td>Designated port is ALWAYS forwarding!! It is the port in a link/segment that has the lowest cost to the Root Bridge. If there is an already a RP in the point-to-point link, then the other link is designated.  Also, all ports in root switch are designated.</td>
+</tr>
+<tr>
+<td>Alternate Port</td>
+<td>ALTERNATE ROOT PORT</br>This port serves as a secondary root port in case the primary root port fails.</br>It is in a discarding state unless a failure of the root port or connection occurs, in which case it is moved into a forwarding state. Discarding is the newer term for Blocking (blocking is old STP term). Discarding replaces disabled, blocking &amp; listening states</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Port Security Features</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aging</td>
+<td>(config-if)# switchport port-security aging type <em>MINUTES</em> </br>By default, aging is not enabled and addresses are not deleted unless the device is rebooted or the MAC addresses are cleared through a removal command being issued</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Sticky</td>
+<td>Dynamically learns and configures the MAC addresses of the currently connected hosts.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Port Security Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Restrict</td>
+<td>Log Entry</td>
+</tr>
+<tr>
+<td>Protect</td>
+<td>No Log Entry</td>
+</tr>
+<tr>
+<td>Shutdown</td>
+<td>Err-Disable</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>STP Enhancements</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BackboneFast</td>
+<td>If there is an indirect link failure, nix off 20 seconds off the MAX AGE TIMER so it's just Listening &amp; Learning State (15 seconds each, 30 seconds combined). 50 Seconds turned into 30 seconds</td>
+</tr>
+</tbody>
+</table>
+<h3>SVI</h3>
+<p>The SVI serves as a default gateway to hosts in that VLAN. </p>
+<h2>GLBP Components</h2>
+<h3>Active Virtual Gateway</h3>
+<p>The AVG is responsible for answering Address Resolution Protocol (ARP) requests for the virtual IP address. It sends a different virtual MAC in response to ARP requests from the client, which in turn chooses the Active Virtual Forwarder in the group to leverage.</p>
+<h3>Active Virtual Forwarder</h3>
+<p>Sending out internet traffic within an group</p>
+<h2>STORM CONTROL</h2>
+<p>(config-if)# storm-control broadcast level bps .7m .5m<br />
+Traffic is measured every second!<br />
+One method is rising &amp; falling threshold. There are two lines called "Rising Threshold" and "Falling Threshold". If traffic exceeds rising threshold at least ONCE, then you need an entire 1 second interval below falling threshold before it's allowed to rise again.<br />
+Other method is simple percentages (on broadcast, unicast or multicast traffic)</p>
+<h2>MITIGATION</h2>
+<h3>DHCP Snooping</h3>
+<p>Creates a binding table to link the legitimate hosts with mac addresses who were assigned the IP address in DHCP.<br />
+Not only does it create a binding table, but it also has concept of trusted ports &amp; untrusted ports for DHCP servers which stop DHCP discover/reply etc</p>
+<h3>IP Source Guard</h3>
+<p>Once the host gets an IP address through DHCP, only the DHCP-assigned source IP address is permitted through that interface. Uses DHCP Binding table, which has mapping of MAC-IP-Interface</p>
+<h3>ARP Inspection</h3>
+<p>ARP spoofing attacks and ARP cache poisoning can occur because ARP allows a gratuitous reply <br />
+Examples the DHCP Snooping Database with IP-MAC bindings to validate proper ARP packets<br />
+The switch checks the information found in the ARP request and compares it with the information in the DHCP snooping database<br />
+The aim for this is to prevent screwing with the ARP caches inside the networks. The ARP table links IP to MAC, and then the MAC address table finds the correct interface, so poisoning ARP table will send to wrong malicious interface.</p>
+<h1><h1 id="cisco_security">Cisco Security</h1></h1>
+<h3>Security Level</h3>
+<p>Like a waterfall, traffic from higher can go to lower security level. Traffic from lower security level cannot go into higher security level.<br />
+Internet</p>
+<h1><h1 id="cloud_computing">Cloud Computing</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>AWS Policy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SID</td>
+<td>Can be anything, it's just a description</td>
+</tr>
+<tr>
+<td>Principal</td>
+<td>Account, user, role, or federated user to which you would like to allow or deny access.  </br> {"AWS": ["arn:aws:iam::111122223333:root","arn:aws:iam::444455556666:root"]}</td>
+</tr>
+<tr>
+<td>Effect</td>
+<td>Allow,Deny</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>s3:*</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Where in the Cloud/Service does this policy apply. Can be done granularly "Resource":"arn:aws:s3:::awsexamplebucket1/*",</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>S3 Tiers</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3 Standard</td>
+<td>Durability 99.999999999% (NINE 9's after decimal)</br>Availability  99.99%</br> Storage Costs</br> First 50 TB / Month $0.023 per GB</br> Next 450 TB / Month $0.022 per GB</br> Over 500 TB / Month $0.021 per GB</br></td>
+</tr>
+<tr>
+<td>S3 Reduced Redundancy Storage</td>
+<td>Durability 99.99%</br>Availability 99.99%</td>
+</tr>
+<tr>
+<td>S3 Intelligent Tiering</td>
+<td>Ideal to optimize storage costs automatically for long-lived data when access patterns are unknown or unpredictable.  </br> For a small monthly monitoring and automation fee per object, S3 monitors access patterns of the objects and moves objects that have not been accessed for 30 consecutive days to the infrequent access tier.</td>
+</tr>
+<tr>
+<td>S3 Standard Infrequently Accessed</td>
+<td>Durability 99.999999999% (NINE 9's after decimal)</br>Availability 99.9% Storage Costs $0.0125 per GB</td>
+</tr>
+<tr>
+<td>S3 One Zone Infrequently Accessed</td>
+<td>Availability 99.5% Storage Costs $0.01 per GB</td>
+</tr>
+<tr>
+<td>S3 Glacier</td>
+<td>Availability 99.9% Storage Costs $0.004 per GB</td>
+</tr>
+<tr>
+<td>S3 Glacier Deep Archive</td>
+<td>Availabililty</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EC2 Types</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General Purpose</td>
+<td>Names=&gt; A1,T3,T3a,T2,M5,M5a,M4</br>Balance of compute, memory and networking resources.</br>Use Cases For Web Serveers &amp; Code Repositories</td>
+</tr>
+<tr>
+<td>Compute Optimized</td>
+<td>Names=&gt; C5,C5n,C4,</br>Purpose Ideal for compute bound applications that benefit from high performance processor</br>Use Cases Scientific Modeling, dedicated gaming servers &amp; ad server engines</td>
+</tr>
+<tr>
+<td>Memory Optimized</td>
+<td>Names=&gt; R5,R5a,X1e,X1,High Memory,z1d,</br>Purpose Fast performance of workloads that process large data sets in memory</br>Use Cases In Memory Caches, In-Memory Databases, real time big data analytics,</td>
+</tr>
+<tr>
+<td>Accelerated Optimized</td>
+<td>Names=&gt; P3,P2,G3,F1,</br>Purpose Hardware accelerators, or co-processors</br>Use Cases Machine Learning, computational finance, seismic analysis, speech recognition,</td>
+</tr>
+<tr>
+<td>Storage Optimized</td>
+<td>Names=&gt; I3,I3en,D2,H1,</br>Purpose High, sequential read and write access to very large data sets on local storage</br>Use Cases NoSQL, in-memory or transactional databases, data warehousing,</td>
+</tr>
+<tr>
+<td>Graphics Optimized</td>
+<td>Names=&gt; G3,</br>Purpose 3D visualizations, mid to high-end virtual workstations, virtual application software, 3D rendering, application streaming, video encoding, gaming, and other server-side graphics workloads. Anything with a graphics card really.</br>Use Cases Gamers, AutoCAD, etc</td>
+</tr>
+<tr>
+<td>Graviton</td>
+<td>If you put a g after the "names" above, it is a graviton ARM CPU</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>EBS Drive Name</th>
+<th>Drive</th>
+<th>Description</th>
+<th>API Name</th>
+<th>Volume Size</th>
+<th>Max IOPS</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General Purpose</td>
+<td>SSD</td>
+<td>Balances Price and Performance</td>
+<td>gp2</td>
+<td>1GB - 16TB</td>
+<td>16000</td>
+<td>"Nearly anything that doesn't need to be optimized  and where cost is not much of a concern to strike that balance"</td>
+</tr>
+<tr>
+<td>Provisioned IOPS</td>
+<td>SSD</td>
+<td>Highest SSD Performance for mission-critical low latency or high throughput</td>
+<td>io1</td>
+<td>4GB - 16TB</td>
+<td>64000</td>
+<td>"Large Databases IOPS greater than 16000 Throughput greater than 250MB Throughput Optimized"</td>
+</tr>
+<tr>
+<td>Throughput Optimized</td>
+<td>HDD</td>
+<td>"Low-cost. Designed for frequently accessed throughput intensive workloads."</td>
+<td>st1</td>
+<td>500GB - 15TB</td>
+<td>500</td>
+<td>"Data Warehouses Big Data Log Processing</td>
+</tr>
+<tr>
+<td>Cold</td>
+<td>HDD</td>
+<td>Lowest HDD Cost. Less frequently used workloads</td>
+<td>sc1</td>
+<td>500GB - 15TB</td>
+<td>250</td>
+<td></td>
+</tr>
+<tr>
+<td>EBS Magnetic</td>
+<td>Magnetic</td>
+<td>Archival Storage</td>
+<td></td>
+<td>500GB - 15TB 40/200</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>DynamoDB</h2>
+<h3>Consistent Reads</h3>
+<h3>Eventual</h3>
+<p>Gives you the quickest answer, but it may be wrong because the data has not propagates across Availability Zones</p>
+<h3>Strongly</h3>
+<p>Gives you the most accurate answer (which would be universal across Availability Zones), but at a cost of speed</p>
+<h3>DAX</h3>
+<p>DynamoDB Accelerator (DAX) is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement  from milliseconds to microseconds  even at millions of requests per second.</p>
+<h3>Index</h3>
+<h3>Local Secondary Index</h3>
+<p>Can only be done on creation of the table<br />
+An index that has the same partition key as the table, but a different sort key.</p>
+<h3>Global Secondary Index</h3>
+<p>An index with a partition key and sort key that can be different from those on the table.</p>
+<h3>Terms</h3>
+<h3>Table Components</h3>
+<h3>Item</h3>
+<p>Row/Instance of Entity</p>
+<h3>Attributes</h3>
+<p>Columns</p>
+<h3>Keys</h3>
+<h3>Partition Key</h3>
+<p>Primary Key<br />
+Will separate various rows into it's own smaller rows. This is done for easier faster reads. It's similar to how Apple has it's own folders for music files, with folders having One Letter in the Alphabet based on music filename. Think of Map-Reduce where computing is done simultaneously in chunks.</p>
+<h3>Partition key &amp; Sort Key</h3>
+<p>Composite key<br />
+Referred to as a composite primary key, this type of key is composed of two attributes. The first attribute is the partition key, and the second attribute is the sort key.<br />
+DynamoDB uses the partition key value as input to an internal hash function. The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. All items with the same partition key value are stored together, in sorted order by sort key value.<br />
+In a table that has a partition key and a sort key, it's possible for two items to have the same partition key value.</p>
+<h2>Kinesis</h2>
+<h3>Kinesis vs SQS</h3>
+<p>Kinesis allows real-time processing of streaming big data and the ability to read and replay records to multiple Amazon Kinesis Applications.<br />
+Producer &amp; Consumer model where you can put records &amp; get records<br />
+In Python, data is sent as a "byte stream"<br />
+No shard auto-scaling like SQS</p>
+<h1><h1 id="cloud_networking">Cloud Networking</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>VPC Limits</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WHY use Accounts over VPCs to segment workloads?</td>
+<td>Limits are the primary reason </br> I prefer large VPC's with a Transit Gateway to be honest</br> If you really need more han 1000 VPC's, it is this primary case where you use multiple accounts!</br></td>
+</tr>
+<tr>
+<td>VPCs in a region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Subnets in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Elastic IPs in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Customer Gateways in Region</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Internet Gateways in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>NAT Gateways in Region</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Virtual Private Gateways in Region</td>
+<td>5 , Can only attach one at a time, but can configure 5 in waiting.</td>
+</tr>
+<tr>
+<td>ACLs in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Rules in ACL</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Route Tables in VPC</td>
+<td>200</td>
+</tr>
+<tr>
+<td>Routes in Route Table</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Security Groups in Region</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>Can extend to 10000 under support</td>
+<td></td>
+</tr>
+<tr>
+<td>Rules in Security Group</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Security Gruop in Interface</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Gateway VPCs in Region</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Interface VPCs in Region</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Route 53 Tags</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Map a server name to an IPv4 Address</td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>Map a server name to an IPv6 Address</td>
+</tr>
+<tr>
+<td>ALIAS</td>
+<td>Aliases are an AWS only feature.</br></td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>Map a simple name like bog.example.com to another name (NOT ip-address) such www.goon.com</br></td>
+</tr>
+<tr>
+<td>Stands for Canonical Name</br></td>
+<td></td>
+</tr>
+<tr>
+<td>MX</td>
+<td>Determine the mail servers that receive mail for a particular domain</td>
+</tr>
+<tr>
+<td>NAPTR</td>
+<td>Name Authority Pointer</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>Used to determine which DNS service is authoritative to serve responses to DNS queries for the domain</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>Reverse entry of mapping IP addresses for the FQDN. Example of FQDN is mail.example.com.</td>
+</tr>
+<tr>
+<td>SOA</td>
+<td>Mandatory records for each domain that determine the authoritative DNS servers and keep a timestamp and version record of the domain zone</td>
+</tr>
+<tr>
+<td>SPF</td>
+<td>Sender Policy Framework</td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>Deliver information on ports the hoses serves it's services on?</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>Share arbitrary strings of text within the DNS service and thus extend the functionality or security of our domain and the services running on the servers belonging on our domain</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Router 53 Routing Policies</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Routing</td>
+<td>Chooses a record at completely random </br> If you have www.goon.com pointing at 3 different IP addresses in 3 different record sets, one will be chosen at random</td>
+</tr>
+<tr>
+<td>Weighted</td>
+<td>If you have multiple record sets with same IP address, choose a weight from 0 to 100 </br></td>
+</tr>
+<tr>
+<td>Latency-Based</td>
+<td>Closest REGION based on Latency</td>
+</tr>
+<tr>
+<td>Failover</td>
+<td>Set up a record as primary/secondary in an active/standby setup. Use health checks.</td>
+</tr>
+<tr>
+<td>Geolocation</td>
+<td>You can choose the exact region you want based on the location of where the person is coming from.</td>
+</tr>
+<tr>
+<td>Multi-Value Answer</td>
+<td>Really the exact same as Simple Routing EXCEPT it considers health check and ignores those who are sick/unwell</td>
+</tr>
+</tbody>
+</table>
+<h2>WHY use Accounts over VPCs to segment workloads?</h2>
+<p>Limits are the primary reason <br />
+I prefer large VPC's with a Transit Gateway to be honest<br />
+If you really need more han 1000 VPC's, it is this primary case where you use multiple accounts!<br />
+Amazon Cloud Networking</p>
+<h3>VPC Peering</h3>
+<p>Attributes<br />
+Non-Transitive<br />
+Limits<br />
+The maximum quota is 125 peering connections per VPC. </p>
+<h3>VPN</h3>
+<p>Features<br />
+Each VPN has two tunnels inside of it.<br />
+TUNNELS IP ADDRESS IS<br />
+169.254.0.0/16 <br />
+BUT CAN'T USE<br />
+169.254.0.0/30<br />
+169.254.1.0/30<br />
+169.254.2.0/30<br />
+169.254.3.0/30<br />
+169.254.4.0/30<br />
+169.254.5.0/30<br />
+169.254.169.252/30</p>
+<h3>CGW (Customer Gateway)</h3>
+<p>A Customer Gateway is the anchor on the customer side of an Amazon VPN Connection<br />
+Customer Gateway, clearly, is on our premises side</p>
+<h3>VGW (Virtual Private Gateway)</h3>
+<p>AWS Cloud Side (not on premises)<br />
+Responsible for hybrid IT connectivity leveraging VPN &amp; Direct Connect<br />
+The VGW is attached to the VPC. It's at the edge of the VPC connecting to Direct Connect Gateways, or VPN, or Direct Connection Colocation facility to a CGW</p>
+<h3>Route tables</h3>
+<p>Every single Route Table corresponds to a VPC that's created<br />
+Cliff Youu need a Subnet Association to link the Route Table to a Subnet<br />
+Linking a route table to a VPC is already an intrinsic part of the Route Table type/entity<br />
+Route Table needs a "Subnet Association" to correspond with a subnet in a VPC. There is no field inside of a Route Table entity that connects to a Route Table without the existence of a separate "Subnet Association" type.<br />
+Subnet Associations are a TAB in the Route Table section in VPC. In Terraform, A Subnet Association is called "aws_route_table_association" instead.<br />
+resource "aws_route_table_association" "RTTFAssoc" {<br />
+subnet_id = aws_subnet.subnet01.id<br />
+route_table_id = aws_route_table.TFRouteTable.id<br />
+}<br />
+Example<br />
+192.168.0.0/20        local<br />
+0.0.0.0/0        igw-0b6c3f81061f0b371</p>
+<h3>NAT Gateway</h3>
+<p>NAT Gateways are different than Internet Gateways in that NAT Gateways can be placed into private subnets and initiate communication towards the internet in a stateful approach.<br />
+Internet Gateway<br />
+Makes a subnet public via a route table entry to the IGW<br />
+VPC (Virtual Private Cloud)<br />
+VPC Creation<br />
+Name Tag (optional)<br />
+IPv4 CIDR Block (10.0.0.0/24)<br />
+Radio Box for IPv6 CIDR Block<br />
+Tenancy (Default/Dedicated)<br />
+Tags</p>
+<h3>PrivateLink</h3>
+<p>Types<br />
+Interface Endpoint To Services<br />
+Interface Endpoint To Network Load Balancer</p>
+<h3>Troubleshooting</h3>
+<p>EC2's Security Group<br />
+Elastic Network Interface's Security Group<br />
+IAM User/Role in EC2 for permissions to PrivateLink</p>
+<h3>TGW</h3>
+<h3>Components</h3>
+<p>Transit Gateway<br />
+All VPCs connect here.<br />
+In Terraform at least, there are no routes here. Only field/attribute here is the Transit Gateway itself. This is in contrast to the cloud representation of regular routes tables, where the routes were attributes of the route table object, rather than their own type. (Note, we're just looking at Terraform)<br />
+It seems like a virtual link, or a virtual wire between a VPC/Direct Connect Gateway/Peering Connection/VPN.<br />
+TRANSIT GATEWAY ATTACHMENTS SHOW UP AS A DESTINATION to the Transit Gateway Route Table, but NOT the route table for VPCs. <br />
+From VPC routing table, the default route is generally the TRANSIT GATEWAY, NOT THE ATTACHMENT. From Transit Gateway routing table, the destination to VPC is the attachment. The attachment attaches the VPC to Transit Gateway.<br />
+TRANSIT GATEWAY ROUTE TABLE (NOT VPC)<br />
+10.0.0.0/16 tgw-attach-123 <br />
+192.168.0.0/16 tgw-attach-789<br />
+172.31.0.0/16 tgw-attach-456 <br />
+172.31.0.0/16 tgw-attach-789 <br />
+Note. There are routing tables within the main routing table in the Transit Gateway</p>
+<h3>Route Propogations</h3>
+<p>With Route Propagations, it AUTOMATICALLY puts the routes (to attachments) into the TGW routing table!<br />
+An entity representing the propogation itself within the cloud. Usually propogations in a VPN or Direct Connect can happen with BGP, but from other VPCs in the Cloud it is through a propagation entity itself.</p>
+<h3>Direct Connect</h3>
+<h3>Private Virtual Interface</h3>
+<p>A Private Virtual Interface should be used to access an Amazon VPC using private IP addresses</p>
+<h3>Public Virtual Interface</h3>
+<p>A public virtual interface can ACCESS ALL AWS PUBLIC SERVICES using public IP addresses (Wonder if AWS PrivateLink has a role in this)</p>
+<h3>Transit Virtual Interface</h3>
+<p>A transit virtual interface should be used to access one or more Amazon VPC Transit Gateways associated with Direct Connect gateways. You can use transit virtual interfaces with 1/2/5/10 Gbps AWS Direct Connect connections. For information about Direct Connect gateway configurations, see Direct Connect gateways.<br />
+These interfaces go from the Customer Router in the CRF Colocation onto the VGW or Direct Connect Gateway.<br />
+These seem like Subinterfaces that have a VLAN tag</p>
+<h1><h1 id="microsoft">Microsoft</h1></h1>
+<table>
+<thead>
+<tr>
+<th>Active Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objects</td>
+<td>Certificate Template</td>
+</tr>
+<tr>
+<td>Computers</td>
+<td></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td></td>
+</tr>
+<tr>
+<td>Contact</td>
+<td></td>
+</tr>
+<tr>
+<td>Containers</td>
+<td></td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>A domain is a group of users, computers and other resources that are accessed and monitored with a certain set of rules.</td>
+</tr>
+<tr>
+<td>Domain Controller</td>
+<td>A domain controller (DC) maintains the policies and provides the authentication to the users of the domain. Every domain functions as a boundary for policies, authentication and authorization.</td>
+</tr>
+<tr>
+<td>Generic Object</td>
+<td></td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>You put a user in a group to control that user's access to resources.</td>
+</tr>
+<tr>
+<td>Group Policy Objects</td>
+<td></td>
+</tr>
+<tr>
+<td>IP Subnet</td>
+<td></td>
+</tr>
+<tr>
+<td>Licensing Site</td>
+<td></td>
+</tr>
+<tr>
+<td>Policy</td>
+<td></td>
+</tr>
+<tr>
+<td>Print Queue</td>
+<td></td>
+</tr>
+<tr>
+<td>Organizational Units</td>
+<td>Collectiom of AD leaf objects like users, computers, printers etc. </br> You put a user in an OU to control who has administrative authority over that user.</br> A Type of container</br> A user can only be in ONE Organizational Unit.. It's like a file to a folder, because OU's are like folders</br> Generally separated by departments like HR, Finance, Sales, etc</br> Group policies happen here (weirdly not in groups)</br></td>
+</tr>
+<tr>
+<td>Server</td>
+<td></td>
+</tr>
+<tr>
+<td>Site</td>
+<td></td>
+</tr>
+<tr>
+<td>Site LInk</td>
+<td></td>
+</tr>
+<tr>
+<td>Site Link Bridge</td>
+<td></td>
+</tr>
+<tr>
+<td>Tree</td>
+<td>A collection of Active Directory hierarchical domains in a contiguous namespace..</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>A relationship between domains that allows access by objects in one domain to resources in another.</td>
+</tr>
+<tr>
+<td>Users</td>
+<td></td>
+</tr>
+<tr>
+<td>Volume</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Cool Microsoft Functions</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VirtualAlloc</td>
+<td>lpvAddress, dwSize, dwAllocationType</td>
+</tr>
+<tr>
+<td>VirtualAllocEx</td>
+<td>hProcess, lpvAddress, dwSize, dwAllocationType</td>
+</tr>
+<tr>
+<td>WriteProcessMemory</td>
+<td>hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesWritten (2nd = destination, 3rd = source)</td>
+</tr>
+<tr>
+<td>ReadProcessMemory</td>
+<td>hProcess, lpBaseAddress, lpBuffer, nsize, lpNumberOfBytesRead (2nd = source, 3rd = destination)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>VirtualAlloc</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lpvAddress</td>
+<td>Starting address in virtual memory. RESERVING it in Virtual Memory sends it to the next 64kb boundary. COMMITTING it in Physical Memory (after reserving) sends it to next page boundary, usually 4kb boundary. If it is NULL, the kernel decides where to put it (depending on the flag (dwAllocationType) reserving to virtual memory, or committing to physical RAM memory)</br></td>
+</tr>
+<tr>
+<td>dwSize</td>
+<td>Size of the region in bytes - If the lpAddress parameter is NULL, this value is rounded up to the next page boundary. Otherwise, the allocated pages include all pages containing one or more bytes in the range from lpAddress to lpAddress+dwSize.</td>
+</tr>
+<tr>
+<td>dwAllocationType</td>
+<td>MEM_RESERVE (0x00002000) = Virtual Memory to 64kb boundary </br> Many more like MEM_LARGE_PAGES and MEM_WRITE_WATCH in https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc</br> Commit = 5th bit is 1 from right, Reserve = 6th bit is 1 from right</br> MEM_COMMIT (0x00001000) = Reserve physical RAM to 4kb boundary </br> MEM_TOP_DOWN (0x00100000) = Allocates to highest possible address.</br> Many more like MEM_LARGE_PAGES and MEM_WRITE_WATCH in https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc</br> Commit = 5th bit is 1 from right, Reserve = 6th bit is 1 from right</br> dwProtect</br> Security in a dWord (32 bits) like PAGE_EXECUTE, PAGE_EXECUTE_READWRITE. Reminds me of chmod for a region of COMMITTED PAGES!!</br></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>VirtualAllocEx</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hProcess</td>
+<td>Process Handle to write in next 4</br>Next 4 parameters are those in VirtualAllocEx</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>WriteProcessMemory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hpProcess</td>
+<td>The Process where memory is to be written</td>
+</tr>
+<tr>
+<td>lpBaseAddress</td>
+<td>(DESTINATION) Address INSIDE the process where the writing will happen. The process must have PROCESS_VM_WRITE or PROCESS_VM_OPERATION access. NOTE: THE ARGUMENT IS THE RESULT OF VIRTUALALLOCEX!!!!!! as I suspected</td>
+</tr>
+<tr>
+<td>lpBuffer</td>
+<td>(SOURCE) The Source Pointer from source program containing the data to go inside the process in lpBaseAddress (prior paramter)</br>The number of the bytes to write from lpBuffer to lpBaseAddress</td>
+</tr>
+<tr>
+<td>lpdwBytesWritten</td>
+<td>A pointer containing the amount of bytes that were successfully written (passed by reference). A number will come back. This can be NULL</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ReadProcessMemory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notes</td>
+<td>Identical to WrtiteProcessMemory (but for 2nd &amp; 3rd parameters)</td>
+</tr>
+<tr>
+<td>lpBaseAddress</td>
+<td>(SOURCE) Address to remote process to start from....JUST like the 2nd parameter in WriteProcessMemory</td>
+</tr>
+<tr>
+<td>lpBuffer</td>
+<td>(DESTINATION) Address in local current process to store information coming from lpSource. It's highly similar to the 3rd parameter in WriteProcessMemory, but its being READ INTO, instead of going out since it's READ process memory, and not WriteProcessMemory</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Sentinel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incidents</td>
+</tr>
+<tr>
+<td>Dashboards</td>
+</tr>
+<tr>
+<td>User Analytics</td>
+</tr>
+<tr>
+<td>Hunting</td>
+</tr>
+<tr>
+<td>Notebooks</td>
+</tr>
+<tr>
+<td>Data Collection</td>
+</tr>
+<tr>
+<td>Analytics</td>
+</tr>
+<tr>
+<td>Playbooks</td>
+</tr>
+<tr>
+<td>Community</td>
+</tr>
+<tr>
+<td>Workspace</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Powershell</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commands</td>
+<td></td>
+</tr>
+<tr>
+<td>Get-Command</td>
+<td>get-command <em>process</em> will search all cmdlets for process</td>
+</tr>
+<tr>
+<td>Get-Process</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Get-ADUser</td>
+<td>Self-Explanatory</td>
+</tr>
+<tr>
+<td>Get-ItemProperty</td>
+<td>Get value from File or Registry</td>
+</tr>
+<tr>
+<td>Get-WMIObject</td>
+<td>Subtopic 1</td>
+</tr>
+<tr>
+<td>Select-Object</td>
+<td>Goes after Pipe to filter output</td>
+</tr>
+<tr>
+<td>Where-Object</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Win32 API Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Style Guide</td>
+</tr>
+<tr>
+<td>Win32 vs Win16</td>
+</tr>
+<tr>
+<td>Creating Windows</td>
+</tr>
+<tr>
+<td>Creating Windows Part 2</td>
+</tr>
+<tr>
+<td>Messages</td>
+</tr>
+<tr>
+<td>Menus</td>
+</tr>
+<tr>
+<td>Resources (Any kind of a file like Bitmap, Text, etc)</td>
+</tr>
+<tr>
+<td>Dialog Boxes (meaning boxes for Open File, Choose Color, Page Setup, Print Options)</td>
+</tr>
+<tr>
+<td>User Input Functions (Mouse, Keyboard)</td>
+</tr>
+<tr>
+<td>Scrollbars</td>
+</tr>
+<tr>
+<td>Memory Management</td>
+</tr>
+<tr>
+<td>Graphics Device Interface</td>
+</tr>
+<tr>
+<td>Bitmaps, Icons, Metafiles</td>
+</tr>
+<tr>
+<td>Printers &amp; Text Output</td>
+</tr>
+<tr>
+<td>Painting &amp; Drawing</td>
+</tr>
+<tr>
+<td>Palettes and Color Matching</td>
+</tr>
+<tr>
+<td>Files</td>
+</tr>
+<tr>
+<td>Clipboard</td>
+</tr>
+<tr>
+<td>Registry</td>
+</tr>
+<tr>
+<td>INI files</td>
+</tr>
+<tr>
+<td>System Information</td>
+</tr>
+<tr>
+<td>String Manipulation &amp; Unicode</td>
+</tr>
+<tr>
+<td>Atom Tables</td>
+</tr>
+<tr>
+<td>Timers (Sleep Functions)</td>
+</tr>
+<tr>
+<td>Processes, Threads, Fibers</td>
+</tr>
+<tr>
+<td>Error &amp; Exception Handling</td>
+</tr>
+<tr>
+<td>Multiple Document Interface</td>
+</tr>
+<tr>
+<td>Help Files</td>
+</tr>
+<tr>
+<td>File Decompression &amp; Vision</td>
+</tr>
+<tr>
+<td>DLL Files</td>
+</tr>
+</tbody>
+</table>
+<h1><h1 id="software_engineering" >Software Engineering</h1></h1>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Commodore Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABS</td>
+<td>ABS(-10)</td>
+</tr>
+<tr>
+<td>CONT</td>
+<td>Continues program execution from line where program was halted</td>
+</tr>
+<tr>
+<td>DATA</td>
+<td>DATA A, "B", C </br> Initializes a set of values that can be used by READ statement</br> DATA seems like one data stream, like Kinesis</td>
+</tr>
+<tr>
+<td>DIM</td>
+<td>DIM A$(4) </br> One Dimensional Array of 5 elements</br>DIM C%(2,3)   </br>wo Dimensional Array of 3 and 4 values</br>ND  Program is over. Back to READY</td>
+</tr>
+<tr>
+<td>FOR</td>
+<td>10 FOR X=10 TO 0 STEP -0.25: PRINT X: NEXT X</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>GET A$ OR A </br> Get a one character value</td>
+</tr>
+<tr>
+<td>GOSUB</td>
+<td>20 SP = 20: ZE = 3: A$ = "Good Morning!": GOSUB 1000: GOSUB 2000 </br> 1000 REM cursor positioning and printing</br> 1010 POKE 211,SP :POKE 214, ZE: SYS 58640 : PRINT A$</br> 1020 RETURN</br></td>
+</tr>
+<tr>
+<td>IF</td>
+<td>70 IF A$="+" THEN C=A+B: B$="ADDITION"</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td>INPUT A$ OR A </br> Prints ? on screen and waits for a user to enter a string or integer</td>
+</tr>
+<tr>
+<td>LEFT</td>
+<td>LEFT$(A$,X) </br>Returns the X values from the last of String at A$</td>
+</tr>
+<tr>
+<td>MID</td>
+<td>MID$(A$,X,Y) </br>Returns Y characters from string A$ from X</td>
+</tr>
+<tr>
+<td>NEXT</td>
+<td>Return to beginning of loop</td>
+</tr>
+<tr>
+<td>PEEK</td>
+<td>A = PEEK(53281) </br> Gets the background color</td>
+</tr>
+<tr>
+<td>POKE</td>
+<td>Example </br> POKE 53280,1 </br> Screen Frame is now white</td>
+</tr>
+<tr>
+<td>READ</td>
+<td>READ A$ OR A </br> Assigns next DATA value to A$ or A</td>
+</tr>
+<tr>
+<td>RESTORE</td>
+<td>Go back to the beginning of the DATA stream! </br> STR$  STR$(-1000) </br> Convert number into string</td>
+</tr>
+<tr>
+<td>SYS</td>
+<td>SYS 4000 </br> Start a machine language program!!</td>
+</tr>
+<tr>
+<td>TAB</td>
+<td>TAB(4) </br> Put in Print Statements</td>
+</tr>
+<tr>
+<td>USR</td>
+<td>USR(X) </br> Passes value of X to a machine language subroutine</td>
+</tr>
+<tr>
+<td>VAL</td>
+<td>VAL(S$) </br> Convert string to int</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>C++ STL Standard Template Library</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Add to the end only, as dynamic</br>Fast Insertion/Removal</br>Finding by Index fast</br> Finding by object very slow</td>
+</tr>
+<tr>
+<td>Deque</td>
+<td>Allows adding to the beginning &amp; end</br>Only disadvantage is finding by index is slower than vector</td>
+</tr>
+<tr>
+<td>List</td>
+<td>Linked List</br>Very similar to Deque, but locations are all over memory</br>One difference with List compared to Deque is that inserting can happen in middle</td>
+</tr>
+<tr>
+<td>Forward List</td>
+<td>Like a list, but there's only one pointer going to the next element.</br>No huge difference between List.</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>STORES ITEMS IN A BINARY TREE STRUCTURE</br>Overhead when inserting</br>Finding items is way faster than insertion, because insertion sorts each time &amp; puts it in sorted Binary Search Structure</br>Stores unique values which are sorted in a logarithmic complexity</br>Insert/Remove/Find = O(log(n))</td>
+</tr>
+<tr>
+<td>Unordered Set</td>
+<td>Stores unique values that are NOT ordered.</br>USES HASHING</br>GREAT FOR FINDING &amp; RETRIEVING, shit for iterating. Never use unordered sets for iterating &amp; traversing</br>UNORDERED MEANS HASH MAP!!</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Key-Value Pairs inserted AND sorted with Logarithmic complexity</br>Insertion/Access/Remove/Find is Logarithmic</br>You could still order/iterate.</td>
+</tr>
+<tr>
+<td>Unordered Map</td>
+<td>Key-Value Pairs inserted AND sorted with Linear complexity</br>HASH TABLE</br>Insertion/Access/Remove/Find is n(1) which is Linear &amp; Best Case Scenario</br>I'm guessing the tradeoff happens with ITERATING which would be impossble or practically useless</td>
+</tr>
+<tr>
+<td>Multiset</td>
+<td>Sets with multiple values, that's ordered for iteration.</br>You'd use a Multiset when you want the SORTED BEHAVIOR on insertion automatically compared to Vector/Deque</td>
+</tr>
+<tr>
+<td>Unordered Multiset</td>
+<td>Sets with multiple values, but with hash maps</td>
+</tr>
+<tr>
+<td>Stack</td>
+<td>Stores elements in a Last-In-First-Out fashion.</br>Push/Pop/Top = O(1)</td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>Stores elements in a First-In-First-Out fashion.</td>
+</tr>
+<tr>
+<td>Priority Queue</td>
+<td>Stores elements in a sorted order. First gets priority.</td>
+</tr>
+</tbody>
+</table>
+<p>C++ Const &amp; Pointers | Descr<br />
+Notes | When it comes to pointers &amp; const, read right to left. IGNORE TYPE |<br />
+const int * | CAN CHANGE POINTER, NOT INTEGER </br> Pointer to constant integer OR Pointer to integer constant  </br> Cannot change object being pointed at |<br />
+int const * | SAME AS ABOVE </br> CAN CHANGE POINTER, NOT INTEGER </br> Pointer to constant </br> Pointer to constant integer </br> Cannot change object being pointed at </br> Same as above |<br />
+int * const | Constant pointer, the pointer is constant | <br />
+const * int | DOES NOT APPLY!!! C:\makeshift\files\test_scripts\test.cpp:10:13: error: expected unqualified-id before 'int' </br> Cannot have variables that begin with pointers either </br> I believe there must be a type before the pointer symbol |<br />
+int const * const | We know |<br />
+const int * const  | We know |</p>
+<table>
+<thead>
+<tr>
+<th>C++ Auto &amp;&amp;</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rvalues</td>
+<td>Usually they are parameters lixadxke Widget&amp;&amp; that are sent disposable anonymous objects in the arguments. This just passes the buck to the function. This is used for move semantics. Copy semantics uses pointers, not RValues</td>
+</tr>
+<tr>
+<td>auto&amp;&amp;</td>
+<td>Not an rvalue reference like int&amp;&amp; or Widget&amp;&amp;. </br> Catch all reference used in For Loops</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rust</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>let a = 40 &lt;&gt; let c = &amp;mut a</td>
+<td>NO!!!</td>
+</tr>
+<tr>
+<td>let mut a = 40 &lt;&gt; let c = &amp; a</td>
+<td>SOMEWHAT!!! </br> Warning: variable does not need to be mutable</td>
+</tr>
+<tr>
+<td>let a = 40 &lt;&gt; let &amp;c = &amp; a</td>
+<td>YES <br> Immutable reference</td>
+</tr>
+<tr>
+<td>let mut a = 40 &lt;&gt; let c = &amp;mut a</td>
+<td>YES!!! </br> When it comes to mutable references, there can only be ONE</td>
+</tr>
+<tr>
+<td>let a = 40 &lt;&gt; let c = &amp;a</td>
+<td>YES!!! </br>Immutable References </br> You can have MULTIPLE references that are immutable, unlike immutable (&amp;mut) that must only have one </br> If you put &amp; as an argument, then the function can BORROW the variable, and it won't be deleted after function is finished.</td>
+</tr>
+<tr>
+<td>let a = 40 &lt;&gt; let c = a</td>
+<td>YES!!! </br>When this happens, a is gone. MOVE semantics just take away variable "a".</td>
+</tr>
+<tr>
+<td>Scoping Mutable References</td>
+<td></td>
+</tr>
+<tr>
+<td>(references) let b: &amp;i32 = &amp;a</td>
+<td>In C++, this is equivalent to int&amp; b = &amp;a, in real C++, there would be no &amp; in a. C++ has the &amp; in the parameters because you have to put the whole type down. Looking at the arguments/parameters, C++ is a-&gt;a, Rust is &amp;a-&gt;a. The type of the variable is a reference WITH &amp;.</td>
+</tr>
+<tr>
+<td>NOTE</td>
+<td>When passing references, argument has "&amp;" and parameter has "&amp;", with result IN function AND calling function being the deferenced value (not pointer address)</td>
+</tr>
+<tr>
+<td>Option<T></td>
+<td>Some(T) / None. This means Something or Nothing.</td>
+</tr>
+<tr>
+<td>Result<T,E></td>
+<td>Ok(T) / Err(E).</td>
+</tr>
+</tbody>
+</table>
+<p>Magento | Description<br />
+- | - |<br />
+app | |<br />
+app/design | |<br />
+app/design/frontend | Each module in each theme has layout/web folders, with other folders containing html/phtml files |<br />
+app/design/adminhtml | |<br />
+app/etc | di.xml for dependency injection, and vendor paths &amp; registrations |<br />
+app/i18n | |<br />
+app/code | Modules containing Models/Controllers/Blocks |<br />
+app/code/Magento | The actual code of Magento (models/controllers), corresponding with catalogs &amp; checkout, etc |<br />
+app/code/<vendor_name> | Your own custom code |<br />
+bin | Only has Magento CLI executable script |<br />
+dev | Stores automated functional tests which were run by the Magento Test Framework. |<br />
+lib | CORE MAGENTO CODE. This contains all of Magento and vendor library files. It also includes all the non-module based Magento code. Basically, these are primitive objects that you will find in app/code|<br />
+phpserver | This has the Router.php file which can be used to implement the PHP built-in server. |<br />
+pub | An index.php file will be stored in this directory. You can use this file to run the application in production mode, as a security measure. Also has theme static files |<br />
+setup | Magentos installation setup |<br />
+var | Variety of subfolders which contains classes, sessions, cache, database backups, and cached error reports. |<br />
+vendor | NOTHING TO BEGIN WITH. THIS IS WHERE THIRD PARTY MAGENTO CODE FROM OTHER EXTENSIONS GO. If you're making your own It may be possible that custom code to override App/Code is put here |</p>
+<table>
+<thead>
+<tr>
+<th>Design Patterns</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstract Factory</td>
+<td>factory1 = ConcreteFactory1()</br></br> factory2 = ConcreteFactory2()</br></br> product_a = factory1.create_product_a()</br> product_b = factory2.create_product_b()</br></td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>If a strongly typed language expects one data type in the function but you want another, just make an adapter. </br> // Somewhere in client code.</br> hole = new RoundHole(5)</br> rpeg = new RoundPeg(5)</br> hole.fits(rpeg) // true</br> small_sqpeg = new SquarePeg(5)</br> large_sqpeg = new SquarePeg(10)</br> hole.fits(small_sqpeg) // this won't compile (incompatible types)</br> small_sqpeg_adapter = new SquarePegAdapter(small_sqpeg)</br> large_sqpeg_adapter = new SquarePegAdapter(large_sqpeg)</br> hole.fits(small_sqpeg_adapter) // true</br> hole.fits(large_sqpeg_adapter) // false</br></td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>You can prevent the explosion of a class hierarchy by transforming it into several related hierarchies.</br> Classes have the single responsibility principle. Hierarchies should have the same thing. Bridge means that adding new attributes does not change another attribute's class tree hierarchy of classes/subclasses.</br> Composition over Inheritance</br> Uses Dependency Injection for composition.</br> tv = new Tv()</br> remote = new RemoteControl(tv)</br> remote.togglePower()</br> radio = new Radio()</br> remote = new AdvancedRemoteControl(radio)</br></td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>You dont' have to build specific rigid objects/rigid classes</br> CarBuilder builder = new CarBuilder()</br> CarManualBuilder builder = new CarManualBuilder()</br> builder.reset()</br> builder.setSeats(2)</br> builder.setEngine(new SportEngine())</br> builder.setTripComputer(true)</br> builder.setGPS(true)</br></td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Composite is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects.</br> Very similar to Javascript DOM with CreateElement, think of it that way</br> branch1 = Composite()</br> branch1.add(Leaf())</br> branch1.add(Leaf())</br> branch2 = Composite()</br> branch2.add(Leaf())</br> tree.add(branch1)</br> tree.add(branch2)</br></td>
+</tr>
+<tr>
+<td>Command</td>
+<td>THE BEST WAY TO THINK OF THIS IS FOR TYPICAL CLASS FUNCTIONS TO BE THEIR OWN CLASSES. Then you pass in the command object into the class and call it's execute function. This allows functionality like UNDO</br></br>Command objects abstract away the FUNCTION of an object. For example, the clicking mechanism of a button will not be in the button itself.</br> Think of HTTP Get Requests in a command pattern. Other "commands" are like Cut, Copy, Undo, Print, etc.</br> It kiiind of looks like the Builder class a little bit to me, but for one function, instead of 5-10+ with Builder</br> cut = function() { executeCommand(</br> new CutCommand(this, activeEditor)) }</br> cutButton.setCommand(cut)</br> shortcuts.onKeyPress("Ctrl+X", cut)</br> invoker = Invoker()</br> invoker.set_on_start(SimpleCommand("Say Hi!"))</br> receiver = Receiver()</br> invoker.set_on_finish(ComplexCommand(receiver, "Send email", "Save report"))</br> invoker.do_something_important()</br></td>
+</tr>
+<tr>
+<td>Decorator</td>
+<td>Decorators can extend an objects behavior without making a new subclass.</br> Don't like it too much</br></td>
+</tr>
+<tr>
+<td>Facade</td>
+<td>No</br></td>
+</tr>
+<tr>
+<td>Factory</td>
+<td>The reason we have this is to NOT alter current code if there's another object in the factory to be generated. It also looks cleaner.</br> Instead of using the New operator, you're calling a static factory method in the family. It's also using IF conditionals under the hood</br></td>
+</tr>
+<tr>
+<td>Flyweight</td>
+<td></td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td></td>
+</tr>
+<tr>
+<td>Mediator</td>
+<td>Mediator is a behavioral design pattern that lets you reduce chaotic dependencies between objects. </br> Airplanes don't talk to each other, they go through Air Traffic Control. Same with objects with single responsibility to reduce coupling.</br> Different mediators can handle different communications/coupling between different objects. It's really offloading the coupling.</br> Mediators are in every component, by dependency injection/composition</br> c1 = Component1()</br> c2 = Component2()</br> mediator = ConcreteMediator(c1, c2)</br> print("Client triggers operation A.")</br> c1.do_a()</br> print("Client triggers operation D.")</br> c2.do_d()</br></td>
+</tr>
+<tr>
+<td>Memento</td>
+<td>Memento pattern is widely used for undo machanisms. It works on the principles of history and state management.</br></td>
+</tr>
+<tr>
+<td>Prototype</td>
+<td>The Prototype pattern delegates the cloning process to the actual objects that are being cloned. The pattern declares a common interface for all objects that support cloning. </br> Just put CLONE in the superclass, and implement it in subclasses.</br></td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Simply a class that acts on behalf on another class.</br></td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>We all know what it does.</br> Subject has attach, detach &amp; notify methods. </br> Observer has update methods.</br> Notify will do the for loop over update methods.</br> looks like</br> subject.attach(observer_a)</br> subject.attach(observer_b)</br></td>
+</tr>
+<tr>
+<td>Singleton</td>
+<td></td>
+</tr>
+<tr>
+<td>State</td>
+<td>Strategy Patterns are in each State object. A state object can have 2 to 5 to 10 methods, among different state objects.</br> A context object can have a State Object. A state object can have a context object. Two way.</br> context = Context(ConcreteStateA())</br> context.request1()</br> context.request2()</br></td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Offloads unrelated behavior of a class into other classes called strategies. Those strategies will be represented as interfaces which will have subclasses.</br> Dependency Injection will be heavily used with the Strategy pattern. Often time, it will be many interfaces.</br> It contrastsq with State Pattern because there can be often multiple "strategies" (of an interface's data type/polymorphism) put in the constructor with many arguments. State Pattern is different because it changes behavior of the main object itself, while "strategies" are represented with many unrelatedsubtrees.</br> context = Context(ConcreteStrategyA())</br> print("Client: Strategy is set to normal sorting.")</br> context.do_some_business_logic()</br> print("Client: Strategy is set to reverse sorting.")</br> context.strategy = ConcreteStrategyB()</br> context.do_some_business_logic()</br></td>
+</tr>
+<tr>
+<td>Template</td>
+<td>This adds standard usual behavior/code BEFORE OR AFTER a changing set of code. The code that changes will be implemented by subclasses.</br> Developers often use it to provide framework users with a simple means of extending standard functionality using inheritance.</br> Think of Python Decorators with Template pattern.</br> There is only one tree in this pattern with the top interface having two methods.</br> One function calls the other (with standard unchanging code around it) which the subclasses will implement &amp; override.</br> abstract_class.template_method() - "Template method" will call subclass methods, so the template method changes</br></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>React Hooks</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>constructor</td>
+<td>Mount immediately before render</td>
+</tr>
+<tr>
+<td>componentDidMount</td>
+<td>Execute some custom code when mounting immediately after render</br>Initialize state that requires DOM nodes, network requests and side effects</td>
+</tr>
+<tr>
+<td>shouldComponentUpdate</td>
+<td>Update immediately after render</br>Allows developer to prevent rendering render, Code to display the component</td>
+</tr>
+<tr>
+<td>getSnapshotBeforeUpdate</td>
+<td>Update immediately before render output is committed to DOM</br>Capture DOM information such as scroll position which could change</td>
+</tr>
+<tr>
+<td>componentDidUpdate</td>
+<td>Execute some custom code when updating immediately after render</br>Operate on updated DOM or handle network requests</td>
+</tr>
+<tr>
+<td>getDerivedStateFromProps</td>
+<td>Mount and update before render</br>Takes props and state as parameter Used when state depends on props</td>
+</tr>
+<tr>
+<td>componentWillUnmount</td>
+<td>Unmount, Clean up things such as event handlers, cancel network requests, etc</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>React Hooks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>useState</td>
+</tr>
+<tr>
+<td>useEffect</td>
+</tr>
+<tr>
+<td>useRef</td>
+</tr>
+<tr>
+<td>React.memo</td>
+</tr>
+</tbody>
+</table>
+<h2>Assembly Facts</h2>
+<p>Memory is generally represented with HIGH numbers on the top, and lower numbers on the bottom</p>
+<h2>Mutex</h2>
+<p>An object where one resources takes something and the other has to wait. Stands for Mutual Exclusion.</p>
+<h2>Semaphore</h2>
+<p>A semaphore seems like smaller mutexes that can lock more objects, while a mutex seems like it just locks one.</p>
+<h2>Angular</h2>
+<pre><code>Angular
+    Angular Components
+        import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+@Component({
+  selector: 'reactive-form',
+  template: `
+    &lt;div&gt;
+      &lt;form [formGroup]="form"
+            (ngSubmit)="onSubmit(foiption |
+</code></pre>
+<ul>
+<li>| - |rm.value, form.valid)"<br />
+                novalidate&gt;<br />
+            <div><br />
+              <label><br />
+                Name:<br />
+                <input type="text" formControlName="name"><br />
+              </label><br />
+            </div><br />
+            <div><br />
+              <label><br />
+                Email:<br />
+                 <input type="email" formControlName="email"><br />
+              </label><br />
+            </div><br />
+          </form><br />
+        </div><br />
+      `<br />
+    })<br />
+    export class ReactiveFormComponent implements OnInit {<br />
+      public form: FormGroup;<br />
+      constructor(private formBuilder: FormBuilder) { }<br />
+      ngOnInit() {<br />
+        this.form = this.formBuilder.group({name: [''], email: ['']});<br />
+      }<br />
+    }</li>
+</ul>
+<h2>Vue Component</h2>
+<pre><code>import Vue from 'vue';
+import Logger from 'utils/logger';
+import Auth from 'actions/auth';
+import Notification from 'utils/notification';
+Vue.component('change-password', {
+  template: '&lt;div&gt;{{ /* template */ }}&lt;/div&gt;',
+  data() {
+    return {
+      password: '',
+    };
+  },
+  methods: {
+    changePassword() {
+      Auth.changePassword(this.state.password).then(() =&gt; {
+        Notification.info('Password has been changed successfully.');
+      }).catch(error =&gt; {
+        Logger.error(error);
+        Notification.error('There was an error. Please try again.');
+      });
+    },
+  },
+});
+</code></pre>
+<h2>Vue Stand Alone Component</h2>
+<pre><code>&lt;template&gt;
+  &lt;form v-on:submit.prevent="onSubmit"&gt;
+   &lt;label&gt;
+       Email:
+      &lt;input type="email" v-model="email"&gt;
+   &lt;/label&gt;
+   &lt;label&gt;
+     Password:
+     &lt;input type="password" v-model="password" /&gt;
+   &lt;/label&gt;
+   &lt;button type="submit"&gt;Send&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Auth form './util/auth.js';
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    onSubmit() {
+      Auth.signIn(this.email, this.password);
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+<h2>React Stand Alone Componant</h2>
+<pre><code>import React, { Component } from 'react';
+export default class ReactForm extends Component {
+  state = {
+    email: '',
+    password:'',
+  };
+  handleChange = ({ name, value}) =&gt; {
+    if (name === 'email') {
+      this.setState({ email: value });
+    } else if (name === 'password') {
+      this.setState({ password: value });
+    }
+  };
+  render() {
+    return (
+      &lt;form&gt;
+        &lt;label&gt;
+          Email:
+          &lt;input
+            name="email"
+            type="email"
+            value= {this.state.email }
+            onChange={ this.handleChange }
+          /&gt;
+        &lt;/label&gt;
+        &lt;label&gt;
+          Password:
+          &lt;input
+            name="password"
+            type="password"
+            value={ this.state.password }
+            onChange={ this.handleChange }
+          /&gt;
+        &lt;/label&gt;
+      &lt;/form&gt;
+    );
+  }
+}
+</code></pre>
+<h3>Erlang</h3>
+<p>Erlang processes are lightweight, operate in (memory) isolation from other processes, and are scheduled by Erlang's Virtual Machine (VM). The creation time of process is very low, the memory footprint of a just spawned process is very small, and a single Erlang VM can have millions of processes running.<br />
+Erlang processes are sfmall C structs that boucne around between scheduler threads and carry enough internal information to allow interpretation for a fixed number of instrucitons. There's no concept of shared memory in Erlang/Elixir: communication between different concurrent actors in the system must happen via message passing.</p>
+<h3>Algorithms</h3>
+<table>
+<thead>
+<tr>
+<th>Algorithms</th>
+<th>N-Time</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merge Sort</td>
+<td>N-Log(N)</td>
+<td>Divide array into two parts</br>Keep on going until everything is "Size 1"</br>Put everything back together by sorting back exponentially by two, by comparing the value of sorted array to an adjecent "chunk"'s value</td>
+</tr>
+<tr>
+<td>Quick Sort</td>
+<td>N-Log(N)</td>
+<td>It is very similar to Merge Sort, however, it's not dividing by TWO. It's picking a value called a pivot. Pivot is on the LEFT or RIGHT side of chunk (chunks are called partitions). Values beneath to the pivot is to the left, and values above pivot are to the right. There's no need to combine them (reduce) after the fact. Efficiency is based on distribution of numbers. If already sorted, it may pose a problem, and likely be N^2.</td>
+</tr>
+<tr>
+<td>Bubble Sort</td>
+<td>n^2</td>
+<td>Take a sliding scale of two, and run it through the array, sorting along the way along this sliding scale of two.</td>
+</tr>
+</tbody>
+</table>
+<h1><h1 id="Administration">Administration</h1></h1>
+<h2>DevOps</h2>
+<table>
+<thead>
+<tr>
+<th>Kubernetes Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Container</td>
+<td></td>
+</tr>
+<tr>
+<td>Pod</td>
+<td>Pod can have many containers</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>Node can have many pods</td>
+</tr>
+<tr>
+<td>Kubelet</td>
+<td>The kubelet is the primary "node agent" that runs on each node.</td>
+</tr>
+<tr>
+<td>KubeProxy</td>
+<td>Watches the API server for pods/services changes in order to maintain the network up to date.</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>The puppet master. Has Northbound &amp; Southbound API like a controller</td>
+</tr>
+<tr>
+<td>KubeCTL</td>
+<td>Sends commands to the master. Users are the real master who tells Kubernetes master what to do.</td>
+</tr>
+</tbody>
+</table>
+<h1><h1 id="configuration" >Configuration</h1></h1>
+<h2>IPv6</h2>
+<h3>Set</h3>
+<p>Router(config)# ipv6 unicast-routing<br />
+Router(config)# int e0/0<br />
+Router(config-if)# ipv6 address FEC0::/64 eui-64<br />
+Router(config-if)# ipv6 address FEC0::1:1234:23FF:FE21:1212 eui-64</p>
+<h3>Access List</h3>
+<p>R1(config)# ipv6 route FEC0::2222/64 FEC0::1111:3E5F:2E5B:A3D1 </p>
+<h3>Tunnels</h3>
+<h3>Simple</h3>
+<p>Router&gt; enable<br />
+Router# configure terminal<br />
+Router(config)# interface tunnel 0<br />
+Router(config-if)# bandwidth 1000<br />
+Router(config-if)# keepalive 3 7<br />
+Router(config-if)# ip address 192.168.1.1 255.255.255.252<br />
+Router(config-if)# tunnel source Ethernet 1<br />
+Router(config-if)# tunnel destination 54.34.78.222<br />
+Router(config-if)# tunnel key 1000<br />
+Router(config-if)# tunnel mode gre ip<br />
+Router(config-if)# ip mtu 1400<br />
+Router(config-if)# ip tcp mss 250<br />
+Router(config-if)# tunnel path-mtu-discovery<br />
+Router(config-if)# end<br />
+SOURCE CAN HAVE INTERFACE (E0/0) OR IP ADDRESS <br />
+DESTINATION CAN ONLY HAVE THE IP ADDRESS<br />
+THE TUNNEL SOURCE &amp; DESTINATION ADDRESSES COULD BE PUBLIC IP ADDRESSES IF IT IS THROUGH A WAN NETWORK. THEY ARE THE UNDERLAY IP ADDRESSES, WHICH TRANSFERS THE TRAFFIC OF THE OVERLAY<br />
+The Tunnel IP address (not source/destination) is the overlay IP network that is a extension/continuation of the network. An overlay of the hosts at other ends of Tunnel Router. Usually would be the PRIVATE addresses.</p>
+<h2>NAT</h2>
+<h3>Initializing</h3>
+<p>R1(config-if)# ip nat inside<br />
+R1(config-if)# ip nat outside</p>
+<h3>Dynamic NAT</h3>
+<p>R1(config)# access-list 1 permit 10.0.0.100 0.0.0.0<br />
+R1(config)# ip nat_pool MY_POOL 155.4.12.1 155.4.12.3 netmask 255.255.255.0<br />
+R1(config)# ip nat inside source list 1 pool MY_POOL</p>
+<h3>PAT</h3>
+<p>R1(config)# access-list 1 permit 10.0.0.100 0.0.0.0<br />
+R1(config)#ip nat inside source list 1 interface Gi0/1 overload<br />
+NOTE: A different port number will be on the IP address in that interface</p>
+<h3>ACCESS LISTS</h3>
+<h3>Standard</h3>
+<p>R1(config)#access-list 99 permit 192.168.1.128 0.0.0.15</p>
+<h3>Extended</h3>
+<p>R1(config)#access-list 101 remark MY_ACCESS_LIST<br />
+R1(config)#access-list 101 deny ip host 10.1.1.1 host 10.2.2.2<br />
+R1(config)#access-list 101 deny tcp 10.1.1.0 0.0.0.255 any eq 23<br />
+R1(config)#access-list 101 deny icmp 10.1.1.1 0.0.0.0 any<br />
+Extended ACL number ranges: 100  199 and 2000  2699.</p>
+<h3>R1(config)# ip access-list standard MY_STANDARD_ACL</h3>
+<p>R1(config-std-nacl)# permit 10.1.1.0 0.0.0.255<br />
+R1(config-std-nacl)# deny 10.2.2.2<br />
+R1(config-std-nacl)# permit any</p>
+<h3>Named</h3>
+<h3>Assign</h3>
+<p>R1(config-if)# ip access-group MY_STANDARD_ACL out</p>
+<h3>BASIC</h3>
+<h3>Passwords</h3>
+<p>(config)# enable hostname cisco<br />
+Rl(config)#line con 0<br />
+Rl(config-line)#password cisco<br />
+Rl(config-line)#login</p>
+<h3>Username</h3>
+<p>R1(config)#username GOON_NAME privilege 15 password GOON_PASSWORD<br />
+Privilege is optional</p>
+<h2>CDP</h2>
+<h3>Everywhere</h3>
+<p>SW1(config)#cdp run</p>
+<h3>Interface</h3>
+<p>SW1(config-if)#no cdp enable</p>
+<h3>Troubleshooting</h3>
+<p>SW1#show cdp neighbors<br />
+SW1#show cdp neighbors detail<br />
+SW1#show cdp entry *
+SW1#show cdp entry SW1</p>
+<h2>DHCP</h2>
+<p>R1(config)#ip dhcp pool MY_POOL<br />
+R1(dhcp-config)#network 192.168.1.0 255.255.255.0 <br />
+R1(dhcp-config)#default-router 192.168.1.1<br />
+R1(dhcp-config)#dns-server 213.131.65.20 8.8.8.8<br />
+R1(dhcp-config)#lease 2 (OPTIONAL AND IN DAYS)<br />
+R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.100<br />
+R1(config)#ip dhcp excluded-address 192.168.1.200 192.168.1.254</p>
+<h2>EIGRP</h2>
+<h3>Simple</h3>
+<p>R1(config)# router eigrp 1<br />
+R1(config-router)# network 192.168.1.0 0.0.0.255<br />
+R1(config-router)# no auto-summary</p>
+<h3>Metric Weights</h3>
+<p>Router(config-router)# metric weights 0 1 1 1 0 0 <br />
+Negate values completley from metric</p>
+<h3>Bandwidth</h3>
+<p>R1(config)# int s0/0<br />
+R1(config-if)# bandwidth 64<br />
+R1(config-if)# ip bandwidth-percent eigrp 10 30 <br />
+R1(config-if)# delay 10000 </p>
+<h3>Passive-Interface</h3>
+<p>R1(config-router)# passive-interface s0 </p>
+<h3>Summary-Address</h3>
+<p>RouterA(config-if)# ip summary-address eigrp 10 66.0.0.0 255.0.0.0 </p>
+<h3>Authentication</h3>
+<p>R1(config)# key chain MYCHAIN<br />
+R1(config-keychain)# key 1<br />
+R1(config-keychain-key)# key-string MYPASSWORD<br />
+R1(config-if)# ip authentication key-chain eigrp 10 MYCHAIN</p>
+<h3>Equal-Cost</h3>
+<p>R1(config)# router eigrp 10<br />
+R1(config-router)# variance 2<br />
+R1(config-router)# maximum-paths 6</p>
+<h3>Stub</h3>
+<p>R1(config)# router eigrp 10<br />
+R1(config-router)# eigrp stub connected|receive-only|connected|static|summary</p>
+<h3>Troubleshooting</h3>
+<p>show ip eigrp topology (all-links)<br />
+show ip eigrp traffic<br />
+show ip eigrp neighbor</p>
+<h2>OSPF</h2>
+<h3>Simple</h3>
+<p>R1(config)# router ospf 1<br />
+R1(config-router)# network 172.16.1.2 0.0.0.0 area 1<br />
+R1(config-router)# network 172.17.1.1 0.0.0.0 area 0</p>
+<h3>Timers</h3>
+<p>R1(config-if)# ip ospf hello-interval 15<br />
+R1(config-if)# ip ospf dead-interval 60 </p>
+<h3>Metrics</h3>
+<p>(config-if)# bandwidth 64<br />
+(config-if)#ip ospf cost 5<br />
+(config-if)# ospf auto-cost reference-bandwidth 100</p>
+<h3>Passive-Interface</h3>
+<p>R1(config-router)# passive-interface default<br />
+R1(config-router)# no passive-interface e0</p>
+<h3>Virtual Link</h3>
+<p>R1(config-router)# area 1 virtual-link 3.3.3.3 </p>
+<h3>Summary</h3>
+<p>R1(config-router)# area 1 range 10.1.0.0 255.255.248.0 <br />
+External<br />
+Redistribution<br />
+R1(config-router)# summary-address 15.0.0.0 255.252.0.0 <br />
+Internal<br />
+Redistribution<br />
+R1(config-router)# area 1 range 10.1.0.0 255.255.248.0 </p>
+<h3>Stub</h3>
+<p>R1(config-router)# area 1 stub<br />
+R1(config-router)# area 1 stub no-summary<br />
+R1(config-router)# area 1 nssa<br />
+R1(config-router)# area 1 nssa no-summary<br />
+Aside: Stub puts in 0.0.0.0 route IN routint table. Totally Stub doesn't even have that in routing table, as it's just gateway of last resort.</p>
+<h3>Default Originate</h3>
+<p>R1(config-router)# default-information originate <br />
+R1(config-router)# default-information originate always<br />
+(FORCES THE ISSUE if no route already exists)</p>
+<h3>Troubleshooting</h3>
+<p>R1# show ip ospf database<br />
+R1# show ip ospf<br />
+R1# show ip protocols<br />
+R1# show ip ospf neighbors<br />
+R1# show ip ospf 1<br />
+R1# show ip ospf interface e0<br />
+R1# show ip ospf process<br />
+R1# show ip ospf virtual-links<br />
+R1# show ip ospf border-routers</p>
+<h2>BGP</h2>
+<h3>Simple</h3>
+<p>RouterB(config)# router bgp 100<br />
+RouterB(config-router)# neighbor 172.16.1.2 remote-as 900<br />
+RouterB(config-router)# neighbor 172.16.1.2 update-source lo0<br />
+RouterC(config-router)# neighbor 172.16.1.2 ebgp-multihop 2<br />
+RouterB(config-router)# neighbor 172.16.1.2 password GOON<br />
+RouterB(config-router)# timers bgp 30 90 <br />
+RouterB(config-router)# neighbor 172.16.1.2 timers 30 90 </p>
+<h3>Address Family (MP-BGP)</h3>
+<p>router bgp 100<br />
+no synchronization<br />
+bgp log-neighbor-changes<br />
+neighbor 4 4.4.4 remote-as 100<br />
+neighbor 4.4.4.4 update-source lo0<br />
+address-family vpnv4<br />
+neighbor 4.4.4.4 activate<br />
+neighbor 4.4.4.4 send-community extended<br />
+address-family ipv4 VRF goon<br />
+neighbor 4.4.4.4 activate<br />
+neighbor 4.4.4.4 remote-as 10</p>
+<h3>Synchronization</h3>
+<p>R1(config-rou)#no synchronization<br />
+Synchronization is default. This means that route inside of iBGP should be present in routing tables in the path, so it knows how to get to route advertized in BGP along path.</p>
+<h3>Route Reflector</h3>
+<p>R1(config-router)# neighbor 10.2.1.2 route-reflector-client</p>
+<h3>Confederation</h3>
+<p>R1(config-router)# bgp confederation identifier 300<br />
+R1(config-router)# bgp confederation peer 777</p>
+<h3>Peer Group</h3>
+<p>R1(config)# router bgp 200<br />
+R1(config-router)# neighbor GOON_PEER_GROUP peer-group<br />
+R1(config-router)# neighbor GOON_PEER_GROUP remote-as 200<br />
+R1(config-router)# neighbor GOON_PEER_GROUP ebgp-multihop 2<br />
+R1(config-router)# neighbor GOON_PEER_GROUP update-source lo0<br />
+R1(config-router)# neighbor GOON_PEER_GROUP route-reflector-client<br />
+R1(config-router)# neighbor 10.10.1.1 peer-group GOON_PEER_GROUP<br />
+R1(config-router)# neighbor 10.10.2.2 peer-group GOON_PEER_GROUP<br />
+R1(config-router)# neighbor 10.10.3.3 peer-group GOON_PEER_GROUP </p>
+<h3>Weight</h3>
+<p>R1(config)# neighbor 10.1.1.2 R1 200<br />
+-OR- <br />
+R1(config)# ip prefix-list GOON_PREFIX_LIWT 192.168.1.0/24<br />
+R1(config)# route-map GOON_ROUTE_MAP_R1 permit 10<br />
+R1(config-route-map)# match ip address prefix-list GOON_PREFIX_R1<br />
+R1(config-route-map)# set R1 200<br />
+R1(config-route-map)# route-map GOON_ROUTE_MAP_R1 permit 20<br />
+R1(config)# router bgp 100<br />
+R1(config)# neighbor 10.1.1.2 route-map GOON_ROUTE_MAP_R1 in </p>
+<h3>Local Preference</h3>
+<p>RouterD(config-router)# bgp default local-GOON_ROUTE_MAP_PREFERENCE 300 <br />
+RouterD(config)# ip prefix-list GOON_PREFIX_LIST 192.168.1.0/24<br />
+RouterD(config)# route-map GOON_ROUTE_MAP_PREFERENCE permit 10<br />
+RouterD(config-route-map)# match ip address prefix-list GOON_PREFIX_LIST<br />
+RouterD(config-route-map)# set local-preference 300<br />
+RouterD(config)# router bgp 10<br />
+RouterD(config)# neighbor 172.17.1.2 route-map GOON_ROUTE_MAP_PREFERENCE in</p>
+<h3>MED</h3>
+<p>R1(config)# access-list 5 permit 10.5.0.0 0.0.255.255<br />
+R1(config)# route-map GOON_RM_MED permit 10<br />
+R1(config-route-map)# match ip address 5<br />
+R1(config-route-map)# set metric 200<br />
+R1(config)# router bgp 100<br />
+R1(config-router)# neighbor 172.16.1.2 route-map GOON_RM_MED out<br />
+NOTE: Note the "out" in metric, instead of "in" with weight &amp; local preference<br />
+R1(config-router)# bgp always-compare-med<br />
+R1(config-router)# bgp deterministic-med</p>
+<h3>Communities</h3>
+<p>R1(config)# access-list 5 permit 10.5.0.0 0.0.255.255<br />
+R1(config)# route-map RM_COMMUNITY permit 10<br />
+R1(config-route-map)# match ip address 5<br />
+R1(config-route-map)# set community no-export|no-advertise|internet|local-as<br />
+R1(config)# route-map RM_COMMUNITY permit 20<br />
+R1(config)# router bgp 100<br />
+R1(config-router)# neighbor 172.16.1.2 send-community<br />
+R1(config-router)# neighbor 172.16.1.2 route-map RM_COMMUNITY out</p>
+<h3>Summarization</h3>
+<p>REDISTRIBUTED routes in BGP are automatically summarized.<br />
+R1(config-R1)# no auto-summary<br />
+R1(config-R1)# aggregate-address 172.16.0.0 255.255.252.0<br />
+R1(config-R1)# aggregate-address 172.16.0.0 255.255.252.0 summary-only </p>
+<h3>Dampening</h3>
+<h1>Route Map under relevent prefix</h1>
+<p>Router(config-route-map)# set dampening 15 750 2000 60 <br />
+Router(config-router)# bgp dampening route-map MYMAP </p>
+<h3>Next Hop Self</h3>
+<p>R1(config-router)# neighbor 10.2.1.2 next-hop-self </p>
+<h3>Distance</h3>
+<p>Router(config-router)# distance bgp 150 210 210<br />
+-OR-<br />
+Router(config-router)# network 10.5.0.0 mask 255.255.0.0 backdoor <br />
+(Changes distance from 20 to 200)</p>
+<h3>Maximum Prefixes</h3>
+<p>Router(config-router)# neighbor 10.1.1.1 maximum-prefix 10000</p>
+<h3>Reset</h3>
+<p>R1# clear ip bgp *
+R1# clear ip bgp * soft</p>
+<h3>Troubleshooting</h3>
+<p>Router# show ip bgp<br />
+Router# show ip bgp summary</p>
+<h2>QoS</h2>
+<h3>Class-Map</h3>
+<p>R1(config)# class-map match-any HICLASS<br />
+R1(config-cmap)# match input-interface fastethernet0/0<br />
+R1(config-cmap)# match ip precedence 4<br />
+R1(config-cmap)# match ip dscp af21<br />
+R1(config-cmap)# match any </p>
+<h3>Policy-Map</h3>
+<p>R1(config)# policy-map THEPOLICY<br />
+R1(config-pmap)# class LOWCLASS<br />
+R1(config-pmap-c)# set ip precedence 1<br />
+R1(config-pmap-c)# bandwidth 64<br />
+R1(config-pmap-c)# queue-limit 40<br />
+R1(config-pmap-c)# random-detect </p>
+<h3>Service-Policy</h3>
+<p>R1(config)# int fa0/0<br />
+R1(config-if)# service-policy input THEPOLICY</p>
+<h3>Troubleshooting</h3>
+<p>show class-map<br />
+show policy-map<br />
+show policy-map interface fastethernet0/1 </p>
+<h2>MPLS</h2>
+<h3>JUNIPER</h3>
+<p>ping<br />
+traceroute<br />
+show system uptime<br />
+show cassis environment<br />
+show cli history<br />
+show system statistics<br />
+show log<br />
+show system processes<br />
+show configuration<br />
+request support information<br />
+show system users<br />
+show version<br />
+shwo arp<br />
+show interfaces<br />
+show interfaces detail<br />
+show interfacs extensive<br />
+show interfaces terse<br />
+show route<br />
+show route summary<br />
+show policy<br />
+show system connectionsclear interface statistics<br />
+clear arp<br />
+show route protocol bgp<br />
+show route community<br />
+show<br />
+route damping decayed<br />
+show bgp neighbor<br />
+show route advertising-protocol bgp<br />
+address<br />
+show route receive-protocol bgp address<br />
+show bgp group<br />
+show route aspath-regex<br />
+show bgp summary<br />
+clear bgp neighbor<br />
+clear bgp damping<br />
+show ospf database<br />
+show ospf interface<br />
+show neighbor</p>
+<h2>Layer 2 Security</h2>
+<h3>DHCP Snooping</h3>
+<p>Run<br />
+Switch(config)# ip dhcp snooping vlan 1<br />
+Troubleshooting<br />
+Router(config)# show ip dhcp snooping database|binding|statistics<br />
+-OR-<br />
+Router(config)# show ip source binding</p>
+<h3>Dynamic ARP Inspection</h3>
+<p>Run<br />
+Router(config)#) ip arp inspection vlan 1<br />
+Router(config-if)# ip arp inspection trust<br />
+Troubleshooting<br />
+Router#show ip arp inspection interfaces<br />
+Router#show ip arp inspection vlan<br />
+Router#show arp access-list</p>
+<h3>IP Source Guard</h3>
+<p>Run<br />
+Router(config-if)# ip verify source</p>
+<h2>VRF</h2>
+<h3>Simple</h3>
+<p>Router(config)# ip vrf customer_a<br />
+Router(config-vrf)# rd 1:1<br />
+Router(config-vrf)# route-target export|import|both 1:1<br />
+Router(config)# interface fastEthernet 0.1<br />
+Router(config-subif)# ip vrf forwarding customer_a</p>
+<h2>MPLS</h2>
+<h3>Run CEF</h3>
+<p>Start CEF<br />
+-GLOBAL-<br />
+Router(config)# ip cef<br />
+Router(config)# interface serial0/0<br />
+-OR IN INTERFACE-<br />
+Router(config-if)# ip route-cache cef</p>
+<h3>Initalize</h3>
+<p>Router(config)# interface serial0/0<br />
+Router(config-if)# mpls ip<br />
+-OPTIONAL-<br />
+Router(config-if)# mpls label protocol ldp|tdp|both<br />
+-DEFAULT IS TDP-</p>
+<h3>MTU</h3>
+<p>Router(config-if)# mpls mtu 1504 <br />
+(4 extra bytes, 32 extra bits for each label)</p>
+<h3>Range</h3>
+<p>Switch(config)# mpls label range 200 4000</p>
+<h3>Restart</h3>
+<p>Router(config)# mpls ldp graceful-restart</p>
+<h3>Troubleshooting</h3>
+<p>R1# show mpls ldp binding<br />
+-Not used much, this is the RIB equivalent to CEF-<br />
+R1# show mpls ldp neighbor<br />
+R1# show mpls interface<br />
+R1# show mpls forwarding-table<br />
+-Shows labels &amp; interfaces. Has detail option-</p>
+<h3>Multicast</h3>
+<h3>Activate</h3>
+<p>S1(config)# ip multicast-routing </p>
+<h3>IGMP</h3>
+<p>S1(config-if)# ip igmp join-group 226.1.5.10</p>
+<h3>RP</h3>
+<p>S1(config)# ip pim rp-address 192.168.1.1 </p>
+<h3>Candidate RP</h3>
+<p>S1(config)# ip pim rp-candidate 4.4.4.4<br />
+S1(config)# ip pim bsr-candidate 4.4.4.4</p>
+<h3>Mapping Agent</h3>
+<p>S1(config)# ip pim send-rp-discovery scope 10</p>
+<h3>Sparse Mode</h3>
+<p>S1(config-if)# ip pim sparse-mode </p>
+<h3>Filter Sources</h3>
+<p>R1# ip pim accept-register {list GOON_STANDARD_ACL | route-map GOON_RM_FILTER_SOURCE}</p>
+<h3>PIM Query Interval</h3>
+<p>R1(config-if)# ip pim query-interval 1<br />
+1 is in minutes<br />
+has msec option if under a second</p>
+<h3>Troubleshooting</h3>
+<p>R1# show ip mroute<br />
+R1# show ip mroute 224.0.0.1</p>
+<h3>Prefix List</h3>
+<p>R1# ip prefix-list GOON_PREFIX_LIST 192.168.0.16/28 ge 30 le 32</p>
+<h3>Route Map</h3>
+<h3>Match</h3>
+<p>R1(config)# route-map MYMAP permit 10<br />
+R1(config-route-map)# match ip address 1<br />
+R1(config-route-map)# match interface serial0/0<br />
+R1(config-route-map)# match ip address prefix-list MYLIST<br />
+R1(config-route-map)# match ip next-hop 192.168.1.2<br />
+R1(config-route-map)# match metric 40<br />
+R1(config-route-map)# match route-type internal<br />
+R1(config-route-map)# match tag 33<br />
+R1(config-route-map)# match community 123</p>
+<h3>Set</h3>
+<p>R1(config)# route-map MYMAP permit 10<br />
+R1(config-route-map)# set interface fastethernet0/1<br />
+R1(config-route-map)# set ip next-hop 10.1.1.1<br />
+R1(config-route-map)# set metric 200<br />
+R1(config-route-map)# set tag 44<br />
+R1(config-route-map)# set community 321<br />
+R1(config-route-map)# set local-preference 250<br />
+R1(config-route-map)# set weight 300<br />
+R1(config-route-map)# set ip precedence 2</p>
+<h3>Prefix List</h3>
+<p>Router(config)# ip prefix-list MYLIST 10.1.1.0/24 ge 26 le 30 </p>
+<h2>Route Redistribution</h2>
+<h3>RIP</h3>
+<p>R1(config)# router rip<br />
+R1(config-router)# network 172.16.0.0<br />
+R1(config-router)# redistribute igrp 10 metric 2 </p>
+<h3>EIGRP</h3>
+<p>R1(config)# router eigrp 15<br />
+R1(config-router)# redistribute ospf 20 metric 10000 1000 255 1 1500<br />
+R1(config)# router eigrp 15<br />
+R1(config-router)# redistribute ospf 20<br />
+R1(config-router)# default-metric 10000 1000 255 1 1500</p>
+<h3>OSPF</h3>
+<p>R1(config)# router ospf 20<br />
+R1(config-router)# redistribute eigrp 15 subnets metric-type 1 </p>
+<h3>Tagging</h3>
+<h1>Route Tag matches on routes</h1>
+<p>RouterC(config-route-map)# set tag 44<br />
+RouterC(config)# redistribute ospf 20 route-map GOON_RM_TAG</p>
+<h3>Switch Security</h3>
+<h3>Arp Inspection</h3>
+<p>Global<br />
+Switch(config)# ip arp inspection vlan 100 <br />
+Interface<br />
+Switch(config-if)# ip arp inspection trust<br />
+Static MAC-To-IP<br />
+Switch(config)# arp access-list DAI_LIST<br />
+Switch(config-acl)# permit ip host 10.1.1.5 mac host 000a.1111.2222<br />
+Switch(config-acl)# permit ip host 10.1.1.6 mac host 000b.3333.4444<br />
+Switch(config)# ip arp inspection filter DAI_LIST vlan 100 </p>
+<h3>Max</h3>
+<h3>SPAN</h3>
+<h3>Source</h3>
+<p>Each listen to different parts of the Interfaces, can be placed independently (outbound/inbount)<br />
+Switch(config)# monitor session 1 source interface gi0/10 rx<br />
+Switch(config)# monitor session 1 source interface gi0/11 tx<br />
+Switch(config)# monitor session 1 source vlan 100 both </p>
+<h3>Filter</h3>
+<p>Switch(config)# monitor session 1 filter vlan 1-5</p>
+<h3>Destination</h3>
+<p>Switch(config)# monitor session 1 destination interface gi0/15 </p>
+<h3>Troubleshooting</h3>
+<p>show monitor session 1 </p>
+<h3>RSPAN</h3>
+<p>IN SOURCE</p>
+<h3>SwitchA(config)# monitor session 1 source interface gi0/10</h3>
+<p>SwitchA(config)# monitor session 1 destination vlan 200</p>
+<h3>IN DESTINATION</h3>
+<h3>SwitchC(config)# monitor session 1 source vlan 200</h3>
+<p>SwitchC(config)# monitor session 1 destination interface gi0/11</p>
+<h3>FHRP</h3>
+<h3>HSRP</h3>
+<p>SwitchA(config)# interface vlan 100<br />
+SwitchA(config-if)# ip address 10.1.1.2 255.255.255.0<br />
+SwitchA(config-if)# standby 1 ip 10.1.1.1<br />
+SwitchB(config-if)# standby 1 ip 10.1.1.5 secondary<br />
+SwitchB(config-if)# standby 1 preempt<br />
+SwitchB(config-if)# standby 1 preempt delay 10 <br />
+Switch(config-if)# standby 1 preempt reload 20 <br />
+SW1(config-if)# standby 1 timers 4 12<br />
+SW1(config-if)# standby 1 timers msec 800 msec 2400 <br />
+SW1(config)#standby 1 track gi2/23 60 </p>
+<h3>VRRP</h3>
+<p>SW1(config)# interface vlan 100<br />
+SW1(config-if)# ip address 10.1.1.3 255.255.255.0<br />
+SW1(config-if)# vrrp 1 priority 150<br />
+SW1(config-if)# vrrp 1 authentication STAYOUT<br />
+SW1(config-if)# vrrp 1 ip 10.1.1.1 <br />
+Note: Preemption is VRRP default</p>
+<h3>GLBP</h3>
+<p>SW1(config)# interface gi2/22<br />
+SW1(config-if)# glbp 1 priority 150<br />
+SW1(config-if)# glbp 1 preempt<br />
+SW1(config-if)# glbp 1 ip 10.1.1.1 <br />
+SwitchB(config-if)# glbp 1 weighting 150<br />
+SwitchB(config-if)# glbp 1 weighting track 10 decrement 65 <br />
+SwitchB(config-if)# glbp 1 weighting 150 lower 90 upper 125 <br />
+SwitchB(config-if)# glbp 1 load-balancing round-robin|weighted|host-dependent</p>
+<h3>Troubleshooting</h3>
+<p>show standby<br />
+show vrrp<br />
+show glbp</p>
+<h3>Ether-Channel</h3>
+<h3>Load Balancing</h3>
+<p>Router(config)# port-channel load-balance src-dst-ip<br />
+src-dst-mac, src-dst-port, src-ip, src-mac, src-port are other options</p>
+<h3>LACP</h3>
+<p>SW1(config)# interface range gi2/23  24<br />
+SW1(config-if)# channel-protocol lacp<br />
+SW1(config-if)# channel-group 1 mode active<br />
+SW1(config-if)# channel-group 1 mode passive </p>
+<h3>Pagp</h3>
+<p>SW1(config)# interface range gi2/23  24<br />
+SW1(config-if)# channel-protocol pagp<br />
+SW1(config-if)# channel-group 1 mode desirable<br />
+SW1(config-if)# channel-group 1 mode auto</p>
+<h3>Port Priority</h3>
+<p>Switch(config)# interface range gi2/23  24<br />
+Switch(config-if)# lacp port-priority 100</p>
+<h3>Troubleshooting</h3>
+<p>Switch# show etherchannel summary </p>
+<h3>L3 EtherChannel</h3>
+<p>Router(config)# interface range fastethernet 5/6 -7<br />
+Router(config-if)# channel-group 2 mode desirable</p>
+<h3>Port Security</h3>
+<h3>Commands</h3>
+<p>SW1(config-if)#switchport port-security<br />
+SW1(config-if)#switchport port-security mac-address sticky<br />
+SW1(config-if)#switchport port-security maximum 1<br />
+SW1(config-if)#switchport port-security violation shutdown</p>
+<h3>Troubleshooting</h3>
+<p>show port-security interface f0/6</p>
+<h2>VLANs</h2>
+<h3>Access</h3>
+<p>SW1(config-if)# switchport mode access</p>
+<h3>Trunk</h3>
+<p>SW1(config-if)# switchport mode trunk <br />
+SW1(config-if)# switchport trunk allowed vlan add 10,11,12<br />
+"Add" could be substituted with Except|Remove.<br />
+Except means ALL Vlans except the list<br />
+Remove will remove from existing list</p>
+<h3>SLA</h3>
+<h3>Simple</h3>
+<p>Router(config)#ip sla auto template type ip icmp-jitter 1<br />
+Router(config-tplt-icmp-jtr)#parameters<br />
+Router(config-icmp-jtr-params)#interval 30<br />
+Router(config-icmp-jtr-params)#end</p>
+<h3>Scheduled</h3>
+<p>ip sla 99<br />
+udp-jitter 172.29.139.134 dest-port 5000 num-packets 20<br />
+!<br />
+ip sla schedule 99 life 300 start-time after 00:05:00</p>
+<h3>STP</h3>
+<h3>Root Bridge</h3>
+<p>SW1(config)#spanning-tree vlan 1 root primary<br />
+SW1(config)#spanning-tree vlan 1 root secondary<br />
+SW1(config)#spanning-tree [vlan 1] priority 8192</p>
+<h3>Mode</h3>
+<p>SW1(config)#spanning-tree mode rapid-pvst (options: mst, pvst, rapid-pvst)</p>
+<h3>MST</h3>
+<p>SW1#spanning-tree mst configuration<br />
+SW1#name MYMSTNAME<br />
+SW1#revision 2<br />
+SW1#instance 2 vlan 1-100<br />
+SW1#instance 3 vlan 101-200</p>
+<h3>Optimizaitons</h3>
+<p>SW1(config-if)#spanning-tree portfast<br />
+SW1(config-if)#spanning-tree bpduguard enable<br />
+SW1(config-if)#spanning-tree bpdufilter enable <br />
+SW1(config-if)#spanning-tree guard root <br />
+SW1(config-if)#spanning-tree guard loop </p>
+<h3>CONFIG MODE:</h3>
+<p>SW1(config)#spanning-tree loopguard default<br />
+SW1(config)#spanning-tree portfast bpduguard default<br />
+SW1(config)#spanning-tree portfast bpdufilter default<br />
+SwitchD(config)# spanning-tree portfast default <br />
+Uplink Fast only in config mode:<br />
+Switch(config)# spanning-tree uplinkfast<br />
+Switch(config)# spanning-tree backbonefast<br />
+(Backbone Fast)<br />
+Switch(config)# spanning-tree backbonefast<br />
+(BPDUFilter)<br />
+SW1(config)#spanning-tree portfast bpdufilter default<br />
+SW1(config-if)#spanning-tree bpdufilter enable <br />
+(BPDUGuard)<br />
+SW1(config)#spanning-tree portfast bpduguard default<br />
+SW1(config-if)#spanning-tree bpduguard enable<br />
+(Loop Guard)<br />
+SW1(config)#spanning-tree loopguard default<br />
+SW1(config-if)# spanning-tree guard loop<br />
+(Root Guard)<br />
+Switch(config-if)# spanning-tree guard root <br />
+(Portfast)<br />
+SwitchD(config)# spanning-tree portfast default <br />
+SW1(config-if)#spanning-tree portfast<br />
+(UplinkFast)<br />
+SW1(config)# spanning-tree uplinkfast</p>
+<h3>Troubleshooting</h3>
+<p>SW1#show spanning-tree<br />
+SW1#show spanning-tree interface gi2/24 </p>
+<h2>VXLAN</h2>
+<h3>Spine</h3>
+<p>Set up an IGP like OSPF</p>
+<h3>Leaf (without multicast for BUM traffic (Broadcast, Unicast, Multicast))</h3>
+<p>Set up an IGP like OSPF<br />
+SW1(config)#int vxlan 1 <br />
+SW1(config-if-vx1)#vxlan source-interface lo0<br />
+</br><br />
+------ Source is a loopback like 7.7.7.7<br />
+</br><br />
+SW1(config-if-vx1)#vxlan vlan 3 vni 3000<br />
+SW1(config-if-vx1)#vxlan flood vtep 3.3.3.3<br />
+</br><br />
+------ You flood to other leaf switches with same VLANs/VXLANS if not using Multicast<br />
+</br><br />
+SW1(config)#int vlan 3<br />
+SW1(config)#ip add virtual 192.168.3.254 255.255.255.0<br />
+</br><br />
+------ This is the default gateway<br />
+</br><br />
+SW1(config)#vlan 11<br />
+SW1(config)#vn-segment 100011</p>
+<h3>Leaf (EVPN L2VPN)</h3>
+<p>SW1(config)#int nve1 <br />
+(network virtual endpoint)<br />
+SW1(config-if-nve)#source-interface f01<br />
+SW1(config-if-nve)#host-reachability protocol bgp<br />
+SW1(config-if-nve)#member vni 100022<br />
+SW1(config-if-nve-vni)#mcast-group 239.0.0.1<br />
+(doesn't really mattern for BGP)<br />
+(multicast is confusing)<br />
+SW1(config)#evpn<br />
+SW1(config-evpn)#vni 100011 l2<br />
+SW1(config-evpn-evi)#rd auto<br />
+SW1(config-evpn-evi)#route-target import auto<br />
+SW1(config-evpn-evi)#route-target export auto</p>
+<h3>Leaf (Multicast)</h3>
+<p>SW1(config)#member vni 100011<br />
+SW1(config)#mcast-group 239.0.0.1</p>
+<h3>VXLAN (Read L2VPN routes)</h3>
+<p>SW1#show bgp l2vpn evpn neighbors 10.1.1.2 advertised-routes</p>
+<h3>Types Of VXLAN</h3>
+<p>Multicast (Data-Plane pertaining to ARP)<br />
+Ingress Replication (BGP Control Plane) </p>
+<h3>JUNIPER VXLAN</h3>
+<p>1  set interfaces lo0 unit 0 family inet address 10.1.1.1<br />
+2  set switch-options vtep-source-interface lo0.0<br />
+3  set protocols pim interface lo0.0<br />
+4  set protocols pim interface xe-0/0/0.0<br />
+5  set protocols pim rp static address 10.2.2.2<br />
+6  set protocols ospf area 0.0.0.0 interface lo0.0<br />
+7  set protocols ospf area 0.0.0.0 interface xe-0/0/0.0<br />
+8  set vlans VLAN1 vlan-id 100 vxlan vni 100 multicast-group 233.252.0.2<br />
+9  set vlans VLAN1 vxlan encapsulate-inner-vlan<br />
+10 set vlans VLAN1 vxlan unreachable-vtep-aging-timer 600<br />
+11 set protocols l2-learning decapsulate-accept-inner-vlan<br />
+12 set interfaces xe-0/0/0 unit 0 family inet address 10.2.2.100/24<br />
+13 set interfaces xe-0/0/1 unit 0 family ethernet-switching interface-mode trunk<br />
+14 set interfaces xe-0/0/1 unit 0 family ethernet-switching vlan members all<br />
+15 set protocols ospf enable<br />
+16 set protocols ospf area 0.0.0.0 interface em0.0 disable<br />
+17 set protocols ospf area 0.0.0.0 interface all<br />
+</br><br />
+Takeaways:<br />
+2 = NVE or VTEP needs to have a source interface that's a Loopback, just like Cisco<br />
+8 = Key. Makes a VLAN that has a VXLAN VNI and a multicast address, just like in other VXLANS</p>
+<h1><h1 id="assembly">Assembly</h1></h1>
+<table>
+<thead>
+<tr>
+<th>Hex Opcode</th>
+<th>Opcode Extra</th>
+<th>Decimal Opcode</th>
+<th>Assembly Mnemonic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>r</td>
+<td>0</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>01</td>
+<td>r</td>
+<td>1</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>02</td>
+<td>r</td>
+<td>2</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>03</td>
+<td>r</td>
+<td>3</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>04</td>
+<td></td>
+<td>4</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>05</td>
+<td></td>
+<td>5</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>06</td>
+<td></td>
+<td>6</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>07</td>
+<td></td>
+<td>7</td>
+<td>POP</td>
+<td>Pop a Value from the Stack</td>
+</tr>
+<tr>
+<td>08</td>
+<td>r</td>
+<td>8</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>09</td>
+<td>r</td>
+<td>9</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>0A</td>
+<td>r</td>
+<td>10</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>r</td>
+<td>11</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>0C</td>
+<td></td>
+<td>12</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>0D</td>
+<td></td>
+<td>13</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>0E</td>
+<td></td>
+<td>14</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>10</td>
+<td>r</td>
+<td>16</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>11</td>
+<td>r</td>
+<td>17</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>12</td>
+<td>r</td>
+<td>18</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>13</td>
+<td>r</td>
+<td>19</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>14</td>
+<td></td>
+<td>20</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>15</td>
+<td></td>
+<td>21</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>16</td>
+<td></td>
+<td>22</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>17</td>
+<td></td>
+<td>23</td>
+<td>POP</td>
+<td>Pop a Value from the Stack</td>
+</tr>
+<tr>
+<td>18</td>
+<td>r</td>
+<td>24</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>19</td>
+<td>r</td>
+<td>25</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>1A</td>
+<td>r</td>
+<td>26</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>1B</td>
+<td>r</td>
+<td>27</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>1C</td>
+<td></td>
+<td>28</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>1D</td>
+<td></td>
+<td>29</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>1E</td>
+<td></td>
+<td>30</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>1F</td>
+<td></td>
+<td>31</td>
+<td>POP</td>
+<td>Pop a Value from the Stack</td>
+</tr>
+<tr>
+<td>20</td>
+<td>r</td>
+<td>32</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>21</td>
+<td>r</td>
+<td>33</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>22</td>
+<td>r</td>
+<td>34</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>23</td>
+<td>r</td>
+<td>35</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>24</td>
+<td></td>
+<td>36</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>25</td>
+<td></td>
+<td>37</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>26</td>
+<td></td>
+<td>38</td>
+<td>ES</td>
+<td>ES segment override prefix</td>
+</tr>
+<tr>
+<td>27</td>
+<td></td>
+<td>39</td>
+<td>DAA</td>
+<td>Decimal Adjust AL after Addition</td>
+</tr>
+<tr>
+<td>28</td>
+<td>r</td>
+<td>40</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>29</td>
+<td>r</td>
+<td>41</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>2A</td>
+<td>r</td>
+<td>42</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>2B</td>
+<td>r</td>
+<td>43</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>2C</td>
+<td></td>
+<td>44</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>2D</td>
+<td></td>
+<td>45</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>2E</td>
+<td></td>
+<td>46</td>
+<td>CS</td>
+<td>CS segment override prefix</td>
+</tr>
+<tr>
+<td>2F</td>
+<td></td>
+<td>47</td>
+<td>DAS</td>
+<td>Decimal Adjust AL after Subtraction</td>
+</tr>
+<tr>
+<td>30</td>
+<td>r</td>
+<td>48</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>31</td>
+<td>r</td>
+<td>49</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>32</td>
+<td>r</td>
+<td>50</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>33</td>
+<td>r</td>
+<td>51</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>34</td>
+<td></td>
+<td>52</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>35</td>
+<td></td>
+<td>53</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>36</td>
+<td></td>
+<td>54</td>
+<td>SS</td>
+<td>SS segment override prefix</td>
+</tr>
+<tr>
+<td>37</td>
+<td></td>
+<td>55</td>
+<td>AAA</td>
+<td>ASCII Adjust After Addition</td>
+</tr>
+<tr>
+<td>38</td>
+<td>r</td>
+<td>56</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>39</td>
+<td>r</td>
+<td>57</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>3A</td>
+<td>r</td>
+<td>58</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>3B</td>
+<td>r</td>
+<td>59</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>3C</td>
+<td></td>
+<td>60</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>3D</td>
+<td></td>
+<td>61</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>3E</td>
+<td></td>
+<td>62</td>
+<td>DS</td>
+<td>DS segment override prefix</td>
+</tr>
+<tr>
+<td>3F</td>
+<td></td>
+<td>63</td>
+<td>AAS</td>
+<td>ASCII Adjust AL After Subtraction</td>
+</tr>
+<tr>
+<td>40+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>48+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>50+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>58+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>60</td>
+<td></td>
+<td>96</td>
+<td>PUSHA</td>
+<td>Push All General-Purpose Registers</td>
+</tr>
+<tr>
+<td>60</td>
+<td></td>
+<td>96</td>
+<td>PUSHAD</td>
+<td>Push All General-Purpose Registers</td>
+</tr>
+<tr>
+<td>61</td>
+<td></td>
+<td>97</td>
+<td>POPA</td>
+<td>Pop All General-Purpose Registers</td>
+</tr>
+<tr>
+<td>61</td>
+<td></td>
+<td>97</td>
+<td>POPAD</td>
+<td>Pop All General-Purpose Registers</td>
+</tr>
+<tr>
+<td>62</td>
+<td>r</td>
+<td>98</td>
+<td>BOUND</td>
+<td>Check Array Index Against Bounds</td>
+</tr>
+<tr>
+<td>63</td>
+<td>r</td>
+<td>99</td>
+<td>ARPL</td>
+<td>Adjust RPL Field of Segment Selector</td>
+</tr>
+<tr>
+<td>64</td>
+<td></td>
+<td>100</td>
+<td>FS</td>
+<td>FS segment override prefix</td>
+</tr>
+<tr>
+<td>65</td>
+<td></td>
+<td>101</td>
+<td>GS</td>
+<td>GS segment override prefix</td>
+</tr>
+<tr>
+<td>66</td>
+<td></td>
+<td>102</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>66</td>
+<td></td>
+<td>102</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>67</td>
+<td></td>
+<td>103</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>68</td>
+<td></td>
+<td>104</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>69</td>
+<td>r</td>
+<td>105</td>
+<td>IMUL</td>
+<td>Signed Multiply</td>
+</tr>
+<tr>
+<td>6A</td>
+<td></td>
+<td>106</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+<tr>
+<td>6B</td>
+<td>r</td>
+<td>107</td>
+<td>IMUL</td>
+<td>Signed Multiply</td>
+</tr>
+<tr>
+<td>6C</td>
+<td></td>
+<td>108</td>
+<td>INS</td>
+<td>Input from Port to String</td>
+</tr>
+<tr>
+<td>6D</td>
+<td></td>
+<td>109</td>
+<td>INS</td>
+<td>Input from Port to String</td>
+</tr>
+<tr>
+<td>6D</td>
+<td></td>
+<td>109</td>
+<td>INS</td>
+<td>Input from Port to String</td>
+</tr>
+<tr>
+<td>6E</td>
+<td></td>
+<td>110</td>
+<td>OUTS</td>
+<td>Output String to Port</td>
+</tr>
+<tr>
+<td>6F</td>
+<td></td>
+<td>111</td>
+<td>OUTS</td>
+<td>Output String to Port</td>
+</tr>
+<tr>
+<td>6F</td>
+<td></td>
+<td>111</td>
+<td>OUTS</td>
+<td>Output String to Port</td>
+</tr>
+<tr>
+<td>70</td>
+<td></td>
+<td>112</td>
+<td>JO</td>
+<td>Jump short if overflow (OF=1)</td>
+</tr>
+<tr>
+<td>71</td>
+<td></td>
+<td>113</td>
+<td>JNO</td>
+<td>Jump short if not overflow (OF=0)</td>
+</tr>
+<tr>
+<td>72</td>
+<td></td>
+<td>114</td>
+<td>JB</td>
+<td>Jump short if below/not above or equal/carry (CF=1)</td>
+</tr>
+<tr>
+<td>73</td>
+<td></td>
+<td>115</td>
+<td>JNB</td>
+<td>Jump short if not below/above or equal/not carry (CF=0)</td>
+</tr>
+<tr>
+<td>74</td>
+<td></td>
+<td>116</td>
+<td>JZ</td>
+<td>Jump short if zero/equal (ZF=1)</td>
+</tr>
+<tr>
+<td>75</td>
+<td></td>
+<td>117</td>
+<td>JNZ</td>
+<td>Jump short if not zero/not equal (ZF=0)</td>
+</tr>
+<tr>
+<td>76</td>
+<td></td>
+<td>118</td>
+<td>JBE</td>
+<td>Jump short if below or equal/not above (CF=1 OR ZF=1)</td>
+</tr>
+<tr>
+<td>77</td>
+<td></td>
+<td>119</td>
+<td>JNBE</td>
+<td>Jump short if not below or equal/above (CF=0 AND ZF=0)</td>
+</tr>
+<tr>
+<td>78</td>
+<td></td>
+<td>120</td>
+<td>JS</td>
+<td>Jump short if sign (SF=1)</td>
+</tr>
+<tr>
+<td>79</td>
+<td></td>
+<td>121</td>
+<td>JNS</td>
+<td>Jump short if not sign (SF=0)</td>
+</tr>
+<tr>
+<td>7A</td>
+<td></td>
+<td>122</td>
+<td>JP</td>
+<td>Jump short if parity/parity even (PF=1)</td>
+</tr>
+<tr>
+<td>7B</td>
+<td></td>
+<td>123</td>
+<td>JNP</td>
+<td>Jump short if not parity/parity odd (PF=0)</td>
+</tr>
+<tr>
+<td>7C</td>
+<td></td>
+<td>124</td>
+<td>JL</td>
+<td>Jump short if less/not greater (SF!=OF)</td>
+</tr>
+<tr>
+<td>7D</td>
+<td></td>
+<td>125</td>
+<td>JNL</td>
+<td>Jump short if not less/greater or equal (SF=OF)</td>
+</tr>
+<tr>
+<td>7E</td>
+<td></td>
+<td>126</td>
+<td>JLE</td>
+<td>Jump short if less or equal/not greater ((ZF=1) OR (SF!=OF))</td>
+</tr>
+<tr>
+<td>7F</td>
+<td></td>
+<td>127</td>
+<td>JNLE</td>
+<td>Jump short if not less nor equal/greater ((ZF=0) AND (SF=OF))</td>
+</tr>
+<tr>
+<td>80</td>
+<td>0</td>
+<td>128</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>80</td>
+<td>1</td>
+<td>128</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>80</td>
+<td>2</td>
+<td>128</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>80</td>
+<td>3</td>
+<td>128</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>80</td>
+<td>4</td>
+<td>128</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>80</td>
+<td>5</td>
+<td>128</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>80</td>
+<td>6</td>
+<td>128</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>80</td>
+<td>7</td>
+<td>128</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>81</td>
+<td>0</td>
+<td>129</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>81</td>
+<td>1</td>
+<td>129</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>81</td>
+<td>2</td>
+<td>129</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>81</td>
+<td>3</td>
+<td>129</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>81</td>
+<td>4</td>
+<td>129</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>81</td>
+<td>5</td>
+<td>129</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>81</td>
+<td>6</td>
+<td>129</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>81</td>
+<td>7</td>
+<td>129</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>82</td>
+<td>0</td>
+<td>130</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>82</td>
+<td>1</td>
+<td>130</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>82</td>
+<td>2</td>
+<td>130</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>82</td>
+<td>3</td>
+<td>130</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>82</td>
+<td>4</td>
+<td>130</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>82</td>
+<td>5</td>
+<td>130</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>82</td>
+<td>6</td>
+<td>130</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>82</td>
+<td>7</td>
+<td>130</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>83</td>
+<td>0</td>
+<td>131</td>
+<td>ADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>83</td>
+<td>1</td>
+<td>131</td>
+<td>OR</td>
+<td>Logical Inclusive OR</td>
+</tr>
+<tr>
+<td>83</td>
+<td>2</td>
+<td>131</td>
+<td>ADC</td>
+<td>Add with Carry</td>
+</tr>
+<tr>
+<td>83</td>
+<td>3</td>
+<td>131</td>
+<td>SBB</td>
+<td>Integer Subtraction with Borrow</td>
+</tr>
+<tr>
+<td>83</td>
+<td>4</td>
+<td>131</td>
+<td>AND</td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>83</td>
+<td>5</td>
+<td>131</td>
+<td>SUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>83</td>
+<td>6</td>
+<td>131</td>
+<td>XOR</td>
+<td>Logical Exclusive OR</td>
+</tr>
+<tr>
+<td>83</td>
+<td>7</td>
+<td>131</td>
+<td>CMP</td>
+<td>Compare Two Operands</td>
+</tr>
+<tr>
+<td>84</td>
+<td>r</td>
+<td>132</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>85</td>
+<td>r</td>
+<td>133</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>86</td>
+<td>r</td>
+<td>134</td>
+<td>XCHG</td>
+<td>Exchange Register/Memory with Register</td>
+</tr>
+<tr>
+<td>87</td>
+<td>r</td>
+<td>135</td>
+<td>XCHG</td>
+<td>Exchange Register/Memory with Register</td>
+</tr>
+<tr>
+<td>88</td>
+<td>r</td>
+<td>136</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>89</td>
+<td>r</td>
+<td>137</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>8A</td>
+<td>r</td>
+<td>138</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>8B</td>
+<td>r</td>
+<td>139</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>8C</td>
+<td>r</td>
+<td>140</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>8D</td>
+<td>r</td>
+<td>141</td>
+<td>LEA</td>
+<td>Load Effective Address</td>
+</tr>
+<tr>
+<td>8E</td>
+<td>r</td>
+<td>142</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>8F</td>
+<td>0</td>
+<td>143</td>
+<td>POP</td>
+<td>Pop a Value from the Stack</td>
+</tr>
+<tr>
+<td>90+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>90</td>
+<td></td>
+<td>144</td>
+<td>NOP</td>
+<td>No Operation</td>
+</tr>
+<tr>
+<td>90F3</td>
+<td></td>
+<td></td>
+<td>PAUSE</td>
+<td>Spin Loop Hint</td>
+</tr>
+<tr>
+<td>98</td>
+<td></td>
+<td>152</td>
+<td>CBW</td>
+<td>Convert Byte to Word</td>
+</tr>
+<tr>
+<td>98</td>
+<td></td>
+<td>152</td>
+<td>CWDE</td>
+<td>Convert Word to Doubleword</td>
+</tr>
+<tr>
+<td>99</td>
+<td></td>
+<td>153</td>
+<td>CWD</td>
+<td>Convert Word to Doubleword</td>
+</tr>
+<tr>
+<td>99</td>
+<td></td>
+<td>153</td>
+<td>CDQ</td>
+<td>Convert Doubleword to Quadword</td>
+</tr>
+<tr>
+<td>9A</td>
+<td></td>
+<td>154</td>
+<td>CALLF</td>
+<td>Call Procedure</td>
+</tr>
+<tr>
+<td>9B</td>
+<td></td>
+<td>155</td>
+<td>FWAIT</td>
+<td>Check pending unmasked floating-point exceptions</td>
+</tr>
+<tr>
+<td>9B</td>
+<td></td>
+<td>155</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>9C</td>
+<td></td>
+<td>156</td>
+<td>PUSHF</td>
+<td>Push FLAGS Register onto the Stack</td>
+</tr>
+<tr>
+<td>9C</td>
+<td></td>
+<td>156</td>
+<td>PUSHFD</td>
+<td>Push eFLAGS Register onto the Stack</td>
+</tr>
+<tr>
+<td>9D</td>
+<td></td>
+<td>157</td>
+<td>POPF</td>
+<td>Pop Stack into FLAGS Register</td>
+</tr>
+<tr>
+<td>9D</td>
+<td></td>
+<td>157</td>
+<td>POPFD</td>
+<td>Pop Stack into eFLAGS Register</td>
+</tr>
+<tr>
+<td>9E</td>
+<td></td>
+<td>158</td>
+<td>SAHF</td>
+<td>Store AH into Flags</td>
+</tr>
+<tr>
+<td>9F</td>
+<td></td>
+<td>159</td>
+<td>LAHF</td>
+<td>Load Status Flags into AH Register</td>
+</tr>
+<tr>
+<td>A0</td>
+<td></td>
+<td>160</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>A1</td>
+<td></td>
+<td>161</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>A2</td>
+<td></td>
+<td>162</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>A3</td>
+<td></td>
+<td>163</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>A4</td>
+<td></td>
+<td>164</td>
+<td>MOVS</td>
+<td>Move Data from String to String</td>
+</tr>
+<tr>
+<td>A5</td>
+<td></td>
+<td>165</td>
+<td>MOVS</td>
+<td>Move Data from String to String</td>
+</tr>
+<tr>
+<td>A5</td>
+<td></td>
+<td>165</td>
+<td>MOVS</td>
+<td>Move Data from String to String</td>
+</tr>
+<tr>
+<td>A6</td>
+<td></td>
+<td>166</td>
+<td>CMPS</td>
+<td>Compare String Operands</td>
+</tr>
+<tr>
+<td>A7</td>
+<td></td>
+<td>167</td>
+<td>CMPS</td>
+<td>Compare String Operands</td>
+</tr>
+<tr>
+<td>A7</td>
+<td></td>
+<td>167</td>
+<td>CMPS</td>
+<td>Compare String Operands</td>
+</tr>
+<tr>
+<td>A8</td>
+<td></td>
+<td>168</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>A9</td>
+<td></td>
+<td>169</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>AA</td>
+<td></td>
+<td>170</td>
+<td>STOS</td>
+<td>Store String</td>
+</tr>
+<tr>
+<td>AB</td>
+<td></td>
+<td>171</td>
+<td>STOS</td>
+<td>Store String</td>
+</tr>
+<tr>
+<td>AB</td>
+<td></td>
+<td>171</td>
+<td>STOS</td>
+<td>Store String</td>
+</tr>
+<tr>
+<td>AC</td>
+<td></td>
+<td>172</td>
+<td>LODS</td>
+<td>Load String</td>
+</tr>
+<tr>
+<td>AD</td>
+<td></td>
+<td>173</td>
+<td>LODS</td>
+<td>Load String</td>
+</tr>
+<tr>
+<td>AD</td>
+<td></td>
+<td>173</td>
+<td>LODS</td>
+<td>Load String</td>
+</tr>
+<tr>
+<td>AE</td>
+<td></td>
+<td>174</td>
+<td>SCAS</td>
+<td>Scan String</td>
+</tr>
+<tr>
+<td>AF</td>
+<td></td>
+<td>175</td>
+<td>SCAS</td>
+<td>Scan String</td>
+</tr>
+<tr>
+<td>AF</td>
+<td></td>
+<td>175</td>
+<td>SCAS</td>
+<td>Scan String</td>
+</tr>
+<tr>
+<td>B0+r</td>
+<td></td>
+<td></td>
+<td>r8</td>
+<td></td>
+</tr>
+<tr>
+<td>B8+r</td>
+<td></td>
+<td></td>
+<td>r16/32</td>
+<td></td>
+</tr>
+<tr>
+<td>C0</td>
+<td>0</td>
+<td>192</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>1</td>
+<td>192</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>2</td>
+<td>192</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>3</td>
+<td>192</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>4</td>
+<td>192</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>5</td>
+<td>192</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>6</td>
+<td>192</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C0</td>
+<td>7</td>
+<td>192</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>0</td>
+<td>193</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>1</td>
+<td>193</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>2</td>
+<td>193</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>3</td>
+<td>193</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>4</td>
+<td>193</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>5</td>
+<td>193</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>6</td>
+<td>193</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>7</td>
+<td>193</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>C2</td>
+<td></td>
+<td>194</td>
+<td>RETN</td>
+<td>Return from procedure</td>
+</tr>
+<tr>
+<td>C3</td>
+<td></td>
+<td>195</td>
+<td>RETN</td>
+<td>Return from procedure</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>r</td>
+<td>196</td>
+<td>LES</td>
+<td>Load Far Pointer</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>r</td>
+<td>197</td>
+<td>LDS</td>
+<td>Load Far Pointer</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>0</td>
+<td>198</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>0</td>
+<td>199</td>
+<td>MOV</td>
+<td>Move</td>
+</tr>
+<tr>
+<td>C8</td>
+<td></td>
+<td>200</td>
+<td>ENTER</td>
+<td>Make Stack Frame for Procedure Parameters</td>
+</tr>
+<tr>
+<td>C9</td>
+<td></td>
+<td>201</td>
+<td>LEAVE</td>
+<td>High Level Procedure Exit</td>
+</tr>
+<tr>
+<td>CA</td>
+<td></td>
+<td>202</td>
+<td>RETF</td>
+<td>Return from procedure</td>
+</tr>
+<tr>
+<td>CB</td>
+<td></td>
+<td>203</td>
+<td>RETF</td>
+<td>Return from procedure</td>
+</tr>
+<tr>
+<td>CC</td>
+<td></td>
+<td>204</td>
+<td>INT</td>
+<td>Call to Interrupt Procedure</td>
+</tr>
+<tr>
+<td>CD</td>
+<td></td>
+<td>205</td>
+<td>INT</td>
+<td>Call to Interrupt Procedure</td>
+</tr>
+<tr>
+<td>CE</td>
+<td></td>
+<td>206</td>
+<td>INTO</td>
+<td>Call to Interrupt Procedure</td>
+</tr>
+<tr>
+<td>CF</td>
+<td></td>
+<td>207</td>
+<td>IRET</td>
+<td>Interrupt Return</td>
+</tr>
+<tr>
+<td>CF</td>
+<td></td>
+<td>207</td>
+<td>IRETD</td>
+<td>Interrupt Return</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>0</td>
+<td>208</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>1</td>
+<td>208</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>2</td>
+<td>208</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>3</td>
+<td>208</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>4</td>
+<td>208</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>5</td>
+<td>208</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>6</td>
+<td>208</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>7</td>
+<td>208</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>0</td>
+<td>209</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>1</td>
+<td>209</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>2</td>
+<td>209</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>3</td>
+<td>209</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>4</td>
+<td>209</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>5</td>
+<td>209</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>6</td>
+<td>209</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>7</td>
+<td>209</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>0</td>
+<td>210</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>1</td>
+<td>210</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>2</td>
+<td>210</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>3</td>
+<td>210</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>4</td>
+<td>210</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>5</td>
+<td>210</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>6</td>
+<td>210</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>7</td>
+<td>210</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>0</td>
+<td>211</td>
+<td>ROL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>1</td>
+<td>211</td>
+<td>ROR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>2</td>
+<td>211</td>
+<td>RCL</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>3</td>
+<td>211</td>
+<td>RCR</td>
+<td>Rotate</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>4</td>
+<td>211</td>
+<td>SHL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>5</td>
+<td>211</td>
+<td>SHR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>6</td>
+<td>211</td>
+<td>SAL</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>7</td>
+<td>211</td>
+<td>SAR</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>0A</td>
+<td>212</td>
+<td>AAM</td>
+<td>ASCII Adjust AX After Multiply</td>
+</tr>
+<tr>
+<td>D4</td>
+<td></td>
+<td>212</td>
+<td>AMX</td>
+<td>Adjust AX After Multiply</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>0A</td>
+<td>213</td>
+<td>AAD</td>
+<td>ASCII Adjust AX Before Division</td>
+</tr>
+<tr>
+<td>D5</td>
+<td></td>
+<td>213</td>
+<td>ADX</td>
+<td>Adjust AX Before Division</td>
+</tr>
+<tr>
+<td>D6</td>
+<td></td>
+<td>214</td>
+<td>undefined</td>
+<td></td>
+</tr>
+<tr>
+<td>D6</td>
+<td></td>
+<td>214</td>
+<td>SALC</td>
+<td>Set AL If Carry</td>
+</tr>
+<tr>
+<td>D7</td>
+<td></td>
+<td>215</td>
+<td>XLAT</td>
+<td>Table Look-up Translation</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>0</td>
+<td>216</td>
+<td>FADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>1</td>
+<td>216</td>
+<td>FMUL</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>2</td>
+<td>216</td>
+<td>FCOM</td>
+<td>Compare Real</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>D1 2</td>
+<td>216</td>
+<td>FCOM</td>
+<td>Compare Real</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>3</td>
+<td>216</td>
+<td>FCOMP</td>
+<td>Compare Real and Pop</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>D9 3</td>
+<td>216</td>
+<td>FCOMP</td>
+<td>Compare Real and Pop</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>4</td>
+<td>216</td>
+<td>FSUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>5</td>
+<td>216</td>
+<td>FSUBR</td>
+<td>Reverse Subtract</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>6</td>
+<td>216</td>
+<td>FDIV</td>
+<td>Divide</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>7</td>
+<td>216</td>
+<td>FDIVR</td>
+<td>Reverse Divide</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>0</td>
+<td>217</td>
+<td>FLD</td>
+<td>Load Floating Point Value</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>1</td>
+<td>217</td>
+<td>FXCH</td>
+<td>Exchange Register Contents</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>C9 1</td>
+<td>217</td>
+<td>FXCH</td>
+<td>Exchange Register Contents</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>2</td>
+<td>217</td>
+<td>FST</td>
+<td>Store Floating Point Value</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>D0 2</td>
+<td>217</td>
+<td>FNOP</td>
+<td>No Operation</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>3</td>
+<td>217</td>
+<td>FSTP</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>3</td>
+<td>217</td>
+<td>FSTP1</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>4</td>
+<td>217</td>
+<td>FLDENV</td>
+<td>Load x87 FPU Environment</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E0 4</td>
+<td>217</td>
+<td>FCHS</td>
+<td>Change Sign</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E1 4</td>
+<td>217</td>
+<td>FABS</td>
+<td>Absolute Value</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E4 4</td>
+<td>217</td>
+<td>FTST</td>
+<td>Test</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E5 4</td>
+<td>217</td>
+<td>FXAM</td>
+<td>Examine</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>5</td>
+<td>217</td>
+<td>FLDCW</td>
+<td>Load x87 FPU Control Word</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E8 5</td>
+<td>217</td>
+<td>FLD1</td>
+<td>Load Constant +1</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>E9 5</td>
+<td>217</td>
+<td>FLDL2T</td>
+<td>Load Constant log210</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>EA 5</td>
+<td>217</td>
+<td>FLDL2E</td>
+<td>Load Constant log2e</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>EB 5</td>
+<td>217</td>
+<td>FLDPI</td>
+<td>Load Constant</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>EC 5</td>
+<td>217</td>
+<td>FLDLG2</td>
+<td>Load Constant log102</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>ED 5</td>
+<td>217</td>
+<td>FLDLN2</td>
+<td>Load Constant loge2</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>EE 5</td>
+<td>217</td>
+<td>FLDZ</td>
+<td>Load Constant +0</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>6</td>
+<td>217</td>
+<td>FNSTENV</td>
+<td>Store x87 FPU Environment</td>
+</tr>
+<tr>
+<td>D99B</td>
+<td>6</td>
+<td></td>
+<td>FSTENV</td>
+<td>Store x87 FPU Environment</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F0 6</td>
+<td>217</td>
+<td>F2XM1</td>
+<td>Compute 2x-1</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F1 6</td>
+<td>217</td>
+<td>FYL2X</td>
+<td>Compute y ? log2x and Pop</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F2 6</td>
+<td>217</td>
+<td>FPTAN</td>
+<td>Partial Tangent</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F3 6</td>
+<td>217</td>
+<td>FPATAN</td>
+<td>Partial Arctangent and Pop</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F4 6</td>
+<td>217</td>
+<td>FXTRACT</td>
+<td>Extract Exponent and Significand</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F5 6</td>
+<td>217</td>
+<td>FPREM1</td>
+<td>IEEE Partial Remainder</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F6 6</td>
+<td>217</td>
+<td>FDECSTP</td>
+<td>Decrement Stack-Top Pointer</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F7 6</td>
+<td>217</td>
+<td>FINCSTP</td>
+<td>Increment Stack-Top Pointer</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>7</td>
+<td>217</td>
+<td>FNSTCW</td>
+<td>Store x87 FPU Control Word</td>
+</tr>
+<tr>
+<td>D99B</td>
+<td>7</td>
+<td></td>
+<td>FSTCW</td>
+<td>Store x87 FPU Control Word</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F8 7</td>
+<td>217</td>
+<td>FPREM</td>
+<td>Partial Remainder (for compatibility with i8087 and i287)</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>F9 7</td>
+<td>217</td>
+<td>FYL2XP1</td>
+<td>Compute y ? log2(x+1) and Pop</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FA 7</td>
+<td>217</td>
+<td>FSQRT</td>
+<td>Square Root</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FB 7</td>
+<td>217</td>
+<td>FSINCOS</td>
+<td>Sine and Cosine</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FC 7</td>
+<td>217</td>
+<td>FRNDINT</td>
+<td>Round to Integer</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FD 7</td>
+<td>217</td>
+<td>FSCALE</td>
+<td>Scale</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FE 7</td>
+<td>217</td>
+<td>FSIN</td>
+<td>Sine</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>FF 7</td>
+<td>217</td>
+<td>FCOS</td>
+<td>Cosine</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>0</td>
+<td>218</td>
+<td>FIADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>0</td>
+<td>218</td>
+<td>FCMOVB</td>
+<td>FP Conditional Move - below (CF=1)</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>1</td>
+<td>218</td>
+<td>FIMUL</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>1</td>
+<td>218</td>
+<td>FCMOVE</td>
+<td>FP Conditional Move - equal (ZF=1)</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>2</td>
+<td>218</td>
+<td>FICOM</td>
+<td>Compare Integer</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>2</td>
+<td>218</td>
+<td>FCMOVBE</td>
+<td>FP Conditional Move - below or equal (CF=1 or ZF=1)</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>3</td>
+<td>218</td>
+<td>FICOMP</td>
+<td>Compare Integer and Pop</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>3</td>
+<td>218</td>
+<td>FCMOVU</td>
+<td>FP Conditional Move - unordered (PF=1)</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>4</td>
+<td>218</td>
+<td>FISUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>5</td>
+<td>218</td>
+<td>FISUBR</td>
+<td>Reverse Subtract</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>E9 5</td>
+<td>218</td>
+<td>FUCOMPP</td>
+<td>Unordered Compare Floating Point Values and Pop Twice</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>6</td>
+<td>218</td>
+<td>FIDIV</td>
+<td>Divide</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>7</td>
+<td>218</td>
+<td>FIDIVR</td>
+<td>Reverse Divide</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>0</td>
+<td>219</td>
+<td>FILD</td>
+<td>Load Integer</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>0</td>
+<td>219</td>
+<td>FCMOVNB</td>
+<td>FP Conditional Move - not below (CF=0)</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>1</td>
+<td>219</td>
+<td>FISTTP</td>
+<td>Store Integer with Truncation and Pop</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>1</td>
+<td>219</td>
+<td>FCMOVNE</td>
+<td>FP Conditional Move - not equal (ZF=0)</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>2</td>
+<td>219</td>
+<td>FIST</td>
+<td>Store Integer</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>2</td>
+<td>219</td>
+<td>FCMOVNBE</td>
+<td>FP Conditional Move - below or equal (CF=0 and ZF=0)</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>3</td>
+<td>219</td>
+<td>FISTP</td>
+<td>Store Integer and Pop</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>3</td>
+<td>219</td>
+<td>FCMOVNU</td>
+<td>FP Conditional Move - not unordered (PF=0)</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>E0 4</td>
+<td>219</td>
+<td>FNENI nop</td>
+<td>Treated as Integer NOP</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>E1 4</td>
+<td>219</td>
+<td>FNDISI nop</td>
+<td>Treated as Integer NOP</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>E2 4</td>
+<td>219</td>
+<td>FNCLEX</td>
+<td>Clear Exceptions</td>
+</tr>
+<tr>
+<td>DB9B</td>
+<td>E2 4</td>
+<td></td>
+<td>FCLEX</td>
+<td>Clear Exceptions</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>E3 4</td>
+<td>219</td>
+<td>FNINIT</td>
+<td>Initialize Floating-Point Unit</td>
+</tr>
+<tr>
+<td>DB9B</td>
+<td>E3 4</td>
+<td></td>
+<td>FINIT</td>
+<td>Initialize Floating-Point Unit</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>E4 4</td>
+<td>219</td>
+<td>FNSETPM nop</td>
+<td>Treated as Integer NOP</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>5</td>
+<td>219</td>
+<td>FLD</td>
+<td>Load Floating Point Value</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>5</td>
+<td>219</td>
+<td>FUCOMI</td>
+<td>Unordered Compare Floating Point Values and Set EFLAGS</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>6</td>
+<td>219</td>
+<td>FCOMI</td>
+<td>Compare Floating Point Values and Set EFLAGS</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>7</td>
+<td>219</td>
+<td>FSTP</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>0</td>
+<td>220</td>
+<td>FADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>0</td>
+<td>220</td>
+<td>FADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>1</td>
+<td>220</td>
+<td>FMUL</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>1</td>
+<td>220</td>
+<td>FMUL</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>2</td>
+<td>220</td>
+<td>FCOM</td>
+<td>Compare Real</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>2</td>
+<td>220</td>
+<td>FCOM2</td>
+<td>Compare Real</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>3</td>
+<td>220</td>
+<td>FCOMP</td>
+<td>Compare Real and Pop</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>3</td>
+<td>220</td>
+<td>FCOMP3</td>
+<td>Compare Real and Pop</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>4</td>
+<td>220</td>
+<td>FSUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>4</td>
+<td>220</td>
+<td>FSUBR</td>
+<td>Reverse Subtract</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>5</td>
+<td>220</td>
+<td>FSUBR</td>
+<td>Reverse Subtract</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>5</td>
+<td>220</td>
+<td>FSUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>6</td>
+<td>220</td>
+<td>FDIV</td>
+<td>Divide</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>6</td>
+<td>220</td>
+<td>FDIVR</td>
+<td>Reverse Divide</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>7</td>
+<td>220</td>
+<td>FDIVR</td>
+<td>Reverse Divide</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>7</td>
+<td>220</td>
+<td>FDIV</td>
+<td>Divide and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>0</td>
+<td>221</td>
+<td>FLD</td>
+<td>Load Floating Point Value</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>0</td>
+<td>221</td>
+<td>FFREE</td>
+<td>Free Floating-Point Register</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>1</td>
+<td>221</td>
+<td>FISTTP</td>
+<td>Store Integer with Truncation and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>1</td>
+<td>221</td>
+<td>FXCH4</td>
+<td>Exchange Register Contents</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>2</td>
+<td>221</td>
+<td>FST</td>
+<td>Store Floating Point Value</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>2</td>
+<td>221</td>
+<td>FST</td>
+<td>Store Floating Point Value</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>3</td>
+<td>221</td>
+<td>FSTP</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>3</td>
+<td>221</td>
+<td>FSTP</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>4</td>
+<td>221</td>
+<td>FRSTOR</td>
+<td>Restore x87 FPU State</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>4</td>
+<td>221</td>
+<td>FUCOM</td>
+<td>Unordered Compare Floating Point Values</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>E1 4</td>
+<td>221</td>
+<td>FUCOM</td>
+<td>Unordered Compare Floating Point Values</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>5</td>
+<td>221</td>
+<td>FUCOMP</td>
+<td>Unordered Compare Floating Point Values and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>E9 5</td>
+<td>221</td>
+<td>FUCOMP</td>
+<td>Unordered Compare Floating Point Values and Pop</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>6</td>
+<td>221</td>
+<td>FNSAVE</td>
+<td>Store x87 FPU State</td>
+</tr>
+<tr>
+<td>DD9B</td>
+<td>6</td>
+<td></td>
+<td>FSAVE</td>
+<td>Store x87 FPU State</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>7</td>
+<td>221</td>
+<td>FNSTSW</td>
+<td>Store x87 FPU Status Word</td>
+</tr>
+<tr>
+<td>DD9B</td>
+<td>7</td>
+<td></td>
+<td>FSTSW</td>
+<td>Store x87 FPU Status Word</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>0</td>
+<td>222</td>
+<td>FIADD</td>
+<td>Add</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>0</td>
+<td>222</td>
+<td>FADDP</td>
+<td>Add and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>C1 0</td>
+<td>222</td>
+<td>FADDP</td>
+<td>Add and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>1</td>
+<td>222</td>
+<td>FIMUL</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>1</td>
+<td>222</td>
+<td>FMULP</td>
+<td>Multiply and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>C9 1</td>
+<td>222</td>
+<td>FMULP</td>
+<td>Multiply and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>2</td>
+<td>222</td>
+<td>FICOM</td>
+<td>Compare Integer</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>2</td>
+<td>222</td>
+<td>FCOMP5</td>
+<td>Compare Real and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>3</td>
+<td>222</td>
+<td>FICOMP</td>
+<td>Compare Integer and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>D9 3</td>
+<td>222</td>
+<td>FCOMPP</td>
+<td>Compare Real and Pop Twice</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>4</td>
+<td>222</td>
+<td>FISUB</td>
+<td>Subtract</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>4</td>
+<td>222</td>
+<td>FSUBRP</td>
+<td>Reverse Subtract and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>E1 4</td>
+<td>222</td>
+<td>FSUBRP</td>
+<td>Reverse Subtract and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>5</td>
+<td>222</td>
+<td>FISUBR</td>
+<td>Reverse Subtract</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>5</td>
+<td>222</td>
+<td>FSUBP</td>
+<td>Subtract and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>E9 5</td>
+<td>222</td>
+<td>FSUBP</td>
+<td>Subtract and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>6</td>
+<td>222</td>
+<td>FIDIV</td>
+<td>Divide</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>6</td>
+<td>222</td>
+<td>FDIVRP</td>
+<td>Reverse Divide and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>F1 6</td>
+<td>222</td>
+<td>FDIVRP</td>
+<td>Reverse Divide and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>7</td>
+<td>222</td>
+<td>FIDIVR</td>
+<td>Reverse Divide</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>7</td>
+<td>222</td>
+<td>FDIVP</td>
+<td>Divide and Pop</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>F9 7</td>
+<td>222</td>
+<td>FDIVP</td>
+<td>Divide and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>0</td>
+<td>223</td>
+<td>FILD</td>
+<td>Load Integer</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>0</td>
+<td>223</td>
+<td>FFREEP</td>
+<td>Free Floating-Point Register and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>1</td>
+<td>223</td>
+<td>FISTTP</td>
+<td>Store Integer with Truncation and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>1</td>
+<td>223</td>
+<td>FXCH7</td>
+<td>Exchange Register Contents</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>2</td>
+<td>223</td>
+<td>FIST</td>
+<td>Store Integer</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>2</td>
+<td>223</td>
+<td>FSTP8</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>3</td>
+<td>223</td>
+<td>FISTP</td>
+<td>Store Integer and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>3</td>
+<td>223</td>
+<td>FSTP9</td>
+<td>Store Floating Point Value and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>4</td>
+<td>223</td>
+<td>FBLD</td>
+<td>Load Binary Coded Decimal</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>E0 4</td>
+<td>223</td>
+<td>FNSTSW</td>
+<td>Store x87 FPU Status Word</td>
+</tr>
+<tr>
+<td>DF9B</td>
+<td>E0 4</td>
+<td></td>
+<td>FSTSW</td>
+<td>Store x87 FPU Status Word</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>5</td>
+<td>223</td>
+<td>FILD</td>
+<td>Load Integer</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>5</td>
+<td>223</td>
+<td>FUCOMIP</td>
+<td>Unordered Compare Floating Point Values and Set EFLAGS and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>6</td>
+<td>223</td>
+<td>FBSTP</td>
+<td>Store BCD Integer and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>6</td>
+<td>223</td>
+<td>FCOMIP</td>
+<td>Compare Floating Point Values and Set EFLAGS and Pop</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>7</td>
+<td>223</td>
+<td>FISTP</td>
+<td>Store Integer and Pop</td>
+</tr>
+<tr>
+<td>E0</td>
+<td></td>
+<td>224</td>
+<td>LOOPNZ</td>
+<td>Decrement count; Jump short if count!=0 and ZF=0</td>
+</tr>
+<tr>
+<td>E1</td>
+<td></td>
+<td>225</td>
+<td>LOOPZ</td>
+<td>Decrement count; Jump short if count!=0 and ZF=1</td>
+</tr>
+<tr>
+<td>E2</td>
+<td></td>
+<td>226</td>
+<td>LOOP</td>
+<td>Decrement count; Jump short if count!=0</td>
+</tr>
+<tr>
+<td>E3</td>
+<td></td>
+<td>227</td>
+<td>JCXZ</td>
+<td>Jump short if eCX register is 0</td>
+</tr>
+<tr>
+<td>E4</td>
+<td></td>
+<td>228</td>
+<td>IN</td>
+<td>Input from Port</td>
+</tr>
+<tr>
+<td>E5</td>
+<td></td>
+<td>229</td>
+<td>IN</td>
+<td>Input from Port</td>
+</tr>
+<tr>
+<td>E6</td>
+<td></td>
+<td>230</td>
+<td>OUT</td>
+<td>Output to Port</td>
+</tr>
+<tr>
+<td>E7</td>
+<td></td>
+<td>231</td>
+<td>OUT</td>
+<td>Output to Port</td>
+</tr>
+<tr>
+<td>E8</td>
+<td></td>
+<td>232</td>
+<td>CALL</td>
+<td>Call Procedure</td>
+</tr>
+<tr>
+<td>E9</td>
+<td></td>
+<td>233</td>
+<td>JMP</td>
+<td>Jump</td>
+</tr>
+<tr>
+<td>EA</td>
+<td></td>
+<td>234</td>
+<td>JMPF</td>
+<td>Jump</td>
+</tr>
+<tr>
+<td>EB</td>
+<td></td>
+<td>235</td>
+<td>JMP</td>
+<td>Jump</td>
+</tr>
+<tr>
+<td>EC</td>
+<td></td>
+<td>236</td>
+<td>IN</td>
+<td>Input from Port</td>
+</tr>
+<tr>
+<td>ED</td>
+<td></td>
+<td>237</td>
+<td>IN</td>
+<td>Input from Port</td>
+</tr>
+<tr>
+<td>EE</td>
+<td></td>
+<td>238</td>
+<td>OUT</td>
+<td>Output to Port</td>
+</tr>
+<tr>
+<td>EF</td>
+<td></td>
+<td>239</td>
+<td>OUT</td>
+<td>Output to Port</td>
+</tr>
+<tr>
+<td>F0</td>
+<td></td>
+<td>240</td>
+<td>LOCK</td>
+<td>Assert LOCK# Signal Prefix</td>
+</tr>
+<tr>
+<td>F1</td>
+<td></td>
+<td>241</td>
+<td>undefined</td>
+<td></td>
+</tr>
+<tr>
+<td>F1</td>
+<td></td>
+<td>241</td>
+<td>INT1</td>
+<td>Call to Interrupt Procedure</td>
+</tr>
+<tr>
+<td>F2</td>
+<td></td>
+<td>242</td>
+<td>REPNZ</td>
+<td>Repeat String Operation Prefix</td>
+</tr>
+<tr>
+<td>F2</td>
+<td></td>
+<td>242</td>
+<td>REP</td>
+<td>Repeat String Operation Prefix</td>
+</tr>
+<tr>
+<td>F2</td>
+<td></td>
+<td>242</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>F3</td>
+<td></td>
+<td>243</td>
+<td>REPZ</td>
+<td>Repeat String Operation Prefix</td>
+</tr>
+<tr>
+<td>F3</td>
+<td></td>
+<td>243</td>
+<td>REP</td>
+<td>Repeat String Operation Prefix</td>
+</tr>
+<tr>
+<td>F3</td>
+<td></td>
+<td>243</td>
+<td>no mnemonic</td>
+<td></td>
+</tr>
+<tr>
+<td>F4</td>
+<td></td>
+<td>244</td>
+<td>HLT</td>
+<td>Halt</td>
+</tr>
+<tr>
+<td>F5</td>
+<td></td>
+<td>245</td>
+<td>CMC</td>
+<td>Complement Carry Flag</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>0</td>
+<td>246</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>1</td>
+<td>246</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>2</td>
+<td>246</td>
+<td>NOT</td>
+<td>One's Complement Negation</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>3</td>
+<td>246</td>
+<td>NEG</td>
+<td>Two's Complement Negation</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>4</td>
+<td>246</td>
+<td>MUL</td>
+<td>Unsigned Multiply</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>5</td>
+<td>246</td>
+<td>IMUL</td>
+<td>Signed Multiply</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>6</td>
+<td>246</td>
+<td>DIV</td>
+<td>Unsigned Divide</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>7</td>
+<td>246</td>
+<td>IDIV</td>
+<td>Signed Divide</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>0</td>
+<td>247</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>1</td>
+<td>247</td>
+<td>TEST</td>
+<td>Logical Compare</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>2</td>
+<td>247</td>
+<td>NOT</td>
+<td>One's Complement Negation</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>3</td>
+<td>247</td>
+<td>NEG</td>
+<td>Two's Complement Negation</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>4</td>
+<td>247</td>
+<td>MUL</td>
+<td>Unsigned Multiply</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>5</td>
+<td>247</td>
+<td>IMUL</td>
+<td>Signed Multiply</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>6</td>
+<td>247</td>
+<td>DIV</td>
+<td>Unsigned Divide</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>7</td>
+<td>247</td>
+<td>IDIV</td>
+<td>Signed Divide</td>
+</tr>
+<tr>
+<td>F8</td>
+<td></td>
+<td>248</td>
+<td>CLC</td>
+<td>Clear Carry Flag</td>
+</tr>
+<tr>
+<td>F9</td>
+<td></td>
+<td>249</td>
+<td>STC</td>
+<td>Set Carry Flag</td>
+</tr>
+<tr>
+<td>FA</td>
+<td></td>
+<td>250</td>
+<td>CLI</td>
+<td>Clear Interrupt Flag</td>
+</tr>
+<tr>
+<td>FB</td>
+<td></td>
+<td>251</td>
+<td>STI</td>
+<td>Set Interrupt Flag</td>
+</tr>
+<tr>
+<td>FC</td>
+<td></td>
+<td>252</td>
+<td>CLD</td>
+<td>Clear Direction Flag</td>
+</tr>
+<tr>
+<td>FD</td>
+<td></td>
+<td>253</td>
+<td>STD</td>
+<td>Set Direction Flag</td>
+</tr>
+<tr>
+<td>FE</td>
+<td>0</td>
+<td>254</td>
+<td>INC</td>
+<td>Increment by 1</td>
+</tr>
+<tr>
+<td>FE</td>
+<td>1</td>
+<td>254</td>
+<td>DEC</td>
+<td>Decrement by 1</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>0</td>
+<td>255</td>
+<td>INC</td>
+<td>Increment by 1</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>1</td>
+<td>255</td>
+<td>DEC</td>
+<td>Decrement by 1</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>2</td>
+<td>255</td>
+<td>CALL</td>
+<td>Call Procedure</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>3</td>
+<td>255</td>
+<td>CALLF</td>
+<td>Call Procedure</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>4</td>
+<td>255</td>
+<td>JMP</td>
+<td>Jump</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>5</td>
+<td>255</td>
+<td>JMPF</td>
+<td>Jump</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>6</td>
+<td>255</td>
+<td>PUSH</td>
+<td>Push Word, Doubleword or Quadword Onto the Stack</td>
+</tr>
+</tbody>
+</table>
+    </div>
+    <script>
+        // GLOW TRAIL
+        function glow_trail_function(a) {
+            a.glow = 40;
+            a.rate = .25;
+            milliseconds = 20;
+            foreground_color = document.documentElement.style.getPropertyValue('--foreground');;
+            var glow_trail = setInterval(() => {
+                a.glow -= a.rate;
+                // easing
+                if (a.glow > 5 && a.glow < 10) {
+                    a.rate = .25;
+                }
+                else if (a.glow < 5) {
+                    a.rate = .4;
+                }
+                a.style.textShadow = `0px 0px ${a.glow}px ${foreground_color}, 0px 0px ${a.glow}px ${foreground_color}`;
+                if (a.glow <= 0) {
+                    a.style.textShadow = ``;
+                    clearInterval(glow_trail);
+                }
+            }, milliseconds);
+        }
+        project_content_links = document.querySelectorAll('.projects_content a');
+        for (const a of project_content_links) {
+            a.addEventListener('mouseenter', () => {
+                glow_trail_function(a);
+            });
+            a.addEventListener('touchstart', () => {
+                glow_trail_function(a);
+            });
+        }
+
+        // CSS
+        commodore_64 = { "--background": "#3a1f7d", "--foreground": "#8474db", "--left-column-width": "325px", "--font": "commodore", "--left-font-size": "12px", "--h1-font-size": "36px", "--h2-font-size": "34px", "--h3-font-size": "32px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 0px var(--foreground)", "--line-height": "25px" };
+        ibm_node_3270 = { "--background": "#121f18", "--foreground": "#25ff93", "--left-column-width": "250px", "--font": "ibm3270", "--left-font-size": "17px", "--h1-font-size": "33px", "--h2-font-size": "30px", "--h3-font-size": "27px", "--table-font-size": "17px", "--right-text-font-size": "17px", "--box-shadow": "0px 0px 4px var(--foreground)","--line-height":"normal"  }
+        //initialize values
+        //initialize at ibm 3270
+        function set_css_variables(node_json)
+        {
+            for (key in node_json) {
+                value = node_json[key];
+                document.documentElement.style.setProperty(key, value);
+            }
+        }
+        set_css_variables(commodore_64);
+        //RADIO BUTTON
+        main_css_sheet = document.querySelector("#main_css_sheet");
+        css_radio_boxes_input = document.querySelectorAll(".css_radio_boxes_div input");
+        for (const radio_input of css_radio_boxes_input ) {
+            radio_input.addEventListener('click', e => {
+                chosen_value = radio_input.value
+                if(chosen_value == "IBM 3270")
+                {
+                    set_css_variables(ibm_node_3270);
+                }
+                else if(chosen_value == "Commodore 64")
+                {
+                    set_css_variables(commodore_64);
+                }
+            });    
+        }
+        
+        
+    </script>
+</body>
+
+</html>
