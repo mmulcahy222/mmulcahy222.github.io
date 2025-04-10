@@ -364,7 +364,7 @@ projects_json = [
         "project_name": "Disney+ Menu Clone (Rudimentary) with Physics",
         "description": " Uses Graphic Card programming (three.js wrapper API) to prototype pure Rust WGPU without wrapper",
         "language": "JavaScript/WebGL",
-        "picture_file_name": "cicd_3.png",
+        "picture_file_name": "disney_plus.gif",
         "github_html": "<table></table>"
     }
 
