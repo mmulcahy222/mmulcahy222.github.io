@@ -362,7 +362,7 @@ projects_json = [
     {
         "repository_name": "mmulcahy222.github.io/tree/master/three_js",
         "project_name": "Disney+ Menu Clone (Rudimentary) with Physics",
-        "description": " Uses Graphic Card programming (three.js wrapper API) to prototype pure Rust WGPU without wrapper",
+        "description": " Uses Graphic Card programming (three.js wrapper API) to prototype pure Rust WGPU without wrapper. Site is located in https://mmulcahy222.github.io/three_js",
         "language": "JavaScript/WebGL",
         "picture_file_name": "disney_plus.gif",
         "github_html": "<table></table>"
