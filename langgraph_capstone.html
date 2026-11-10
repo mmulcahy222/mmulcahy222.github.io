@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="en" data-snapshot="true"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>25_capstone_study_assistant.py · PyView</title>
+    <!-- Local assets are embedded so this page also works as a single saved HTML file. -->
+    <style>/* Prism: custom VGA / Monokai terminal theme. Prism is MIT licensed; see PRISM-LICENSE.txt. */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ffffff;
+  background: none;
+  font-family: "Courier New", Courier, "Courier New", monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+  text-shadow: none;
+}
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+}
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #000000;
+}
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
+}
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection {
+  background: #ffffff;
+  color: #000000;
+}
+/* Preserve syntax roles with bright terminal colors against true black. */
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #aaaaaa;
+}
+.token.punctuation {
+  color: #ffffff;
+}
+.token.keyword,
+.token.operator,
+.token.tag,
+.token.deleted {
+  color: #ff55aa;
+}
+.token.function,
+.token.function-name,
+.token.attr-name,
+.token.selector,
+.token.inserted {
+  color: #55ff55;
+}
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex {
+  color: #ffff55;
+}
+.token.number,
+.token.boolean,
+.token.constant {
+  color: #bb99ff;
+}
+.token.builtin,
+.token.class-name,
+.token.namespace,
+.token.property,
+.token.symbol {
+  color: #55ffff;
+}
+.token.decorator,
+.token.annotation,
+.token.atrule,
+.token.variable {
+  color: #ffaa55;
+}
+.token.entity,
+.token.url {
+  color: #ffff55;
+}
+.token.important,
+.token.bold {
+  font-weight: 700;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+</style>
+    <style>:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --panel: #000000;
+  --border: #555555;
+  --text: #ffffff;
+  --muted: #ffffff;
+  --accent: #55ff55;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    15px/1.6 system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+button,
+input {
+  font: inherit;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+pre:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.workspace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 5px;
+}
+.masthead {
+  min-height: 49px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.6px;
+}
+.brand-icon {
+  display: grid;
+  place-items: center;
+  background: #000000;
+  color: var(--accent);
+  border: 1px solid #55ff55;
+  border-radius: 10px;
+  width: 39px;
+  height: 39px;
+  font: 600 17px monospace;
+}
+.brand-divider {
+  height: 20px;
+  width: 1px;
+  background: var(--border);
+  margin: 0 6px;
+}
+.brand-caption {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.local-badge {
+  font-size: 12px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+.local-badge > span,
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.intro {
+  padding: 5px 0;
+}
+.eyebrow {
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  font-weight: 650;
+}
+h1 {
+  font-size: clamp(34px, 4vw, 53px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 5px 0;
+  font-weight: 550;
+}
+h1 span {
+  color: #ffffff;
+}
+.intro p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 14px;
+}
+.file-form {
+  margin: 0 0 5px;
+}
+.file-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 9px;
+}
+.input-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #777777;
+  border-radius: 9px;
+  background: #000000;
+  padding: 6px;
+  gap: 12px;
+}
+.path-icon {
+  font: 15px monospace;
+  color: var(--accent);
+  padding-left: 12px;
+}
+input {
+  min-width: 0;
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  padding: 10px 0;
+  font:
+    13px ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+button {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #000000;
+  color: #ffffff;
+  padding: 7px 13px;
+  font-size: 12px;
+}
+button:hover {
+  background: #000000;
+  color: #55ff55;
+  border-color: #55ff55;
+}
+.primary {
+  background: var(--accent);
+  color: #000000;
+  border-color: var(--accent);
+  font-weight: 650;
+  white-space: nowrap;
+  padding: 10px 18px;
+}
+.primary:hover {
+  background: #ffffff;
+  color: #000000;
+}
+.primary span {
+  margin-left: 15px;
+}
+.file-form > p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 9px 0 0;
+}
+.file-form > p code {
+  color: #ffffff;
+  font-size: 11px;
+}
+.editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  border: 1px solid #777777;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 18px 55px #0002;
+}
+.editor-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: #000000;
+  border-bottom: 1px solid var(--border);
+  padding: 5px;
+}
+.file-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  font:
+    12px ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+#filename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.python-icon {
+  color: #ffff55;
+  font-weight: 700;
+  font-size: 14px;
+}
+.file-dot {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background: #aaaaaa;
+  flex-shrink: 0;
+}
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.actions button {
+  background: transparent;
+  border-color: transparent;
+  padding: 3px 8px;
+}
+.actions button:hover,
+.actions button[aria-pressed="true"] {
+  background: #000000;
+  color: #55ff55;
+  border-color: #55ff55;
+}
+.actions .save-button {
+  border-color: #55ff55;
+  color: #55ff55;
+  background: #000000;
+}
+.code-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  background: #000000;
+}
+.code-body pre[class*="language-"] {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  background: transparent;
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-height: none;
+  min-height: 0;
+  tab-size: 4;
+  scrollbar-color: #aaaaaa #000000;
+}
+.code-body code[class*="language-"] {
+  font-family: Courier, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  text-shadow: none;
+}
+.code-body pre.wrapped,
+.code-body pre.wrapped code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+pre.line-numbers {
+  position: relative;
+  padding-left: 4.4em;
+  counter-reset: linenumber;
+}
+pre.line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid #555555;
+  user-select: none;
+}
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #aaaaaa;
+  display: block;
+  padding-right: 0.9em;
+  text-align: right;
+}
+.editor-status {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 3px 5px;
+  border-top: 1px solid var(--border);
+  background: #000000;
+  font-size: 11px;
+  color: var(--muted);
+}
+.muted {
+  color: #aaaaaa;
+  margin: 0 9px;
+}
+.status-dot {
+  width: 5px;
+  height: 5px;
+}
+footer {
+  flex-shrink: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 11px;
+  color: #ffffff;
+  padding: 5px 0;
+}
+.footer-mark {
+  color: #ffffff;
+  font: 13px monospace;
+}
+.footer-right {
+  margin-left: auto;
+  white-space: nowrap;
+}
+.error {
+  padding: 24px;
+  border: 1px solid #ff5555;
+  border-radius: 9px;
+  background: #000000;
+  color: #ffffff;
+}
+.error p {
+  margin-bottom: 0;
+}
+.empty-note {
+  margin: 0;
+  padding: 20px 30px;
+  color: var(--muted);
+}
+.feedback {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #55ff55;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 8px 24px #0005;
+}
+.feedback:empty {
+  display: none;
+}
+@media (min-width: 1000px) {
+  h1 br {
+    display: none;
+  }
+  h1 span {
+    margin-left: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .workspace {
+    padding: 5px;
+  }
+  .masthead {
+    min-height: 49px;
+  }
+  .brand-caption,
+  .brand-divider {
+    display: none;
+  }
+  .intro {
+    padding-top: 5px;
+  }
+  .editor-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .file-tab {
+    max-width: 100%;
+  }
+  .editor-status > span:last-child,
+  .footer-right {
+    display: none;
+  }
+  .primary {
+    padding: 10px 12px;
+  }
+  .primary span {
+    margin-left: 5px;
+  }
+  .input-row {
+    gap: 8px;
+  }
+  .path-icon {
+    padding-left: 6px;
+  }
+  footer {
+    align-items: flex-start;
+  }
+}
+@media print {
+  body {
+    background: #fff;
+  }
+  .masthead,
+  .intro,
+  .file-form,
+  .actions,
+  footer,
+  .feedback {
+    display: none;
+  }
+  .workspace {
+    display: block;
+    height: auto;
+    padding: 0;
+    max-width: none;
+  }
+  .editor {
+    display: block;
+    overflow: visible;
+    box-shadow: none;
+  }
+  .code-body {
+    display: block;
+    overflow: visible;
+  }
+  .code-body pre[class*="language-"] {
+    max-height: none;
+    overflow: visible;
+    white-space: pre-wrap;
+  }
+  .code-body code[class*="language-"] {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .editor,
+  .code-body,
+  .editor-toolbar,
+  .editor-status {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+</style>
+</head>
+<body>
+<main class="workspace">
+    
+
+
+        <section class="editor" aria-label="Python source code">
+        <div class="editor-toolbar">
+            <div class="file-tab"><span class="python-icon">py</span><span id="filename">25_capstone_study_assistant.py</span><span class="file-dot" aria-hidden="true"></span></div>
+            <div class="actions"><button id="wrap" type="button" aria-pressed="false" title="Toggle line wrapping">↩ <span>Wrap</span></button><button id="copy" type="button">Copy code</button><button id="save" class="save-button" type="button">↓ Save HTML</button></div>
+        </div>
+        <div class="code-body">
+                        <pre class="line-numbers language-python" tabindex="0" aria-label="Scrollable Python source"><code id="source" class="language-python"><span class="token triple-quoted-string string">"""25 • Retrieval + parallel specialists + review + durable human approval.
+
+Four calls normally; at most five with one revision. Retrieval uses local text,
+so there is no embedding API, vector database, web search, or extra account.
+A Pydantic critic checks the draft; a human decides whether to keep it locally.
+Observe: cited snippets, two specialist notes, bounded revision, and an interrupt.
+Try: add a document and a test question; improve keyword retrieval or evaluation.
+Run: python3 25_capstone_study_assistant.py
+"""</span>
+
+<span class="token comment"># Supplies functions for operators; operator.add joins the two specialists' lists.</span>
+<span class="token keyword">import</span> operator
+<span class="token comment"># Python's regular-expression module finds words matching a text pattern.</span>
+<span class="token keyword">import</span> re
+<span class="token comment"># Type hints describe metadata, allowed values, and dictionary fields.</span>
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Annotated<span class="token punctuation">,</span> Literal<span class="token punctuation">,</span> TypedDict
+<span class="token comment"># Generates a random unique identifier for each new conversation thread.</span>
+<span class="token keyword">from</span> uuid <span class="token keyword">import</span> uuid4
+
+<span class="token comment"># Pydantic describes and validates the critic's structured response.</span>
+<span class="token keyword">from</span> pydantic <span class="token keyword">import</span> BaseModel<span class="token punctuation">,</span> Field
+<span class="token comment"># Saves graph progress in a local SQLite database file.</span>
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>checkpoint<span class="token punctuation">.</span>sqlite <span class="token keyword">import</span> SqliteSaver
+<span class="token comment"># Imports the graph builder and its special start/end markers.</span>
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph <span class="token keyword">import</span> END<span class="token punctuation">,</span> START<span class="token punctuation">,</span> StateGraph
+<span class="token comment"># Command resumes a run; interrupt pauses it for external input.</span>
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>types <span class="token keyword">import</span> Command<span class="token punctuation">,</span> interrupt
+<span class="token comment"># Shared helpers locate files, call the model, and manage configuration.</span>
+<span class="token keyword">from</span> common<span class="token punctuation">.</span>model <span class="token keyword">import</span> ROOT<span class="token punctuation">,</span> ask<span class="token punctuation">,</span> data_dir<span class="token punctuation">,</span> get_model
+<span class="token comment"># noqa: F403  # Imports the lesson's tracing helpers, including decorate_all_functions.</span>
+<span class="token keyword">from</span> helper<span class="token punctuation">.</span>trace <span class="token keyword">import</span> <span class="token operator">*</span>
+
+
+<span class="token comment"># A class groups related data or behavior. Inheriting from BaseModel gives Review</span>
+<span class="token comment"># Pydantic's validation and schema support. The critic must return these two fields</span>
+<span class="token comment"># instead of an unrestricted paragraph; validation checks shape/types, not truth.</span>
+<span class="token comment"># Defines the expected structure of the model's review.</span>
+<span class="token keyword">class</span> <span class="token class-name">Review</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># True asks for a correction; False means the critic found no required correction.</span>
+    needs_revision<span class="token punctuation">:</span> <span class="token builtin">bool</span>
+    <span class="token comment"># Adds guidance to the field's schema; this is not a default value.</span>
+    feedback<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> Field<span class="token punctuation">(</span>description<span class="token operator">=</span><span class="token string">"One actionable issue, or 'No issues'"</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># State is the shared dictionary passed between graph nodes. TypedDict describes</span>
+<span class="token comment"># its keys for tooling; it does not create a separate runtime object or validate</span>
+<span class="token comment"># values like BaseModel does. Fields are filled as the graph runs, so the initial</span>
+<span class="token comment"># input below supplies only question, notes, and revisions.</span>
+<span class="token comment">#</span>
+<span class="token comment"># Nodes return partial dictionaries containing only their updates. Most fields</span>
+<span class="token comment"># replace their previous value. The notes field instead uses a reducer: a function</span>
+<span class="token comment"># that combines updates. This matters because both parallel specialists write to</span>
+<span class="token comment"># notes; operator.add concatenates their lists rather than losing either result.</span>
+<span class="token comment"># Declares the graph's shared state schema.</span>
+<span class="token keyword">class</span> <span class="token class-name">State</span><span class="token punctuation">(</span>TypedDict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># The user's original study question.</span>
+    question<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    <span class="token comment"># Matching local documents, each stored as an id/text dictionary.</span>
+    sources<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">dict</span><span class="token punctuation">]</span>
+    <span class="token comment"># Annotated attaches the list-concatenation reducer to the list[str] type.</span>
+    notes<span class="token punctuation">:</span> Annotated<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> operator<span class="token punctuation">.</span>add<span class="token punctuation">]</span>
+    <span class="token comment"># The current answer, or a clarification question if retrieval found nothing.</span>
+    draft<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    <span class="token comment"># The critic's suggested improvement, if any.</span>
+    feedback<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    <span class="token comment"># The critic's decision about whether the draft needs work.</span>
+    needs_revision<span class="token punctuation">:</span> <span class="token builtin">bool</span>
+    <span class="token comment"># Counts completed revisions so the graph can enforce a maximum of one.</span>
+    revisions<span class="token punctuation">:</span> <span class="token builtin">int</span>
+    <span class="token comment"># Records the human's final yes/no decision in the saved state.</span>
+    approved<span class="token punctuation">:</span> <span class="token builtin">bool</span>
+
+
+<span class="token comment"># Retrieval-augmented generation means finding reference material before asking</span>
+<span class="token comment"># the model to answer. This example uses keyword overlap in local text files.</span>
+<span class="token comment"># It does not understand synonyms, and repeated words do not increase the score.</span>
+<span class="token comment"># Accepts a string and returns a list of source dictionaries; -&gt; is a return-type hint.</span>
+<span class="token keyword">def</span> <span class="token function">retrieve_sources</span><span class="token punctuation">(</span>question<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">dict</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># A docstring describes the function to readers and help().</span>
+    <span class="token triple-quoted-string string">"""A tiny lexical retriever; scores keywords, not meaning."""</span>
+    <span class="token comment"># A set holds unique common words to ignore.</span>
+    stop_words <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"the"</span><span class="token punctuation">,</span> <span class="token string">"and"</span><span class="token punctuation">,</span> <span class="token string">"how"</span><span class="token punctuation">,</span> <span class="token string">"what"</span><span class="token punctuation">,</span> <span class="token string">"does"</span><span class="token punctuation">,</span> <span class="token string">"with"</span><span class="token punctuation">,</span> <span class="token string">"that"</span><span class="token punctuation">,</span> <span class="token string">"are"</span><span class="token punctuation">}</span>
+    <span class="token comment"># r"..." is a raw string used for the regex. [a-z]{3,} matches runs of at</span>
+    <span class="token comment"># least three ASCII letters. lower() makes matching case-insensitive here;</span>
+    <span class="token comment"># set() removes duplicates, and set subtraction removes the stop words.</span>
+    <span class="token comment"># Extracts the distinct search terms from the question.</span>
+    terms <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span>re<span class="token punctuation">.</span>findall<span class="token punctuation">(</span><span class="token string">r"[a-z]{3,}"</span><span class="token punctuation">,</span> question<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">-</span> stop_words
+    <span class="token comment"># Starts an empty list that will hold (score, source) tuples.</span>
+    ranked <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    
+    <span class="token comment"># Path's / joins folders; glob finds text files, and sorted gives a stable scan order.</span>
+    <span class="token keyword">for</span> path <span class="token keyword">in</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ROOT <span class="token operator">/</span> <span class="token string">"data"</span> <span class="token operator">/</span> <span class="token string">"notes"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>glob<span class="token punctuation">(</span><span class="token string">"*.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># Reads this entire file into a string.</span>
+        content <span class="token operator">=</span> path<span class="token punctuation">.</span>read_text<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment"># &amp; intersects the word sets; len counts distinct shared terms.</span>
+        score <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>terms <span class="token operator">&amp;</span> <span class="token builtin">set</span><span class="token punctuation">(</span>re<span class="token punctuation">.</span>findall<span class="token punctuation">(</span><span class="token string">r"[a-z]{3,}"</span><span class="token punctuation">,</span> content<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment"># A nonzero integer is truthy, so only documents with a match are kept.</span>
+        <span class="token keyword">if</span> score<span class="token punctuation">:</span>
+            <span class="token comment"># Stores a tuple; path.stem is the filename without its .txt extension.</span>
+            ranked<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>score<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"id"</span><span class="token punctuation">:</span> path<span class="token punctuation">.</span>stem<span class="token punctuation">,</span> <span class="token string">"text"</span><span class="token punctuation">:</span> content<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment"># lambda defines a small unnamed function that returns each item's sort key.</span>
+    <span class="token comment"># Python sorts tuples left to right: negative scores put larger scores first;</span>
+    <span class="token comment"># source IDs then break ties alphabetically so equal scores have stable order.</span>
+    <span class="token comment"># Sorts the existing list in place using score, then source ID.</span>
+    ranked<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> pair<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token operator">-</span>pair<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> pair<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment"># A list comprehension unwraps the best two tuples; _ names the unused score and [:2] takes up to two items.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>source <span class="token keyword">for</span> _<span class="token punctuation">,</span> source <span class="token keyword">in</span> ranked<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+
+<span class="token comment"># Graph nodes receive the current state and return updates; they do not need to</span>
+<span class="token comment"># copy all existing fields into their return value. LangGraph merges the update.</span>
+<span class="token comment"># Adapts the retrieval helper into a graph node.</span>
+<span class="token keyword">def</span> <span class="token function">retrieve</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Looks up the question, retrieves documents, and updates only sources.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"sources"</span><span class="token punctuation">:</span> retrieve_sources<span class="token punctuation">(</span>state<span class="token punctuation">[</span><span class="token string">"question"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+<span class="token comment"># A routing function selects the next node(s); its return value is not a state</span>
+<span class="token comment"># update. A list of names schedules multiple branches in the same graph step.</span>
+<span class="token comment"># Defines the decision used after the retrieve node finishes.</span>
+<span class="token keyword">def</span> <span class="token function">route_sources</span><span class="token punctuation">(</span>
+    <span class="token comment"># Receives the updated state, including the retrieved documents.</span>
+    state<span class="token punctuation">,</span>
+<span class="token comment"># Literal lists permitted strings; | means either that type or a list of strings.</span>
+<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> Literal<span class="token punctuation">[</span><span class="token string">"concepts"</span><span class="token punctuation">,</span> <span class="token string">"examples"</span><span class="token punctuation">,</span> <span class="token string">"no_sources"</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># The inline if/else fans out when the list is nonempty, otherwise chooses the fallback.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token string">"concepts"</span><span class="token punctuation">,</span> <span class="token string">"examples"</span><span class="token punctuation">]</span> <span class="token keyword">if</span> state<span class="token punctuation">[</span><span class="token string">"sources"</span><span class="token punctuation">]</span> <span class="token keyword">else</span> <span class="token string">"no_sources"</span>
+
+
+<span class="token comment"># The two specialists use different prompts with the same cached model client.</span>
+<span class="token comment"># Each returns a one-item list; the notes reducer combines those lists. An f-string</span>
+<span class="token comment"># inserts expressions inside {...}; \n inserts a newline into the prompt text.</span>
+<span class="token comment"># The first specialist explains the underlying idea.</span>
+<span class="token keyword">def</span> <span class="token function">concepts</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Gets the configured, cached chat-model client; the request happens in ask().</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Inserts sources and question into the explanation request.</span>
+    prompt <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"Explain the core idea in 40 words using only these notes: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'sources'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nQuestion: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'question'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token comment"># ask invokes the model and extracts text; the label identifies this specialist's contribution.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"notes"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Concepts: "</span> <span class="token operator">+</span> ask<span class="token punctuation">(</span>model<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+
+
+<span class="token comment"># The second specialist proposes an exercise to practice the idea.</span>
+<span class="token keyword">def</span> <span class="token function">examples</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Retrieves the same shared model configuration used by the other specialist.</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Includes the reference material so the exercise relates to the question.</span>
+    prompt <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"Suggest a tiny practice exercise grounded in these notes: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'sources'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nQuestion: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'question'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token comment"># Calls the model and contributes one labeled note to the combined list.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"notes"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Practice: "</span> <span class="token operator">+</span> ask<span class="token punctuation">(</span>model<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+
+
+<span class="token comment"># The join edge below makes synthesis wait for both specialists. Adjacent string</span>
+<span class="token comment"># literals inside parentheses concatenate into one string without needing +.</span>
+<span class="token comment"># Word limits and citations here are prompt instructions, not checks in Python.</span>
+<span class="token comment"># Combines both specialists' notes and the source material into one answer.</span>
+<span class="token keyword">def</span> <span class="token function">synthesize</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Gets the model client for the synthesis request.</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Opens a parenthesized expression so the prompt can span several code lines.</span>
+    prompt <span class="token operator">=</span> <span class="token punctuation">(</span>
+        <span class="token comment"># Requests the answer format and source references.</span>
+        <span class="token string-interpolation"><span class="token string">f"Answer in 100 words with a practice task. Cite the provided source IDs in brackets. "</span></span>
+        <span class="token comment"># Asks the model to acknowledge gaps in the available evidence.</span>
+        <span class="token string-interpolation"><span class="token string">f"Use only the supplied sources; say when they do not support a claim. "</span></span>
+        <span class="token comment"># Supplies the user's question and full retrieved documents.</span>
+        <span class="token string-interpolation"><span class="token string">f"Question: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'question'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nSources: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'sources'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\n"</span></span>
+        <span class="token comment"># Sorts a copy of the notes to give the prompt a stable order across parallel runs.</span>
+        <span class="token string-interpolation"><span class="token string">f"Specialist notes: </span><span class="token interpolation"><span class="token punctuation">{</span><span class="token builtin">sorted</span><span class="token punctuation">(</span>state<span class="token punctuation">[</span><span class="token string">'notes'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token comment"># Ends the combined prompt expression; prompt is a single string.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># Generates the answer and stores it in the draft state field.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"draft"</span><span class="token punctuation">:</span> ask<span class="token punctuation">(</span>model<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+<span class="token comment"># Structured output asks the model for data matching a schema. Passing the Review</span>
+<span class="token comment"># Pydantic class makes the parsed result a Review instance whose fields match the</span>
+<span class="token comment"># state's feedback and needs_revision keys. The critique is still a model judgment.</span>
+<span class="token comment"># Evaluates the draft before choosing whether to revise it.</span>
+<span class="token keyword">def</span> <span class="token function">review</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Gets the model client used to construct the critic.</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Wraps the client with the Review schema; this line does not yet send the prompt.</span>
+    critic <span class="token operator">=</span> model<span class="token punctuation">.</span>with_structured_output<span class="token punctuation">(</span>Review<span class="token punctuation">,</span> method<span class="token operator">=</span><span class="token string">"json_schema"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Sends the review request and receives a parsed Review object.</span>
+    verdict <span class="token operator">=</span> critic<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>
+        <span class="token comment"># Defines what the critic should assess.</span>
+        <span class="token string-interpolation"><span class="token string">f"Check whether this answer addresses the question and is supported by the sources. "</span></span>
+        <span class="token comment"># Provides the evidence and answer needed for that assessment.</span>
+        <span class="token string-interpolation"><span class="token string">f"Question: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'question'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nSources: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'sources'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nAnswer: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'draft'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token comment"># Finishes the critic's model call.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># Converts the Pydantic object to a dictionary that updates feedback and needs_revision.</span>
+    <span class="token keyword">return</span> verdict<span class="token punctuation">.</span>model_dump<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># Returns one of the two possible next-node names.</span>
+<span class="token keyword">def</span> <span class="token function">route_review</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> Literal<span class="token punctuation">[</span><span class="token string">"revise"</span><span class="token punctuation">,</span> <span class="token string">"human"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># Both conditions must hold to revise; otherwise proceed to human approval.</span>
+    <span class="token keyword">return</span> <span class="token string">"revise"</span> <span class="token keyword">if</span> state<span class="token punctuation">[</span><span class="token string">"needs_revision"</span><span class="token punctuation">]</span> <span class="token keyword">and</span> state<span class="token punctuation">[</span><span class="token string">"revisions"</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"human"</span>
+
+
+<span class="token comment"># This graph sends the revised answer directly to the human; it does not run the</span>
+<span class="token comment"># critic again. That topology, plus the routing guard, bounds the revision work.</span>
+<span class="token comment"># Makes the optional single correction requested by the critic.</span>
+<span class="token keyword">def</span> <span class="token function">revise</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Gets the client for the revision request.</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Supplies the criticism, original evidence, and draft to correct.</span>
+    prompt <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"Fix this answer in 100 words. Feedback: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'feedback'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nSources: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'sources'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">\nAnswer: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'draft'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token comment"># Replaces the draft and increments the revision counter in the same state update.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"draft"</span><span class="token punctuation">:</span> ask<span class="token punctuation">(</span>model<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"revisions"</span><span class="token punctuation">:</span> state<span class="token punctuation">[</span><span class="token string">"revisions"</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">}</span>
+
+
+<span class="token comment"># Handles questions that have no keyword overlap with the local documents.</span>
+<span class="token keyword">def</span> <span class="token function">no_sources</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Still use the same model, but don't pretend there is retrieved evidence.</span>
+    <span class="token comment"># Gets the client for the fallback's only model call.</span>
+    model <span class="token operator">=</span> get_model<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># Begins a partial state update containing a clarification instead of a sourced answer.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token comment"># Stores the model's clarification text under the usual draft key.</span>
+        <span class="token string">"draft"</span><span class="token punctuation">:</span> ask<span class="token punctuation">(</span>
+            <span class="token comment"># Passes the configured model client as ask's first argument.</span>
+            model<span class="token punctuation">,</span>
+            <span class="token comment"># Requests a follow-up question and an explanation of the missing evidence.</span>
+            <span class="token string-interpolation"><span class="token string">f"Ask one clarification question about: </span><span class="token interpolation"><span class="token punctuation">{</span>state<span class="token punctuation">[</span><span class="token string">'question'</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token string">. Explain that the local notes have no matching sources."</span></span><span class="token punctuation">,</span>
+        <span class="token comment"># Completes the model call that supplies the draft value.</span>
+        <span class="token punctuation">)</span>
+    <span class="token comment"># Returns the draft update; this branch skips the specialists and critic.</span>
+    <span class="token punctuation">}</span>
+
+
+<span class="token comment"># interrupt is a durable pause, not terminal input. On the first visit, LangGraph</span>
+<span class="token comment"># suspends execution here and exposes the payload to the caller. The checkpointer</span>
+<span class="token comment"># preserves progress. Resuming with Command(resume=...) restarts this node from its</span>
+<span class="token comment"># beginning, and this interrupt call then returns the supplied resume value.</span>
+<span class="token comment"># Keep that restart behavior in mind before adding side effects before interrupt.</span>
+<span class="token comment"># Presents the draft for a human decision and records the answer on resume.</span>
+<span class="token keyword">def</span> <span class="token function">human</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Pauses on the initial call; receives the resumed True/False value on the later call.</span>
+    approved <span class="token operator">=</span> interrupt<span class="token punctuation">(</span>
+        <span class="token comment"># Builds the payload the caller can display while the graph is paused.</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment"># Includes the answer or clarification for the human to read.</span>
+            <span class="token string">"draft"</span><span class="token punctuation">:</span> state<span class="token punctuation">[</span><span class="token string">"draft"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token comment"># A list comprehension extracts source IDs without repeating the full document text.</span>
+            <span class="token string">"sources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>s<span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> s <span class="token keyword">in</span> state<span class="token punctuation">[</span><span class="token string">"sources"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token comment"># Supplies the approval question shown with the draft.</span>
+            <span class="token string">"question"</span><span class="token punctuation">:</span> <span class="token string">"Keep this study note?"</span><span class="token punctuation">,</span>
+        <span class="token comment"># Ends the interrupt payload dictionary.</span>
+        <span class="token punctuation">}</span>
+    <span class="token comment"># Once resumed, the interrupt's return value is assigned to approved.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># Requires an actual boolean rather than a string such as "yes".</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>approved<span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># Rejects an incorrectly typed resume value with an explicit error.</span>
+        <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string">"Resume with a bool."</span><span class="token punctuation">)</span>
+    <span class="token comment"># Saves the human's decision as the final state update.</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">"approved"</span><span class="token punctuation">:</span> approved<span class="token punctuation">}</span>
+
+
+<span class="token comment"># A graph describes execution using nodes (functions) and edges (what runs next).</span>
+<span class="token comment"># Building/compiling it prepares the workflow; it does not make model calls.</span>
+<span class="token comment">#</span>
+<span class="token comment"># With sources: retrieve -&gt; concepts + examples -&gt; synthesize -&gt; review</span>
+<span class="token comment">#                       -&gt; optional revise -&gt; human -&gt; END.</span>
+<span class="token comment"># Without sources: retrieve -&gt; no_sources -&gt; human -&gt; END.</span>
+<span class="token comment"># Accepts the storage component that will save and restore graph progress.</span>
+<span class="token keyword">def</span> <span class="token function">build_graph</span><span class="token punctuation">(</span>checkpointer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Creates a graph builder using the shared-state schema and its notes reducer.</span>
+    builder <span class="token operator">=</span> StateGraph<span class="token punctuation">(</span>State<span class="token punctuation">)</span>
+    <span class="token comment"># Iterates over (name, function) tuples, unpacking each into two variables.</span>
+    <span class="token keyword">for</span> name<span class="token punctuation">,</span> node <span class="token keyword">in</span> <span class="token punctuation">[</span>
+        <span class="token comment"># Associates the routing name with the source-retrieval function, without calling it.</span>
+        <span class="token punctuation">(</span><span class="token string">"retrieve"</span><span class="token punctuation">,</span> retrieve<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the role that explains the core concept.</span>
+        <span class="token punctuation">(</span><span class="token string">"concepts"</span><span class="token punctuation">,</span> concepts<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the role that creates a practice exercise.</span>
+        <span class="token punctuation">(</span><span class="token string">"examples"</span><span class="token punctuation">,</span> examples<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the node that combines the parallel results.</span>
+        <span class="token punctuation">(</span><span class="token string">"synthesize"</span><span class="token punctuation">,</span> synthesize<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the structured-output critic.</span>
+        <span class="token punctuation">(</span><span class="token string">"review"</span><span class="token punctuation">,</span> review<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the optional correction step.</span>
+        <span class="token punctuation">(</span><span class="token string">"revise"</span><span class="token punctuation">,</span> revise<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the clarification path for unsuccessful retrieval.</span>
+        <span class="token punctuation">(</span><span class="token string">"no_sources"</span><span class="token punctuation">,</span> no_sources<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token comment"># Registers the node that interrupts for a human decision.</span>
+        <span class="token punctuation">(</span><span class="token string">"human"</span><span class="token punctuation">,</span> human<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment"># Finishes the list of node definitions and begins the loop body.</span>
+    <span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># Adds this function under its string name in the graph.</span>
+        builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span>name<span class="token punctuation">,</span> node<span class="token punctuation">)</span>
+    <span class="token comment"># Routes every new run from the virtual start marker to retrieval.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span>START<span class="token punctuation">,</span> <span class="token string">"retrieve"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Adds routing whose destination depends on a function's result.</span>
+    builder<span class="token punctuation">.</span>add_conditional_edges<span class="token punctuation">(</span>
+        <span class="token comment"># Runs route_sources after retrieve; the list declares possible destinations, not an execution order.</span>
+        <span class="token string">"retrieve"</span><span class="token punctuation">,</span> route_sources<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"concepts"</span><span class="token punctuation">,</span> <span class="token string">"examples"</span><span class="token punctuation">,</span> <span class="token string">"no_sources"</span><span class="token punctuation">]</span>
+    <span class="token comment"># Completes the conditional routing definition.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># A single edge with a list of starting nodes is a join: synthesis waits for</span>
+    <span class="token comment"># both specialists to finish and for their notes updates to be combined.</span>
+    <span class="token comment"># Joins the two parallel branches before drafting the answer.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"concepts"</span><span class="token punctuation">,</span> <span class="token string">"examples"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"synthesize"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Always sends the initial synthesized answer to the critic.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"synthesize"</span><span class="token punctuation">,</span> <span class="token string">"review"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Chooses revise or human; the router's Literal return hint declares its destinations.</span>
+    builder<span class="token punctuation">.</span>add_conditional_edges<span class="token punctuation">(</span><span class="token string">"review"</span><span class="token punctuation">,</span> route_review<span class="token punctuation">)</span>
+    <span class="token comment"># Sends a corrected answer directly to the human without another review call.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"revise"</span><span class="token punctuation">,</span> <span class="token string">"human"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Also asks for approval when the draft is only a clarification question.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"no_sources"</span><span class="token punctuation">,</span> <span class="token string">"human"</span><span class="token punctuation">)</span>
+    <span class="token comment"># Finishes after the resumed human node returns its decision.</span>
+    builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"human"</span><span class="token punctuation">,</span> END<span class="token punctuation">)</span>
+    <span class="token comment"># Produces an executable graph connected to persistent checkpoint storage.</span>
+    <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>checkpointer<span class="token operator">=</span>checkpointer<span class="token punctuation">)</span>
+
+
+<span class="token comment"># A thread ID identifies one saved run's history. Reusing it with the same SQLite</span>
+<span class="token comment"># database lets a new process find the paused run. The database stores checkpoint</span>
+<span class="token comment"># state (including the draft) whether the human eventually approves or rejects it;</span>
+<span class="token comment"># approval records a decision rather than controlling whether any data is saved.</span>
+<span class="token comment"># Coordinates command-line options, persistent storage, graph execution, and terminal input.</span>
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Imports Python's standard command-line parser locally for this entry point.</span>
+    <span class="token keyword">import</span> argparse
+
+    <span class="token comment"># Uses the module's opening docstring as the --help description.</span>
+    parser <span class="token operator">=</span> argparse<span class="token punctuation">.</span>ArgumentParser<span class="token punctuation">(</span>description<span class="token operator">=</span>__doc__<span class="token punctuation">)</span>
+    <span class="token comment"># Defines an optional question argument for a new run.</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span>
+        <span class="token comment"># Supplies this default when no --question value is given.</span>
+        <span class="token string">"--question"</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token string">"How do checkpoints and interrupts work together?"</span>
+    <span class="token comment"># Finishes the question option definition.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># Defines an option for continuing an existing paused run.</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span>
+        <span class="token comment"># The user passes --resume followed by the previously printed thread ID.</span>
+        <span class="token string">"--resume"</span><span class="token punctuation">,</span>
+        <span class="token comment"># Uses a readable placeholder in the command's help text.</span>
+        metavar<span class="token operator">=</span><span class="token string">"THREAD_ID"</span><span class="token punctuation">,</span>
+        <span class="token comment"># Explains the option in --help output.</span>
+        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">"Resume an existing paused run after a restart"</span><span class="token punctuation">,</span>
+    <span class="token comment"># Finishes the resume option definition.</span>
+    <span class="token punctuation">)</span>
+    <span class="token comment"># Parses command-line values into attributes such as args.question and args.resume.</span>
+    args <span class="token operator">=</span> parser<span class="token punctuation">.</span>parse_args<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># or keeps a supplied nonempty ID; otherwise it creates and stringifies a new UUID.</span>
+    thread_id <span class="token operator">=</span> args<span class="token punctuation">.</span>resume <span class="token keyword">or</span> <span class="token builtin">str</span><span class="token punctuation">(</span>uuid4<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment"># Identifies the checkpoint history and caps graph execution steps, not Python call-stack depth.</span>
+    config <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"configurable"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">"thread_id"</span><span class="token punctuation">:</span> thread_id<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"recursion_limit"</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">}</span>
+    <span class="token comment"># with is a context manager: it opens the SQLite saver for this block and</span>
+    <span class="token comment"># closes its connection on exit, including when an exception leaves the block.</span>
+    <span class="token comment"># data_dir() creates the configured data folder if needed; / joins the filename,</span>
+    <span class="token comment"># and str() converts the Path object into the connection string the saver needs.</span>
+    <span class="token comment"># Opens the on-disk checkpoint database for both new and resumed runs.</span>
+    <span class="token keyword">with</span> SqliteSaver<span class="token punctuation">.</span>from_conn_string<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>data_dir<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token string">"capstone.sqlite"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> saver<span class="token punctuation">:</span>
+        <span class="token comment"># Compiles the graph using the open saver so interrupts survive a process restart.</span>
+        graph <span class="token operator">=</span> build_graph<span class="token punctuation">(</span>saver<span class="token punctuation">)</span>
+        <span class="token comment"># Follows this branch when the user supplied an existing thread ID.</span>
+        <span class="token keyword">if</span> args<span class="token punctuation">.</span>resume<span class="token punctuation">:</span>
+            <span class="token comment"># Loads that thread's latest saved state and pending-node information.</span>
+            snapshot <span class="token operator">=</span> graph<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+            <span class="token comment"># snapshot.next is a tuple of node names scheduled to run next.</span>
+            <span class="token comment"># ("human",) is a one-item tuple; the comma distinguishes it from a</span>
+            <span class="token comment"># parenthesized string. This check requires saved state awaiting human.</span>
+            <span class="token comment"># Rejects missing threads and threads not positioned at the approval node.</span>
+            <span class="token keyword">if</span> <span class="token keyword">not</span> snapshot<span class="token punctuation">.</span>values <span class="token keyword">or</span> snapshot<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">!=</span> <span class="token punctuation">(</span><span class="token string">"human"</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token comment"># Ends the command with a useful error instead of resuming the wrong state.</span>
+                <span class="token keyword">raise</span> SystemExit<span class="token punctuation">(</span><span class="token string">"That thread is not waiting for human approval."</span><span class="token punctuation">)</span>
+            <span class="token comment"># Shows the previously generated draft without rerunning its model calls.</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>snapshot<span class="token punctuation">.</span>values<span class="token punctuation">[</span><span class="token string">"draft"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token comment"># Starts a fresh run when no --resume option was supplied.</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment"># Runs the workflow until the human node interrupts execution.</span>
+            paused <span class="token operator">=</span> graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>
+                <span class="token comment"># Seeds the question, empty reducer list, and counter, with this thread's configuration.</span>
+                <span class="token punctuation">{</span><span class="token string">"question"</span><span class="token punctuation">:</span> args<span class="token punctuation">.</span>question<span class="token punctuation">,</span> <span class="token string">"notes"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"revisions"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> config
+            <span class="token comment"># Returns the current state together with interrupt information.</span>
+            <span class="token punctuation">)</span>
+            <span class="token comment"># Reads the first interrupt object's payload: the draft, source IDs, and approval question.</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>paused<span class="token punctuation">[</span><span class="token string">"__interrupt__"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+        <span class="token comment"># Displays recovery instructions before waiting for terminal input.</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>
+            <span class="token comment"># Includes the exact ID needed to reopen this paused history.</span>
+            <span class="token string-interpolation"><span class="token string">f"Thread: </span><span class="token interpolation"><span class="token punctuation">{</span>thread_id<span class="token punctuation">}</span></span><span class="token string">\nYou can exit now and resume later with --resume </span><span class="token interpolation"><span class="token punctuation">{</span>thread_id<span class="token punctuation">}</span></span><span class="token string">"</span></span>
+        <span class="token comment"># Finishes printing the two-line recovery message.</span>
+        <span class="token punctuation">)</span>
+        <span class="token comment"># Reads text, trims whitespace, lowercases it, and produces True only for y (including uppercase Y).</span>
+        approved <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"Keep note? [y/N] "</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"y"</span>
+        <span class="token comment"># Resumes the same thread; the boolean becomes interrupt's return value and the graph finishes.</span>
+        result <span class="token operator">=</span> graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>Command<span class="token punctuation">(</span>resume<span class="token operator">=</span>approved<span class="token punctuation">)</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+        <span class="token comment"># Reports the recorded decision after execution reaches END.</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>
+            <span class="token comment"># Labels the value being printed.</span>
+            <span class="token string">"Approved:"</span><span class="token punctuation">,</span>
+            <span class="token comment"># Reads the boolean stored by the human node.</span>
+            result<span class="token punctuation">[</span><span class="token string">"approved"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token comment"># Explains where the result lives; rejecting it does not delete the checkpoint.</span>
+            <span class="token string">"(saved in the local checkpoint; nothing published)"</span><span class="token punctuation">,</span>
+        <span class="token comment"># Completes the status message; print separates these arguments with spaces.</span>
+        <span class="token punctuation">)</span>
+        <span class="token comment"># Returns the final state to callers; leaving the with block also closes the database connection.</span>
+        <span class="token keyword">return</span> result
+
+
+<span class="token comment"># Runs this block only when launched as a script, not when imported by another module.</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token comment"># noqa: F405  # Wraps this module's functions with tracing and includes their source code in trace output.</span>
+    decorate_all_functions<span class="token punctuation">(</span>show_code<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token comment"># Starts the command-line study-assistant workflow.</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </div>
+        <div class="editor-status"><span><span class="status-dot"></span> Python <span class="muted">/</span> 414 lines <span class="muted">/</span> 22.3 KB</span><span>Prism syntax highlighting</span></div>
+    </section>
+    
+    <footer><span class="footer-mark">&lt;/&gt;</span><span id="offline-note">Made to travel. Saved HTML includes your code, styling, and highlighting.</span><span class="footer-right">No internet required.</span></footer>
+    <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+</main>
+<script>/* Prism 1.30.0 | MIT license | https://prismjs.com | Core + Python + line numbers */
+
+;
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(e){var n=/(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i,t=0,r={},a={manual:e.Prism&&e.Prism.manual,disableWorkerMessageHandler:e.Prism&&e.Prism.disableWorkerMessageHandler,util:{encode:function e(n){return n instanceof i?new i(n.type,e(n.content),n.alias):Array.isArray(n)?n.map(e):n.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).slice(8,-1)},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function e(n,t){var r,i;switch(t=t||{},a.util.type(n)){case"Object":if(i=a.util.objId(n),t[i])return t[i];for(var l in r={},t[i]=r,n)n.hasOwnProperty(l)&&(r[l]=e(n[l],t));return r;case"Array":return i=a.util.objId(n),t[i]?t[i]:(r=[],t[i]=r,n.forEach((function(n,a){r[a]=e(n,t)})),r);default:return n}},getLanguage:function(e){for(;e;){var t=n.exec(e.className);if(t)return t[1].toLowerCase();e=e.parentElement}return"none"},setLanguage:function(e,t){e.className=e.className.replace(RegExp(n,"gi"),""),e.classList.add("language-"+t)},currentScript:function(){if("undefined"==typeof document)return null;if(document.currentScript&&"SCRIPT"===document.currentScript.tagName)return document.currentScript;try{throw new Error}catch(r){var e=(/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(r.stack)||[])[1];if(e){var n=document.getElementsByTagName("script");for(var t in n)if(n[t].src==e)return n[t]}return null}},isActive:function(e,n,t){for(var r="no-"+n;e;){var a=e.classList;if(a.contains(n))return!0;if(a.contains(r))return!1;e=e.parentElement}return!!t}},languages:{plain:r,plaintext:r,text:r,txt:r,extend:function(e,n){var t=a.util.clone(a.languages[e]);for(var r in n)t[r]=n[r];return t},insertBefore:function(e,n,t,r){var i=(r=r||a.languages)[e],l={};for(var o in i)if(i.hasOwnProperty(o)){if(o==n)for(var s in t)t.hasOwnProperty(s)&&(l[s]=t[s]);t.hasOwnProperty(o)||(l[o]=i[o])}var u=r[e];return r[e]=l,a.languages.DFS(a.languages,(function(n,t){t===u&&n!=e&&(this[n]=l)})),l},DFS:function e(n,t,r,i){i=i||{};var l=a.util.objId;for(var o in n)if(n.hasOwnProperty(o)){t.call(n,o,n[o],r||o);var s=n[o],u=a.util.type(s);"Object"!==u||i[l(s)]?"Array"!==u||i[l(s)]||(i[l(s)]=!0,e(s,t,o,i)):(i[l(s)]=!0,e(s,t,null,i))}}},plugins:{},highlightAll:function(e,n){a.highlightAllUnder(document,e,n)},highlightAllUnder:function(e,n,t){var r={callback:t,container:e,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};a.hooks.run("before-highlightall",r),r.elements=Array.prototype.slice.apply(r.container.querySelectorAll(r.selector)),a.hooks.run("before-all-elements-highlight",r);for(var i,l=0;i=r.elements[l++];)a.highlightElement(i,!0===n,r.callback)},highlightElement:function(n,t,r){var i=a.util.getLanguage(n),l=a.languages[i];a.util.setLanguage(n,i);var o=n.parentElement;o&&"pre"===o.nodeName.toLowerCase()&&a.util.setLanguage(o,i);var s={element:n,language:i,grammar:l,code:n.textContent};function u(e){s.highlightedCode=e,a.hooks.run("before-insert",s),s.element.innerHTML=s.highlightedCode,a.hooks.run("after-highlight",s),a.hooks.run("complete",s),r&&r.call(s.element)}if(a.hooks.run("before-sanity-check",s),(o=s.element.parentElement)&&"pre"===o.nodeName.toLowerCase()&&!o.hasAttribute("tabindex")&&o.setAttribute("tabindex","0"),!s.code)return a.hooks.run("complete",s),void(r&&r.call(s.element));if(a.hooks.run("before-highlight",s),s.grammar)if(t&&e.Worker){var c=new Worker(a.filename);c.onmessage=function(e){u(e.data)},c.postMessage(JSON.stringify({language:s.language,code:s.code,immediateClose:!0}))}else u(a.highlight(s.code,s.grammar,s.language));else u(a.util.encode(s.code))},highlight:function(e,n,t){var r={code:e,grammar:n,language:t};if(a.hooks.run("before-tokenize",r),!r.grammar)throw new Error('The language "'+r.language+'" has no grammar.');return r.tokens=a.tokenize(r.code,r.grammar),a.hooks.run("after-tokenize",r),i.stringify(a.util.encode(r.tokens),r.language)},tokenize:function(e,n){var t=n.rest;if(t){for(var r in t)n[r]=t[r];delete n.rest}var a=new s;return u(a,a.head,e),o(e,a,n,a.head,0),function(e){for(var n=[],t=e.head.next;t!==e.tail;)n.push(t.value),t=t.next;return n}(a)},hooks:{all:{},add:function(e,n){var t=a.hooks.all;t[e]=t[e]||[],t[e].push(n)},run:function(e,n){var t=a.hooks.all[e];if(t&&t.length)for(var r,i=0;r=t[i++];)r(n)}},Token:i};function i(e,n,t,r){this.type=e,this.content=n,this.alias=t,this.length=0|(r||"").length}function l(e,n,t,r){e.lastIndex=n;var a=e.exec(t);if(a&&r&&a[1]){var i=a[1].length;a.index+=i,a[0]=a[0].slice(i)}return a}function o(e,n,t,r,s,g){for(var f in t)if(t.hasOwnProperty(f)&&t[f]){var h=t[f];h=Array.isArray(h)?h:[h];for(var d=0;d<h.length;++d){if(g&&g.cause==f+","+d)return;var v=h[d],p=v.inside,m=!!v.lookbehind,y=!!v.greedy,k=v.alias;if(y&&!v.pattern.global){var x=v.pattern.toString().match(/[imsuy]*$/)[0];v.pattern=RegExp(v.pattern.source,x+"g")}for(var b=v.pattern||v,w=r.next,A=s;w!==n.tail&&!(g&&A>=g.reach);A+=w.value.length,w=w.next){var P=w.value;if(n.length>e.length)return;if(!(P instanceof i)){var E,S=1;if(y){if(!(E=l(b,A,e,m))||E.index>=e.length)break;var L=E.index,O=E.index+E[0].length,C=A;for(C+=w.value.length;L>=C;)C+=(w=w.next).value.length;if(A=C-=w.value.length,w.value instanceof i)continue;for(var j=w;j!==n.tail&&(C<O||"string"==typeof j.value);j=j.next)S++,C+=j.value.length;S--,P=e.slice(A,C),E.index-=A}else if(!(E=l(b,0,P,m)))continue;L=E.index;var N=E[0],_=P.slice(0,L),M=P.slice(L+N.length),W=A+P.length;g&&W>g.reach&&(g.reach=W);var I=w.prev;if(_&&(I=u(n,I,_),A+=_.length),c(n,I,S),w=u(n,I,new i(f,p?a.tokenize(N,p):N,k,N)),M&&u(n,w,M),S>1){var T={cause:f+","+d,reach:W};o(e,n,t,w.prev,A,T),g&&T.reach>g.reach&&(g.reach=T.reach)}}}}}}function s(){var e={value:null,prev:null,next:null},n={value:null,prev:e,next:null};e.next=n,this.head=e,this.tail=n,this.length=0}function u(e,n,t){var r=n.next,a={value:t,prev:n,next:r};return n.next=a,r.prev=a,e.length++,a}function c(e,n,t){for(var r=n.next,a=0;a<t&&r!==e.tail;a++)r=r.next;n.next=r,r.prev=n,e.length-=a}if(e.Prism=a,i.stringify=function e(n,t){if("string"==typeof n)return n;if(Array.isArray(n)){var r="";return n.forEach((function(n){r+=e(n,t)})),r}var i={type:n.type,content:e(n.content,t),tag:"span",classes:["token",n.type],attributes:{},language:t},l=n.alias;l&&(Array.isArray(l)?Array.prototype.push.apply(i.classes,l):i.classes.push(l)),a.hooks.run("wrap",i);var o="";for(var s in i.attributes)o+=" "+s+'="'+(i.attributes[s]||"").replace(/"/g,"&quot;")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'"'+o+">"+i.content+"</"+i.tag+">"},!e.document)return e.addEventListener?(a.disableWorkerMessageHandler||e.addEventListener("message",(function(n){var t=JSON.parse(n.data),r=t.language,i=t.code,l=t.immediateClose;e.postMessage(a.highlight(i,a.languages[r],r)),l&&e.close()}),!1),a):a;var g=a.util.currentScript();function f(){a.manual||a.highlightAll()}if(g&&(a.filename=g.src,g.hasAttribute("data-manual")&&(a.manual=!0)),!a.manual){var h=document.readyState;"loading"===h||"interactive"===h&&g&&g.defer?document.addEventListener("DOMContentLoaded",f):window.requestAnimationFrame?window.requestAnimationFrame(f):window.setTimeout(f,16)}return a}(_self);"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+;
+Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0,greedy:!0},"string-interpolation":{pattern:/(?:f|fr|rf)(?:("""|''')[\s\S]*?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:\{\{)*)\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}]|\{(?!\{)(?:[^{}])+\})+\})+\}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=\}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|br|rb)?("""|''')[\s\S]*?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|br|rb)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^[\t ]*)@\w+(?:\.\w+)*/m,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:_(?=\s*:)|and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:False|None|True)\b/,number:/\b0(?:b(?:_?[01])+|o(?:_?[0-7])+|x(?:_?[a-f0-9])+)\b|(?:\b\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\B\.\d+(?:_\d+)*)(?:e[+-]?\d+(?:_\d+)*)?j?(?!\w)/i,operator:/[-+%=]=?|!=|:=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;
+;
+!function(){if("undefined"!=typeof Prism&&"undefined"!=typeof document){var e="line-numbers",n=/\n(?!$)/g,t=Prism.plugins.lineNumbers={getLine:function(n,t){if("PRE"===n.tagName&&n.classList.contains(e)){var i=n.querySelector(".line-numbers-rows");if(i){var r=parseInt(n.getAttribute("data-start"),10)||1,s=r+(i.children.length-1);t<r&&(t=r),t>s&&(t=s);var l=t-r;return i.children[l]}}},resize:function(e){r([e])},assumeViewportIndependence:!0},i=void 0;window.addEventListener("resize",(function(){t.assumeViewportIndependence&&i===window.innerWidth||(i=window.innerWidth,r(Array.prototype.slice.call(document.querySelectorAll("pre.line-numbers"))))})),Prism.hooks.add("complete",(function(t){if(t.code){var i=t.element,s=i.parentNode;if(s&&/pre/i.test(s.nodeName)&&!i.querySelector(".line-numbers-rows")&&Prism.util.isActive(i,e)){i.classList.remove(e),s.classList.add(e);var l,o=t.code.match(n),a=o?o.length+1:1,u=new Array(a+1).join("<span></span>");(l=document.createElement("span")).setAttribute("aria-hidden","true"),l.className="line-numbers-rows",l.innerHTML=u,s.hasAttribute("data-start")&&(s.style.counterReset="linenumber "+(parseInt(s.getAttribute("data-start"),10)-1)),t.element.appendChild(l),r([s]),Prism.hooks.run("line-numbers",t)}}})),Prism.hooks.add("line-numbers",(function(e){e.plugins=e.plugins||{},e.plugins.lineNumbers=!0}))}function r(e){if(0!=(e=e.filter((function(e){var n,t=(n=e,n?window.getComputedStyle?getComputedStyle(n):n.currentStyle||null:null)["white-space"];return"pre-wrap"===t||"pre-line"===t}))).length){var t=e.map((function(e){var t=e.querySelector("code"),i=e.querySelector(".line-numbers-rows");if(t&&i){var r=e.querySelector(".line-numbers-sizer"),s=t.textContent.split(n);r||((r=document.createElement("span")).className="line-numbers-sizer",t.appendChild(r)),r.innerHTML="0",r.style.display="block";var l=r.getBoundingClientRect().height;return r.innerHTML="",{element:e,lines:s,lineHeights:[],oneLinerHeight:l,sizer:r}}})).filter(Boolean);t.forEach((function(e){var n=e.sizer,t=e.lines,i=e.lineHeights,r=e.oneLinerHeight;i[t.length-1]=void 0,t.forEach((function(e,t){if(e&&e.length>1){var s=n.appendChild(document.createElement("span"));s.style.display="block",s.textContent=e}else i[t]=r}))})),t.forEach((function(e){for(var n=e.sizer,t=e.lineHeights,i=0,r=0;r<t.length;r++)void 0===t[r]&&(t[r]=n.children[i++].getBoundingClientRect().height)})),t.forEach((function(e){var n=e.sizer,t=e.element.querySelector(".line-numbers-rows");n.style.display="none",n.innerHTML="",e.lineHeights.forEach((function(e,n){t.children[n].style.height=e+"px"}))}))}}}();</script>
+<script>(() => {
+  const source = document.getElementById('source');
+  const feedback = document.getElementById('feedback');
+  let feedbackTimer;
+  const announce = (message) => {
+    feedback.textContent = message;
+    clearTimeout(feedbackTimer);
+    feedbackTimer = setTimeout(() => { feedback.textContent = ''; }, 3500);
+  };
+  if (location.protocol === 'file:' || document.documentElement.dataset.snapshot === 'true') {
+    document.querySelectorAll('#file-form input, #file-form button').forEach(el => { el.disabled = true; });
+    const pathHint = document.getElementById('path-hint');
+    if (pathHint) pathHint.textContent = 'Saved copy · Open the PHP viewer on your local server to load another file.';
+    const badge = document.querySelector('.local-badge');
+    if (badge) badge.innerHTML = '<span></span> Offline copy';
+    document.querySelector('.brand')?.removeAttribute('href');
+  }
+  if (!source) return;
+  document.getElementById('wrap').addEventListener('click', (event) => {
+    const wrapped = source.parentElement.classList.toggle('wrapped');
+    event.currentTarget.setAttribute('aria-pressed', String(wrapped));
+    if (window.Prism?.plugins.lineNumbers) Prism.plugins.lineNumbers.resize(source.parentElement);
+  });
+  document.getElementById('copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(source.textContent);
+      announce('Python code copied.');
+    } catch {
+      const field = document.createElement('textarea');
+      field.value = source.textContent;
+      field.style.cssText = 'position:fixed;top:0;left:-9999px';
+      document.body.append(field);
+      field.select();
+      const copied = document.execCommand('copy');
+      field.remove();
+      document.getElementById('copy').focus();
+      announce(copied ? 'Python code copied.' : 'Select the code to copy it manually.');
+    }
+  });
+  document.getElementById('save').addEventListener('click', () => {
+    const snapshot = document.documentElement.cloneNode(true);
+    snapshot.dataset.snapshot = 'true';
+    snapshot.querySelector('#feedback').textContent = '';
+    const blob = new Blob(['<!doctype html>\n', snapshot.outerHTML], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = document.getElementById('filename').textContent + '.html';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    announce('HTML saved with code, styles, and Prism included.');
+  });
+})();
+</script>
+
+
+</body><div></div></html>
